@@ -1,0 +1,34 @@
+--- 
+abstract: distribution builder; installer not included!
+author: 
+  - Ricardo SIGNES <rjbs@cpan.org>
+generated_by: Dist::Zilla::Plugin::MetaYaml version 1.000
+license: perl
+name: Dist-Zilla
+requires: 
+  App::Cmd: 0.014_02
+  Archive::Tar: 0
+  CPAN::Uploader: 0
+  Config::INI::MVP::Reader: 0.018
+  Data::Section: 0.004
+  DateTime: 0.42
+  ExtUtils::MakeMaker: 0
+  ExtUtils::Manifest: 1.54
+  File::Find::Rule: 0
+  File::Temp: 0
+  File::chdir: 0
+  List::MoreUtils: 0
+  Moose: 0.45
+  Moose::Autobox: 0
+  MooseX::Types::Path::Class: 0
+  PPI: 0
+  Path::Class: 0
+  Perl::Version: 0
+  Pod::Eventual: 0
+  Software::License: 0
+  String::Format: 0
+  String::RewritePrefix: 0.002
+  Test::More: 0
+  Text::Template: 0
+  YAML::Syck: 0
+version: 1.000
