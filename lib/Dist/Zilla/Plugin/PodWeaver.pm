@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::PodWeaver;
-our $VERSION = '1.000';
+our $VERSION = '1.001';
 
 # ABSTRACT: do horrible things to POD, producing better docs
 use Moose;
@@ -212,7 +212,7 @@ Dist::Zilla::Plugin::PodWeaver - do horrible things to POD, producing better doc
 
 =head1 VERSION
 
-version 1.000
+version 1.001
 
 =head1 WARNING
 

@@ -1,5 +1,5 @@
 package Dist::Zilla::PluginBundle::Classic;
-our $VERSION = '1.000';
+our $VERSION = '1.001';
 
 # ABSTRACT: build something more or less like a "classic" CPAN dist
 use Moose;
@@ -47,7 +47,7 @@ Dist::Zilla::PluginBundle::Classic - build something more or less like a "classi
 
 =head1 VERSION
 
-version 1.000
+version 1.001
 
 =head1 DESCRIPTION
 

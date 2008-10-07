@@ -9,7 +9,7 @@ WriteMakefile(
   NAME      => 'Dist::Zilla',
   AUTHOR    => 'Ricardo\ SIGNES\ \<rjbs\@cpan\.org\>',
   ABSTRACT  => 'distribution builder; installer not included!',
-  VERSION   => '1.000',
+  VERSION   => '1.001',
   EXE_FILES => [ qw(bin/dzil) ],
   (eval { ExtUtils::MakeMaker->VERSION(6.21) } ? (LICENSE => 'perl') : ()),
   PREREQ_PM    => {
@@ -25,6 +25,7 @@ WriteMakefile(
     "Perl::Version" => '0',
     "Software::License" => '0',
     "Archive::Tar" => '0',
+    "MooseX::ClassAttribute" => '0',
     "List::MoreUtils" => '0',
     "ExtUtils::Manifest" => '1.54',
     "Moose" => '0.45',
