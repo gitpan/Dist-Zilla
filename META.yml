@@ -2,11 +2,11 @@
 abstract: distribution builder; installer not included!
 author: 
   - Ricardo SIGNES <rjbs@cpan.org>
-generated_by: Dist::Zilla::Plugin::MetaYaml version 1.001
+generated_by: Dist::Zilla::Plugin::MetaYaml version 1.002
 license: perl
 name: Dist-Zilla
 requires: 
-  App::Cmd: 0.014_02
+  App::Cmd: 0.200
   Archive::Tar: 0
   CPAN::Uploader: 0
   Config::INI::MVP::Reader: 0.018
@@ -15,6 +15,7 @@ requires:
   ExtUtils::MakeMaker: 0
   ExtUtils::Manifest: 1.54
   File::Find::Rule: 0
+  File::HomeDir: 0
   File::Temp: 0
   File::chdir: 0
   List::MoreUtils: 0
@@ -32,4 +33,4 @@ requires:
   Test::More: 0
   Text::Template: 0
   YAML::Syck: 0
-version: 1.001
+version: 1.002
