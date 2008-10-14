@@ -1,11 +1,12 @@
-package Dist::Zilla::Role::PluginBundle;
+package Dist::Zilla::Role::Releaser;
 our $VERSION = '1.003';
 
-# ABSTRACT: a bundle of plugins
+# ABSTRACT: something that makes a release of the dist
 use Moose::Role;
 
 
-requires 'bundle_config';
+with 'Dist::Zilla::Role::Plugin';
+requires 'release';
 
 no Moose::Role;
 1;
@@ -16,7 +17,7 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Role::PluginBundle - a bundle of plugins
+Dist::Zilla::Role::Releaser - something that makes a release of the dist
 
 =head1 VERSION
 
@@ -24,9 +25,8 @@ version 1.003
 
 =head1 DESCRIPTION
 
-When loading configuration, if the config reader encounters a PluginBundle, it
-will replace its place in the plugin list with the result of calling its
-C<bundle_config> method.
+Plugins implementing this role have their C<release> method called when
+releasing.  It's passed the distribution tarball to be released.
 
 =head1 AUTHOR
 

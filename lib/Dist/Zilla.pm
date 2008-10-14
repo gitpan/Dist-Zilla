@@ -1,5 +1,5 @@
 package Dist::Zilla;
-our $VERSION = '1.002';
+our $VERSION = '1.003';
 
 # ABSTRACT: distribution builder; installer not included!
 use Moose;
@@ -14,6 +14,12 @@ use String::RewritePrefix;
 
 use Dist::Zilla::File::OnDisk;
 use Dist::Zilla::Role::Plugin;
+
+
+has 'dzil_app' => (
+  is  => 'rw',
+  isa => 'Dist::Zilla::App',
+);
 
 
 has name => (
@@ -287,9 +293,12 @@ sub build_archive {
   }
 
   ## no critic
-  my $filename = $self->name . q{-} . $self->version . '.tar.gz';
-  $self->log("writing archive to $filename");
-  $archive->write($filename, 9);
+  my $file = Path::Class::file($self->name . '-' . $self->version . '.tar.gz');
+
+  $self->log("writing archive to $file");
+  $archive->write("$file", 9);
+
+  return $file;
 }
 
 sub _check_dupe_files {
@@ -356,7 +365,8 @@ sub release { die '...' }
 # XXX: yeah, uh, do something more awesome -- rjbs, 2008-06-01
 sub log { ## no critic
   my ($self, $msg) = @_;
-  print "$msg\n";
+  require Dist::Zilla::Util;
+  Dist::Zilla::Util->_log($msg);
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -374,7 +384,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.002
+version 1.003
 
 =head1 DESCRIPTION
 
@@ -389,6 +399,12 @@ make much more ludicrous demands in terms of prerequisites.
 For more information, see L<Dist::Zilla::Tutorial>.
 
 =head1 ATTRIBUTES
+
+=head2 dzil_app
+
+This attribute (which is optional) will provide the Dist::Zilla::App object if
+the Dist::Zilla object is being used in the context of the F<dzil> command (or
+anything else using it through Dist::Zilla::App).
 
 =head2 name
 

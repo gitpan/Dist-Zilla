@@ -2,7 +2,7 @@
 abstract: distribution builder; installer not included!
 author: 
   - Ricardo SIGNES <rjbs@cpan.org>
-generated_by: Dist::Zilla::Plugin::MetaYaml version 1.002
+generated_by: Dist::Zilla::Plugin::MetaYaml version 1.003
 license: perl
 name: Dist-Zilla
 requires: 
@@ -19,6 +19,7 @@ requires:
   File::Temp: 0
   File::chdir: 0
   List::MoreUtils: 0
+  Mixin::ExtraFields::Param: 0
   Moose: 0.45
   Moose::Autobox: 0
   MooseX::ClassAttribute: 0
@@ -27,10 +28,12 @@ requires:
   Path::Class: 0
   Perl::Version: 0
   Pod::Eventual: 0
+  Pod::Weaver: 1
   Software::License: 0
+  String::Flogger: 1
   String::Format: 0
   String::RewritePrefix: 0.002
   Test::More: 0
   Text::Template: 0
   YAML::Syck: 0
-version: 1.002
+version: 1.003

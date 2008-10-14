@@ -1,22 +1,24 @@
 use strict;
 use warnings;
-package Dist::Zilla::App::Command::build;
+package Dist::Zilla::App::Command::release;
 our $VERSION = '1.003';
 
-# ABSTRACT: build your dist
+# ABSTRACT: release your dist to the CPAN
 use Dist::Zilla::App -command;
 
-sub abstract { 'build your dist' }
+use Moose::Autobox;
 
-sub opt_spec {
-  [ 'tgz!', 'build a tarball (default behavior)', { default => 1 } ]
-}
+sub abstract { 'test your dist' }
 
 sub run {
   my ($self, $opt, $arg) = @_;
 
-  my $method = $opt->{tgz} ? 'build_archive' : 'build_in';
-  $self->zilla->$method;
+  Carp::croak("you can't release without any Releaser plugins")
+    unless my @releasers = $self->zilla->plugins_with(-Releaser)->flatten;
+
+  my $tgz = $self->zilla->build_archive;
+
+  $_->release($tgz) for @releasers;
 }
 
 1;
@@ -27,7 +29,7 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::App::Command::build - build your dist
+Dist::Zilla::App::Command::release - release your dist to the CPAN
 
 =head1 VERSION
 

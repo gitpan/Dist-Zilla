@@ -1,5 +1,5 @@
 package Dist::Zilla::Config;
-our $VERSION = '1.002';
+our $VERSION = '1.003';
 
 use Moose::Role;
 # ABSTRACT: stored configuration loader role
@@ -21,7 +21,7 @@ sub struct_to_config {
   for my $plugin (map { $struct->[ $_ ] } ($i .. $#$struct)) {
     my $class = delete $plugin->{'=package'};
     
-    if ($class->does('Dist::Zilla::Role::PluginBundle')) {
+    if (eval { $class->does('Dist::Zilla::Role::PluginBundle') }) {
       push @plugins, $class->bundle_config($plugin);
     } else {
       push @plugins, [ $class => $plugin ];
@@ -46,7 +46,7 @@ Dist::Zilla::Config - stored configuration loader role
 
 =head1 VERSION
 
-version 1.002
+version 1.003
 
 =head1 AUTHOR
 

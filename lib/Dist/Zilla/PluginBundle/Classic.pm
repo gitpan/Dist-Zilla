@@ -1,5 +1,5 @@
 package Dist::Zilla::PluginBundle::Classic;
-our $VERSION = '1.002';
+our $VERSION = '1.003';
 
 # ABSTRACT: build something more or less like a "classic" CPAN dist
 use Moose;
@@ -13,7 +13,6 @@ sub bundle_config {
   my @classes = qw(
     Dist::Zilla::Plugin::AllFiles
     Dist::Zilla::Plugin::PruneCruft
-    Dist::Zilla::Plugin::BumpVersion
     Dist::Zilla::Plugin::ManifestSkip
     Dist::Zilla::Plugin::MetaYaml
     Dist::Zilla::Plugin::License
@@ -26,6 +25,8 @@ sub bundle_config {
 
     Dist::Zilla::Plugin::MakeMaker
     Dist::Zilla::Plugin::Manifest
+
+    Dist::Zilla::Plugin::UploadToCPAN
   );
 
   eval "require $_; 1" or die for @classes; ## no critic Carp
@@ -47,7 +48,7 @@ Dist::Zilla::PluginBundle::Classic - build something more or less like a "classi
 
 =head1 VERSION
 
-version 1.002
+version 1.003
 
 =head1 DESCRIPTION
 
@@ -61,8 +62,6 @@ It includes the following plugins with their default configuration:
 =item * L<Dist::Zilla::Plugin::AllFiles>
 
 =item * L<Dist::Zilla::Plugin::PruneCruft>
-
-=item * L<Dist::Zilla::Plugin::BumpVersion>
 
 =item * L<Dist::Zilla::Plugin::ManifestSkip>
 

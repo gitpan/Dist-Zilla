@@ -1,10 +1,11 @@
 use strict;
 use warnings;
 package Dist::Zilla::Util;
-our $VERSION = '1.002';
+our $VERSION = '1.003';
 
 # ABSTRACT: random snippets of code that Dist::Zilla wants
 
+use String::Flogger;
 use String::RewritePrefix;
 
 {
@@ -68,12 +69,19 @@ sub expand_config_package_name {
     {
       '=' => '',
       '@' => 'Dist::Zilla::PluginBundle::',
+      '!' => 'Dist::Zilla::App::Command::',
       ''  => 'Dist::Zilla::Plugin::',
     },
     $package,
   );
 
   return $str;
+}
+
+sub _log {
+  my $input  = $_[1];
+  my $output = String::Flogger->flog($input);
+  print "$input\n";
 }
 
 1;
@@ -88,7 +96,7 @@ Dist::Zilla::Util - random snippets of code that Dist::Zilla wants
 
 =head1 VERSION
 
-version 1.002
+version 1.003
 
 =head1 METHODS
 
