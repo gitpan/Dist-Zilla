@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::PodVersion;
-our $VERSION = '1.003';
+our $VERSION = '1.004';
 
 # ABSTRACT: add a VERSION head1 to each Perl document
 use Moose;
@@ -72,7 +72,7 @@ Dist::Zilla::Plugin::PodVersion - add a VERSION head1 to each Perl document
 
 =head1 VERSION
 
-version 1.003
+version 1.004
 
 =head1 DESCRIPTION
 
@@ -87,7 +87,7 @@ is also loaded.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2008 by Ricardo SIGNES.
+This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as perl itself.

@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App;
-our $VERSION = '1.003';
+our $VERSION = '1.004';
 
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup -app;
@@ -32,6 +32,8 @@ sub config {
 sub config_for {
   my ($self, $plugin_class) = @_;
 
+  return {} unless $self->config->{plugins};
+
   for my $plugin ($self->config->{plugins}->flatten) {
     return $plugin->[1] if $plugin->[0] eq $plugin_class;
   }
@@ -51,7 +53,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 1.003
+version 1.004
 
 =head1 AUTHOR
 
@@ -59,7 +61,7 @@ version 1.003
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2008 by Ricardo SIGNES.
+This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as perl itself.

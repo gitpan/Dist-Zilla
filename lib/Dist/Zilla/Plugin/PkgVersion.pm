@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::PkgVersion;
-our $VERSION = '1.003';
+our $VERSION = '1.004';
 
 # ABSTRACT: add a $VERSION to your packages
 use Moose;
@@ -52,7 +52,7 @@ Dist::Zilla::Plugin::PkgVersion - add a $VERSION to your packages
 
 =head1 VERSION
 
-version 1.003
+version 1.004
 
 =head1 DESCRIPTION
 
@@ -67,7 +67,7 @@ module or program (more or less) within the distribution:
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2008 by Ricardo SIGNES.
+This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as perl itself.

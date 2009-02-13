@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MetaYaml;
-our $VERSION = '1.003';
+our $VERSION = '1.004';
 
 # ABSTRACT: produce a META.yml
 use Moose;
@@ -46,7 +46,7 @@ Dist::Zilla::Plugin::MetaYaml - produce a META.yml
 
 =head1 VERSION
 
-version 1.003
+version 1.004
 
 =head1 DESCRIPTION
 
@@ -61,7 +61,7 @@ L<http://module-build.sourceforge.net/META-spec-v1.3.html>.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2008 by Ricardo SIGNES.
+This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as perl itself.

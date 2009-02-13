@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::InstallDirs;
-our $VERSION = '1.003';
+our $VERSION = '1.004';
 
 # ABSTRACT: mark directory contents for installation
 use Moose;
@@ -40,7 +40,7 @@ Dist::Zilla::Plugin::InstallDirs - mark directory contents for installation
 
 =head1 VERSION
 
-version 1.003
+version 1.004
 
 =head1 SYNOPSIS
 
@@ -69,7 +69,7 @@ Add support for ShareDir-style C<dist_dir> files.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2008 by Ricardo SIGNES.
+This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as perl itself.

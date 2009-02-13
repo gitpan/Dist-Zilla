@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::PruneCruft;
-our $VERSION = '1.003';
+our $VERSION = '1.004';
 
 # ABSTRACT: prune stuff that you probably don't mean to include
 use Moose;
@@ -13,7 +13,6 @@ sub exclude_file {
   my ($self, $file) = @_;
 
   return 1 if index($file->name, $self->zilla->name . '-') == 0;
-  return 1 if $file->name eq 'dist.ini';
   return 1 if $file->name =~ /\A\./;
   return 1 if $file->name =~ /\A(?:Build|Makefile)\z/;
   return;
@@ -43,7 +42,7 @@ Dist::Zilla::Plugin::PruneCruft - prune stuff that you probably don't mean to in
 
 =head1 VERSION
 
-version 1.003
+version 1.004
 
 =head1 SYNOPSIS
 
@@ -64,7 +63,7 @@ but for now that exclusion exclusion mechanism has been excluded.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2008 by Ricardo SIGNES.
+This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as perl itself.

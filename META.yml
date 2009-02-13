@@ -24,11 +24,9 @@ requires:
   Moose::Autobox: 0
   MooseX::ClassAttribute: 0
   MooseX::Types::Path::Class: 0
-  PPI: 0
   Path::Class: 0
   Perl::Version: 0
   Pod::Eventual: 0
-  Pod::Weaver: 1
   Software::License: 0
   String::Flogger: 1
   String::Format: 0
@@ -36,4 +34,5 @@ requires:
   Test::More: 0
   Text::Template: 0
   YAML::Syck: 0
-version: 1.003
+  autobox: 2.40
+version: 1.004

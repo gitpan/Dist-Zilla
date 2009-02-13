@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::BumpVersion;
-our $VERSION = '1.003';
+our $VERSION = '1.004';
 
 # ABSTRACT: bump the configured version number by one before building
 use Moose;
@@ -19,7 +19,7 @@ sub before_build {
   my $method = $a > 0     ? 'inc_alpha'
              : defined $s ? 'inc_subversion'
              : defined $v ? 'inc_version'
-             :              'inc_reversion';
+             :              'inc_revision';
 
   $version->$method;
 
@@ -40,7 +40,7 @@ Dist::Zilla::Plugin::BumpVersion - bump the configured version number by one bef
 
 =head1 VERSION
 
-version 1.003
+version 1.004
 
 =head1 SYNOPSIS
 
@@ -55,7 +55,7 @@ the newly built dist will be C<0.003>.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2008 by Ricardo SIGNES.
+This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as perl itself.

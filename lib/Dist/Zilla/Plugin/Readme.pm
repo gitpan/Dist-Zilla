@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::Readme;
-our $VERSION = '1.003';
+our $VERSION = '1.004';
 
 # ABSTRACT: build a README file
 use Moose;
@@ -51,7 +51,7 @@ Dist::Zilla::Plugin::Readme - build a README file
 
 =head1 VERSION
 
-version 1.003
+version 1.004
 
 =head1 DESCRIPTION
 
@@ -65,7 +65,7 @@ informative in the future.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2008 by Ricardo SIGNES.
+This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as perl itself.

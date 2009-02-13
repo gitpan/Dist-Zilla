@@ -1,5 +1,5 @@
 package Dist::Zilla::PluginBundle::Classic;
-our $VERSION = '1.003';
+our $VERSION = '1.004';
 
 # ABSTRACT: build something more or less like a "classic" CPAN dist
 use Moose;
@@ -48,7 +48,7 @@ Dist::Zilla::PluginBundle::Classic - build something more or less like a "classi
 
 =head1 VERSION
 
-version 1.003
+version 1.004
 
 =head1 DESCRIPTION
 
@@ -93,7 +93,7 @@ It includes the following plugins with their default configuration:
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2008 by Ricardo SIGNES.
+This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as perl itself.

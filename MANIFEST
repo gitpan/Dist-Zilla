@@ -5,8 +5,6 @@ META.yml
 Makefile.PL
 README
 bin/dzil
-eg/DZ1/dist.ini
-eg/DZ1/lib/DZ1.pm
 inc/Dist/Zilla/Plugin/VersionBootstrap.pm
 lib/Dist/Zilla.pm
 lib/Dist/Zilla/App.pm
@@ -34,7 +32,6 @@ lib/Dist/Zilla/Plugin/NextRelease.pm
 lib/Dist/Zilla/Plugin/PkgVersion.pm
 lib/Dist/Zilla/Plugin/PodTests.pm
 lib/Dist/Zilla/Plugin/PodVersion.pm
-lib/Dist/Zilla/Plugin/PodWeaver.pm
 lib/Dist/Zilla/Plugin/Prereq.pm
 lib/Dist/Zilla/Plugin/PruneCruft.pm
 lib/Dist/Zilla/Plugin/PruneFiles.pm
@@ -60,4 +57,6 @@ lib/Dist/Zilla/Util.pm
 misc/dzil_bootstrap
 t/basic.t
 t/dz1.t
+t/eg/DZ1/dist.ini
+t/eg/DZ1/lib/DZ1.pm
 t/lib/Dist/Zilla/Plugin/CreditTaker.pm

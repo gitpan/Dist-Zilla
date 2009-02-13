@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::Tutorial;
-our $VERSION = '1.003';
+our $VERSION = '1.004';
 
 # ABSTRACT: how to use this "Dist::Zilla" thing
 use Carp ();
@@ -18,7 +18,7 @@ Dist::Zilla::Tutorial - how to use this "Dist::Zilla" thing
 
 =head1 VERSION
 
-version 1.003
+version 1.004
 
 =head1 SYNOPSIS
 
@@ -46,10 +46,10 @@ entries it expects:
 
     name    - (required) the name of the dist being built
     version - (required) the version of the dist
-    author  - (required) the dist author (you may have multiple entries for this)
+    author  - (optional) the dist author (you may have multiple entries for this)
     license - (required) the dist license; must be a Software::License::* name
 
-    copyright_holder - the name of the entity holding copyright on the dist
+    copyright_holder - (required) the entity holding copyright on the dist
 
 Named sections load plugins, with the following rules:
 
@@ -130,7 +130,7 @@ what your next version number will be before releasing.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2008 by Ricardo SIGNES.
+This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as perl itself.

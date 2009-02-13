@@ -1,7 +1,7 @@
 package Dist::Zilla::Plugin::UploadToCPAN;
-our $VERSION = '1.003';
+our $VERSION = '1.004';
 
-# ABSTRACT: bump the configured version number by one before building
+# ABSTRACT: upload the dist to CPAN
 use Moose;
 with 'Dist::Zilla::Role::Releaser';
 
@@ -57,11 +57,11 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Plugin::UploadToCPAN - bump the configured version number by one before building
+Dist::Zilla::Plugin::UploadToCPAN - upload the dist to CPAN
 
 =head1 VERSION
 
-version 1.003
+version 1.004
 
 =head1 SYNOPSIS
 
@@ -73,7 +73,7 @@ If loaded, this plugin will allow the F<release> command to upload to the CPAN.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2008 by Ricardo SIGNES.
+This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as perl itself.

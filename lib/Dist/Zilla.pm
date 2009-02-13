@@ -1,10 +1,11 @@
 package Dist::Zilla;
-our $VERSION = '1.003';
+our $VERSION = '1.004';
 
 # ABSTRACT: distribution builder; installer not included!
 use Moose;
 use Moose::Autobox;
 use MooseX::Types::Path::Class qw(Dir File);
+use MooseX::Types -declare => [qw(DistName)];
 use Moose::Util::TypeConstraints;
 
 use File::Find::Rule;
@@ -22,9 +23,14 @@ has 'dzil_app' => (
 );
 
 
+subtype DistName,
+  as "Str",
+  where { !/::/ },
+  message { "$_ looks like a module name, not a dist name" };
+
 has name => (
   is   => 'ro',
-  isa  => 'Str',
+  isa  => DistName,
   required => 1,
 );
 
@@ -129,7 +135,9 @@ has license => (
 has authors => (
   is   => 'ro',
   isa  => 'ArrayRef[Str]',
+  lazy => 1,
   required => 1,
+  default  => sub { [ $_[0]->copyright_holder ] },
 );
 
 
@@ -384,7 +392,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.003
+version 1.004
 
 =head1 DESCRIPTION
 
@@ -555,7 +563,7 @@ newline.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2008 by Ricardo SIGNES.
+This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as perl itself.
