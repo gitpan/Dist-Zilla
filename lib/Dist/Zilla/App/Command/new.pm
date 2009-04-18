@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::new;
-our $VERSION = '1.004';
+our $VERSION = '1.006';
 
 # ABSTRACT: start a new dist
 use Dist::Zilla::App -command;
@@ -64,11 +64,15 @@ sub run {
   {
     my $file = $dir->file('dist.ini');
     open my $fh, '>', $file or die "can't open $file for output: $!";
-    my @pw = getpwuid $>;
 
     my $config = { $self->config->flatten };
 
-    $config->{author} ||= [ (split /,/, $pw[6])[0] ];
+    # for those 'The getpwuid function is unimplemented'
+    eval {
+        my @pw = getpwuid $>;
+        $config->{author} ||= [ (split /,/, $pw[6])[0] ];
+    };
+    $config->{author} ||= [ getlogin || 'YourNameHere' ] if $@;
 
     printf $fh "name    = $dist\n";
     printf $fh "version = %s\n", ($config->{initial_version} || '1.000');
@@ -94,7 +98,7 @@ Dist::Zilla::App::Command::new - start a new dist
 
 =head1 VERSION
 
-version 1.004
+version 1.006
 
 =head1 AUTHOR
 

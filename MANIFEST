@@ -5,11 +5,14 @@ META.yml
 Makefile.PL
 README
 bin/dzil
+dist.ini
 inc/Dist/Zilla/Plugin/VersionBootstrap.pm
 lib/Dist/Zilla.pm
 lib/Dist/Zilla/App.pm
 lib/Dist/Zilla/App/Command.pm
 lib/Dist/Zilla/App/Command/build.pm
+lib/Dist/Zilla/App/Command/clean.pm
+lib/Dist/Zilla/App/Command/install.pm
 lib/Dist/Zilla/App/Command/new.pm
 lib/Dist/Zilla/App/Command/release.pm
 lib/Dist/Zilla/App/Command/test.pm

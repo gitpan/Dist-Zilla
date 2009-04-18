@@ -1,11 +1,16 @@
 package Dist::Zilla::Plugin::MetaYaml;
-our $VERSION = '1.004';
+our $VERSION = '1.006';
 
 # ABSTRACT: produce a META.yml
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
 
+
+has repository => (
+  is => 'ro',
+  isa => 'Str',
+);
 
 sub gather_files {
   my ($self, $arg) = @_;
@@ -22,6 +27,10 @@ sub gather_files {
     requires => $self->zilla->prereq,
     generated_by => (ref $self) . ' version ' . $self->VERSION,
   };
+
+  if ($self->repository) {
+    $meta->{resources}{repository} = $self->repository;
+  }
 
   my $file = Dist::Zilla::File::InMemory->new({
     name    => 'META.yml',
@@ -46,7 +55,7 @@ Dist::Zilla::Plugin::MetaYaml - produce a META.yml
 
 =head1 VERSION
 
-version 1.004
+version 1.006
 
 =head1 DESCRIPTION
 

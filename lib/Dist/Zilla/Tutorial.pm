@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::Tutorial;
-our $VERSION = '1.004';
+our $VERSION = '1.006';
 
 # ABSTRACT: how to use this "Dist::Zilla" thing
 use Carp ();
@@ -18,7 +18,7 @@ Dist::Zilla::Tutorial - how to use this "Dist::Zilla" thing
 
 =head1 VERSION
 
-version 1.004
+version 1.006
 
 =head1 SYNOPSIS
 
@@ -100,7 +100,7 @@ tasks.
 The build root (where the dist is being built) is made.
 
 The L<FileGatherer|Dist::Zilla::Role::FileGatherer>s gather and inject files
-into the distribution, then the L<FilePrinter|Dist::Zilla::Role::FilePrinter>s
+into the distribution, then the L<FilePruner|Dist::Zilla::Role::FilePruner>s
 remove some of them.
 
 All the L<FileMunger|Dist::Zilla::Role::FileMunger>s get a chance to muck about

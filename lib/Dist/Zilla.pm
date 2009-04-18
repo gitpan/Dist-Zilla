@@ -1,5 +1,5 @@
 package Dist::Zilla;
-our $VERSION = '1.004';
+our $VERSION = '1.006';
 
 # ABSTRACT: distribution builder; installer not included!
 use Moose;
@@ -54,7 +54,15 @@ has abstract => (
     require Dist::Zilla::Util;
     my $filename = $self->main_module->name;
     $self->log("extracting distribution abstract from $filename");
-    Dist::Zilla::Util->abstract_from_file($filename);
+    my $abstract = Dist::Zilla::Util->abstract_from_file($filename);
+
+    if (!defined($abstract)) {
+        die "Unable to extract an abstract from $filename. Please add the following comment to the file with your abstract:
+    # ABSTRACT: turns baubles into trinkets
+";
+    }
+
+    return $abstract;
   }
 );
 
@@ -392,7 +400,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.004
+version 1.006
 
 =head1 DESCRIPTION
 

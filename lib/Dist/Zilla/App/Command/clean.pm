@@ -1,24 +1,21 @@
 use strict;
 use warnings;
-package Dist::Zilla::App::Command::release;
+package Dist::Zilla::App::Command::clean;
 our $VERSION = '1.006';
 
-# ABSTRACT: release your dist to the CPAN
+# ABSTRACT: clean up after build, test, or install
 use Dist::Zilla::App -command;
 
-use Moose::Autobox;
-
-sub abstract { 'release your dist' }
+sub abstract { 'clean up after build, test, or install' }
 
 sub run {
   my ($self, $opt, $arg) = @_;
 
-  Carp::croak("you can't release without any Releaser plugins")
-    unless my @releasers = $self->zilla->plugins_with(-Releaser)->flatten;
-
-  my $tgz = $self->zilla->build_archive;
-
-  $_->release($tgz) for @releasers;
+  require File::Path;
+  for my $x (grep { -e } '.build', glob($self->zilla->name . '-*')) {
+    $self->log("clean: removing $x");
+    File::Path::rmtree($x);
+  };
 }
 
 1;
@@ -29,7 +26,7 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::App::Command::release - release your dist to the CPAN
+Dist::Zilla::App::Command::clean - clean up after build, test, or install
 
 =head1 VERSION
 

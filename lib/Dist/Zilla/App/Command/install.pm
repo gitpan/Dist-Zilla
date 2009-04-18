@@ -1,17 +1,20 @@
 use strict;
 use warnings;
-package Dist::Zilla::App::Command::test;
+package Dist::Zilla::App::Command::install;
 our $VERSION = '1.006';
 
-# ABSTRACT: test your dist
+# ABSTRACT: install your dist
 use Dist::Zilla::App -command;
 
-sub abstract { 'test your dist' }
+sub abstract { 'install your dist' }
+
+sub opt_spec {
+  [ 'install-command=s', 'command to run to install (e.g. "cpan .")' ],
+}
 
 sub run {
   my ($self, $opt, $arg) = @_;
 
-  require Dist::Zilla;
   require File::chdir;
   require File::Temp;
   require Path::Class;
@@ -20,19 +23,17 @@ sub run {
   $build_root->mkpath unless -d $build_root;
 
   my $target = Path::Class::dir( File::Temp::tempdir(DIR => $build_root) );
-  $self->log("building test distribution under $target");
-
-  local $ENV{AUTHOR_TESTING} = 1;
-  local $ENV{RELEASE_TESTING} = 1;
-
+  $self->log("building distribution under $target for installation");
   $self->zilla->ensure_built_in($target);
 
   eval {
     ## no critic Punctuation
     local $File::chdir::CWD = $target;
-    system($^X => 'Makefile.PL') and die "error with Makefile.PL\n";
-    system('make') and die "error running make\n";
-    system('make test') and die "error running make test\n";
+    my @cmd = $opt->{install_command}
+            ? $opt->{install_command}
+            : ($^X => '-MCPAN' => '-einstall "."');
+
+    system(@cmd) && die "error with '@cmd'\n";
   };
 
   if ($@) {
@@ -52,7 +53,7 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::App::Command::test - test your dist
+Dist::Zilla::App::Command::install - install your dist
 
 =head1 VERSION
 

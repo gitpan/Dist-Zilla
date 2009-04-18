@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::Util;
-our $VERSION = '1.004';
+our $VERSION = '1.006';
 
 # ABSTRACT: random snippets of code that Dist::Zilla wants
 
@@ -26,7 +26,7 @@ use String::RewritePrefix;
   sub handle_nonpod {
     my ($self, $str) = @_;
     return if $self->{abstract};
-    return $self->{abstract} = $1 if $str =~ /^#+ ABSTRACT:\s+(.+)$/;
+    return $self->{abstract} = $1 if $str =~ /^\s*#+ ABSTRACT:\s+(.+)$/;
     return;
   }
   sub handle_event {
@@ -96,7 +96,7 @@ Dist::Zilla::Util - random snippets of code that Dist::Zilla wants
 
 =head1 VERSION
 
-version 1.004
+version 1.006
 
 =head1 METHODS
 
