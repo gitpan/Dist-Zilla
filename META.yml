@@ -1,40 +1,41 @@
---- 
+---
 abstract: distribution builder; installer not included!
-author: 
-  - Ricardo SIGNES <rjbs@cpan.org>
-generated_by: Dist::Zilla::Plugin::MetaYaml version 1.006
+author:
+- Ricardo SIGNES <rjbs@cpan.org>
+generated_by: Dist::Zilla::Plugin::MetaYaml version 1.007
 license: perl
 name: Dist-Zilla
-requires: 
-  App::Cmd: 0.200
-  Archive::Tar: 0
-  CPAN::Uploader: 0
-  Config::INI::MVP::Reader: 0.018
-  Data::Section: 0.004
-  DateTime: 0.42
-  ExtUtils::MakeMaker: 0
-  ExtUtils::Manifest: 1.54
-  File::Find::Rule: 0
-  File::HomeDir: 0
-  File::Temp: 0
-  File::chdir: 0
-  List::MoreUtils: 0
-  Mixin::ExtraFields::Param: 0
-  Moose: 0.45
-  Moose::Autobox: 0.09
-  MooseX::ClassAttribute: 0
-  MooseX::Types::Path::Class: 0
-  Path::Class: 0
-  Perl::Version: 0
-  Pod::Eventual: 0
-  Software::License: 0
-  String::Flogger: 1
-  String::Format: 0
-  String::RewritePrefix: 0.002
-  Test::More: 0
-  Text::Template: 0
-  YAML::Syck: 0
-  autobox: 2.53
-resources: 
+requires:
+  App::Cmd: '0.200'
+  Archive::Tar: '0'
+  CPAN::Uploader: '0'
+  Config::INI::MVP::Reader: '0.018'
+  Data::Section: '0.004'
+  DateTime: '0.42'
+  ExtUtils::MakeMaker: '0'
+  ExtUtils::Manifest: '1.54'
+  File::Find::Rule: '0'
+  File::HomeDir: '0'
+  File::Temp: '0'
+  File::chdir: '0'
+  Hash::Merge::Simple: '0'
+  List::MoreUtils: '0'
+  Mixin::ExtraFields::Param: '0'
+  Moose: '0.65'
+  Moose::Autobox: '0.09'
+  MooseX::ClassAttribute: '0'
+  MooseX::Types::Path::Class: '0'
+  Path::Class: '0'
+  Perl::Version: '0'
+  Pod::Eventual: '0'
+  Software::License: '0'
+  String::Flogger: '1'
+  String::Format: '0'
+  String::RewritePrefix: '0.002'
+  Test::More: '0'
+  Text::Template: '0'
+  YAML::XS: '0'
+  autobox: '2.53'
+resources:
   repository: http://github.com/rjbs/dist-zilla
-version: 1.006
+version: '1.007'

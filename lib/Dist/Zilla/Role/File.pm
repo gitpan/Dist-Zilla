@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::File;
-our $VERSION = '1.006';
+our $VERSION = '1.007';
 
 # ABSTRACT: something that can act like a file
 use Moose::Role;
@@ -21,7 +21,7 @@ has install_type => (
   is => 'rw',
 );
 
-# XXX: not implemented because attrs don't always just fulfill these requires
+# Why didn't this work with 0.65? :( -- rjbs, 2009-04-20
 # requires 'content';
 
 no Moose::Role;
@@ -37,7 +37,7 @@ Dist::Zilla::Role::File - something that can act like a file
 
 =head1 VERSION
 
-version 1.006
+version 1.007
 
 =head1 DESCRIPTION
 

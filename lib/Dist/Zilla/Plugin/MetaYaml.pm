@@ -1,22 +1,19 @@
 package Dist::Zilla::Plugin::MetaYaml;
-our $VERSION = '1.006';
+our $VERSION = '1.007';
 
 # ABSTRACT: produce a META.yml
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
 
+use Hash::Merge::Simple ();
 
-has repository => (
-  is => 'ro',
-  isa => 'Str',
-);
 
 sub gather_files {
   my ($self, $arg) = @_;
 
   require Dist::Zilla::File::InMemory;
-  require YAML::Syck;
+  require YAML::XS;
 
   my $meta = {
     name     => $self->zilla->name,
@@ -28,13 +25,12 @@ sub gather_files {
     generated_by => (ref $self) . ' version ' . $self->VERSION,
   };
 
-  if ($self->repository) {
-    $meta->{resources}{repository} = $self->repository;
-  }
+  $meta = Hash::Merge::Simple::merge($meta, $_->metadata)
+    for $self->zilla->plugins_with(-MetaProvider)->flatten;
 
   my $file = Dist::Zilla::File::InMemory->new({
     name    => 'META.yml',
-    content => YAML::Syck::Dump($meta),
+    content => YAML::XS::Dump($meta),
   });
 
   $self->add_file($file);
@@ -55,7 +51,7 @@ Dist::Zilla::Plugin::MetaYaml - produce a META.yml
 
 =head1 VERSION
 
-version 1.006
+version 1.007
 
 =head1 DESCRIPTION
 
