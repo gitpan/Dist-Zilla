@@ -1,5 +1,5 @@
 package Dist::Zilla;
-our $VERSION = '1.007';
+our $VERSION = '1.091250';
 
 # ABSTRACT: distribution builder; installer not included!
 use Moose;
@@ -39,8 +39,34 @@ has name => (
 has version => (
   is   => 'rw',
   isa  => 'Str',
-  required => 1,
+  lazy => 1,
+  predicate => 'has_version',
+  required  => 1,
+  default   => sub { die('this should never be reached') },
 );
+
+sub __initialize_version {
+  my ($self) = @_;
+
+  # Fix up version.
+  my $has_version = $self->has_version;
+  my $version;
+
+  for my $plugin ($self->plugins_with(-VersionProvider)->flatten) {
+    next unless defined(my $this_version = $plugin->provide_version);
+
+    confess('attempted to set version twice') if $has_version;
+
+    $version = $this_version;
+    $has_version = 1;
+  }
+
+  $self->version($version) if defined $version;
+  confess('no version was ever set') unless $self->has_version;
+
+  $self->log("warning: version number does not look like a number")
+    unless $self->version =~ m{\A\d+(?:\.\d+)\z};
+}
 
 
 has abstract => (
@@ -235,6 +261,8 @@ sub from_config {
     );
   }
 
+  $self->__initialize_version;
+
   return $self;
 }
 
@@ -400,7 +428,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.007
+version 1.091250
 
 =head1 DESCRIPTION
 

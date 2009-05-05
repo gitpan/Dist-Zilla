@@ -1,5 +1,5 @@
 package Dist::Zilla::Config::INI;
-our $VERSION = '1.007';
+our $VERSION = '1.091250';
 
 use Moose;
 with 'Dist::Zilla::Config';
@@ -51,7 +51,7 @@ Dist::Zilla::Config::INI - read in a dist.ini file
 
 =head1 VERSION
 
-version 1.007
+version 1.091250
 
 =head1 DESCRIPTION
 

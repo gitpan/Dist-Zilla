@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::Tutorial;
-our $VERSION = '1.007';
+our $VERSION = '1.091250';
 
 # ABSTRACT: how to use this "Dist::Zilla" thing
 use Carp ();
@@ -18,7 +18,7 @@ Dist::Zilla::Tutorial - how to use this "Dist::Zilla" thing
 
 =head1 VERSION
 
-version 1.007
+version 1.091250
 
 =head1 SYNOPSIS
 
@@ -44,12 +44,23 @@ F<dist.ini>:
 The topmost section configures Dist::Zilla itself.  Here are some of the
 entries it expects:
 
-    name    - (required) the name of the dist being built
-    version - (required) the version of the dist
-    author  - (optional) the dist author (you may have multiple entries for this)
-    license - (required) the dist license; must be a Software::License::* name
+    name     - (required) the name of the dist being built
+    version  - (required) the version of the dist
+    abstract - (required) a short description of the dist
+    author   - (optional) the dist author (you may have multiple entries for this)
+    license  - (required) the dist license; must be a Software::License::* name
 
     copyright_holder - (required) the entity holding copyright on the dist
+
+Some of the required values above may actually be provided by means other than
+the top-level section of the config.  For example, VersionProvider plugins can
+set the version, and a line like this in the "main module" of the dist will set
+the abstract:
+
+    # ABSTRACT: a totally cool way to do totally great stuff
+
+The main modules is the module that shares the same name as the dist, in
+general.
 
 Named sections load plugins, with the following rules:
 
@@ -62,8 +73,9 @@ The values inside a section are given as configuration to the plugin.  Consult
 each plugin's documentation for more information.
 
 The "Classic" bundle, seen above, builds a fairly normal distribution.  It
-bumps up the version number, rewrites tests from F<./xt>, adds some information
-to POD, and builds a F<Makefile.PL>
+rewrites tests from F<./xt>, adds some information to POD, and builds a
+F<Makefile.PL>.  For more information, you can look at the docs for
+L<Dist::Zilla::PluginBundle::Classic> and see the plugins it includes.
 
 =head1 BUILDING YOUR DIST
 

@@ -2,7 +2,7 @@
 abstract: distribution builder; installer not included!
 author:
 - Ricardo SIGNES <rjbs@cpan.org>
-generated_by: Dist::Zilla::Plugin::MetaYaml version 1.007
+generated_by: Dist::Zilla::Plugin::MetaYaml version 1.091250
 license: perl
 name: Dist-Zilla
 requires:
@@ -11,7 +11,7 @@ requires:
   CPAN::Uploader: '0'
   Config::INI::MVP::Reader: '0.018'
   Data::Section: '0.004'
-  DateTime: '0.42'
+  DateTime: '0.44'
   ExtUtils::MakeMaker: '0'
   ExtUtils::Manifest: '1.54'
   File::Find::Rule: '0'
@@ -38,4 +38,4 @@ requires:
   autobox: '2.53'
 resources:
   repository: http://github.com/rjbs/dist-zilla
-version: '1.007'
+version: '1.091250'

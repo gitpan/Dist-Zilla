@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::InstallDirs;
-our $VERSION = '1.007';
+our $VERSION = '1.091250';
 
 # ABSTRACT: mark directory contents for installation
 use Moose;
@@ -40,7 +40,7 @@ Dist::Zilla::Plugin::InstallDirs - mark directory contents for installation
 
 =head1 VERSION
 
-version 1.007
+version 1.091250
 
 =head1 SYNOPSIS
 
