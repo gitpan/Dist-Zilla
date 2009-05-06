@@ -1,17 +1,19 @@
 package Dist::Zilla::PluginBundle::Filter;
-our $VERSION = '1.091250';
+our $VERSION = '1.091260';
 
 # ABSTRACT: use another bundle, with some plugins removed
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::PluginBundle';
 
+use Dist::Zilla::Util;
+
 
 sub multivalue_args { return qw(remove) }
 
 sub bundle_config {
   my ($self, $config) = @_;
-  my $class = ref $self;
+  my $class = (ref $self) || $self;
 
   Carp::croak("no bundle given for bundle filter")
     unless my $bundle = $config->{bundle};
@@ -48,7 +50,7 @@ Dist::Zilla::PluginBundle::Filter - use another bundle, with some plugins remove
 
 =head1 VERSION
 
-version 1.091250
+version 1.091260
 
 =head1 SYNOPSIS
 

@@ -1,5 +1,5 @@
 package Dist::Zilla::PluginBundle::Classic;
-our $VERSION = '1.091250';
+our $VERSION = '1.091260';
 
 # ABSTRACT: build something more or less like a "classic" CPAN dist
 use Moose;
@@ -8,7 +8,7 @@ with 'Dist::Zilla::Role::PluginBundle';
 
 sub bundle_config {
   my ($self) = @_;
-  my $class = ref $self;
+  my $class = (ref $self) || $self;
 
   my @classes = qw(
     Dist::Zilla::Plugin::AllFiles
@@ -48,7 +48,7 @@ Dist::Zilla::PluginBundle::Classic - build something more or less like a "classi
 
 =head1 VERSION
 
-version 1.091250
+version 1.091260
 
 =head1 DESCRIPTION
 

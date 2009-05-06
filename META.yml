@@ -38,4 +38,4 @@ requires:
   autobox: '2.53'
 resources:
   repository: http://github.com/rjbs/dist-zilla
-version: '1.091250'
+version: '1.091260'
