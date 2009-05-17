@@ -1,7 +1,7 @@
-package Dist::Zilla::Plugin::MetaYaml;
-our $VERSION = '1.091260';
+package Dist::Zilla::Plugin::MetaJSON;
+our $VERSION = '1.091370';
 
-# ABSTRACT: produce a META.yml
+# ABSTRACT: produce a META.json
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
@@ -13,7 +13,7 @@ sub gather_files {
   my ($self, $arg) = @_;
 
   require Dist::Zilla::File::InMemory;
-  require YAML::XS;
+  require JSON;
 
   my $meta = {
     name     => $self->zilla->name,
@@ -29,8 +29,8 @@ sub gather_files {
     for $self->zilla->plugins_with(-MetaProvider)->flatten;
 
   my $file = Dist::Zilla::File::InMemory->new({
-    name    => 'META.yml',
-    content => YAML::XS::Dump($meta),
+    name    => 'META.json',
+    content => JSON->new->ascii(1)->pretty->encode($meta) . "\n",
   });
 
   $self->add_file($file);
@@ -47,17 +47,18 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Plugin::MetaYaml - produce a META.yml
+Dist::Zilla::Plugin::MetaJSON - produce a META.json
 
 =head1 VERSION
 
-version 1.091260
+version 1.091370
 
 =head1 DESCRIPTION
 
-This plugin will add a F<META.yml> file to the distribution.
+This plugin will add a F<META.json> file to the distribution.
 
-For more information on this file, see L<Module::Build::API> and
+This file is meant to replace the old-style F<META.yml>.  For more information
+on this file, see L<Module::Build::API> and
 L<http://module-build.sourceforge.net/META-spec-v1.3.html>.
 
 =head1 AUTHOR

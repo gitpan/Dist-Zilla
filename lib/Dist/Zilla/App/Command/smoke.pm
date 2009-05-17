@@ -1,22 +1,21 @@
 use strict;
 use warnings;
-package Dist::Zilla::App::Command::build;
+package Dist::Zilla::App::Command::smoke;
 our $VERSION = '1.091370';
 
-# ABSTRACT: build your dist
+# ABSTRACT: smoke your dist
 use Dist::Zilla::App -command;
+require Dist::Zilla::App::Command::test;
 
-sub abstract { 'build your dist' }
-
-sub opt_spec {
-  [ 'tgz!', 'build a tarball (default behavior)', { default => 1 } ]
-}
+sub abstract { 'smoke your dist' }
 
 sub run {
-  my ($self, $opt, $arg) = @_;
+  my $self = shift;
 
-  my $method = $opt->{tgz} ? 'build_archive' : 'build_in';
-  $self->zilla->$method;
+  local $ENV{AUTOMATED_TESTING} = 1;
+  local @ARGV = qw(test);
+
+  return $self->app->run;
 }
 
 1;
@@ -27,7 +26,7 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::App::Command::build - build your dist
+Dist::Zilla::App::Command::smoke - smoke your dist
 
 =head1 VERSION
 

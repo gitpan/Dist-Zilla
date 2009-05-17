@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::Prereq;
-our $VERSION = '1.091260';
+our $VERSION = '1.091370';
 
 # ABSTRACT: list simple prerequisites
 use Moose;
@@ -25,7 +25,7 @@ sub new {
 sub prereq { shift->_prereq }
 
 no Moose;
-#__PACKAGE__->meta->make_immutable;
+__PACKAGE__->meta->make_immutable(inline_constructor => 0);
 1;
 
 __END__
@@ -38,7 +38,7 @@ Dist::Zilla::Plugin::Prereq - list simple prerequisites
 
 =head1 VERSION
 
-version 1.091260
+version 1.091370
 
 =head1 SYNOPSIS
 

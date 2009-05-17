@@ -1,5 +1,5 @@
 package Dist::Zilla::PluginBundle::Classic;
-our $VERSION = '1.091260';
+our $VERSION = '1.091370';
 
 # ABSTRACT: build something more or less like a "classic" CPAN dist
 use Moose;
@@ -14,7 +14,7 @@ sub bundle_config {
     Dist::Zilla::Plugin::AllFiles
     Dist::Zilla::Plugin::PruneCruft
     Dist::Zilla::Plugin::ManifestSkip
-    Dist::Zilla::Plugin::MetaYaml
+    Dist::Zilla::Plugin::MetaYAML
     Dist::Zilla::Plugin::License
     Dist::Zilla::Plugin::Readme
     Dist::Zilla::Plugin::PkgVersion
@@ -48,7 +48,7 @@ Dist::Zilla::PluginBundle::Classic - build something more or less like a "classi
 
 =head1 VERSION
 
-version 1.091260
+version 1.091370
 
 =head1 DESCRIPTION
 
@@ -65,7 +65,7 @@ It includes the following plugins with their default configuration:
 
 =item * L<Dist::Zilla::Plugin::ManifestSkip>
 
-=item * L<Dist::Zilla::Plugin::MetaYaml>
+=item * L<Dist::Zilla::Plugin::MetaYAML>
 
 =item * L<Dist::Zilla::Plugin::License>
 

@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::Util;
-our $VERSION = '1.091260';
+our $VERSION = '1.091370';
 
 # ABSTRACT: random snippets of code that Dist::Zilla wants
 
@@ -81,7 +81,7 @@ sub expand_config_package_name {
 sub _log {
   my $input  = $_[1];
   my $output = String::Flogger->flog($input);
-  print "$input\n";
+  print "$output\n";
 }
 
 1;
@@ -96,7 +96,7 @@ Dist::Zilla::Util - random snippets of code that Dist::Zilla wants
 
 =head1 VERSION
 
-version 1.091260
+version 1.091370
 
 =head1 METHODS
 
