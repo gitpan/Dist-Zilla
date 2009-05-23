@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MetaJSON;
-our $VERSION = '1.091370';
+our $VERSION = '1.091430';
 
 # ABSTRACT: produce a META.json
 use Moose;
@@ -16,6 +16,10 @@ sub gather_files {
   require JSON;
 
   my $meta = {
+    'meta-spec' => {
+      version => 1.4,
+      url     => 'http://module-build.sourceforge.net/META-spec-v1.4.html',
+    },
     name     => $self->zilla->name,
     version  => $self->zilla->version,
     abstract => $self->zilla->abstract,
@@ -51,7 +55,7 @@ Dist::Zilla::Plugin::MetaJSON - produce a META.json
 
 =head1 VERSION
 
-version 1.091370
+version 1.091430
 
 =head1 DESCRIPTION
 

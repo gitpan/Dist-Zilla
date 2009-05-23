@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MetaYAML;
-our $VERSION = '1.091370';
+our $VERSION = '1.091430';
 
 # ABSTRACT: produce a META.yml
 use Moose;
@@ -13,9 +13,13 @@ sub gather_files {
   my ($self, $arg) = @_;
 
   require Dist::Zilla::File::InMemory;
-  require YAML::XS;
+  require YAML::Tiny;
 
   my $meta = {
+    'meta-spec' => {
+      version => 1.4,
+      url     => 'http://module-build.sourceforge.net/META-spec-v1.4.html',
+    },
     name     => $self->zilla->name,
     version  => $self->zilla->version,
     abstract => $self->zilla->abstract,
@@ -30,7 +34,7 @@ sub gather_files {
 
   my $file = Dist::Zilla::File::InMemory->new({
     name    => 'META.yml',
-    content => YAML::XS::Dump($meta),
+    content => YAML::Tiny::Dump($meta),
   });
 
   $self->add_file($file);
@@ -51,7 +55,7 @@ Dist::Zilla::Plugin::MetaYAML - produce a META.yml
 
 =head1 VERSION
 
-version 1.091370
+version 1.091430
 
 =head1 DESCRIPTION
 
