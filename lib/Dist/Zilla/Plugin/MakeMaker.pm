@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MakeMaker;
-our $VERSION = '1.091430';
+our $VERSION = '1.091440';
 
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
 use Moose;
@@ -20,7 +20,7 @@ WriteMakefile(
   DISTNAME  => '{{ $dist->name     }}',
   NAME      => '{{ $module_name    }}',
   AUTHOR    => '{{ $author_str     }}',
-  ABSTRACT  => '{{ $dist->abstract }}',
+  ABSTRACT  => '{{ quotemeta($dist->abstract) }}',
   VERSION   => '{{ $dist->version  }}',
   EXE_FILES => [ qw({{ $exe_files }}) ],
   (eval { ExtUtils::MakeMaker->VERSION(6.21) } ? (LICENSE => '{{ $dist->license->meta_yml_name }}') : ()),
@@ -78,7 +78,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 1.091430
+version 1.091440
 
 =head1 DESCRIPTION
 

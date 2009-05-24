@@ -1,11 +1,11 @@
 package Dist::Zilla;
-our $VERSION = '1.091430';
+our $VERSION = '1.091440';
 
 # ABSTRACT: distribution builder; installer not included!
 use Moose;
 use Moose::Autobox;
+use Dist::Zilla::Types qw(DistName);
 use MooseX::Types::Path::Class qw(Dir File);
-use MooseX::Types -declare => [qw(DistName)];
 use Moose::Util::TypeConstraints;
 
 use File::Find::Rule;
@@ -16,17 +16,14 @@ use String::RewritePrefix;
 use Dist::Zilla::File::OnDisk;
 use Dist::Zilla::Role::Plugin;
 
+use namespace::autoclean;
+
 
 has 'dzil_app' => (
   is  => 'rw',
   isa => 'Dist::Zilla::App',
 );
 
-
-subtype DistName,
-  as "Str",
-  where { !/::/ },
-  message { "$_ looks like a module name, not a dist name" };
 
 has name => (
   is   => 'ro',
@@ -414,8 +411,6 @@ sub log { ## no critic
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
-no MooseX::ClassAttribute;
 1;
 
 
@@ -428,7 +423,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.091430
+version 1.091440
 
 =head1 DESCRIPTION
 

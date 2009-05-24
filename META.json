@@ -6,8 +6,8 @@
       "version" : 1.4,
       "url" : "http://module-build.sourceforge.net/META-spec-v1.4.html"
    },
-   "generated_by" : "Dist::Zilla::Plugin::MetaJSON version 1.091430",
-   "version" : "1.091430",
+   "generated_by" : "Dist::Zilla::Plugin::MetaJSON version 1.091440",
+   "version" : "1.091440",
    "name" : "Dist-Zilla",
    "author" : [
       "Ricardo SIGNES <rjbs@cpan.org>"
@@ -26,13 +26,13 @@
       "autobox" : "2.53",
       "Software::License" : "0",
       "Archive::Tar" : "0",
-      "MooseX::ClassAttribute" : "0",
       "List::MoreUtils" : "0",
       "Moose" : "0.65",
       "ExtUtils::Manifest" : "1.54",
       "String::Flogger" : "1",
       "File::Find::Rule" : "0",
       "Mixin::ExtraFields::Param" : "0",
+      "namespace::autoclean" : "0",
       "YAML::Tiny" : "0",
       "File::HomeDir" : "0",
       "ExtUtils::MakeMaker" : "0",
