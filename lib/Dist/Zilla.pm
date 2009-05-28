@@ -1,5 +1,5 @@
 package Dist::Zilla;
-our $VERSION = '1.091440';
+our $VERSION = '1.091480';
 
 # ABSTRACT: distribution builder; installer not included!
 use Moose;
@@ -423,7 +423,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.091440
+version 1.091480
 
 =head1 DESCRIPTION
 
@@ -489,10 +489,10 @@ understandable, like C<Perl_5>.
 
 This is an arrayref of author strings, like this:
 
-    [
-      'Ricardo Signes <rjbs@cpan.org>',
-      'X. Ample, Jr <example@example.biz>',
-    ]
+  [
+    'Ricardo Signes <rjbs@cpan.org>',
+    'X. Ample, Jr <example@example.biz>',
+  ]
 
 This is likely to change at some point in the near future.
 
@@ -525,19 +525,19 @@ greatly overhauled, or possibly replaced with a method based on other
 
 =head2 from_config
 
-    my $zilla = Dist::Zilla->from_config(\%arg);
+  my $zilla = Dist::Zilla->from_config(\%arg);
 
 This routine returns a new Zilla from the configuration in the current working
 directory.
 
 Valid arguments are:
 
-    config_class - the class to use to read the config
-                   default: Dist::Zilla::Config::INI
+  config_class - the class to use to read the config
+                 default: Dist::Zilla::Config::INI
 
 =head2 plugins_with
 
-    my $roles = $zilla->plugins_with( -SomeRole );
+  my $roles = $zilla->plugins_with( -SomeRole );
 
 This method returns an arrayref containing all the Dist::Zilla object's plugins
 that perform a the named role.  If the given role name begins with a dash, the
@@ -545,7 +545,7 @@ dash is replaced with "Dist::Zilla::Role::"
 
 =head2 build_in
 
-    $zilla->build_in($root);
+  $zilla->build_in($root);
 
 This method builds the distribution in the given directory.  If no directory
 name is given, it defaults to DistName-Version.  If the distribution has
@@ -553,28 +553,28 @@ already been built, an exception will be thrown.
 
 =head2 ensure_built_in
 
-    $zilla->ensure_built_in($root);
+  $zilla->ensure_built_in($root);
 
 This method behaves like C<L</build_in>>, but if the dist is already built in
 C<$root> (or the default root, if no root is given), no exception is raised.
 
 =head2 build_archive
 
-    $dist->build_archive($root);
+  $dist->build_archive($root);
 
 This method will ensure that the dist has been built in the given root, and
 will then build a tarball of that directory in the current directory.
 
 =head2 test
 
-    $zilla->test;
+  $zilla->test;
 
 This method builds a new copy of the distribution and tests it.  If the tests
 appear to pass, it returns true.  If something goes wrong, it returns false.
 
 =head2 release
 
-    $zilla->release;
+  $zilla->release;
 
 This method releases the distribution, probably by uploading it to the CPAN.
 The actual effects of this method (as with most of the methods) is determined
@@ -582,7 +582,7 @@ by the loaded plugins.
 
 =head2 log
 
-    $zilla->log($message);
+  $zilla->log($message);
 
 This method logs the given message.  In the future it will be a more useful and
 expressive method.  For now, it just prints the string after tacking on a

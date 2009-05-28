@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::PkgVersion;
-our $VERSION = '1.091440';
+our $VERSION = '1.091480';
 
 # ABSTRACT: add a $VERSION to your packages
 use Moose;
@@ -52,14 +52,14 @@ Dist::Zilla::Plugin::PkgVersion - add a $VERSION to your packages
 
 =head1 VERSION
 
-version 1.091440
+version 1.091480
 
 =head1 DESCRIPTION
 
 This plugin will add a line like the following to each package in each Perl
 module or program (more or less) within the distribution:
 
-    our $VERSION = 0.001; # where 0.001 is the version of the dist
+  our $VERSION = 0.001; # where 0.001 is the version of the dist
 
 =head1 AUTHOR
 

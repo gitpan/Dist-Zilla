@@ -1,6 +1,7 @@
 package Dist::Zilla::Types;
-our $VERSION = '1.091440';
+our $VERSION = '1.091480';
 
+# ABSTRACT: dzil-specific type library
 
 use MooseX::Types -declare => [qw(DistName)];
 use MooseX::Types::Moose qw(Str);
@@ -18,11 +19,11 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Types
+Dist::Zilla::Types - dzil-specific type library
 
 =head1 VERSION
 
-version 1.091440
+version 1.091480
 
 =head1 AUTHOR
 

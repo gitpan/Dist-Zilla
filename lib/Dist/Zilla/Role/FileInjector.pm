@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::FileInjector;
-our $VERSION = '1.091440';
+our $VERSION = '1.091480';
 
 use Moose::Autobox;
 # ABSTRACT: something that can add files to the distribution
@@ -28,7 +28,7 @@ Dist::Zilla::Role::FileInjector - something that can add files to the distributi
 
 =head1 VERSION
 
-version 1.091440
+version 1.091480
 
 =head1 DESCRIPTION
 
@@ -40,7 +40,7 @@ which adds a file to the distribution, noting the place of addition.
 
 =head2 add_file
 
-    $plugin->add_file($dzil_file);
+  $plugin->add_file($dzil_file);
 
 This adds a file to the distribution, setting the file's C<added_by> attribute
 as it does so.

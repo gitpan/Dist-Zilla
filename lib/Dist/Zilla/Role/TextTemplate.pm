@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::TextTemplate;
-our $VERSION = '1.091440';
+our $VERSION = '1.091480';
 
 # ABSTRACT: something that renders a Text::Template template string
 use Moose::Role;
@@ -42,7 +42,7 @@ Dist::Zilla::Role::TextTemplate - something that renders a Text::Template templa
 
 =head1 VERSION
 
-version 1.091440
+version 1.091480
 
 =head1 DESCRIPTION
 
@@ -61,7 +61,7 @@ C<}}>.
 
 =head2 fill_in_string
 
-    my $rendered = $plugin->fill_in_string($template, \%stash, \%arg);
+  my $rendered = $plugin->fill_in_string($template, \%stash, \%arg);
 
 This uses Text::Template to fill in the given template using the variables
 given in the C<%stash>.  The stash becomes the HASH argument to Text::Template,

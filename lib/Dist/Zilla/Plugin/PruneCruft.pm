@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::PruneCruft;
-our $VERSION = '1.091440';
+our $VERSION = '1.091480';
 
 # ABSTRACT: prune stuff that you probably don't mean to include
 use Moose;
@@ -42,7 +42,7 @@ Dist::Zilla::Plugin::PruneCruft - prune stuff that you probably don't mean to in
 
 =head1 VERSION
 
-version 1.091440
+version 1.091480
 
 =head1 SYNOPSIS
 
@@ -52,7 +52,7 @@ up.
 
 In your F<dist.ini>:
 
-    [PruneCruft]
+  [PruneCruft]
 
 That's it!  Maybe some day there will be a mechanism for excluding exclusions,
 but for now that exclusion exclusion mechanism has been excluded.

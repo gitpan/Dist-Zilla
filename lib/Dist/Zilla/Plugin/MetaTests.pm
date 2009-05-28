@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MetaTests;
-our $VERSION = '1.091440';
+our $VERSION = '1.091480';
 
 # ABSTRACT: common extra tests for META.yml
 use Moose;
@@ -27,14 +27,14 @@ Dist::Zilla::Plugin::MetaTests - common extra tests for META.yml
 
 =head1 VERSION
 
-version 1.091440
+version 1.091480
 
 =head1 DESCRIPTION
 
 This is an extension of L<Dist::Zilla::Plugin::InlineFiles>, providing the
 following files:
 
-      xt/release/meta-yaml.t - a standard Test::CPAN::Meta test
+    xt/release/meta-yaml.t - a standard Test::CPAN::Meta test
 
 This file is only gathered if the environment variable C<RELEASE_TESTING> is
 true, which is the case when running C<dzil test>.

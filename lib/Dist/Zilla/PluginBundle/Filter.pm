@@ -1,5 +1,5 @@
 package Dist::Zilla::PluginBundle::Filter;
-our $VERSION = '1.091440';
+our $VERSION = '1.091480';
 
 # ABSTRACT: use another bundle, with some plugins removed
 use Moose;
@@ -50,16 +50,16 @@ Dist::Zilla::PluginBundle::Filter - use another bundle, with some plugins remove
 
 =head1 VERSION
 
-version 1.091440
+version 1.091480
 
 =head1 SYNOPSIS
 
 In your F<dist.ini>:
 
-    [@Filter]
-    bundle = @Classic
-    remove = PodVersion
-    remove = Manifest
+  [@Filter]
+  bundle = @Classic
+  remove = PodVersion
+  remove = Manifest
 
 =head1 DESCRIPTION
 

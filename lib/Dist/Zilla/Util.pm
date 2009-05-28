@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::Util;
-our $VERSION = '1.091440';
+our $VERSION = '1.091480';
 
 # ABSTRACT: random snippets of code that Dist::Zilla wants
 
@@ -13,7 +13,7 @@ use String::RewritePrefix;
     Dist::Zilla::Util::Nonpod;
   use base 'Pod::Eventual';
   sub _new  { bless { nonpod => '' } => shift; }
-  sub handle_nonpod { $_[0]->{nonpod} .= $_[1] }
+  sub handle_nonpod { $_[0]->{nonpod} .= $_[1]->{content} }
   sub handle_event {}
   sub _nonpod { $_[0]->{nonpod} }
 }
@@ -24,9 +24,10 @@ use String::RewritePrefix;
   use base 'Pod::Eventual';
   sub _new  { bless {} => shift; }
   sub handle_nonpod {
-    my ($self, $str) = @_;
+    my ($self, $event) = @_;
     return if $self->{abstract};
-    return $self->{abstract} = $1 if $str =~ /^\s*#+ ABSTRACT:\s+(.+)$/;
+    return $self->{abstract} = $1
+      if $event->{content}=~ /^\s*#+ ABSTRACT:\s+(.+)$/m;
     return;
   }
   sub handle_event {
@@ -96,7 +97,7 @@ Dist::Zilla::Util - random snippets of code that Dist::Zilla wants
 
 =head1 VERSION
 
-version 1.091440
+version 1.091480
 
 =head1 METHODS
 
@@ -108,7 +109,7 @@ C<=head1> section called "NAME" or a comment beginning with C<ABSTRACT:>.
 
 =head2 expand_config_package_name 
 
-    my $pkg_name = Util->expand_config_package_name($string);
+  my $pkg_name = Util->expand_config_package_name($string);
 
 This method, I<which is likely to change or go away>, rewrites the given string
 into a package name.  Consult L<Dist::Zilla::Config|Dist::Zilla::Config> for

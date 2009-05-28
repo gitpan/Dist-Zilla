@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::PruneFiles;
-our $VERSION = '1.091440';
+our $VERSION = '1.091480';
 
 # ABSTRACT: prune arbirary files from the dist
 use Moose;
@@ -43,7 +43,7 @@ Dist::Zilla::Plugin::PruneFiles - prune arbirary files from the dist
 
 =head1 VERSION
 
-version 1.091440
+version 1.091480
 
 =head1 SYNOPSIS
 
@@ -53,8 +53,8 @@ bunch of files, and you only want a subset of them.
 
 In your F<dist.ini>:
 
-    [PruneFiles]
-    file = xt/release/pod-coverage.t ; pod coverage tests are for jerks
+  [PruneFiles]
+  file = xt/release/pod-coverage.t ; pod coverage tests are for jerks
 
 =head1 ATTRIBUTES
 

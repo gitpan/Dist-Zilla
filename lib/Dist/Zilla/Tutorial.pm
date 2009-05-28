@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::Tutorial;
-our $VERSION = '1.091440';
+our $VERSION = '1.091480';
 
 # ABSTRACT: how to use this "Dist::Zilla" thing
 use Carp ();
@@ -18,7 +18,7 @@ Dist::Zilla::Tutorial - how to use this "Dist::Zilla" thing
 
 =head1 VERSION
 
-version 1.091440
+version 1.091480
 
 =head1 SYNOPSIS
 
@@ -28,36 +28,36 @@ the first thing you'll need is some code.
 Once you've got that, you'll need to configure Dist::Zilla.  Here's a simple
 F<dist.ini>:
 
-    name    = Carbon-Dating
-    version = 0.003
-    author  = Alan Smithee <asmithee@example.org>
-    license = Perl_5
-    copyright_holder = Alan Smithee
+  name    = Carbon-Dating
+  version = 0.003
+  author  = Alan Smithee <asmithee@example.org>
+  license = Perl_5
+  copyright_holder = Alan Smithee
 
-    [@Classic]
+  [@Classic]
 
-    [Prereq]
-    App::Cmd          = 0.013
-    Number::Nary      = 0
-    Sub::Exporter     = 0.981
+  [Prereq]
+  App::Cmd          = 0.013
+  Number::Nary      = 0
+  Sub::Exporter     = 0.981
 
 The topmost section configures Dist::Zilla itself.  Here are some of the
 entries it expects:
 
-    name     - (required) the name of the dist being built
-    version  - (required) the version of the dist
-    abstract - (required) a short description of the dist
-    author   - (optional) the dist author (you may have multiple entries for this)
-    license  - (required) the dist license; must be a Software::License::* name
+  name     - (required) the name of the dist being built
+  version  - (required) the version of the dist
+  abstract - (required) a short description of the dist
+  author   - (optional) the dist author (you may have multiple entries for this)
+  license  - (required) the dist license; must be a Software::License::* name
 
-    copyright_holder - (required) the entity holding copyright on the dist
+  copyright_holder - (required) the entity holding copyright on the dist
 
 Some of the required values above may actually be provided by means other than
 the top-level section of the config.  For example, VersionProvider plugins can
 set the version, and a line like this in the "main module" of the dist will set
 the abstract:
 
-    # ABSTRACT: a totally cool way to do totally great stuff
+  # ABSTRACT: a totally cool way to do totally great stuff
 
 The main modules is the module that shares the same name as the dist, in
 general.
@@ -86,7 +86,7 @@ Dist::Zilla ships with a command called F<dzil> that will get installed by
 default.  While it can be extended to offer more commands, there are two really
 useful ones:
 
-    $ dzil build
+  $ dzil build
 
 The C<build> command will build the distribution.  Say you're using the
 configuration in the SYNOPSIS above.  You'll end up with a file called
@@ -96,7 +96,7 @@ will be suitable for uploading to the CPAN.
 Of course, you should really test it out first.  You can test the dist you'd be
 building by running another F<dzil> command:
 
-    $ dzil test
+  $ dzil test
 
 This will build a new copy of your distribution and run its tests, so you'll
 know whether the dist that C<build> would build is worth releasing!

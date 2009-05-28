@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::PodTests;
-our $VERSION = '1.091440';
+our $VERSION = '1.091480';
 
 # ABSTRACT: common extra tests for pod
 use Moose;
@@ -27,15 +27,15 @@ Dist::Zilla::Plugin::PodTests - common extra tests for pod
 
 =head1 VERSION
 
-version 1.091440
+version 1.091480
 
 =head1 DESCRIPTION
 
 This is an extension of L<Dist::Zilla::Plugin::InlineFiles>, providing the
 following files:
 
-    xt/release/pod-coverage.t - a standard Test::Pod::Coverage test
-    xt/release/pod-syntax.t   - a standard Test::Pod test
+  xt/release/pod-coverage.t - a standard Test::Pod::Coverage test
+  xt/release/pod-syntax.t   - a standard Test::Pod test
 
 This files are only gathered if the environment variable C<RELEASE_TESTING> is
 true, which is the case when running C<dzil test>.

@@ -1,5 +1,5 @@
 package Dist::Zilla::Config::INI;
-our $VERSION = '1.091440';
+our $VERSION = '1.091480';
 
 use Moose;
 with 'Dist::Zilla::Config';
@@ -51,7 +51,7 @@ Dist::Zilla::Config::INI - read in a dist.ini file
 
 =head1 VERSION
 
-version 1.091440
+version 1.091480
 
 =head1 DESCRIPTION
 
@@ -62,10 +62,10 @@ a hash reference to be used in constructing a new Dist::Zilla object.  The
 "plugins" entry in the hashref should be an arrayref of plugin configuration
 like this:
 
-    $config->{plugins} = [
-      [ $class_name => { ...config...} ],
-      ...
-    ];
+  $config->{plugins} = [
+    [ $class_name => { ...config...} ],
+    ...
+  ];
 
 =head1 AUTHOR
 

@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::ExtraTests;
-our $VERSION = '1.091440';
+our $VERSION = '1.091480';
 
 # ABSTRACT: rewrite ./xt tests to ./t tests with skips
 use Moose;
@@ -68,15 +68,15 @@ Dist::Zilla::Plugin::ExtraTests - rewrite ./xt tests to ./t tests with skips
 
 =head1 VERSION
 
-version 1.091440
+version 1.091480
 
 =head1 DESCRIPTION
 
 This plugin rewrites tests found in the following directories:
 
-    ./xt/author  - tests for author testing (env AUTHOR_TESTING is true)
-    ./xt/release - tests for pre-release testers (env RELEASE_TESTING is true)
-    ./xt/smoke   - tests for automated testers (env AUTOMATED_TESTING is true)
+  ./xt/author  - tests for author testing (env AUTHOR_TESTING is true)
+  ./xt/release - tests for pre-release testers (env RELEASE_TESTING is true)
+  ./xt/smoke   - tests for automated testers (env AUTOMATED_TESTING is true)
 
 The tests are renamed and moved to F<./t>, and they are rewritten to include
 some simple Perl code to skip all included tests if the correct env vars are

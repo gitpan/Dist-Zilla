@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::Prereq;
-our $VERSION = '1.091440';
+our $VERSION = '1.091480';
 
 # ABSTRACT: list simple prerequisites
 use Moose;
@@ -38,16 +38,16 @@ Dist::Zilla::Plugin::Prereq - list simple prerequisites
 
 =head1 VERSION
 
-version 1.091440
+version 1.091480
 
 =head1 SYNOPSIS
 
 In your F<dist.ini>:
 
-    [Prereq]
-    Foo::Bar = 1.002
-    MRO::Compat = 10
-    Sub::Exporter = 0
+  [Prereq]
+  Foo::Bar = 1.002
+  MRO::Compat = 10
+  Sub::Exporter = 0
 
 =head1 DESCRIPTION
 
