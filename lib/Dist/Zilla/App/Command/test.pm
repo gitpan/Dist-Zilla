@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::test;
-our $VERSION = '1.091480';
+our $VERSION = '1.091610';
 
 # ABSTRACT: test your dist
 use Dist::Zilla::App -command;
@@ -56,7 +56,7 @@ Dist::Zilla::App::Command::test - test your dist
 
 =head1 VERSION
 
-version 1.091480
+version 1.091610
 
 =head1 AUTHOR
 

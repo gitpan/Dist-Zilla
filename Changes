@@ -1,5 +1,9 @@
 Revision history for Dist-Zilla
 
+1.091610  2009-06-10 02:16:59 UTC
+          up the required Pod::Eventual
+          tweak detection of Perl files by content (Jérôme Quelin)
+
 1.091480  2009-05-28 13:59:35 UTC
           fix abstract-guessing to work with new Pod::Eventual
 
