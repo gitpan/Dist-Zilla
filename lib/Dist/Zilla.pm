@@ -1,5 +1,5 @@
 package Dist::Zilla;
-our $VERSION = '1.091610';
+our $VERSION = '1.091940';
 
 # ABSTRACT: distribution builder; installer not included!
 use Moose;
@@ -73,6 +73,10 @@ has abstract => (
   required => 1,
   default  => sub {
     my ($self) = @_;
+
+    unless ($self->main_module) {
+      die "no abstract given and no main_module found; make sure your main module is in ./lib\n";
+    }
 
     require Dist::Zilla::Util;
     my $filename = $self->main_module->name;
@@ -423,7 +427,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.091610
+version 1.091940
 
 =head1 DESCRIPTION
 
