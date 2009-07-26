@@ -1,5 +1,5 @@
 package Dist::Zilla::ConfigRole::MVP;
-our $VERSION = '1.092070';
+our $VERSION = '1.092071';
 
 use Moose::Role;
 # ABSTRACT: something that converts Config::MVP sequences to config structs
@@ -55,7 +55,7 @@ Dist::Zilla::ConfigRole::MVP - something that converts Config::MVP sequences to 
 
 =head1 VERSION
 
-version 1.092070
+version 1.092071
 
 =head1 DESCRIPTION
 

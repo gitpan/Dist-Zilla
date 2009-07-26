@@ -1,5 +1,5 @@
 package Dist::Zilla::PluginBundle::Filter;
-our $VERSION = '1.092070';
+our $VERSION = '1.092071';
 
 # ABSTRACT: use another bundle, with some plugins removed
 use Moose;
@@ -29,7 +29,7 @@ sub bundle_config {
   require List::MoreUtils;
   for my $i (reverse 0 .. $#plugins) {
     splice @plugins, $i, 1 if List::MoreUtils::any(sub {
-      $plugins[$i][0] eq Dist::Zilla::Util->expand_config_package_name($_)
+      $plugins[$i][1] eq Dist::Zilla::Util->expand_config_package_name($_)
     }, @$remove);
   }
 
@@ -50,7 +50,7 @@ Dist::Zilla::PluginBundle::Filter - use another bundle, with some plugins remove
 
 =head1 VERSION
 
-version 1.092070
+version 1.092071
 
 =head1 SYNOPSIS
 

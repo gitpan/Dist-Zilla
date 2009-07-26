@@ -1,5 +1,5 @@
 package Dist::Zilla::Config::Perl;
-our $VERSION = '1.092070';
+our $VERSION = '1.092071';
 
 use Moose;
 with qw(
@@ -69,7 +69,7 @@ Dist::Zilla::Config::Perl - the reader for dist.pl files
 
 =head1 VERSION
 
-version 1.092070
+version 1.092071
 
 =head1 DESCRIPTION
 

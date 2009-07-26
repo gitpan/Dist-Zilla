@@ -1,5 +1,5 @@
 package Dist::Zilla::ConfigRole::Findable;
-our $VERSION = '1.092070';
+our $VERSION = '1.092071';
 
 use Moose::Role;
 # ABSTRACT: a config class that Dist::Zilla::Config::Finder can find
@@ -19,7 +19,7 @@ Dist::Zilla::ConfigRole::Findable - a config class that Dist::Zilla::Config::Fin
 
 =head1 VERSION
 
-version 1.092070
+version 1.092071
 
 =head1 AUTHOR
 

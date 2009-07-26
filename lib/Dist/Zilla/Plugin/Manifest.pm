@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::Manifest;
-our $VERSION = '1.092070';
+our $VERSION = '1.092071';
 
 # ABSTRACT: build a MANIFEST file
 use Moose;
@@ -33,7 +33,7 @@ Dist::Zilla::Plugin::Manifest - build a MANIFEST file
 
 =head1 VERSION
 
-version 1.092070
+version 1.092071
 
 =head1 DESCRIPTION
 
