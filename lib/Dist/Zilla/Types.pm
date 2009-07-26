@@ -1,15 +1,18 @@
 package Dist::Zilla::Types;
-our $VERSION = '1.091940';
+our $VERSION = '1.092070';
 
 # ABSTRACT: dzil-specific type library
 
-use MooseX::Types -declare => [qw(DistName)];
+use MooseX::Types -declare => [qw(DistName License)];
 use MooseX::Types::Moose qw(Str);
 
 subtype DistName,
   as Str,
   where { !/::/ },
   message { "$_ looks like a module name, not a dist name" };
+
+subtype License,
+  as class_type('Software::License');
 
 1;
 
@@ -23,7 +26,7 @@ Dist::Zilla::Types - dzil-specific type library
 
 =head1 VERSION
 
-version 1.091940
+version 1.092070
 
 =head1 AUTHOR
 

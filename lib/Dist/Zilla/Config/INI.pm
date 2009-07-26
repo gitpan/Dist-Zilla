@@ -1,40 +1,37 @@
 package Dist::Zilla::Config::INI;
-our $VERSION = '1.091940';
+our $VERSION = '1.092070';
 
 use Moose;
-with 'Dist::Zilla::Config';
-# ABSTRACT: read in a dist.ini file
-
-use Dist::Zilla::Util;
-
-
-sub default_filename { 'dist.ini' }
-
-has 'reader' => (
-  is   => 'ro',
-  isa  => 'Config::INI::Reader',
-  init_arg => undef,
-  required => 1,
-  default  => sub { Dist::Zilla::Config::INI::Reader->new },
+with qw(
+  Dist::Zilla::Config
+  Dist::Zilla::ConfigRole::Findable
+  Dist::Zilla::ConfigRole::MVP
 );
+# ABSTRACT: the reader for dist.ini files
 
-sub read_file {
-  my ($self, $filename) = @_;
-  my $data = $self->reader->read_file($filename);
-  $self->struct_to_config($data);
+use Config::INI::MVP::Reader;
+
+
+# Clearly this should be an attribute with a builder blah blah blah. -- rjbs,
+# 2009-07-25
+sub default_filename { 'dist.ini' }
+sub filename         { $_[0]->default_filename }
+
+sub can_be_found {
+  my ($self, $arg) = @_;
+
+  my $config_file = $arg->{root}->file( $self->filename );
+  return -r "$config_file" and -f _;
 }
 
-BEGIN {
-  package
-    Dist::Zilla::Config::INI::Reader;
-  use base 'Config::INI::MVP::Reader';
+sub read_config {
+  my ($self, $arg) = @_;
+  my $config_file = $arg->{root}->file( $self->filename );
 
-  sub multivalue_args { qw(author) }
+  my $ini = Config::INI::MVP::Reader->new({ assembler => $self->assembler });
+  $ini->read_file($config_file);
 
-  sub _expand_package {
-    my $str = Dist::Zilla::Util->expand_config_package_name($_[1]);
-    return $str;
-  }
+  return $self->config_struct;
 }
 
 no Moose;
@@ -47,25 +44,17 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Config::INI - read in a dist.ini file
+Dist::Zilla::Config::INI - the reader for dist.ini files
 
 =head1 VERSION
 
-version 1.091940
+version 1.092070
 
 =head1 DESCRIPTION
 
 Dist::Zilla::Config reads in the F<dist.ini> file for a distribution.  It uses
-L<Config::INI::MVP::Reader> to do most of the heavy lifting.  You may write
-your own class to read your own config file format.  It is expected to return 
-a hash reference to be used in constructing a new Dist::Zilla object.  The
-"plugins" entry in the hashref should be an arrayref of plugin configuration
-like this:
-
-  $config->{plugins} = [
-    [ $class_name => { ...config...} ],
-    ...
-  ];
+L<Config::INI::MVP::Reader> to do most of the heavy lifting, using the helpers
+set up in L<Dist::Zilla::Role::ConfigMVP>.
 
 =head1 AUTHOR
 

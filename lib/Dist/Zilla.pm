@@ -1,10 +1,10 @@
 package Dist::Zilla;
-our $VERSION = '1.091940';
+our $VERSION = '1.092070';
 
 # ABSTRACT: distribution builder; installer not included!
 use Moose;
 use Moose::Autobox;
-use Dist::Zilla::Types qw(DistName);
+use Dist::Zilla::Types qw(DistName License);
 use MooseX::Types::Path::Class qw(Dir File);
 use Moose::Util::TypeConstraints;
 
@@ -135,18 +135,34 @@ has copyright_year => (
 );
 
 
-has _license_class => (is => 'rw');
-
 has license => (
-  is   => 'ro',
-  isa  => 'Software::License',
-  lazy => 1,
-  required => 1,
-  default  => sub {
-    my ($self) = @_;
-    my $license_class = $self->_license_class;
+  reader => 'license',
+  writer => '_set_license',
+  isa    => License,
+  init_arg => undef,
+);
 
-    unless ($license_class) {
+sub _initialize_license {
+  my ($self, $value) = @_;
+
+  my $license;
+
+  # If it's an object (weird!) we're being handed a pre-created license and
+  # we should probably just trust it. -- rjbs, 2009-07-21
+  $license = $value if blessed $value;
+
+  unless ($license) {
+    my $license_class = $value;
+
+    if ($license_class) {
+      $license_class = String::RewritePrefix->rewrite(
+        {
+          '=' => '',
+          ''  => 'Software::License::'
+        },
+        $license_class,
+      );
+    } else {
       require Software::LicenseUtils;
       my @guess = Software::LicenseUtils->guess_license_from_pod(
         $self->main_module->content
@@ -159,12 +175,18 @@ has license => (
       $self->log("based on POD in $filename, guessing license is $guess[0]");
     }
 
-    my $license = $license_class->new({
+    eval "require $license_class; 1" or die;
+
+    $license = $license_class->new({
       holder => $self->copyright_holder,
       year   => $self->copyright_year,
     });
-  },
-);
+  }
+
+  confess "$value is not a valid license" if ! License->check($license);
+
+  $self->_set_license($license);
+}
 
 
 has authors => (
@@ -223,48 +245,55 @@ sub from_config {
   my ($class, $arg) = @_;
   $arg ||= {};
 
-  my $config_class = $arg->{config_class} || 'Dist::Zilla::Config::INI';
-  unless (eval "require $config_class; 1") {
-    die "couldn't load $config_class: $@"; ## no critic Carp
-  }
-
   my $root = Path::Class::dir($arg->{dist_root} || '.');
 
-  my $config_file = $root->file( $config_class->default_filename );
-  $class->log("reading configuration from $config_file using $config_class");
+  my ($core_config, $plugin_config) = $class->_load_config(
+    $arg->{config_class},
+    $root,
+  );
 
-  my $config = $config_class->new->read_file($config_file);
+  my $self = $class->new($core_config);
 
-  my $plugins = delete $config->{plugins};
+  for my $plugin (@$plugin_config) {
+    my ($name, $plugin_class, $arg) = @$plugin;
+    $self->log("initializing plugin $name ($plugin_class)");
 
-  my $license_name = delete $config->{license} unless ref $config->{license};
+    confess "arguments attempted to override plugin name"
+      if defined $arg->{plugin_name};
 
-  my $self = $class->new($config->merge({ root => $root }));
+    confess "arguments attempted to override plugin name"
+      if defined $arg->{zilla};
 
-  if ($license_name) {
-    my $license_class = String::RewritePrefix->rewrite(
-      {
-        '=' => '',
-        ''  => 'Software::License::'
-      },
-      $license_name,
-    );
-
-    eval "require $license_class; 1" or die;
-    $self->_license_class($license_class);
-  }
-
-  for my $plugin (@$plugins) {
-    my ($plugin_class, $arg) = @$plugin;
-    $self->log("initializing plugin $arg->{'=name'} ($plugin_class)");
     $self->plugins->push(
-      $plugin_class->new( $arg->merge({ zilla => $self }) )
+      $plugin_class->new( $arg->merge({
+        plugin_name => $name,
+        zilla       => $self,
+      }) )
     );
   }
 
   $self->__initialize_version;
 
   return $self;
+}
+
+sub _load_config {
+  my ($self, $config_class, $root) = @_;
+
+  $config_class ||= 'Dist::Zilla::Config::Finder';
+  unless (eval "require $config_class; 1") {
+    die "couldn't load $config_class: $@"; ## no critic Carp
+  }
+
+  $self->log("reading configuration using $config_class");
+
+  my ($config, $plugins) = $config_class->new->read_expanded_config({
+    root => $root
+  });
+
+  $config = $config->merge({ root => $root });
+
+  return ($config, $plugins);
 }
 
 
@@ -358,8 +387,9 @@ sub _check_dupe_files {
     my @dupes = grep { $files_named{$_}->length > 1 } keys %files_named;
 
   for my $name (@dupes) {
-    warn "attempt to add $name multiple times; added by: "
-       . join('; ', map { $_->added_by } @{ $files_named{ $name } }) . "\n";
+    $self->log("attempt to add $name multiple times; added by: "
+       . join('; ', map { $_->added_by } @{ $files_named{ $name } })
+    );
   }
 
   Carp::croak("aborting; duplicate files would be produced");
@@ -414,6 +444,12 @@ sub log { ## no critic
   Dist::Zilla::Util->_log($msg);
 }
 
+sub BUILD {
+  my ($self, $arg) = @_;
+
+  $self->_initialize_license($arg->{license});
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
 
@@ -427,7 +463,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.091940
+version 1.092070
 
 =head1 DESCRIPTION
 

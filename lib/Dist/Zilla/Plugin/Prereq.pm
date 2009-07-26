@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::Prereq;
-our $VERSION = '1.091940';
+our $VERSION = '1.092070';
 
 # ABSTRACT: list simple prerequisites
 use Moose;
@@ -12,14 +12,18 @@ has _prereq => (
   default => sub { {} },
 );
 
-sub new {
-  my ($class, $arg) = @_;
+sub BUILDARGS {
+  my ($class, @arg) = @_;
+  my %copy = ref $arg[0] ? %{$arg[0]} : @arg;
 
-  my $self = $class->SUPER::new({
-    '=name' => delete $arg->{'=name'},
-    zilla   => delete $arg->{zilla},
-    _prereq => $arg,
-  });
+  my $zilla = delete $copy{zilla};
+  my $name  = delete $copy{plugin_name};
+
+  return {
+    zilla => $zilla,
+    plugin_name => $name,
+    _prereq     => \%copy,
+  }
 }
 
 sub prereq { shift->_prereq }
@@ -38,7 +42,7 @@ Dist::Zilla::Plugin::Prereq - list simple prerequisites
 
 =head1 VERSION
 
-version 1.091940
+version 1.092070
 
 =head1 SYNOPSIS
 

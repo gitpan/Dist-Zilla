@@ -1,5 +1,5 @@
 package Dist::Zilla::PluginBundle::Classic;
-our $VERSION = '1.091940';
+our $VERSION = '1.092070';
 
 # ABSTRACT: build something more or less like a "classic" CPAN dist
 use Moose;
@@ -31,7 +31,7 @@ sub bundle_config {
 
   eval "require $_; 1" or die for @classes; ## no critic Carp
 
-  return @classes->map(sub { [ $_ => { '=name' => "$class/$_" } ] })->flatten;
+  return @classes->map(sub { [ "$class/$_" => $_ => {} ] })->flatten;
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -48,7 +48,7 @@ Dist::Zilla::PluginBundle::Classic - build something more or less like a "classi
 
 =head1 VERSION
 
-version 1.091940
+version 1.092070
 
 =head1 DESCRIPTION
 

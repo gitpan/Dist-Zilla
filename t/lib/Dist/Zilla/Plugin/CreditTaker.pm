@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::CreditTaker;
-our $VERSION = '1.091940';
+our $VERSION = '1.092070';
 
 # ABSTRACT: add 'built by D::Z' to all your modules
 use Moose;

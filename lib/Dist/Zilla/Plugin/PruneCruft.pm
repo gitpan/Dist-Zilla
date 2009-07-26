@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::PruneCruft;
-our $VERSION = '1.091940';
+our $VERSION = '1.092070';
 
 # ABSTRACT: prune stuff that you probably don't mean to include
 use Moose;
@@ -7,7 +7,7 @@ use Moose::Autobox;
 with 'Dist::Zilla::Role::FilePruner';
 
 
-# sub multivalue_args { qw(file) }
+# sub mvp_multivalue_args { qw(file) }
 
 sub exclude_file {
   my ($self, $file) = @_;
@@ -42,7 +42,7 @@ Dist::Zilla::Plugin::PruneCruft - prune stuff that you probably don't mean to in
 
 =head1 VERSION
 
-version 1.091940
+version 1.092070
 
 =head1 SYNOPSIS
 

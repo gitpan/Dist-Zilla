@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::InstallDirs;
-our $VERSION = '1.091940';
+our $VERSION = '1.092070';
 
 # ABSTRACT: mark directory contents for installation
 use Moose;
@@ -7,8 +7,8 @@ use Moose::Autobox;
 with 'Dist::Zilla::Role::FileMunger';
 
 
-# XXX: implement share
-sub multivalue_args { qw(bin share) }
+# XXX: implement share -- rjbs, 2008-06-08
+sub mvp_multivalue_args { qw(bin share) }
 
 has mark_as_bin => (
   is   => 'ro',
@@ -40,7 +40,7 @@ Dist::Zilla::Plugin::InstallDirs - mark directory contents for installation
 
 =head1 VERSION
 
-version 1.091940
+version 1.092070
 
 =head1 SYNOPSIS
 

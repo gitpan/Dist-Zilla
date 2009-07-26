@@ -1,36 +1,39 @@
 package Dist::Zilla::Config;
-our $VERSION = '1.091940';
+our $VERSION = '1.092070';
 
 use Moose::Role;
 # ABSTRACT: stored configuration loader role
 
-requires 'default_filename';
-requires 'read_file';
+requires 'read_config';
 
-sub struct_to_config {
-  my ($self, $struct) = @_;
+sub expand_bundles {
+  my ($self, $plugins) = @_;
 
-  my $i = 0;
-  my $root_config = $struct->[0]{'=name'} eq '_'
-                  ? $struct->[ $i++ ]
-                  : {};
+  my @new_plugins;
 
-  $root_config->{authors} = delete $root_config->{author};
+  for my $plugin (@$plugins) {
+    if (eval { $plugin->[1]->does('Dist::Zilla::Role::PluginBundle') }) {
+      confess "arguments attempted to override plugin bundle name"
+        if defined $plugin->[2]->{plugin_name};
 
-  my @plugins;
-  for my $plugin (map { $struct->[ $_ ] } ($i .. $#$struct)) {
-    my $class = delete $plugin->{'=package'};
-    
-    if (eval { $class->does('Dist::Zilla::Role::PluginBundle') }) {
-      push @plugins, $class->bundle_config($plugin);
+      push @new_plugins, $plugin->[1]->bundle_config({
+        plugin_name => $plugin->[0],
+        %{ $plugin->[2] },
+      });
     } else {
-      push @plugins, [ $class => $plugin ];
+      push @new_plugins, $plugin;
     }
   }
 
-  $root_config->{plugins} = \@plugins;
+  @$plugins = @new_plugins;
+}
 
-  return $root_config;
+sub read_expanded_config {
+  my ($self, $arg) = @_;
+  my ($core_config, $plugins) = $self->read_config($arg);
+  $self->expand_bundles($plugins);
+
+  return ($core_config, $plugins);
 }
 
 no Moose::Role;
@@ -46,7 +49,7 @@ Dist::Zilla::Config - stored configuration loader role
 
 =head1 VERSION
 
-version 1.091940
+version 1.092070
 
 =head1 AUTHOR
 

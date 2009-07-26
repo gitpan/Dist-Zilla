@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::new;
-our $VERSION = '1.091940';
+our $VERSION = '1.092070';
 
 # ABSTRACT: start a new dist
 use Dist::Zilla::App -command;
@@ -16,7 +16,8 @@ use Path::Class;
 
 sub abstract { 'start a new dist' }
 
-sub multivalue_args { qw(author) }
+sub mvp_aliases         { { author => 'authors' } }
+sub mvp_multivalue_args { qw(authors) }
 
 sub validate_args {
   my ($self, $opt, $args) = @_;
@@ -98,7 +99,7 @@ Dist::Zilla::App::Command::new - start a new dist
 
 =head1 VERSION
 
-version 1.091940
+version 1.092070
 
 =head1 AUTHOR
 

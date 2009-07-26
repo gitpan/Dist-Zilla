@@ -1,5 +1,5 @@
 package Dist::Zilla::PluginBundle::Filter;
-our $VERSION = '1.091940';
+our $VERSION = '1.092070';
 
 # ABSTRACT: use another bundle, with some plugins removed
 use Moose;
@@ -9,7 +9,7 @@ with 'Dist::Zilla::Role::PluginBundle';
 use Dist::Zilla::Util;
 
 
-sub multivalue_args { return qw(remove) }
+sub mvp_multivalue_args { qw(remove) }
 
 sub bundle_config {
   my ($self, $config) = @_;
@@ -50,7 +50,7 @@ Dist::Zilla::PluginBundle::Filter - use another bundle, with some plugins remove
 
 =head1 VERSION
 
-version 1.091940
+version 1.092070
 
 =head1 SYNOPSIS
 

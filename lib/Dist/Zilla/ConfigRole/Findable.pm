@@ -1,11 +1,10 @@
-package Dist::Zilla::Role::PluginBundle;
+package Dist::Zilla::ConfigRole::Findable;
 our $VERSION = '1.092070';
 
-# ABSTRACT: a bundle of plugins
 use Moose::Role;
+# ABSTRACT: a config class that Dist::Zilla::Config::Finder can find
 
-
-requires 'bundle_config';
+requires 'can_be_found';
 
 no Moose::Role;
 1;
@@ -16,17 +15,11 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Role::PluginBundle - a bundle of plugins
+Dist::Zilla::ConfigRole::Findable - a config class that Dist::Zilla::Config::Finder can find
 
 =head1 VERSION
 
 version 1.092070
-
-=head1 DESCRIPTION
-
-When loading configuration, if the config reader encounters a PluginBundle, it
-will replace its place in the plugin list with the result of calling its
-C<bundle_config> method.
 
 =head1 AUTHOR
 

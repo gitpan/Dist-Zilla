@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MetaResources;
-our $VERSION = '1.091940';
+our $VERSION = '1.092070';
 
 # ABSTRACT: provide arbitrary "resources" for distribution metadata
 use Moose;
@@ -12,14 +12,18 @@ has resources => (
   required => 1,
 );
 
-sub new {
-  my ($class, $arg) = @_;
+sub BUILDARGS {
+  my ($class, @arg) = @_;
+  my %copy = ref $arg[0] ? %{$arg[0]} : @arg;
 
-  my $self = $class->SUPER::new({
-    '=name'   => delete $arg->{'=name'},
-    zilla     => delete $arg->{zilla},
-    resources => $arg,
-  });
+  my $zilla = delete $copy{zilla};
+  my $name  = delete $copy{plugin_name};
+
+  return {
+    zilla => $zilla,
+    plugin_name => $name,
+    resources   => \%copy,
+  }
 }
 
 sub metadata {
@@ -42,7 +46,7 @@ Dist::Zilla::Plugin::MetaResources - provide arbitrary "resources" for distribut
 
 =head1 VERSION
 
-version 1.091940
+version 1.092070
 
 =head1 DESCRIPTION
 
