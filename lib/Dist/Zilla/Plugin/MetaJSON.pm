@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MetaJSON;
-our $VERSION = '1.092071';
+our $VERSION = '1.092200';
 
 # ABSTRACT: produce a META.json
 use Moose;
@@ -55,7 +55,7 @@ Dist::Zilla::Plugin::MetaJSON - produce a META.json
 
 =head1 VERSION
 
-version 1.092071
+version 1.092200
 
 =head1 DESCRIPTION
 
@@ -74,7 +74,7 @@ L<http://module-build.sourceforge.net/META-spec-v1.3.html>.
 This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
+the same terms as the Perl 5 programming language system itself.
 
 =cut 
 

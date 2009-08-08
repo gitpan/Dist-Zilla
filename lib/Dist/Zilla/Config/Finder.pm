@@ -1,5 +1,5 @@
 package Dist::Zilla::Config::Finder;
-our $VERSION = '1.092071';
+our $VERSION = '1.092200';
 
 use Moose;
 with qw(Dist::Zilla::Config);
@@ -54,7 +54,7 @@ Dist::Zilla::Config::Finder - the reader for dist.ini files
 
 =head1 VERSION
 
-version 1.092071
+version 1.092200
 
 =head1 AUTHOR
 
@@ -65,7 +65,7 @@ version 1.092071
 This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
+the same terms as the Perl 5 programming language system itself.
 
 =cut 
 

@@ -1,5 +1,5 @@
 package Dist::Zilla::File::InMemory;
-our $VERSION = '1.092071';
+our $VERSION = '1.092200';
 
 # ABSTRACT: a file that you build entirely in memory
 use Moose;
@@ -26,7 +26,7 @@ Dist::Zilla::File::InMemory - a file that you build entirely in memory
 
 =head1 VERSION
 
-version 1.092071
+version 1.092200
 
 =head1 DESCRIPTION
 
@@ -42,7 +42,7 @@ string.
 This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
+the same terms as the Perl 5 programming language system itself.
 
 =cut 
 

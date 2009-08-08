@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::UploadToCPAN;
-our $VERSION = '1.092071';
+our $VERSION = '1.092200';
 
 # ABSTRACT: upload the dist to CPAN
 use Moose;
@@ -61,7 +61,7 @@ Dist::Zilla::Plugin::UploadToCPAN - upload the dist to CPAN
 
 =head1 VERSION
 
-version 1.092071
+version 1.092200
 
 =head1 SYNOPSIS
 
@@ -84,7 +84,7 @@ This plugin requires configuration in your C<dist.ini> or C<~/.dzil/config>:
 This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
+the same terms as the Perl 5 programming language system itself.
 
 =cut 
 

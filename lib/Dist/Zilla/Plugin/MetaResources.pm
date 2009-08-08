@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MetaResources;
-our $VERSION = '1.092071';
+our $VERSION = '1.092200';
 
 # ABSTRACT: provide arbitrary "resources" for distribution metadata
 use Moose;
@@ -46,7 +46,7 @@ Dist::Zilla::Plugin::MetaResources - provide arbitrary "resources" for distribut
 
 =head1 VERSION
 
-version 1.092071
+version 1.092200
 
 =head1 DESCRIPTION
 
@@ -64,7 +64,7 @@ This plugin adds resources entries to the distribution's metadata.
 This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
+the same terms as the Perl 5 programming language system itself.
 
 =cut 
 

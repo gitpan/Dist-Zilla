@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::FileInjector;
-our $VERSION = '1.092071';
+our $VERSION = '1.092200';
 
 use Moose::Autobox;
 # ABSTRACT: something that can add files to the distribution
@@ -28,7 +28,7 @@ Dist::Zilla::Role::FileInjector - something that can add files to the distributi
 
 =head1 VERSION
 
-version 1.092071
+version 1.092200
 
 =head1 DESCRIPTION
 
@@ -54,7 +54,7 @@ as it does so.
 This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
+the same terms as the Perl 5 programming language system itself.
 
 =cut 
 

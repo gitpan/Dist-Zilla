@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::File;
-our $VERSION = '1.092071';
+our $VERSION = '1.092200';
 
 # ABSTRACT: something that can act like a file
 use Moose::Role;
@@ -37,7 +37,7 @@ Dist::Zilla::Role::File - something that can act like a file
 
 =head1 VERSION
 
-version 1.092071
+version 1.092200
 
 =head1 DESCRIPTION
 
@@ -69,7 +69,7 @@ installed.  For now, its meaning is pretty up in the air.
 This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
+the same terms as the Perl 5 programming language system itself.
 
 =cut 
 

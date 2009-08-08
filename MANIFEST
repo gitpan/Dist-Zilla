@@ -70,6 +70,7 @@ lib/Dist/Zilla/Tutorial.pm
 lib/Dist/Zilla/Types.pm
 lib/Dist/Zilla/Util.pm
 lib/Dist/Zilla/Util/MVPAssembler.pm
+misc/dzil-bash_completion
 misc/dzil_bootstrap
 t/basic.t
 t/dz1.t

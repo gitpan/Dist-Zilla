@@ -1,16 +1,10 @@
 package Dist::Zilla::Plugin::PodTests;
-our $VERSION = '1.092071';
+our $VERSION = '1.092200';
 
 # ABSTRACT: common extra tests for pod
 use Moose;
 extends 'Dist::Zilla::Plugin::InlineFiles';
 
-
-override 'gather_files' => sub {
-  my ($self) = @_;
-  return unless $ENV{RELEASE_TESTING};
-  super();
-};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -27,7 +21,7 @@ Dist::Zilla::Plugin::PodTests - common extra tests for pod
 
 =head1 VERSION
 
-version 1.092071
+version 1.092200
 
 =head1 DESCRIPTION
 
@@ -36,9 +30,6 @@ following files:
 
   xt/release/pod-coverage.t - a standard Test::Pod::Coverage test
   xt/release/pod-syntax.t   - a standard Test::Pod test
-
-This files are only gathered if the environment variable C<RELEASE_TESTING> is
-true, which is the case when running C<dzil test>.
 
 =head1 AUTHOR
 
@@ -49,7 +40,7 @@ true, which is the case when running C<dzil test>.
 This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
+the same terms as the Perl 5 programming language system itself.
 
 =cut 
 
@@ -57,7 +48,7 @@ the same terms as perl itself.
 
 __DATA__
 ___[ xt/release/pod-coverage.t ]___
-#!perl -T
+#!perl
 
 use Test::More;
 
@@ -72,7 +63,7 @@ plan skip_all => "Pod::Coverage::TrustPod required for testing POD coverage"
 all_pod_coverage_ok({ coverage_class => 'Pod::Coverage::TrustPod' });
 
 ___[ xt/release/pod-syntax.t ]___
-#!perl -T
+#!perl
 use Test::More;
 
 eval "use Test::Pod 1.00";

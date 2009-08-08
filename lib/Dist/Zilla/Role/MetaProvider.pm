@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::MetaProvider;
-our $VERSION = '1.092071';
+our $VERSION = '1.092200';
 
 # ABSTRACT: something that provides metadata (for META.yml/json)
 use Moose::Role;
@@ -21,7 +21,7 @@ Dist::Zilla::Role::MetaProvider - something that provides metadata (for META.yml
 
 =head1 VERSION
 
-version 1.092071
+version 1.092200
 
 =head1 DESCRIPTION
 
@@ -43,7 +43,7 @@ pre-existing metadata.
 This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
+the same terms as the Perl 5 programming language system itself.
 
 =cut 
 

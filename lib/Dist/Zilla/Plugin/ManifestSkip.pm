@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::ManifestSkip;
-our $VERSION = '1.092071';
+our $VERSION = '1.092200';
 
 # ABSTRACT: decline to build files that appear in a MANIFEST.SKIP-like file
 use Moose;
@@ -35,7 +35,7 @@ Dist::Zilla::Plugin::ManifestSkip - decline to build files that appear in a MANI
 
 =head1 VERSION
 
-version 1.092071
+version 1.092200
 
 =head1 DESCRIPTION
 
@@ -59,7 +59,7 @@ defaults, unsurprisingly, to F<MANIFEST.SKIP>.
 This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
+the same terms as the Perl 5 programming language system itself.
 
 =cut 
 

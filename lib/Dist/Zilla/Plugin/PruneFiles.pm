@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::PruneFiles;
-our $VERSION = '1.092071';
+our $VERSION = '1.092200';
 
 # ABSTRACT: prune arbirary files from the dist
 use Moose;
@@ -43,7 +43,7 @@ Dist::Zilla::Plugin::PruneFiles - prune arbirary files from the dist
 
 =head1 VERSION
 
-version 1.092071
+version 1.092200
 
 =head1 SYNOPSIS
 
@@ -73,7 +73,7 @@ in the config).
 This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
+the same terms as the Perl 5 programming language system itself.
 
 =cut 
 

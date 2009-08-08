@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::InstallTool;
-our $VERSION = '1.092071';
+our $VERSION = '1.092200';
 
 # ABSTRACT: something that creates an install program for a dist
 use Moose::Role;
@@ -23,7 +23,7 @@ Dist::Zilla::Role::InstallTool - something that creates an install program for a
 
 =head1 VERSION
 
-version 1.092071
+version 1.092200
 
 =head1 DESCRIPTION
 
@@ -41,7 +41,7 @@ installable, like F<Makefile.PL> or F<Build.PL>.
 This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
+the same terms as the Perl 5 programming language system itself.
 
 =cut 
 

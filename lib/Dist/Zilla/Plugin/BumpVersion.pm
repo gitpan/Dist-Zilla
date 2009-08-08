@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::BumpVersion;
-our $VERSION = '1.092071';
+our $VERSION = '1.092200';
 
 # ABSTRACT: bump the configured version number by one before building
 use Moose;
@@ -40,7 +40,7 @@ Dist::Zilla::Plugin::BumpVersion - bump the configured version number by one bef
 
 =head1 VERSION
 
-version 1.092071
+version 1.092200
 
 =head1 SYNOPSIS
 
@@ -58,7 +58,7 @@ the newly built dist will be C<0.003>.
 This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
+the same terms as the Perl 5 programming language system itself.
 
 =cut 
 
