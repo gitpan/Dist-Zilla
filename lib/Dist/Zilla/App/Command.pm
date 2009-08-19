@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command;
-our $VERSION = '1.092200';
+our $VERSION = '1.092310';
 
 # ABSTRACT: base class for dzil commands
 use App::Cmd::Setup -command;
@@ -43,7 +43,7 @@ Dist::Zilla::App::Command - base class for dzil commands
 
 =head1 VERSION
 
-version 1.092200
+version 1.092310
 
 =head1 METHODS
 

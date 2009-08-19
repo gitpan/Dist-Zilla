@@ -1,5 +1,5 @@
 package Dist::Zilla;
-our $VERSION = '1.092200';
+our $VERSION = '1.092310';
 
 # ABSTRACT: distribution builder; installer not included!
 use Moose;
@@ -94,24 +94,43 @@ has abstract => (
 );
 
 
+has main_module_override => (
+  isa => 'Str',
+  is  => 'ro' ,
+  init_arg => 'main_module',
+  predicate => 'has_main_module_override',
+);
+
 has main_module => (
   is   => 'ro',
   isa  => 'Dist::Zilla::Role::File',
   lazy => 1,
+  init_arg => undef,
   required => 1,
   default  => sub {
+
     my ($self) = @_;
 
-    my $file = $self->files
+    my $file;
+
+    if ( $self->has_main_module_override ) {
+
+       $file = $self->files->grep(sub{ $_->name eq $self->main_module_override })->head;
+
+    } else {
+
+       $file = $self->files
              ->grep(sub { $_->name =~ m{\.pm\z} and $_->name =~ m{\Alib/} })
              ->sort(sub { length $_[0]->name <=> length $_[1]->name })
              ->head;
+    }
 
     $self->log("guessing dist's main_module is " . $file->name);
 
     return $file;
   },
 );
+
 
 
 has copyright_holder => (
@@ -288,7 +307,8 @@ sub _load_config {
   $self->log("reading configuration using $config_class");
 
   my ($config, $plugins) = $config_class->new->read_expanded_config({
-    root => $root
+    root     => $root,
+    basename => 'dist',
   });
 
   $config = $config->merge({ root => $root });
@@ -463,7 +483,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.092200
+version 1.092310
 
 =head1 DESCRIPTION
 
@@ -505,6 +525,10 @@ looked for in the L</main_module> of the dist.
 This is the module where Dist::Zilla might look for various defaults, like
 the distribution abstract.  By default, it's the shorted-named module in the
 distribution.  This is likely to change!
+
+You can override the default found one by specifying the file path explicitly,
+ie:
+    main_module = lib/Foo/Bar.pm
 
 =head2 copyright_holder
 

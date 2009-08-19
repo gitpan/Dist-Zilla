@@ -1,16 +1,19 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::install;
-our $VERSION = '1.092200';
+our $VERSION = '1.092310';
 
 # ABSTRACT: install your dist
 use Dist::Zilla::App -command;
 
 sub abstract { 'install your dist' }
 
+
 sub opt_spec {
   [ 'install-command=s', 'command to run to install (e.g. "cpan .")' ],
 }
+
+
 
 sub run {
   my ($self, $opt, $arg) = @_;
@@ -57,7 +60,30 @@ Dist::Zilla::App::Command::install - install your dist
 
 =head1 VERSION
 
-version 1.092200
+version 1.092310
+
+=head1 SYNOPSIS
+
+Installs your distribution using a specified command.
+
+    dzil install [--install-command="cmd"]
+
+=head1 EXAMPLE
+
+    $ dzil install
+    $ dzil install --install-command="cpan ."
+
+=head1 OPTIONS
+
+=head2 --install-command
+
+This defines what command to run after building the dist in the dist dir.
+
+Any value that works with L<C<system>|perlfunc/system> is accepted.
+
+If not specified, calls
+
+    perl -MCPAN -einstall "."
 
 =head1 AUTHOR
 

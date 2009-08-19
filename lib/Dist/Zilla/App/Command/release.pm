@@ -1,12 +1,13 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::release;
-our $VERSION = '1.092200';
+our $VERSION = '1.092310';
 
 # ABSTRACT: release your dist to the CPAN
 use Dist::Zilla::App -command;
 
 use Moose::Autobox;
+
 
 sub abstract { 'release your dist' }
 
@@ -33,7 +34,15 @@ Dist::Zilla::App::Command::release - release your dist to the CPAN
 
 =head1 VERSION
 
-version 1.092200
+version 1.092310
+
+=head1 SYNOPSIS
+
+Use ReleasePlugin(s) to release your distribution in many ways.
+
+    dzil release
+
+Put some plugins in your F<dist.ini> that perform L<Dist::Zilla::Role::Releaser>, such as L<Dist::Zilla::Plugin::UploadToCPAN>
 
 =head1 AUTHOR
 

@@ -1,13 +1,13 @@
 use strict;
 use warnings;
 package Dist::Zilla::App;
-our $VERSION = '1.092200';
+our $VERSION = '1.092310';
 
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup -app;
 
 use Carp ();
-use Dist::Zilla::Config::INI;
+use Dist::Zilla::Config::Finder;
 use File::HomeDir ();
 use Moose::Autobox;
 use Path::Class;
@@ -19,23 +19,28 @@ sub config {
     or Carp::croak("couldn't determine home directory");
 
   my $file = dir($homedir)->file('.dzil');
+  return {} unless -e $file;
 
   if (-d $file) {
-    $file = dir($homedir)->subdir('.dzil')->file('config');
+    return Dist::Zilla::Config::Finder->new->read_expanded_config({
+      root     =>  dir($homedir)->subdir('.dzil'),
+      basename => 'config',
+    });
+  } else {
+    return Dist::Zilla::Config::Finder->new->read_expanded_config({
+      root     => dir($homedir),
+      filename => '.dzil',
+    });
   }
-
-  return {} unless -f $file;
-
-  Dist::Zilla::Config::INI->new->read_file($file);
 }
 
 sub config_for {
   my ($self, $plugin_class) = @_;
 
-  return {} unless $self->config->{plugins};
+  return {} unless $self->config;
 
-  for my $plugin ($self->config->{plugins}->flatten) {
-    return $plugin->[1] if $plugin->[0] eq $plugin_class;
+  for my $plugin ($self->config->flatten) {
+    return $plugin->[2] if $plugin->[1] eq $plugin_class;
   }
 
   return {};
@@ -53,7 +58,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 1.092200
+version 1.092310
 
 =head1 AUTHOR
 

@@ -1,11 +1,12 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::smoke;
-our $VERSION = '1.092200';
+our $VERSION = '1.092310';
 
 # ABSTRACT: smoke your dist
 use Dist::Zilla::App -command;
 require Dist::Zilla::App::Command::test;
+
 
 sub abstract { 'smoke your dist' }
 
@@ -30,7 +31,19 @@ Dist::Zilla::App::Command::smoke - smoke your dist
 
 =head1 VERSION
 
-version 1.092200
+version 1.092310
+
+=head1 SYNOPSIS
+
+Runs your (built) distribution in Smoke Testing Mode.
+
+    dzil smoke
+
+Otherwise identical to
+
+    AUTOMATED_TESTING=1 dzil test
+
+See L<Dist::Zilla::App::Command::test> for more.
 
 =head1 AUTHOR
 

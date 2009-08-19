@@ -1,16 +1,19 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::build;
-our $VERSION = '1.092200';
+our $VERSION = '1.092310';
 
 # ABSTRACT: build your dist
 use Dist::Zilla::App -command;
 
+
 sub abstract { 'build your dist' }
+
 
 sub opt_spec {
   [ 'tgz!', 'build a tarball (default behavior)', { default => 1 } ]
 }
+
 
 sub run {
   my ($self, $opt, $arg) = @_;
@@ -31,7 +34,27 @@ Dist::Zilla::App::Command::build - build your dist
 
 =head1 VERSION
 
-version 1.092200
+version 1.092310
+
+=head1 SYNOPSIS
+
+Builds your distribution and emits tar.gz files / directories.
+
+    dzil build [--tgz|--notgz]
+
+=head1 EXAMPLE
+
+    $ dzil build
+    $ dzil build --tgz
+    $ dzil build --notgz
+
+=head1 OPTIONS
+
+=head2 --tgz | --notgz
+
+Builds a .tar.gz in your project directory after building the distribution.
+
+--tgz behaviour is by default, use --notgz to disable building an archive.
 
 =head1 AUTHOR
 
