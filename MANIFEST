@@ -22,7 +22,6 @@ lib/Dist/Zilla/Config/Finder.pm
 lib/Dist/Zilla/Config/INI.pm
 lib/Dist/Zilla/Config/Perl.pm
 lib/Dist/Zilla/ConfigRole/Findable.pm
-lib/Dist/Zilla/ConfigRole/MVP.pm
 lib/Dist/Zilla/File/InMemory.pm
 lib/Dist/Zilla/File/OnDisk.pm
 lib/Dist/Zilla/Plugin/AllFiles.pm

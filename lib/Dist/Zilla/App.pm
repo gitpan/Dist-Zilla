@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App;
-our $VERSION = '1.092310';
+our $VERSION = '1.092360';
 
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup -app;
@@ -22,12 +22,12 @@ sub config {
   return {} unless -e $file;
 
   if (-d $file) {
-    return Dist::Zilla::Config::Finder->new->read_expanded_config({
+    return Dist::Zilla::Config::Finder->new->read_config({
       root     =>  dir($homedir)->subdir('.dzil'),
       basename => 'config',
     });
   } else {
-    return Dist::Zilla::Config::Finder->new->read_expanded_config({
+    return Dist::Zilla::Config::Finder->new->read_config({
       root     => dir($homedir),
       filename => '.dzil',
     });
@@ -58,7 +58,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 1.092310
+version 1.092360
 
 =head1 AUTHOR
 

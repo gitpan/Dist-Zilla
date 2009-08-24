@@ -1,11 +1,10 @@
 package Dist::Zilla::Config::INI;
-our $VERSION = '1.092310';
+our $VERSION = '1.092360';
 
 use Moose;
 with qw(
   Dist::Zilla::Config
   Dist::Zilla::ConfigRole::Findable
-  Dist::Zilla::ConfigRole::MVP
 );
 # ABSTRACT: the reader for dist.ini files
 
@@ -23,7 +22,10 @@ sub read_config {
   my $ini = Config::INI::MVP::Reader->new({ assembler => $self->assembler });
   $ini->read_file($config_file);
 
-  return $self->config_struct;
+  # should be done in CIMR!! -- rjbs, 2009-08-24
+  $self->assembler->end_section if $self->assembler->current_section;
+
+  return $self->assembler->sequence;
 }
 
 no Moose;
@@ -40,13 +42,13 @@ Dist::Zilla::Config::INI - the reader for dist.ini files
 
 =head1 VERSION
 
-version 1.092310
+version 1.092360
 
 =head1 DESCRIPTION
 
 Dist::Zilla::Config reads in the F<dist.ini> file for a distribution.  It uses
 L<Config::INI::MVP::Reader> to do most of the heavy lifting, using the helpers
-set up in L<Dist::Zilla::Role::ConfigMVP>.
+set up in L<Dist::Zilla::Config>.
 
 =head1 AUTHOR
 

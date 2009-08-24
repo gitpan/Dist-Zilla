@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::AutoVersion;
-our $VERSION = '1.092310';
+our $VERSION = '1.092360';
 
 # ABSTRACT: take care of numbering versions so you don't have to
 use Moose;
@@ -20,6 +20,13 @@ has major => (
 );
 
 
+has time_zone => (
+  is       => 'ro',
+  isa      => 'Str',
+  required => 1,
+  default  => 'GMT',
+);
+
 has format => (
   is       => 'ro',
   isa      => 'Str',
@@ -30,7 +37,7 @@ has format => (
 sub provide_version {
   my ($self) = @_;
 
-  my $now = DateTime->now(time_zone => 'GMT');
+  my $now = DateTime->now(time_zone => $self->time_zone);
 
   my $version = $self->fill_in_string(
     $self->format,
@@ -55,7 +62,7 @@ Dist::Zilla::Plugin::AutoVersion - take care of numbering versions so you don't 
 
 =head1 VERSION
 
-version 1.092310
+version 1.092360
 
 =head1 DESCRIPTION
 
