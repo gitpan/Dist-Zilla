@@ -1,5 +1,5 @@
 package Dist::Zilla::Util::MVPAssembler;
-our $VERSION = '1.092360';
+our $VERSION = '1.092390';
 
 use Moose;
 extends 'Config::MVP::Assembler';
@@ -17,7 +17,13 @@ after end_section => sub {
 
   my ($last) = ($seq->sections)[-1];
   return unless $last->package;
-  return unless $last->package->does('Dist::Zilla::Role::PluginBundle');
+
+  {
+    local $@;
+    return unless eval {
+      $last->package->does('Dist::Zilla::Role::PluginBundle');
+    };
+  }
 
   $seq->delete_section($last->name);
 
@@ -75,7 +81,7 @@ Dist::Zilla::Util::MVPAssembler - Dist::Zilla-specific subclass of Config::MVP::
 
 =head1 VERSION
 
-version 1.092360
+version 1.092390
 
 =head1 AUTHOR
 

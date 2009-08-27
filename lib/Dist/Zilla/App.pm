@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App;
-our $VERSION = '1.092360';
+our $VERSION = '1.092390';
 
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup -app;
@@ -39,11 +39,12 @@ sub config_for {
 
   return {} unless $self->config;
 
-  for my $plugin ($self->config->flatten) {
-    return $plugin->[2] if $plugin->[1] eq $plugin_class;
-  }
+  my ($section) = grep { ($_->package||'') eq $plugin_class }
+                  $self->config->sections;
 
-  return {};
+  return {} unless $section;
+
+  return $section->payload;
 }
 
 1;
@@ -58,7 +59,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 1.092360
+version 1.092390
 
 =head1 AUTHOR
 
