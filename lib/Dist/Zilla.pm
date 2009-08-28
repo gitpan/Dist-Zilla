@@ -1,5 +1,5 @@
 package Dist::Zilla;
-our $VERSION = '1.092390';
+our $VERSION = '1.092400';
 
 # ABSTRACT: distribution builder; installer not included!
 use Moose;
@@ -494,7 +494,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.092390
+version 1.092400
 
 =head1 DESCRIPTION
 

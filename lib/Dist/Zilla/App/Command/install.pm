@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::install;
-our $VERSION = '1.092390';
+our $VERSION = '1.092400';
 
 # ABSTRACT: install your dist
 use Dist::Zilla::App -command;
@@ -15,7 +15,7 @@ sub opt_spec {
 
 
 
-sub run {
+sub execute {
   my ($self, $opt, $arg) = @_;
 
   require File::chdir;
@@ -60,7 +60,7 @@ Dist::Zilla::App::Command::install - install your dist
 
 =head1 VERSION
 
-version 1.092390
+version 1.092400
 
 =head1 SYNOPSIS
 

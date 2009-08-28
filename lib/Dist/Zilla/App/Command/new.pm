@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::new;
-our $VERSION = '1.092390';
+our $VERSION = '1.092400';
 
 # ABSTRACT: start a new dist
 use Dist::Zilla::App -command;
@@ -52,7 +52,8 @@ sub validate_args {
 sub opt_spec {
 }
 
-sub run {
+
+sub execute {
   my ($self, $opt, $arg) = @_;
 
   my $dist = $self->get_extra('dist');
@@ -96,7 +97,7 @@ __END__
 
 =head1 VERSION
 
-version 1.092390
+version 1.092400
 
 =head1 SYNOPSIS
 

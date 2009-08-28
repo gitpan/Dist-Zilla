@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::build;
-our $VERSION = '1.092390';
+our $VERSION = '1.092400';
 
 # ABSTRACT: build your dist
 use Dist::Zilla::App -command;
@@ -15,7 +15,7 @@ sub opt_spec {
 }
 
 
-sub run {
+sub execute {
   my ($self, $opt, $arg) = @_;
 
   my $method = $opt->{tgz} ? 'build_archive' : 'build_in';
@@ -34,7 +34,7 @@ Dist::Zilla::App::Command::build - build your dist
 
 =head1 VERSION
 
-version 1.092390
+version 1.092400
 
 =head1 SYNOPSIS
 

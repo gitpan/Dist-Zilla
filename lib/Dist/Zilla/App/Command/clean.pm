@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::clean;
-our $VERSION = '1.092390';
+our $VERSION = '1.092400';
 
 # ABSTRACT: clean up after build, test, or install
 use Dist::Zilla::App -command;
@@ -9,7 +9,7 @@ use Dist::Zilla::App -command;
 
 sub abstract { 'clean up after build, test, or install' }
 
-sub run {
+sub execute {
   my ($self, $opt, $arg) = @_;
 
   require File::Path;
@@ -31,7 +31,7 @@ Dist::Zilla::App::Command::clean - clean up after build, test, or install
 
 =head1 VERSION
 
-version 1.092390
+version 1.092400
 
 =head1 SYNOPSIS
 
