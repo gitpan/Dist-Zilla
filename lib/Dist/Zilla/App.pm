@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App;
-our $VERSION = '1.092400';
+our $VERSION = '1.092450';
 
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup -app;
@@ -19,7 +19,7 @@ sub config {
     or Carp::croak("couldn't determine home directory");
 
   my $file = dir($homedir)->file('.dzil');
-  return {} unless -e $file;
+  return unless -e $file;
 
   if (-d $file) {
     return Dist::Zilla::Config::Finder->new->read_config({
@@ -59,7 +59,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 1.092400
+version 1.092450
 
 =head1 AUTHOR
 
