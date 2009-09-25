@@ -1,7 +1,8 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::new;
-our $VERSION = '1.092450';
+our $VERSION = '1.092680';
+
 
 # ABSTRACT: start a new dist
 use Dist::Zilla::App -command;
@@ -97,7 +98,7 @@ __END__
 
 =head1 VERSION
 
-version 1.092450
+version 1.092680
 
 =head1 SYNOPSIS
 
@@ -177,7 +178,7 @@ This is loaded from your L<configuration/CONFIGURATION>, or set to "Perl_5" if n
 
 =head1 CONFIGURATION
 
-In C<~/.dzil> or C<~/.dzil/config>
+In C<~/.dzil> or C<~/.dzil/config.ini>
 
     [=Dist::Zilla::App::Command::new]
     author = authorname  # used for copyright owner

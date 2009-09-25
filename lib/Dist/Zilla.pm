@@ -1,5 +1,6 @@
 package Dist::Zilla;
-our $VERSION = '1.092450';
+our $VERSION = '1.092680';
+
 
 # ABSTRACT: distribution builder; installer not included!
 use Moose;
@@ -9,6 +10,7 @@ use MooseX::Types::Path::Class qw(Dir File);
 use Moose::Util::TypeConstraints;
 
 use File::Find::Rule;
+use Hash::Merge::Simple ();
 use Path::Class ();
 use Software::License;
 use String::RewritePrefix;
@@ -32,37 +34,41 @@ has name => (
 );
 
 
+has version_override => (
+  isa => 'Str',
+  is  => 'ro' ,
+  init_arg => 'version',
+);
+
 # XXX: *clearly* this needs to be really much smarter -- rjbs, 2008-06-01
 has version => (
   is   => 'rw',
   isa  => 'Str',
   lazy => 1,
-  predicate => 'has_version',
+  init_arg  => undef,
   required  => 1,
-  default   => sub { die('this should never be reached') },
+  builder   => '_build_version',
 );
 
-sub __initialize_version {
+sub _build_version {
   my ($self) = @_;
 
-  # Fix up version.
-  my $has_version = $self->has_version;
-  my $version;
+  my $version = $self->version_override;
 
   for my $plugin ($self->plugins_with(-VersionProvider)->flatten) {
     next unless defined(my $this_version = $plugin->provide_version);
 
-    confess('attempted to set version twice') if $has_version;
+    confess('attempted to set version twice') if defined $version;
 
     $version = $this_version;
-    $has_version = 1;
   }
 
-  $self->version($version) if defined $version;
-  confess('no version was ever set') unless $self->has_version;
+  confess('no version was ever set') unless defined $version;
 
   $self->log("warning: version number does not look like a number")
-    unless $self->version =~ m{\A\d+(?:\.\d+)\z};
+    unless $version =~ m{\A\d+(?:\.\d+)\z};
+
+  $version;
 }
 
 
@@ -124,6 +130,8 @@ has main_module => (
              ->sort(sub { length $_[0]->name <=> length $_[1]->name })
              ->head;
     }
+
+    die "Unable to find main_module in dist\n" unless $file;
 
     $self->log("guessing dist's main_module is " . $file->name);
 
@@ -248,6 +256,36 @@ has built_in => (
 );
 
 
+has distmeta => (
+  is   => 'ro',
+  isa  => 'HashRef',
+  init_arg  => undef,
+  lazy      => 1,
+  default => sub {
+    my ($self) = @_;
+
+    my $meta = {
+      'meta-spec' => {
+        version => 1.4,
+        url     => 'http://module-build.sourceforge.net/META-spec-v1.4.html',
+      },
+      name     => $self->name,
+      version  => $self->version,
+      abstract => $self->abstract,
+      author   => $self->authors,
+      license  => $self->license->meta_yml_name,
+      requires => $self->prereq,
+      generated_by => (ref $self) . ' version ' . $self->VERSION,
+    };
+
+    $meta = Hash::Merge::Simple::merge($meta, $_->metadata)
+      for $self->plugins_with(-MetaProvider)->flatten;
+
+    $meta;
+  } # end default for distmeta
+);
+
+
 sub prereq {
   my ($self) = @_;
 
@@ -300,8 +338,6 @@ sub from_config {
     );
   }
 
-  $self->__initialize_version;
-
   return $self;
 }
 
@@ -346,9 +382,7 @@ sub build_in {
 
   $_->before_build for $self->plugins_with(-BeforeBuild)->flatten;
 
-  my $build_root = $self->_prep_build_root($root);
-
-  $self->log("beginning to build " . $self->name . " in $build_root");
+  $self->log("beginning to build " . $self->name);
 
   $_->gather_files    for $self->plugins_with(-FileGatherer)->flatten;
   $_->prune_files     for $self->plugins_with(-FilePruner)->flatten;
@@ -356,6 +390,10 @@ sub build_in {
   $_->setup_installer for $self->plugins_with(-InstallTool)->flatten;
 
   $self->_check_dupe_files;
+
+  my $build_root = $self->_prep_build_root($root);
+
+  $self->log("writing " . $self->name . " in $build_root");
 
   for my $file ($self->files->flatten) {
     $self->_write_out_file($file, $build_root);
@@ -494,7 +532,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.092450
+version 1.092680
 
 =head1 DESCRIPTION
 
@@ -589,6 +627,12 @@ object.
 =head2 built_in
 
 This is the L<Path::Class::Dir>, if any, in which the dist has been built.
+
+=head2 distmeta
+
+This is a hashref containing the metadata about this distribution that
+will be stored in META.yml or META.json.  You should not alter the
+metadata in this hash; use a MetaProvider plugin instead.
 
 =head2 prereq
 

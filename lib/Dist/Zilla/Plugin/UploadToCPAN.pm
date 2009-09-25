@@ -1,5 +1,6 @@
 package Dist::Zilla::Plugin::UploadToCPAN;
-our $VERSION = '1.092450';
+our $VERSION = '1.092680';
+
 
 # ABSTRACT: upload the dist to CPAN
 use Moose;
@@ -61,7 +62,7 @@ Dist::Zilla::Plugin::UploadToCPAN - upload the dist to CPAN
 
 =head1 VERSION
 
-version 1.092450
+version 1.092680
 
 =head1 SYNOPSIS
 
@@ -69,7 +70,7 @@ If loaded, this plugin will allow the F<release> command to upload to the CPAN.
 
 =head1 DESCRIPTION
 
-This plugin requires configuration in your C<dist.ini> or C<~/.dzil/config>:
+This plugin requires configuration in your C<dist.ini> or C<~/.dzil/config.ini>:
 
   [=Dist::Zilla::App::Command::release]
   user     = YOUR-PAUSE-ID

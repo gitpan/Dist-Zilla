@@ -1,5 +1,6 @@
 package Dist::Zilla::Plugin::PodTests;
-our $VERSION = '1.092450';
+our $VERSION = '1.092680';
+
 
 # ABSTRACT: common extra tests for pod
 use Moose;
@@ -21,7 +22,7 @@ Dist::Zilla::Plugin::PodTests - common extra tests for pod
 
 =head1 VERSION
 
-version 1.092450
+version 1.092680
 
 =head1 DESCRIPTION
 
