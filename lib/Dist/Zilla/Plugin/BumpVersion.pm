@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::BumpVersion;
-our $VERSION = '1.092680';
+our $VERSION = '1.092850';
 
 
 # ABSTRACT: bump the configured version number by one before building
@@ -41,7 +41,7 @@ Dist::Zilla::Plugin::BumpVersion - bump the configured version number by one bef
 
 =head1 VERSION
 
-version 1.092680
+version 1.092850
 
 =head1 SYNOPSIS
 

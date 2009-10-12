@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::License;
-our $VERSION = '1.092680';
+our $VERSION = '1.092850';
 
 
 # ABSTRACT: output a LICENSE file
@@ -35,7 +35,7 @@ Dist::Zilla::Plugin::License - output a LICENSE file
 
 =head1 VERSION
 
-version 1.092680
+version 1.092850
 
 =head1 DESCRIPTION
 

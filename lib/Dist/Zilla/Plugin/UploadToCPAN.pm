@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::UploadToCPAN;
-our $VERSION = '1.092680';
+our $VERSION = '1.092850';
 
 
 # ABSTRACT: upload the dist to CPAN
@@ -62,7 +62,7 @@ Dist::Zilla::Plugin::UploadToCPAN - upload the dist to CPAN
 
 =head1 VERSION
 
-version 1.092680
+version 1.092850
 
 =head1 SYNOPSIS
 

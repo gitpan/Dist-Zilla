@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MakeMaker;
-our $VERSION = '1.092680';
+our $VERSION = '1.092850';
 
 
 
@@ -21,8 +21,8 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
   DISTNAME  => '{{ $dist->name     }}',
   NAME      => '{{ $module_name    }}',
-  AUTHOR    => '{{ $author_str     }}',
-  ABSTRACT  => '{{ quotemeta($dist->abstract) }}',
+  AUTHOR    => "{{ $author_str     }}",
+  ABSTRACT  => "{{ quotemeta($dist->abstract) }}",
   VERSION   => '{{ $dist->version  }}',
   EXE_FILES => [ qw({{ $exe_files }}) ],
   (eval { ExtUtils::MakeMaker->VERSION(6.31) } ? (LICENSE => '{{ $dist->license->meta_yml_name }}') : ()),
@@ -50,12 +50,13 @@ sub setup_installer {
     ->join(q{ });
 
   my %test_dirs;
-  $self->zilla->files->grep( sub {
-    $_->name =~ /\.t$/
-    && $_->name =~ /^(.*\/).*?$/
-    && ($test_dirs{$1 . '*.t'}++)
-  });
-  
+  for my $file ($self->zilla->files->flatten) {
+    next unless $file->name =~ m{\At/.+\.t\z};
+    (my $dir = $file->name) =~ s{/[^/]+\.t\z}{/*.t}g;
+
+    $test_dirs{ $dir } = 1;
+  }
+
   my $content = $self->fill_in_string(
     $template,
     {
@@ -90,12 +91,12 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 1.092680
+version 1.092850
 
 =head1 DESCRIPTION
 
 This plugin will produce an L<ExtUtils::MakeMaker>-powered F<Makefile.PL> for
-the distribution.  It loaded, the L<Manifest|Dist::Zilla::Plugin::Manifest>
+the distribution.  If loaded, the L<Manifest|Dist::Zilla::Plugin::Manifest>
 plugin should also be loaded.
 
 =head1 AUTHOR

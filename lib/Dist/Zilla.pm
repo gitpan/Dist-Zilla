@@ -1,5 +1,5 @@
 package Dist::Zilla;
-our $VERSION = '1.092680';
+our $VERSION = '1.092850';
 
 
 # ABSTRACT: distribution builder; installer not included!
@@ -118,14 +118,20 @@ has main_module => (
     my ($self) = @_;
 
     my $file;
+    my $guessing = q{};
 
     if ( $self->has_main_module_override ) {
 
        $file = $self->files->grep(sub{ $_->name eq $self->main_module_override })->head;
 
     } else {
+       $guessing = 'guessing '; # We're having to guess
 
-       $file = $self->files
+       (my $guess = $self->name) =~ s{-}{/}g;
+       $guess = "lib/$guess.pm";
+
+       $file = $self->files->grep(sub{ $_->name eq $guess })->head
+           ||  $self->files
              ->grep(sub { $_->name =~ m{\.pm\z} and $_->name =~ m{\Alib/} })
              ->sort(sub { length $_[0]->name <=> length $_[1]->name })
              ->head;
@@ -133,7 +139,7 @@ has main_module => (
 
     die "Unable to find main_module in dist\n" unless $file;
 
-    $self->log("guessing dist's main_module is " . $file->name);
+    $self->log("${guessing}dist's main_module is " . $file->name);
 
     return $file;
   },
@@ -410,7 +416,7 @@ sub ensure_built_in {
   my ($self, $root) = @_;
 
   # $root ||= $self->name . q{-} . $self->version;
-  return if $self->built_in and 
+  return if $self->built_in and
     (!$root or ($self->built_in eq $root));
 
   Carp::croak("dist is already built, but not in $root") if $self->built_in;
@@ -420,7 +426,7 @@ sub ensure_built_in {
 
 sub build_archive {
   my ($self, $root) = @_;
-  
+
   $self->ensure_built_in($root);
 
   require Archive::Tar;
@@ -532,7 +538,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.092680
+version 1.092850
 
 =head1 DESCRIPTION
 
@@ -545,6 +551,19 @@ published, released code, it can do much more than those tools, and is free to
 make much more ludicrous demands in terms of prerequisites.
 
 For more information, see L<Dist::Zilla::Tutorial>.
+
+=head1 SUPPORT
+
+There are usually people on C<irc.perl.org> in C<#distzilla>, even if they're
+idling.
+
+There is a mailing list to discuss Dist::Zilla, which you can join here:
+
+L<http://www.listbox.com/subscribe/?list_id=139292>
+
+The archive is available here:
+
+L<http://listbox.com/member/archive/139292>
 
 =head1 ATTRIBUTES
 
@@ -572,10 +591,12 @@ looked for in the L</main_module> of the dist.
 =head2 main_module
 
 This is the module where Dist::Zilla might look for various defaults, like
-the distribution abstract.  By default, it's the shorted-named module in the
-distribution.  This is likely to change!
+the distribution abstract.  By default, it's derived from the distribution
+name.  If your distribution is Foo-Bar, and F<lib/Foo/Bar.pm> exists,
+that's the main_module.  Otherwise, it's the shortest-named module in the
+distribution.  This may change!
 
-You can override the default found one by specifying the file path explicitly,
+You can override the default by specifying the file path explicitly,
 ie:
     main_module = lib/Foo/Bar.pm
 

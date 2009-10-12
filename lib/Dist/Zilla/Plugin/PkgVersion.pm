@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::PkgVersion;
-our $VERSION = '1.092680';
+our $VERSION = '1.092850';
 
 
 # ABSTRACT: add a $VERSION to your packages
@@ -10,6 +10,7 @@ with 'Dist::Zilla::Role::FileMunger';
 sub munge_file {
   my ($self, $file) = @_;
 
+  return                          if $file->name    =~ /\.t$/i;
   return $self->munge_perl($file) if $file->name    =~ /\.(?:pm|pl)$/i;
   return $self->munge_perl($file) if $file->content =~ /^#!(?:.*)perl(?:$|\s)/;
   return;
@@ -54,7 +55,7 @@ Dist::Zilla::Plugin::PkgVersion - add a $VERSION to your packages
 
 =head1 VERSION
 
-version 1.092680
+version 1.092850
 
 =head1 DESCRIPTION
 
