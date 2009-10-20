@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::FileGatherer;
-our $VERSION = '1.092850';
+our $VERSION = '1.092930';
 
 
 use Moose::Autobox;
@@ -15,7 +15,6 @@ no Moose::Role;
 1;
 
 __END__
-
 =pod
 
 =head1 NAME
@@ -24,7 +23,7 @@ Dist::Zilla::Role::FileGatherer - something that gathers files into the distribu
 
 =head1 VERSION
 
-version 1.092850
+version 1.092930
 
 =head1 DESCRIPTION
 
@@ -35,7 +34,7 @@ its C<add_file> method to add one or more files to inclusion.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
@@ -44,6 +43,5 @@ This software is copyright (c) 2009 by Ricardo SIGNES.
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
-=cut 
-
+=cut
 

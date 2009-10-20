@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::new;
-our $VERSION = '1.092850';
+our $VERSION = '1.092930';
 
 
 # ABSTRACT: start a new dist
@@ -93,12 +93,15 @@ sub execute {
 1;
 
 __END__
-
 =pod
+
+=head1 NAME
+
+Dist::Zilla::App::Command::new - start a new dist
 
 =head1 VERSION
 
-version 1.092850
+version 1.092930
 
 =head1 SYNOPSIS
 
@@ -145,6 +148,10 @@ creates
 
     $ /tmp/Foo-Bar/dist.ini
 
+=cut
+
+=pod
+
 =head1 GENERATED FILE
 
 The main purpose of the 'new' command is to generate a model C<dist.ini> file that will do just the basics.
@@ -176,6 +183,10 @@ This is loaded from your L<configuration/CONFIGURATION>, or attempted to be dete
 
 This is loaded from your L<configuration/CONFIGURATION>, or set to "Perl_5" if not configured.
 
+=cut
+
+=pod
+
 =head1 CONFIGURATION
 
 In C<~/.dzil> or C<~/.dzil/config.ini>
@@ -188,7 +199,7 @@ In C<~/.dzil> or C<~/.dzil/config.ini>
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
@@ -197,6 +208,5 @@ This software is copyright (c) 2009 by Ricardo SIGNES.
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
-=cut 
-
+=cut
 

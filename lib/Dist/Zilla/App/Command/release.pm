@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::release;
-our $VERSION = '1.092850';
+our $VERSION = '1.092930';
 
 
 # ABSTRACT: release your dist to the CPAN
@@ -26,7 +26,6 @@ sub execute {
 1;
 
 __END__
-
 =pod
 
 =head1 NAME
@@ -35,7 +34,7 @@ Dist::Zilla::App::Command::release - release your dist to the CPAN
 
 =head1 VERSION
 
-version 1.092850
+version 1.092930
 
 =head1 SYNOPSIS
 
@@ -48,7 +47,7 @@ L<Dist::Zilla::Role::Releaser>, such as L<Dist::Zilla::Plugin::UploadToCPAN>
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
@@ -57,6 +56,5 @@ This software is copyright (c) 2009 by Ricardo SIGNES.
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
-=cut 
-
+=cut
 

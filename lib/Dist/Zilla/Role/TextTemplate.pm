@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::TextTemplate;
-our $VERSION = '1.092850';
+our $VERSION = '1.092930';
 
 
 # ABSTRACT: something that renders a Text::Template template string
@@ -34,7 +34,6 @@ no Moose::Role;
 1;
 
 __END__
-
 =pod
 
 =head1 NAME
@@ -43,12 +42,16 @@ Dist::Zilla::Role::TextTemplate - something that renders a Text::Template templa
 
 =head1 VERSION
 
-version 1.092850
+version 1.092930
 
 =head1 DESCRIPTION
 
 Plugins implementing TextTemplate may call their own C<L</fill_in_string>>
 method to render templates using L<Text::Template|Text::Template>.
+
+=cut
+
+=pod
 
 =head1 ATTRIBUTES
 
@@ -57,6 +60,10 @@ method to render templates using L<Text::Template|Text::Template>.
 This attribute (which can't easily be set!) is a two-element array reference
 returning the Text::Template delimiters to use.  It defaults to C<{{> and
 C<}}>.
+
+=cut
+
+=pod
 
 =head1 METHODS
 
@@ -73,7 +80,7 @@ C<fill_in_string> routine.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
@@ -82,6 +89,5 @@ This software is copyright (c) 2009 by Ricardo SIGNES.
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
-=cut 
-
+=cut
 

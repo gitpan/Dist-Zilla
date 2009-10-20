@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::CreditTaker;
-our $VERSION = '1.092850';
+our $VERSION = '1.092930';
 
 
 # ABSTRACT: add 'built by D::Z' to all your modules

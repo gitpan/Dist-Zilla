@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::Util;
-our $VERSION = '1.092850';
+our $VERSION = '1.092930';
 
 
 # ABSTRACT: random snippets of code that Dist::Zilla wants
@@ -89,7 +89,6 @@ sub _log {
 1;
 
 __END__
-
 =pod
 
 =head1 NAME
@@ -98,7 +97,7 @@ Dist::Zilla::Util - random snippets of code that Dist::Zilla wants
 
 =head1 VERSION
 
-version 1.092850
+version 1.092930
 
 =head1 METHODS
 
@@ -107,6 +106,10 @@ version 1.092850
 This method, I<which is likely to change or go away>, tries to guess the
 abstract of a given file, assuming that it's Perl code.  It looks for a POD
 C<=head1> section called "NAME" or a comment beginning with C<ABSTRACT:>.
+
+=cut
+
+=pod
 
 =head2 expand_config_package_name 
 
@@ -118,7 +121,7 @@ more information.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
@@ -127,6 +130,5 @@ This software is copyright (c) 2009 by Ricardo SIGNES.
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
-=cut 
-
+=cut
 

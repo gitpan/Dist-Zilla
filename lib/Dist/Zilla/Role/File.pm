@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::File;
-our $VERSION = '1.092850';
+our $VERSION = '1.092930';
 
 
 # ABSTRACT: something that can act like a file
@@ -29,7 +29,6 @@ no Moose::Role;
 1;
 
 __END__
-
 =pod
 
 =head1 NAME
@@ -38,7 +37,7 @@ Dist::Zilla::Role::File - something that can act like a file
 
 =head1 VERSION
 
-version 1.092850
+version 1.092930
 
 =head1 DESCRIPTION
 
@@ -50,11 +49,19 @@ This role describes a file that may be written into the shipped distribution.
 
 This is the name of the file to be written out.
 
+=cut
+
+=pod
+
 =head2 added_by
 
 This is a string describing when and why the file was added to the
 distribution.  It will generally be set by a plugin implementing the
 L<FileInjector|Dist::Zilla::Role::FileInjector> role.
+
+=cut
+
+=pod
 
 =head2 install_type
 
@@ -63,7 +70,7 @@ installed.  For now, its meaning is pretty up in the air.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
@@ -72,6 +79,5 @@ This software is copyright (c) 2009 by Ricardo SIGNES.
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
-=cut 
-
+=cut
 
