@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::install;
-our $VERSION = '1.092930';
+our $VERSION = '1.092990';
 
 
 # ABSTRACT: install your dist
@@ -60,7 +60,7 @@ Dist::Zilla::App::Command::install - install your dist
 
 =head1 VERSION
 
-version 1.092930
+version 1.092990
 
 =head1 SYNOPSIS
 
@@ -68,18 +68,10 @@ Installs your distribution using a specified command.
 
     dzil install [--install-command="cmd"]
 
-=cut
-
-=pod
-
 =head1 EXAMPLE
 
     $ dzil install
     $ dzil install --install-command="cpan ."
-
-=cut
-
-=pod
 
 =head1 OPTIONS
 
@@ -95,7 +87,7 @@ If not specified, calls
 
 =head1 AUTHOR
 
-Ricardo SIGNES <rjbs@cpan.org>
+  Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

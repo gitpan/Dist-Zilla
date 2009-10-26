@@ -1,33 +1,28 @@
 package Dist::Zilla::Config;
-our $VERSION = '1.092930';
+our $VERSION = '1.092990';
 
 
 use Moose::Role;
 # ABSTRACT: stored configuration loader role
 
+with q(Config::MVP::Reader) => { -excludes => 'build_assembler' };
+
 use Dist::Zilla::Util::MVPAssembler;
 
 
-has assembler => (
-  is   => 'ro',
-  isa  => 'Config::MVP::Assembler',
-  lazy => 1,
-  default => sub {
-    my $assembler = Dist::Zilla::Util::MVPAssembler->new;
+sub build_assembler {
+  my $assembler = Dist::Zilla::Util::MVPAssembler->new;
 
-    my $root = $assembler->section_class->new({
-      name => '_',
-      aliases => { author => 'authors' },
-      multivalue_args => [ qw(authors) ],
-    });
+  my $root = $assembler->section_class->new({
+    name    => '_',
+    aliases => { author => 'authors' },
+    multivalue_args => [ qw(authors) ],
+  });
 
-    $assembler->sequence->add_section($root);
+  $assembler->sequence->add_section($root);
 
-    return $assembler;
-  }
-);
-
-requires 'read_config';
+  return $assembler;
+}
 
 no Moose::Role;
 1;
@@ -41,7 +36,7 @@ Dist::Zilla::Config - stored configuration loader role
 
 =head1 VERSION
 
-version 1.092930
+version 1.092990
 
 =head1 DESCRIPTION
 
@@ -60,7 +55,7 @@ multivalue argument.
 
 =head1 AUTHOR
 
-Ricardo SIGNES <rjbs@cpan.org>
+  Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

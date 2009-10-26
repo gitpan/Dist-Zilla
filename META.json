@@ -6,8 +6,8 @@
       "version" : 1.4,
       "url" : "http://module-build.sourceforge.net/META-spec-v1.4.html"
    },
-   "generated_by" : "Dist::Zilla version 1.092930",
-   "version" : "1.092930",
+   "generated_by" : "Dist::Zilla version 1.092990",
+   "version" : "1.092990",
    "name" : "Dist-Zilla",
    "author" : [
       "Ricardo SIGNES <rjbs@cpan.org>"
@@ -15,14 +15,14 @@
    "license" : "perl",
    "requires" : {
       "DateTime" : "0.44",
-      "Config::INI::MVP::Reader" : "0.022",
+      "Config::INI::MVP::Reader" : "0.024",
       "App::Cmd" : "0.299",
       "Pod::Eventual" : "0.091480",
       "Data::Section" : "0.004",
       "String::RewritePrefix" : "0.002",
       "File::chdir" : "0",
       "String::Format" : "0",
-      "Config::MVP" : "0.092360",
+      "Config::MVP" : "0.092990",
       "Perl::Version" : "0",
       "autobox" : "2.53",
       "Software::License" : "0",

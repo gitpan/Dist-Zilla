@@ -1,5 +1,5 @@
 package Dist::Zilla;
-our $VERSION = '1.092930';
+our $VERSION = '1.092990';
 
 
 # ABSTRACT: distribution builder; installer not included!
@@ -537,7 +537,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.092930
+version 1.092990
 
 =head1 DESCRIPTION
 
@@ -559,36 +559,20 @@ This attribute (which is optional) will provide the Dist::Zilla::App object if
 the Dist::Zilla object is being used in the context of the F<dzil> command (or
 anything else using it through Dist::Zilla::App).
 
-=cut
-
-=pod
-
 =head2 name
 
 The name attribute (which is required) gives the name of the distribution to be
 built.  This is usually the name of the distribution's main module, with the
 double colons (C<::>) replaced with dashes.  For example: C<Dist-Zilla>.
 
-=cut
-
-=pod
-
 =head2 version
 
 This is the version of the distribution to be created.
-
-=cut
-
-=pod
 
 =head2 abstract
 
 This is a one-line summary of the distribution.  If none is given, one will be
 looked for in the L</main_module> of the dist.
-
-=cut
-
-=pod
 
 =head2 main_module
 
@@ -602,26 +586,14 @@ You can override the default by specifying the file path explicitly,
 ie:
     main_module = lib/Foo/Bar.pm
 
-=cut
-
-=pod
-
 =head2 copyright_holder
 
 This is the name of the legal entity who holds the copyright on this code.
 This is a required attribute with no default!
 
-=cut
-
-=pod
-
 =head2 copyright_year
 
 This is the year of copyright for the dist.  By default, it's this year.
-
-=cut
-
-=pod
 
 =head2 license
 
@@ -632,10 +604,6 @@ try to guess the license from the POD of the dist's main module.
 
 A better option is to set the C<license> name in the dist's config to something
 understandable, like C<Perl_5>.
-
-=cut
-
-=pod
 
 =head2 authors
 
@@ -648,44 +616,24 @@ This is an arrayref of author strings, like this:
 
 This is likely to change at some point in the near future.
 
-=cut
-
-=pod
-
 =head2 files
 
 This is an arrayref of objects implementing L<Dist::Zilla::Role::File> that
 will, if left in this arrayref, be built into the dist.
-
-=cut
-
-=pod
 
 =head2 root
 
 This is the root directory of the dist, as a L<Path::Class::Dir>.  It will
 nearly always be the current working directory in which C<dzil> was run.
 
-=cut
-
-=pod
-
 =head2 plugins
 
 This is an arrayref of plugins that have been plugged into this Dist::Zilla
 object.
 
-=cut
-
-=pod
-
 =head2 built_in
 
 This is the L<Path::Class::Dir>, if any, in which the dist has been built.
-
-=cut
-
-=pod
 
 =head2 distmeta
 
@@ -693,19 +641,11 @@ This is a hashref containing the metadata about this distribution that
 will be stored in META.yml or META.json.  You should not alter the
 metadata in this hash; use a MetaProvider plugin instead.
 
-=cut
-
-=pod
-
 =head2 prereq
 
 This is a hashref of module prerequisites.  This attribute is likely to get
 greatly overhauled, or possibly replaced with a method based on other
 (private?) attributes.
-
-=cut
-
-=pod
 
 =head1 METHODS
 
@@ -719,11 +659,7 @@ directory.
 Valid arguments are:
 
   config_class - the class to use to read the config
-                 default: Dist::Zilla::Config::INI
-
-=cut
-
-=pod
+                 default: Dist::Zilla::Config::Finder
 
 =head2 plugins_with
 
@@ -733,10 +669,6 @@ This method returns an arrayref containing all the Dist::Zilla object's plugins
 that perform a the named role.  If the given role name begins with a dash, the
 dash is replaced with "Dist::Zilla::Role::"
 
-=cut
-
-=pod
-
 =head2 build_in
 
   $zilla->build_in($root);
@@ -745,20 +677,12 @@ This method builds the distribution in the given directory.  If no directory
 name is given, it defaults to DistName-Version.  If the distribution has
 already been built, an exception will be thrown.
 
-=cut
-
-=pod
-
 =head2 ensure_built_in
 
   $zilla->ensure_built_in($root);
 
 This method behaves like C<L</build_in>>, but if the dist is already built in
 C<$root> (or the default root, if no root is given), no exception is raised.
-
-=cut
-
-=pod
 
 =head2 build_archive
 
@@ -767,20 +691,12 @@ C<$root> (or the default root, if no root is given), no exception is raised.
 This method will ensure that the dist has been built in the given root, and
 will then build a tarball of that directory in the current directory.
 
-=cut
-
-=pod
-
 =head2 test
 
   $zilla->test;
 
 This method builds a new copy of the distribution and tests it.  If the tests
 appear to pass, it returns true.  If something goes wrong, it returns false.
-
-=cut
-
-=pod
 
 =head2 release
 
@@ -790,10 +706,6 @@ This method releases the distribution, probably by uploading it to the CPAN.
 The actual effects of this method (as with most of the methods) is determined
 by the loaded plugins.
 
-=cut
-
-=pod
-
 =head2 log
 
   $zilla->log($message);
@@ -801,10 +713,6 @@ by the loaded plugins.
 This method logs the given message.  In the future it will be a more useful and
 expressive method.  For now, it just prints the string after tacking on a
 newline.
-
-=cut
-
-=pod
 
 =head1 SUPPORT
 
@@ -821,7 +729,7 @@ L<http://listbox.com/member/archive/139292>
 
 =head1 AUTHOR
 
-Ricardo SIGNES <rjbs@cpan.org>
+  Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

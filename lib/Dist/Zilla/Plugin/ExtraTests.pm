@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::ExtraTests;
-our $VERSION = '1.092930';
+our $VERSION = '1.092990';
 
 
 # ABSTRACT: rewrite ./xt tests to ./t tests with skips
@@ -68,7 +68,7 @@ Dist::Zilla::Plugin::ExtraTests - rewrite ./xt tests to ./t tests with skips
 
 =head1 VERSION
 
-version 1.092930
+version 1.092990
 
 =head1 DESCRIPTION
 
@@ -84,7 +84,7 @@ not set.
 
 =head1 AUTHOR
 
-Ricardo SIGNES <rjbs@cpan.org>
+  Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

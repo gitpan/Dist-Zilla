@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::Plugin;
-our $VERSION = '1.092930';
+our $VERSION = '1.092990';
 
 
 # ABSTRACT: something that gets plugged in to Dist::Zilla
@@ -34,7 +34,7 @@ Dist::Zilla::Role::Plugin - something that gets plugged in to Dist::Zilla
 
 =head1 VERSION
 
-version 1.092930
+version 1.092990
 
 =head1 DESCRIPTION
 
@@ -48,18 +48,10 @@ methods and attributes that all plugins will need.
 The plugin name is generally determined when configuration is read.  It is
 initialized by the C<=name> argument to the plugin's constructor.
 
-=cut
-
-=pod
-
 =head2 zilla
 
 This attribute contains the Dist::Zilla object into which the plugin was
 plugged.
-
-=cut
-
-=pod
 
 =head1 METHODS
 
@@ -70,7 +62,7 @@ L<Dist::Zilla/log> method.
 
 =head1 AUTHOR
 
-Ricardo SIGNES <rjbs@cpan.org>
+  Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

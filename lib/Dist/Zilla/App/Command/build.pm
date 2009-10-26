@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::build;
-our $VERSION = '1.092930';
+our $VERSION = '1.092990';
 
 
 # ABSTRACT: build your dist
@@ -34,7 +34,7 @@ Dist::Zilla::App::Command::build - build your dist
 
 =head1 VERSION
 
-version 1.092930
+version 1.092990
 
 =head1 SYNOPSIS
 
@@ -42,19 +42,11 @@ Builds your distribution and emits tar.gz files / directories.
 
     dzil build [--tgz|--notgz]
 
-=cut
-
-=pod
-
 =head1 EXAMPLE
 
     $ dzil build
     $ dzil build --tgz
     $ dzil build --notgz
-
-=cut
-
-=pod
 
 =head1 OPTIONS
 
@@ -66,7 +58,7 @@ Builds a .tar.gz in your project directory after building the distribution.
 
 =head1 AUTHOR
 
-Ricardo SIGNES <rjbs@cpan.org>
+  Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

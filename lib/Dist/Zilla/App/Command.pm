@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command;
-our $VERSION = '1.092930';
+our $VERSION = '1.092990';
 
 
 # ABSTRACT: base class for dzil commands
@@ -43,7 +43,7 @@ Dist::Zilla::App::Command - base class for dzil commands
 
 =head1 VERSION
 
-version 1.092930
+version 1.092990
 
 =head1 METHODS
 
@@ -52,17 +52,9 @@ version 1.092930
 This returns the Dist::Zilla object in use by the command.  If none has yet
 been constructed, one will be by calling C<< Dist::Zilla->from_config >>.
 
-=cut
-
-=pod
-
 =head2 config
 
 This method returns the configuration for the current command.
-
-=cut
-
-=pod
 
 =head2 log
 
@@ -71,7 +63,7 @@ object.
 
 =head1 AUTHOR
 
-Ricardo SIGNES <rjbs@cpan.org>
+  Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::TextTemplate;
-our $VERSION = '1.092930';
+our $VERSION = '1.092990';
 
 
 # ABSTRACT: something that renders a Text::Template template string
@@ -42,16 +42,12 @@ Dist::Zilla::Role::TextTemplate - something that renders a Text::Template templa
 
 =head1 VERSION
 
-version 1.092930
+version 1.092990
 
 =head1 DESCRIPTION
 
 Plugins implementing TextTemplate may call their own C<L</fill_in_string>>
 method to render templates using L<Text::Template|Text::Template>.
-
-=cut
-
-=pod
 
 =head1 ATTRIBUTES
 
@@ -60,10 +56,6 @@ method to render templates using L<Text::Template|Text::Template>.
 This attribute (which can't easily be set!) is a two-element array reference
 returning the Text::Template delimiters to use.  It defaults to C<{{> and
 C<}}>.
-
-=cut
-
-=pod
 
 =head1 METHODS
 
@@ -80,7 +72,7 @@ C<fill_in_string> routine.
 
 =head1 AUTHOR
 
-Ricardo SIGNES <rjbs@cpan.org>
+  Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

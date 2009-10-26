@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::PluginBundle;
-our $VERSION = '1.092930';
+our $VERSION = '1.092990';
 
 
 # ABSTRACT: a bundle of plugins
@@ -20,17 +20,18 @@ Dist::Zilla::Role::PluginBundle - a bundle of plugins
 
 =head1 VERSION
 
-version 1.092930
+version 1.092990
 
 =head1 DESCRIPTION
 
 When loading configuration, if the config reader encounters a PluginBundle, it
 will replace its place in the plugin list with the result of calling its
-C<bundle_config> method.
+C<bundle_config> method, which will be passed a Config::MVP::Section to
+configure the bundle.
 
 =head1 AUTHOR
 
-Ricardo SIGNES <rjbs@cpan.org>
+  Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

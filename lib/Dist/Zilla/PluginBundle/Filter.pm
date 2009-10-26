@@ -1,5 +1,5 @@
 package Dist::Zilla::PluginBundle::Filter;
-our $VERSION = '1.092930';
+our $VERSION = '1.092990';
 
 
 # ABSTRACT: use another bundle, with some plugins removed
@@ -13,8 +13,10 @@ use Dist::Zilla::Util;
 sub mvp_multivalue_args { qw(remove) }
 
 sub bundle_config {
-  my ($self, $config) = @_;
+  my ($self, $section) = @_;
   my $class = (ref $self) || $self;
+
+  my $config = $section->{payload};
 
   Carp::croak("no bundle given for bundle filter")
     unless my $bundle = $config->{bundle};
@@ -50,7 +52,7 @@ Dist::Zilla::PluginBundle::Filter - use another bundle, with some plugins remove
 
 =head1 VERSION
 
-version 1.092930
+version 1.092990
 
 =head1 SYNOPSIS
 
@@ -69,7 +71,7 @@ but removes all the entries whose package is given in the C<remove> attributes.
 
 =head1 AUTHOR
 
-Ricardo SIGNES <rjbs@cpan.org>
+  Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::AutoVersion;
-our $VERSION = '1.092930';
+our $VERSION = '1.092990';
 
 
 # ABSTRACT: take care of numbering versions so you don't have to
@@ -62,16 +62,12 @@ Dist::Zilla::Plugin::AutoVersion - take care of numbering versions so you don't 
 
 =head1 VERSION
 
-version 1.092930
+version 1.092990
 
 =head1 DESCRIPTION
 
 This plugin automatically produces a version string, generally based on the
 current time.  By default, it will be in the format: 1.yyyymmddhhmm
-
-=cut
-
-=pod
 
 =head1 ATTRIBUTES
 
@@ -82,10 +78,6 @@ version number.  If no value is specified in configuration, it will default to
 1.
 
 This attribute's value can be referred to in the autoversion format template.
-
-=cut
-
-=pod
 
 =head2 format
 
@@ -100,7 +92,7 @@ The default value is:
 
 =head1 AUTHOR
 
-Ricardo SIGNES <rjbs@cpan.org>
+  Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

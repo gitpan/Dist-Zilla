@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::PruneFiles;
-our $VERSION = '1.092930';
+our $VERSION = '1.092990';
 
 
 # ABSTRACT: prune arbirary files from the dist
@@ -43,7 +43,7 @@ Dist::Zilla::Plugin::PruneFiles - prune arbirary files from the dist
 
 =head1 VERSION
 
-version 1.092930
+version 1.092990
 
 =head1 SYNOPSIS
 
@@ -56,10 +56,6 @@ In your F<dist.ini>:
   [PruneFiles]
   file = xt/release/pod-coverage.t ; pod coverage tests are for jerks
 
-=cut
-
-=pod
-
 =head1 ATTRIBUTES
 
 =head2 filenames
@@ -70,7 +66,7 @@ in the config).
 
 =head1 AUTHOR
 
-Ricardo SIGNES <rjbs@cpan.org>
+  Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

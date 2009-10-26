@@ -1,12 +1,10 @@
 package Dist::Zilla::Config::Perl;
-our $VERSION = '1.092930';
+our $VERSION = '1.092990';
 
 
 use Moose;
-with qw(
-  Dist::Zilla::Config
-  Dist::Zilla::ConfigRole::Findable
-);
+with qw(Config::MVP::Reader::Findable);
+with qw(Dist::Zilla::Config);
 # ABSTRACT: the reader for dist.pl files
 
 
@@ -61,17 +59,15 @@ Dist::Zilla::Config::Perl - the reader for dist.pl files
 
 =head1 VERSION
 
-version 1.092930
+version 1.092990
 
 =head1 DESCRIPTION
 
-Dist::Zilla::Config reads in the F<dist.pl> file for a distribution.  It uses
-L<Config::MVP::Assembler> to do most of the heavy lifting, using the helpers
-set up in L<Dist::Zilla::Config>.
+Dist::Zilla::Config reads in the F<dist.pl> file for a distribution.
 
 =head1 AUTHOR
 
-Ricardo SIGNES <rjbs@cpan.org>
+  Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
