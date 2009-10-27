@@ -6,8 +6,8 @@
       "version" : 1.4,
       "url" : "http://module-build.sourceforge.net/META-spec-v1.4.html"
    },
-   "generated_by" : "Dist::Zilla version 1.092990",
-   "version" : "1.092990",
+   "generated_by" : "Dist::Zilla version 1.093000",
+   "version" : "1.093000",
    "name" : "Dist-Zilla",
    "author" : [
       "Ricardo SIGNES <rjbs@cpan.org>"
@@ -28,7 +28,7 @@
       "Software::License" : "0",
       "Archive::Tar" : "0",
       "List::MoreUtils" : "0",
-      "Moose" : "0.65",
+      "Moose" : "0.92",
       "String::Flogger" : "1",
       "ExtUtils::Manifest" : "1.54",
       "File::Find::Rule" : "0",
