@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MakeMaker;
-our $VERSION = '1.093000';
+our $VERSION = '1.093140';
 
 
 
@@ -8,6 +8,7 @@ use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::InstallTool';
 with 'Dist::Zilla::Role::TextTemplate';
+with 'Dist::Zilla::Role::TestRunner';
 
 
 use Dist::Zilla::File::InMemory;
@@ -77,6 +78,17 @@ sub setup_installer {
   return;
 }
 
+sub test {
+  my ( $self, $target ) = @_;
+  eval {
+    ## no critic Punctuation
+    system($^X => 'Makefile.PL') and die "error with Makefile.PL\n";
+    system('make') and die "error running make\n";
+    system('make test') and die "error running make test\n";
+    1;
+  } or return $@;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
@@ -90,7 +102,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 1.093000
+version 1.093140
 
 =head1 DESCRIPTION
 

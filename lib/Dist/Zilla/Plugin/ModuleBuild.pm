@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::ModuleBuild;
-our $VERSION = '1.093000';
+our $VERSION = '1.093140';
 
 
 # ABSTRACT: build a Build.PL that uses Module::Build
@@ -7,6 +7,7 @@ use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::InstallTool';
 with 'Dist::Zilla::Role::TextTemplate';
+with 'Dist::Zilla::Role::TestRunner';
 
 use Dist::Zilla::File::InMemory;
 
@@ -50,7 +51,7 @@ $build->create_build_script;
 
 sub setup_installer {
   my ($self, $arg) = @_;
-  
+
   Carp::croak("can't build a Build.PL; license has no known META.yml value")
     unless $self->zilla->license->meta_yml_name;
 
@@ -79,6 +80,17 @@ sub setup_installer {
   return;
 }
 
+sub test {
+  my ( $self, $target ) = @_;
+  eval {
+    ## no critic Punctuation
+    system($^X => 'Build.PL') and die "error with Makefile.PL\n";
+    system('./Build') and die "error running make\n";
+    system('./Build test') and die "error running make test\n";
+    1;
+  } or return $@;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
@@ -92,7 +104,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 1.093000
+version 1.093140
 
 =head1 DESCRIPTION
 

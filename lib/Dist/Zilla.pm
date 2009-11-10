@@ -1,5 +1,5 @@
 package Dist::Zilla;
-our $VERSION = '1.093000';
+our $VERSION = '1.093140';
 
 
 # ABSTRACT: distribution builder; installer not included!
@@ -380,6 +380,18 @@ sub plugins_with {
 }
 
 
+sub find_files {
+  my ($self, $finder_name) = @_;
+
+  my $plugin = $self->plugins_with(-FileFinder)
+             ->grep(sub { $_->plugin_name eq $finder_name })->head;
+
+  confess("no FileFinder named $finder_name found") unless $plugin;
+
+  $plugin->find_files;
+}
+
+
 sub build_in {
   my ($self, $root) = @_;
 
@@ -537,7 +549,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.093000
+version 1.093140
 
 =head1 DESCRIPTION
 
@@ -668,6 +680,15 @@ Valid arguments are:
 This method returns an arrayref containing all the Dist::Zilla object's plugins
 that perform a the named role.  If the given role name begins with a dash, the
 dash is replaced with "Dist::Zilla::Role::"
+
+=head2 find_files
+
+  my $files = $zilla->find_files( $finder_name );
+
+This method will look for a
+L<FileFinder|Dist::Zilla::Role::FileFinder>-performing plugin with the given
+name and return the result of calling C<find_files> on it.  If no plugin can be
+found, an exception will be raised.
 
 =head2 build_in
 

@@ -1,13 +1,17 @@
-package Dist::Zilla::Role::MetaProvider;
+package Dist::Zilla::Role::TestRunner;
 our $VERSION = '1.093140';
 
 
-# ABSTRACT: something that provides metadata (for META.yml/json)
+
+# ABSTRACT: something used as a delegating agent to 'dzil test'
+
 use Moose::Role;
+
+
 with 'Dist::Zilla::Role::Plugin';
 
 
-requires 'metadata';
+requires 'test';
 
 no Moose::Role;
 1;
@@ -17,7 +21,7 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Role::MetaProvider - something that provides metadata (for META.yml/json)
+Dist::Zilla::Role::TestRunner - something used as a delegating agent to 'dzil test'
 
 =head1 VERSION
 
@@ -25,14 +29,14 @@ version 1.093140
 
 =head1 DESCRIPTION
 
-This role provides data to merge into the distribution metadata.
+Plugins implementing this role have their C<test> method called when
+testing.  It's passed the root directory of the build test dir.
 
-=head1 METHODS
+=head1 REQUIRED METHODS
 
-=head2 metadata
+=head2 test
 
-This method returns a hashref of data to be (deeply) merged together with
-pre-existing metadata.
+  ->test( $build_dir )
 
 =head1 AUTHOR
 
