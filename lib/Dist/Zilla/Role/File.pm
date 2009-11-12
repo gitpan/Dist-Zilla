@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::File;
-our $VERSION = '1.093140';
+our $VERSION = '1.093160';
 
 
 # ABSTRACT: something that can act like a file
@@ -37,7 +37,7 @@ Dist::Zilla::Role::File - something that can act like a file
 
 =head1 VERSION
 
-version 1.093140
+version 1.093160
 
 =head1 DESCRIPTION
 

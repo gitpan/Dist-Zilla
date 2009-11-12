@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::PluginBundle;
-our $VERSION = '1.093140';
+our $VERSION = '1.093160';
 
 
 # ABSTRACT: a bundle of plugins
@@ -20,7 +20,7 @@ Dist::Zilla::Role::PluginBundle - a bundle of plugins
 
 =head1 VERSION
 
-version 1.093140
+version 1.093160
 
 =head1 DESCRIPTION
 

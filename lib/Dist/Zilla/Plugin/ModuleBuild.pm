@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::ModuleBuild;
-our $VERSION = '1.093140';
+our $VERSION = '1.093160';
 
 
 # ABSTRACT: build a Build.PL that uses Module::Build
@@ -104,7 +104,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 1.093140
+version 1.093160
 
 =head1 DESCRIPTION
 

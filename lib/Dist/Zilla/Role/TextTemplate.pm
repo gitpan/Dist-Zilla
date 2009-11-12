@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::TextTemplate;
-our $VERSION = '1.093140';
+our $VERSION = '1.093160';
 
 
 # ABSTRACT: something that renders a Text::Template template string
@@ -22,7 +22,7 @@ has delim => (
 sub fill_in_string {
   my ($self, $string, $stash, $arg) = @_;
 
-  return Text::Template::fill_in_string(
+  return Text::Template->fill_this_in(
     $string,
     HASH       => $stash,
     DELIMITERS => $self->delim,
@@ -42,7 +42,7 @@ Dist::Zilla::Role::TextTemplate - something that renders a Text::Template templa
 
 =head1 VERSION
 
-version 1.093140
+version 1.093160
 
 =head1 DESCRIPTION
 
