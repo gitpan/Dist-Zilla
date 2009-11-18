@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::release;
-our $VERSION = '1.093160';
+our $VERSION = '1.093220';
 
 
 # ABSTRACT: release your dist to the CPAN
@@ -20,7 +20,14 @@ sub execute {
 
   my $tgz = $self->zilla->build_archive;
 
+  # call all plugins implementing BeforeRelease role
+  $_->before_release() for $self->zilla->plugins_with(-BeforeRelease)->flatten;
+
+  # do the actual release
   $_->release($tgz) for @releasers;
+
+  # call all plugins implementing AfterRelease role
+  $_->after_release() for $self->zilla->plugins_with(-AfterRelease)->flatten;
 }
 
 1;
@@ -34,7 +41,7 @@ Dist::Zilla::App::Command::release - release your dist to the CPAN
 
 =head1 VERSION
 
-version 1.093160
+version 1.093220
 
 =head1 SYNOPSIS
 

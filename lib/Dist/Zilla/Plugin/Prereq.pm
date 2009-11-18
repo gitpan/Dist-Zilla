@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::Prereq;
-our $VERSION = '1.093160';
+our $VERSION = '1.093220';
 
 
 # ABSTRACT: list simple prerequisites
@@ -42,7 +42,7 @@ Dist::Zilla::Plugin::Prereq - list simple prerequisites
 
 =head1 VERSION
 
-version 1.093160
+version 1.093220
 
 =head1 SYNOPSIS
 

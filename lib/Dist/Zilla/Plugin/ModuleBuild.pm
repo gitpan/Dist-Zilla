@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::ModuleBuild;
-our $VERSION = '1.093160';
+our $VERSION = '1.093220';
 
 
 # ABSTRACT: build a Build.PL that uses Module::Build
@@ -8,9 +8,17 @@ use Moose::Autobox;
 with 'Dist::Zilla::Role::InstallTool';
 with 'Dist::Zilla::Role::TextTemplate';
 with 'Dist::Zilla::Role::TestRunner';
+with 'Dist::Zilla::Role::MetaProvider';
 
 use Dist::Zilla::File::InMemory;
 
+
+
+has 'mb_version' => (
+  isa => 'Str',
+  is  => 'rw',
+  default => '0.35',
+);
 
 my $template = q|
 use strict;
@@ -48,6 +56,14 @@ $build->create_build_script;
 #    (sort {length $a <=> length $b}
 #     grep { m{^lib/.+\.pm$} } @{$dist->files})[0]
 #  ) }}",
+
+sub metadata {
+  my $self = shift;
+  return {
+    configure_requires => { 'Module::Build' => $self->mb_version },
+    build_requires     => { 'Module::Build' => $self->mb_version },
+  };
+}
 
 sub setup_installer {
   my ($self, $arg) = @_;
@@ -104,12 +120,20 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 1.093160
+version 1.093220
 
 =head1 DESCRIPTION
 
 This plugin will create a F<Build.PL> for installing the dist using
 L<Module::Build>.
+
+=head1 ATTRIBUTES
+
+=head2 mb_version
+
+B<Optional:> Specify the minimum version of L<Module::Build> to depend on.
+
+Defaults to 0.35.
 
 =head1 AUTHOR
 

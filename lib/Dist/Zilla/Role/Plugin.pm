@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::Plugin;
-our $VERSION = '1.093160';
+our $VERSION = '1.093220';
 
 
 # ABSTRACT: something that gets plugged in to Dist::Zilla
@@ -34,7 +34,7 @@ Dist::Zilla::Role::Plugin - something that gets plugged in to Dist::Zilla
 
 =head1 VERSION
 
-version 1.093160
+version 1.093220
 
 =head1 DESCRIPTION
 

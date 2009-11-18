@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::AutoVersion;
-our $VERSION = '1.093160';
+our $VERSION = '1.093220';
 
 
 # ABSTRACT: take care of numbering versions so you don't have to
@@ -32,7 +32,7 @@ has format => (
   is       => 'ro',
   isa      => 'Str',
   required => 1,
-  default  => q[{{ $major }}.{{ cldr('yyDDD') }}0],
+  default  => q[{{ $major }}.{{ cldr('yyDDD') }}{{ sprintf '%01u', ($ENV{N} || 0) }}],
 );
 
 sub provide_version {
@@ -62,12 +62,12 @@ Dist::Zilla::Plugin::AutoVersion - take care of numbering versions so you don't 
 
 =head1 VERSION
 
-version 1.093160
+version 1.093220
 
 =head1 DESCRIPTION
 
 This plugin automatically produces a version string, generally based on the
-current time.  By default, it will be in the format: 1.yyyymmddhhmm
+current time.  By default, it will be in the format: 1.yyDDDn
 
 =head1 ATTRIBUTES
 
@@ -88,7 +88,7 @@ which consult the L<DateTime> documentation).
 
 The default value is:
 
-  {{ $major }}.{{ cldr('yyDDD') }}0
+  {{ $major }}.{{ cldr('yyDDD') }}{{ sprintf '%01u', ($ENV{N} || 0) }}
 
 =head1 AUTHOR
 

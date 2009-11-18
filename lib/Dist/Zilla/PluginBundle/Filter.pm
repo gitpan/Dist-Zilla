@@ -1,5 +1,5 @@
 package Dist::Zilla::PluginBundle::Filter;
-our $VERSION = '1.093160';
+our $VERSION = '1.093220';
 
 
 # ABSTRACT: use another bundle, with some plugins removed
@@ -52,7 +52,7 @@ Dist::Zilla::PluginBundle::Filter - use another bundle, with some plugins remove
 
 =head1 VERSION
 
-version 1.093160
+version 1.093220
 
 =head1 SYNOPSIS
 

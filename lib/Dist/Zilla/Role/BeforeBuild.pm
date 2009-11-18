@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::BeforeBuild;
-our $VERSION = '1.093160';
+our $VERSION = '1.093220';
 
 
 # ABSTRACT: something that runs before building really begins
@@ -21,7 +21,7 @@ Dist::Zilla::Role::BeforeBuild - something that runs before building really begi
 
 =head1 VERSION
 
-version 1.093160
+version 1.093220
 
 =head1 DESCRIPTION
 

@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::ModuleBuild::Test;
-our $VERSION = '1.093160';
+our $VERSION = '1.093220';
 
 
 
@@ -35,7 +35,7 @@ Dist::Zilla::Plugin::ModuleBuild::Test - TestRunner for ModuleBuild based Dists
 
 =head1 VERSION
 
-version 1.093160
+version 1.093220
 
 =head1 DESCRIPTION
 

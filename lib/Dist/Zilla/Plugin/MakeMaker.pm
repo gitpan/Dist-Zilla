@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MakeMaker;
-our $VERSION = '1.093160';
+our $VERSION = '1.093220';
 
 
 
@@ -17,6 +17,13 @@ my $template = q|
 use strict;
 use warnings;
 
+{{
+  my $prereq = $dist->prereq;
+  exists $prereq->{perl}
+    ? qq{ BEGIN { require $prereq->{perl}; } }
+    : '';
+}}
+
 use ExtUtils::MakeMaker;
 
 WriteMakefile(
@@ -30,7 +37,7 @@ WriteMakefile(
   PREREQ_PM    => {
 {{
       my $prereq = $dist->prereq;
-      $OUT .= qq{    "$_" => '$prereq->{$_}',\n} for keys %$prereq;
+      $OUT .= qq{    "$_" => '$prereq->{$_}',\n} for grep { $_ ne 'perl' } keys %$prereq;
       chomp $OUT;
       return '';
 }}
@@ -102,7 +109,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 1.093160
+version 1.093220
 
 =head1 DESCRIPTION
 

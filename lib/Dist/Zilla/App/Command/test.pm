@@ -1,14 +1,13 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::test;
-our $VERSION = '1.093160';
+our $VERSION = '1.093220';
 
 
 # ABSTRACT: test your dist
 use Dist::Zilla::App -command;
 
 use Moose::Autobox;
-
 
 
 sub abstract { 'test your dist' }
@@ -69,7 +68,7 @@ Dist::Zilla::App::Command::test - test your dist
 
 =head1 VERSION
 
-version 1.093160
+version 1.093220
 
 =head1 SYNOPSIS
 
@@ -77,7 +76,8 @@ Test your distribution.
 
     dzil test
 
-This runs with AUTHOR_TESTING and RELEASE_TESTING environment variables turned on, so its ultimately like doing this:
+This runs with AUTHOR_TESTING and RELEASE_TESTING environment variables turned
+on, so its ultimately like doing this:
 
     export AUTHOR_TESTING=1
     export RELEASE_TESTING=1
@@ -88,9 +88,10 @@ This runs with AUTHOR_TESTING and RELEASE_TESTING environment variables turned o
     make
     make test
 
-Except for the fact it's built directly in a subdir of .build ( such as .build/ASDF123 );
+Except for the fact it's built directly in a subdir of .build (like
+F<.build/ASDF123>).
 
-A Build that fails tests will be left behind for analysis, and dzil
+A build that fails tests will be left behind for analysis, and dzil
 will exit with status 1.  If the tests are successful, the build
 directory will be removed and dzil will exit with status 0.
 

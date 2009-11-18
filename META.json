@@ -1,13 +1,15 @@
 {
    "resources" : {
-      "repository" : "http://github.com/rjbs/dist-zilla"
+      "repository" : "http://github.com/rjbs/dist-zilla",
+      "homepage" : "http://search.cpan.org/dist/Dist-Zilla/",
+      "MailingList" : "http://www.listbox.com/subscribe/?list_id=139292"
    },
    "meta-spec" : {
       "version" : 1.4,
       "url" : "http://module-build.sourceforge.net/META-spec-v1.4.html"
    },
-   "generated_by" : "Dist::Zilla version 1.093160",
-   "version" : "1.093160",
+   "generated_by" : "Dist::Zilla version 1.093220",
+   "version" : "1.093220",
    "name" : "Dist-Zilla",
    "author" : [
       "Ricardo SIGNES <rjbs@cpan.org>"

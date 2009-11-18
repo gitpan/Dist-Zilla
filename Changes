@@ -1,5 +1,14 @@
 Revision history for Dist-Zilla
 
+1.093220  2009-11-18 08:15:20 America/New_York
+          Module::Build now injects version deps in build_requires and
+          configure_requires, hopefully solving issues with version-upgrades.
+          new role BeforeRelease (Jérôme Quelin)
+          new role AfterRelease  (Jérôme Quelin)
+          default format for AutoVersion plugin changed (Jérôme Quelin)
+          NextRelease plugin updates changelog after release
+          new plugin FakeRelease (Jérôme Quelin)
+
 1.093160  2009-11-12
           make TextTemplate use fill_this_in to avoid
             https://rt.cpan.org/Ticket/Display.html?id=51473

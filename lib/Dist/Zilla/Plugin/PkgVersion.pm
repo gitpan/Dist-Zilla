@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::PkgVersion;
-our $VERSION = '1.093160';
+our $VERSION = '1.093220';
 
 
 # ABSTRACT: add a $VERSION to your packages
@@ -54,7 +54,7 @@ Dist::Zilla::Plugin::PkgVersion - add a $VERSION to your packages
 
 =head1 VERSION
 
-version 1.093160
+version 1.093220
 
 =head1 DESCRIPTION
 
