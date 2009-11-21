@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::FixedPrereqs;
-our $VERSION = '1.093220';
+our $VERSION = '1.093250';
 
 
 # ABSTRACT: enumerate fixed (non-conditional) prerequisites
@@ -21,7 +21,7 @@ Dist::Zilla::Role::FixedPrereqs - enumerate fixed (non-conditional) prerequisite
 
 =head1 VERSION
 
-version 1.093220
+version 1.093250
 
 =head1 DESCRIPTION
 

@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::FileMunger;
-our $VERSION = '1.093220';
+our $VERSION = '1.093250';
 
 
 # ABSTRACT: something that alters a file's destination or content
@@ -28,7 +28,7 @@ Dist::Zilla::Role::FileMunger - something that alters a file's destination or co
 
 =head1 VERSION
 
-version 1.093220
+version 1.093250
 
 =head1 DESCRIPTION
 

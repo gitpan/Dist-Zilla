@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::AutoVersion;
-our $VERSION = '1.093220';
+our $VERSION = '1.093250';
 
 
 # ABSTRACT: take care of numbering versions so you don't have to
@@ -62,7 +62,7 @@ Dist::Zilla::Plugin::AutoVersion - take care of numbering versions so you don't 
 
 =head1 VERSION
 
-version 1.093220
+version 1.093250
 
 =head1 DESCRIPTION
 

@@ -1,5 +1,5 @@
 package Dist::Zilla;
-our $VERSION = '1.093220';
+our $VERSION = '1.093250';
 
 
 # ABSTRACT: distribution builder; installer not included!
@@ -521,7 +521,23 @@ sub _write_out_file {
 sub test { die '...' }
 
 
-sub release { die '...' }
+sub release {
+  my $self = shift;
+
+  Carp::croak("you can't release without any Releaser plugins")
+    unless my @releasers = $self->plugins_with(-Releaser)->flatten;
+
+  my $tgz = $self->build_archive;
+
+  # call all plugins implementing BeforeRelease role
+  $_->before_release() for $self->plugins_with(-BeforeRelease)->flatten;
+
+  # do the actual release
+  $_->release($tgz) for @releasers;
+
+  # call all plugins implementing AfterRelease role
+  $_->after_release() for $self->plugins_with(-AfterRelease)->flatten;
+}
 
 
 # XXX: yeah, uh, do something more awesome -- rjbs, 2008-06-01
@@ -549,7 +565,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.093220
+version 1.093250
 
 =head1 DESCRIPTION
 
