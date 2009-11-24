@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::Releaser;
-our $VERSION = '1.093250';
+our $VERSION = '1.093280';
 
 
 # ABSTRACT: something that makes a release of the dist
@@ -21,7 +21,7 @@ Dist::Zilla::Role::Releaser - something that makes a release of the dist
 
 =head1 VERSION
 
-version 1.093250
+version 1.093280
 
 =head1 DESCRIPTION
 

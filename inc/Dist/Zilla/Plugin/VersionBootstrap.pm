@@ -1,5 +1,5 @@
 package inc::Dist::Zilla::Plugin::VersionBootstrap;
-our $VERSION = '1.093250';
+our $VERSION = '1.093280';
 
 
 # ABSTRACT: set Dist::Zilla::* $VERSION during Dist-Zilla dzilling

@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::Tutorial;
-our $VERSION = '1.093250';
+our $VERSION = '1.093280';
 
 
 # ABSTRACT: how to use this "Dist::Zilla" thing
@@ -18,7 +18,7 @@ Dist::Zilla::Tutorial - how to use this "Dist::Zilla" thing
 
 =head1 VERSION
 
-version 1.093250
+version 1.093280
 
 =head1 SYNOPSIS
 

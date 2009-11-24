@@ -1,5 +1,5 @@
 package Dist::Zilla;
-our $VERSION = '1.093250';
+our $VERSION = '1.093280';
 
 
 # ABSTRACT: distribution builder; installer not included!
@@ -565,7 +565,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.093250
+version 1.093280
 
 =head1 DESCRIPTION
 

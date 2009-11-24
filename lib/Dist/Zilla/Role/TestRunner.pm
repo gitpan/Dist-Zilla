@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::TestRunner;
-our $VERSION = '1.093250';
+our $VERSION = '1.093280';
 
 
 
@@ -25,7 +25,7 @@ Dist::Zilla::Role::TestRunner - something used as a delegating agent to 'dzil te
 
 =head1 VERSION
 
-version 1.093250
+version 1.093280
 
 =head1 DESCRIPTION
 

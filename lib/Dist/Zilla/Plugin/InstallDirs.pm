@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::InstallDirs;
-our $VERSION = '1.093250';
+our $VERSION = '1.093280';
 
 
 # ABSTRACT: mark directory contents for installation
@@ -40,7 +40,7 @@ Dist::Zilla::Plugin::InstallDirs - mark directory contents for installation
 
 =head1 VERSION
 
-version 1.093250
+version 1.093280
 
 =head1 SYNOPSIS
 

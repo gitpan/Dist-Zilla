@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 package Dist::Zilla::Role::AfterRelease;
-our $VERSION = '1.093250';
+our $VERSION = '1.093280';
 
 
 # ABSTRACT: something that runs after release is mostly complete
@@ -24,7 +24,7 @@ Dist::Zilla::Role::AfterRelease - something that runs after release is mostly co
 
 =head1 VERSION
 
-version 1.093250
+version 1.093280
 
 =head1 DESCRIPTION
 

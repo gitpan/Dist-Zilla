@@ -1,5 +1,5 @@
 package Dist::Zilla::File::OnDisk;
-our $VERSION = '1.093250';
+our $VERSION = '1.093280';
 
 
 # ABSTRACT: a file that comes from your filesystem
@@ -46,7 +46,7 @@ Dist::Zilla::File::OnDisk - a file that comes from your filesystem
 
 =head1 VERSION
 
-version 1.093250
+version 1.093280
 
 =head1 DESCRIPTION
 
