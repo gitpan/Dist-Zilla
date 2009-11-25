@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MetaTests;
-our $VERSION = '1.093280';
+our $VERSION = '1.093290';
 
 
 # ABSTRACT: common extra tests for META.yml
@@ -21,7 +21,7 @@ Dist::Zilla::Plugin::MetaTests - common extra tests for META.yml
 
 =head1 VERSION
 
-version 1.093280
+version 1.093290
 
 =head1 DESCRIPTION
 

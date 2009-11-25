@@ -1,5 +1,5 @@
 package Dist::Zilla::File::InMemory;
-our $VERSION = '1.093280';
+our $VERSION = '1.093290';
 
 
 # ABSTRACT: a file that you build entirely in memory
@@ -26,7 +26,7 @@ Dist::Zilla::File::InMemory - a file that you build entirely in memory
 
 =head1 VERSION
 
-version 1.093280
+version 1.093290
 
 =head1 DESCRIPTION
 

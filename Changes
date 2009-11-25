@@ -1,5 +1,8 @@
 Revision history for Dist-Zilla
 
+1.093290  2009-11-25 14:45:45 America/New_York
+          switch from String::Format to String::Formatter
+
 1.093280  2009-11-24 11:24:52 America/New_York
           include META.yml again for now
           look at ~/.pause for upload config if it isn't in ~/.dzil/config

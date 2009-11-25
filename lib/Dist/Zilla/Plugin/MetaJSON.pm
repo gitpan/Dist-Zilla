@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MetaJSON;
-our $VERSION = '1.093280';
+our $VERSION = '1.093290';
 
 
 # ABSTRACT: produce a META.json
@@ -38,7 +38,7 @@ Dist::Zilla::Plugin::MetaJSON - produce a META.json
 
 =head1 VERSION
 
-version 1.093280
+version 1.093290
 
 =head1 DESCRIPTION
 

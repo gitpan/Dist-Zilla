@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::AllFiles;
-our $VERSION = '1.093280';
+our $VERSION = '1.093290';
 
 
 # ABSTRACT: gather all the files in your dist's root
@@ -66,7 +66,7 @@ Dist::Zilla::Plugin::AllFiles - gather all the files in your dist's root
 
 =head1 VERSION
 
-version 1.093280
+version 1.093290
 
 =head1 DESCRIPTION
 

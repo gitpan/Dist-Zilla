@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::NextRelease;
-our $VERSION = '1.093280';
+our $VERSION = '1.093290';
 
 
 # ABSTRACT: update the next release number in your changelog
@@ -8,6 +8,21 @@ use Moose;
 with 'Dist::Zilla::Role::FileMunger';
 with 'Dist::Zilla::Role::TextTemplate';
 with 'Dist::Zilla::Role::AfterRelease';
+
+use DateTime;
+use String::Formatter stringf => {
+  -as => '_format_version',
+
+  input_processor => 'require_single_input',
+  string_replacer => 'method_replace',
+  codes => {
+    v => sub { $_[0]->version },
+    d => sub {
+      DateTime->from_epoch(epoch => $^T, time_zone => 'local')
+              ->format_cldr($_[1]),
+    }
+  },
+};
 
 has format => (
   is  => 'ro',
@@ -24,19 +39,7 @@ has filename => (
 sub section_header {
   my ($self) = @_;
 
-  require String::Format;
-  my $string = $self->format;
-
-  require DateTime;
-  my $now = DateTime->from_epoch(epoch => $^T, time_zone=>'local');
-
-  String::Format::stringf(
-    $string,
-    (
-      v => $self->zilla->version,
-      d => sub { $now->format_cldr($_[0]) }, 
-    ),
-  );
+  return _format_version($self->format, $self->zilla);
 }
 
 sub munge_file {
@@ -95,7 +98,7 @@ Dist::Zilla::Plugin::NextRelease - update the next release number in your change
 
 =head1 VERSION
 
-version 1.093280
+version 1.093290
 
 =head1 SYNOPSIS
 

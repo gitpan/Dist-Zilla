@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::Readme;
-our $VERSION = '1.093280';
+our $VERSION = '1.093290';
 
 
 # ABSTRACT: build a README file
@@ -51,7 +51,7 @@ Dist::Zilla::Plugin::Readme - build a README file
 
 =head1 VERSION
 
-version 1.093280
+version 1.093290
 
 =head1 DESCRIPTION
 

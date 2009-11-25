@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MakeMaker;
-our $VERSION = '1.093280';
+our $VERSION = '1.093290';
 
 
 
@@ -109,7 +109,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 1.093280
+version 1.093290
 
 =head1 DESCRIPTION
 

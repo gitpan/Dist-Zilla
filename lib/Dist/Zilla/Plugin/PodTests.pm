@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::PodTests;
-our $VERSION = '1.093280';
+our $VERSION = '1.093290';
 
 
 # ABSTRACT: common extra tests for pod
@@ -21,7 +21,7 @@ Dist::Zilla::Plugin::PodTests - common extra tests for pod
 
 =head1 VERSION
 
-version 1.093280
+version 1.093290
 
 =head1 DESCRIPTION
 

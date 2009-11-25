@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::FilePruner;
-our $VERSION = '1.093280';
+our $VERSION = '1.093290';
 
 
 # ABSTRACT: something that removes found files from the distribution
@@ -21,7 +21,7 @@ Dist::Zilla::Role::FilePruner - something that removes found files from the dist
 
 =head1 VERSION
 
-version 1.093280
+version 1.093290
 
 =head1 DESCRIPTION
 

@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::InlineFiles;
-our $VERSION = '1.093280';
+our $VERSION = '1.093290';
 
 
 # ABSTRACT: files in a data section
@@ -42,7 +42,7 @@ Dist::Zilla::Plugin::InlineFiles - files in a data section
 
 =head1 VERSION
 
-version 1.093280
+version 1.093290
 
 =head1 DESCRIPTION
 

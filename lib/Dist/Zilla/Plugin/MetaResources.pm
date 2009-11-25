@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MetaResources;
-our $VERSION = '1.093280';
+our $VERSION = '1.093290';
 
 
 # ABSTRACT: provide arbitrary "resources" for distribution metadata
@@ -46,7 +46,7 @@ Dist::Zilla::Plugin::MetaResources - provide arbitrary "resources" for distribut
 
 =head1 VERSION
 
-version 1.093280
+version 1.093290
 
 =head1 DESCRIPTION
 

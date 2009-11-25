@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::InstallTool;
-our $VERSION = '1.093280';
+our $VERSION = '1.093290';
 
 
 # ABSTRACT: something that creates an install program for a dist
@@ -23,7 +23,7 @@ Dist::Zilla::Role::InstallTool - something that creates an install program for a
 
 =head1 VERSION
 
-version 1.093280
+version 1.093290
 
 =head1 DESCRIPTION
 
