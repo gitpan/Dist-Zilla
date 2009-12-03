@@ -1,7 +1,5 @@
 package Dist::Zilla::Role::TestRunner;
-our $VERSION = '1.093290';
-
-
+our $VERSION = '1.093370';
 
 # ABSTRACT: something used as a delegating agent to 'dzil test'
 
@@ -25,7 +23,7 @@ Dist::Zilla::Role::TestRunner - something used as a delegating agent to 'dzil te
 
 =head1 VERSION
 
-version 1.093290
+version 1.093370
 
 =head1 DESCRIPTION
 
@@ -37,6 +35,22 @@ testing.  It's passed the root directory of the build test dir.
 =head2 test
 
   ->test( $build_dir )
+
+This method should return C<undef> on success.
+
+Any other value is interpreted as an error message, and no more tests are run.
+
+Calling "die" inside test also will be caught.
+
+The following 2 subs should behave(mostly) the same:
+
+    sub test {
+        die "Failed";
+    }
+
+    sub test {
+        return "Failed";
+    }
 
 =head1 AUTHOR
 

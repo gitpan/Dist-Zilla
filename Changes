@@ -1,5 +1,11 @@
 Revision history for Dist-Zilla
 
+1.093370  2009-12-03 18:17:16 America/New_York
+          PruneFiles now works; the documented args for PruneFiles were wrong
+          PkgVersion now uses PPI to insert $VERSION; avoids many false inserts
+          Fix regression where failing tests still cleaned up the build dir.
+            ( Kent Fredric )
+
 1.093290  2009-11-25 14:45:45 America/New_York
           switch from String::Format to String::Formatter
 

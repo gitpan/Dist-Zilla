@@ -1,9 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::Util;
-our $VERSION = '1.093290';
-
-
+our $VERSION = '1.093370';
 # ABSTRACT: random snippets of code that Dist::Zilla wants
 
 use String::Flogger;
@@ -12,6 +10,7 @@ use String::RewritePrefix;
 {
   package
     Dist::Zilla::Util::Nonpod;
+our $VERSION = '1.093370';
   use base 'Pod::Eventual';
   sub _new  { bless { nonpod => '' } => shift; }
   sub handle_nonpod { $_[0]->{nonpod} .= $_[1]->{content} }
@@ -22,13 +21,14 @@ use String::RewritePrefix;
 {
   package
     Dist::Zilla::Util::PEA;
+our $VERSION = '1.093370';
   use base 'Pod::Eventual';
   sub _new  { bless {} => shift; }
   sub handle_nonpod {
     my ($self, $event) = @_;
     return if $self->{abstract};
     return $self->{abstract} = $1
-      if $event->{content}=~ /^\s*#+ ABSTRACT:\s+(.+)$/m;
+      if $event->{content}=~ /^\s*#+\s*ABSTRACT:\s*(.+)$/m;
     return;
   }
   sub handle_event {
@@ -97,7 +97,7 @@ Dist::Zilla::Util - random snippets of code that Dist::Zilla wants
 
 =head1 VERSION
 
-version 1.093290
+version 1.093370
 
 =head1 METHODS
 

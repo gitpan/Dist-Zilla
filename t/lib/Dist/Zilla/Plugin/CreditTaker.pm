@@ -1,7 +1,5 @@
 package Dist::Zilla::Plugin::CreditTaker;
-our $VERSION = '1.093290';
-
-
+our $VERSION = '1.093370';
 # ABSTRACT: add 'built by D::Z' to all your modules
 use Moose;
 with 'Dist::Zilla::Role::FileMunger';

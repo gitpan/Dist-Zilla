@@ -1,7 +1,5 @@
 package Dist::Zilla::Plugin::ModuleBuild;
-our $VERSION = '1.093290';
-
-
+our $VERSION = '1.093370';
 # ABSTRACT: build a Build.PL that uses Module::Build
 use Moose;
 use Moose::Autobox;
@@ -98,13 +96,11 @@ sub setup_installer {
 
 sub test {
   my ( $self, $target ) = @_;
-  eval {
-    ## no critic Punctuation
-    system($^X => 'Build.PL') and die "error with Makefile.PL\n";
-    system('./Build') and die "error running make\n";
-    system('./Build test') and die "error running make test\n";
-    1;
-  } or return $@;
+  ## no critic Punctuation
+  system($^X => 'Build.PL') and die "error with Makefile.PL\n";
+  system('./Build') and die "error running make\n";
+  system('./Build test') and die "error running make test\n";
+  return;
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -120,7 +116,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 1.093290
+version 1.093370
 
 =head1 DESCRIPTION
 

@@ -1,21 +1,19 @@
 package Dist::Zilla::Plugin::PruneFiles;
-our $VERSION = '1.093290';
-
-
+our $VERSION = '1.093370';
 # ABSTRACT: prune arbirary files from the dist
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FilePruner';
 
 
-sub mvp_multivalue_args { qw(file) }
+sub mvp_multivalue_args { qw(filenames) }
+sub mvp_aliases { return { filename => 'filenames' } }
 
 
 has filenames => (
   is   => 'ro',
   isa  => 'ArrayRef',
   lazy => 1,
-  init_arg => 'file',
   default  => sub { [] },
 );
 
@@ -43,7 +41,7 @@ Dist::Zilla::Plugin::PruneFiles - prune arbirary files from the dist
 
 =head1 VERSION
 
-version 1.093290
+version 1.093370
 
 =head1 SYNOPSIS
 
@@ -54,15 +52,13 @@ bunch of files, and you only want a subset of them.
 In your F<dist.ini>:
 
   [PruneFiles]
-  file = xt/release/pod-coverage.t ; pod coverage tests are for jerks
+  filename = xt/release/pod-coverage.t ; pod coverage tests are for jerks
 
 =head1 ATTRIBUTES
 
 =head2 filenames
 
-This is an arrayref of filenames to be pruned from the distribution.  It's
-initialized by the C<file> argument to the plugin constructor (and, therefore,
-in the config).
+This is an arrayref of filenames to be pruned from the distribution.
 
 =head1 AUTHOR
 

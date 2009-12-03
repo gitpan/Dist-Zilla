@@ -85,3 +85,4 @@ t/eg/DZ1/lib/DZ1.pm
 t/eg/DZ2/dist.pl
 t/eg/DZ2/lib/DZ1.pm
 t/lib/Dist/Zilla/Plugin/CreditTaker.pm
+t/lib/Dist/Zilla/Plugin/FailTest.pm

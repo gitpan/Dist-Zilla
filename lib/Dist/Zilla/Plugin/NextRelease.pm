@@ -1,7 +1,5 @@
 package Dist::Zilla::Plugin::NextRelease;
-our $VERSION = '1.093290';
-
-
+our $VERSION = '1.093370';
 # ABSTRACT: update the next release number in your changelog
 
 use Moose;
@@ -98,7 +96,7 @@ Dist::Zilla::Plugin::NextRelease - update the next release number in your change
 
 =head1 VERSION
 
-version 1.093290
+version 1.093370
 
 =head1 SYNOPSIS
 

@@ -1,7 +1,5 @@
 package Dist::Zilla::Plugin::MakeMaker::Test;
-our $VERSION = '1.093290';
-
-
+our $VERSION = '1.093370';
 
 # ABSTRACT: TestRunner for MakeMaker based Dists
 
@@ -14,13 +12,11 @@ with 'Dist::Zilla::Role::TestRunner';
 
 sub test {
   my ( $self, $target ) = @_;
-  eval {
-    ## no critic Punctuation
-    system($^X => 'Makefile.PL') and die "error with Makefile.PL\n";
-    system('make') and die "error running make\n";
-    system('make test') and die "error running make test\n";
-    1;
-  } or return $@;
+  ## no critic Punctuation
+  system($^X => 'Makefile.PL') and die "error with Makefile.PL\n";
+  system('make') and die "error running make\n";
+  system('make test') and die "error running make test\n";
+  return;
 }
 
 1;
@@ -35,7 +31,7 @@ Dist::Zilla::Plugin::MakeMaker::Test - TestRunner for MakeMaker based Dists
 
 =head1 VERSION
 
-version 1.093290
+version 1.093370
 
 =head1 DESCRIPTION
 

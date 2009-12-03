@@ -1,9 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::test;
-our $VERSION = '1.093290';
-
-
+our $VERSION = '1.093370';
 # ABSTRACT: test your dist
 use Dist::Zilla::App -command;
 
@@ -37,13 +35,15 @@ sub execute {
   my $error;
 
   for my $tester ( @testers ) {
+    undef $error;
     eval {
       local $File::chdir::CWD = $target;
-      $tester->test( $target );
+      $error = $tester->test( $target );
+      1;
     } or do {
       $error = $@;
-      last;
     };
+    last if $error;
   }
 
   if ( $error ) {
@@ -68,7 +68,7 @@ Dist::Zilla::App::Command::test - test your dist
 
 =head1 VERSION
 
-version 1.093290
+version 1.093370
 
 =head1 SYNOPSIS
 

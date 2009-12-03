@@ -1,7 +1,5 @@
 package Dist::Zilla::Role::FileInjector;
-our $VERSION = '1.093290';
-
-
+our $VERSION = '1.093370';
 use Moose::Autobox;
 # ABSTRACT: something that can add files to the distribution
 use Moose::Role;
@@ -28,7 +26,7 @@ Dist::Zilla::Role::FileInjector - something that can add files to the distributi
 
 =head1 VERSION
 
-version 1.093290
+version 1.093370
 
 =head1 DESCRIPTION
 

@@ -1,7 +1,5 @@
 package Dist::Zilla::Plugin::MakeMaker;
-our $VERSION = '1.093290';
-
-
+our $VERSION = '1.093370';
 
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
 use Moose;
@@ -87,13 +85,11 @@ sub setup_installer {
 
 sub test {
   my ( $self, $target ) = @_;
-  eval {
-    ## no critic Punctuation
-    system($^X => 'Makefile.PL') and die "error with Makefile.PL\n";
-    system('make') and die "error running make\n";
-    system('make test') and die "error running make test\n";
-    1;
-  } or return $@;
+  ## no critic Punctuation
+  system($^X => 'Makefile.PL') and die "error with Makefile.PL\n";
+  system('make') and die "error running make\n";
+  system('make test') and die "error running make test\n";
+  return;
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -109,7 +105,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 1.093290
+version 1.093370
 
 =head1 DESCRIPTION
 
