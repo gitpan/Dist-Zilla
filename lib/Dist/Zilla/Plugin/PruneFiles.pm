@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::PruneFiles;
-our $VERSION = '1.093370';
+our $VERSION = '1.093371';
 # ABSTRACT: prune arbirary files from the dist
 use Moose;
 use Moose::Autobox;
@@ -7,23 +7,25 @@ with 'Dist::Zilla::Role::FilePruner';
 
 
 sub mvp_multivalue_args { qw(filenames) }
-sub mvp_aliases { return { filename => 'filenames' } }
+# sub mvp_aliases {  warn "..."; return { filename => 'filenames' } }
 
 
 has filenames => (
   is   => 'ro',
   isa  => 'ArrayRef',
-  lazy => 1,
-  default  => sub { [] },
+  required => 1,
 );
 
 sub prune_files {
   my ($self) = @_;
 
   my $files = $self->zilla->files;
-  my $any = $self->filenames->any;
 
-  @$files = $files->grep(sub { $_->name ne $any })->flatten;
+  for my $filename ($self->filenames->flatten) {
+    @$files = $files->grep(sub {
+      ($_->name ne $filename) && ($_->name !~ m{\A\Q$filename\E/})
+    })->flatten;
+  }
 
   return;
 }
@@ -41,7 +43,7 @@ Dist::Zilla::Plugin::PruneFiles - prune arbirary files from the dist
 
 =head1 VERSION
 
-version 1.093370
+version 1.093371
 
 =head1 SYNOPSIS
 
@@ -52,7 +54,7 @@ bunch of files, and you only want a subset of them.
 In your F<dist.ini>:
 
   [PruneFiles]
-  filename = xt/release/pod-coverage.t ; pod coverage tests are for jerks
+  filenames = xt/release/pod-coverage.t ; pod coverage tests are for jerks
 
 =head1 ATTRIBUTES
 

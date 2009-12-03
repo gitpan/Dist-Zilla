@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MakeMaker::Test;
-our $VERSION = '1.093370';
+our $VERSION = '1.093371';
 
 # ABSTRACT: TestRunner for MakeMaker based Dists
 
@@ -31,7 +31,7 @@ Dist::Zilla::Plugin::MakeMaker::Test - TestRunner for MakeMaker based Dists
 
 =head1 VERSION
 
-version 1.093370
+version 1.093371
 
 =head1 DESCRIPTION
 
