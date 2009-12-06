@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::ModuleBuild;
-our $VERSION = '1.093371';
+our $VERSION = '1.093400';
 # ABSTRACT: build a Build.PL that uses Module::Build
 use Moose;
 use Moose::Autobox;
@@ -116,7 +116,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 1.093371
+version 1.093400
 
 =head1 DESCRIPTION
 

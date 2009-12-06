@@ -2,7 +2,7 @@
 abstract: 'distribution builder; installer not included!'
 author:
   - 'Ricardo SIGNES <rjbs@cpan.org>'
-generated_by: 'Dist::Zilla version 1.093371'
+generated_by: 'Dist::Zilla version 1.093400'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -28,6 +28,7 @@ requires:
   Moose: 0.92
   Moose::Autobox: 0.09
   MooseX::Types::Path::Class: 0
+  PPI: 0
   Path::Class: 0
   Perl::Version: 0
   Pod::Eventual: 0.091480
@@ -44,4 +45,4 @@ resources:
   MailingList: http://www.listbox.com/subscribe/?list_id=139292
   homepage: http://search.cpan.org/dist/Dist-Zilla/
   repository: http://github.com/rjbs/dist-zilla
-version: 1.093371
+version: 1.093400

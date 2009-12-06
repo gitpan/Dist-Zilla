@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::clean;
-our $VERSION = '1.093371';
+our $VERSION = '1.093400';
 # ABSTRACT: clean up after build, test, or install
 use Dist::Zilla::App -command;
 
@@ -29,7 +29,7 @@ Dist::Zilla::App::Command::clean - clean up after build, test, or install
 
 =head1 VERSION
 
-version 1.093371
+version 1.093400
 
 =head1 SYNOPSIS
 
