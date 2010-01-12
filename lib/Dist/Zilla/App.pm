@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App;
-our $VERSION = '1.093400';
+our $VERSION = '1.100120';
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup -app;
 
@@ -46,6 +46,15 @@ sub config_for {
   return $section->payload;
 }
 
+sub global_opt_spec {
+  return (
+    [ "inc|I=s@", "additional \@INC dirs", {
+        callbacks => { 'always fine' => sub { unshift @INC, @{$_[0]}; } }
+    } ]
+  );
+}
+
+
 1;
 
 __END__
@@ -57,7 +66,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 1.093400
+version 1.100120
 
 =head1 AUTHOR
 
@@ -65,7 +74,7 @@ version 1.093400
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2009 by Ricardo SIGNES.
+This software is copyright (c) 2010 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::test;
-our $VERSION = '1.093400';
+our $VERSION = '1.100120';
 # ABSTRACT: test your dist
 use Dist::Zilla::App -command;
 
@@ -68,7 +68,7 @@ Dist::Zilla::App::Command::test - test your dist
 
 =head1 VERSION
 
-version 1.093400
+version 1.100120
 
 =head1 SYNOPSIS
 
@@ -105,7 +105,7 @@ The heavy lifting of this module is now done by L<Dist::Zilla::Role::TestRunner>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2009 by Ricardo SIGNES.
+This software is copyright (c) 2010 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

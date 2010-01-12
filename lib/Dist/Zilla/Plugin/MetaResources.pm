@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MetaResources;
-our $VERSION = '1.093400';
+our $VERSION = '1.100120';
 # ABSTRACT: provide arbitrary "resources" for distribution metadata
 use Moose;
 with 'Dist::Zilla::Role::MetaProvider';
@@ -44,14 +44,14 @@ Dist::Zilla::Plugin::MetaResources - provide arbitrary "resources" for distribut
 
 =head1 VERSION
 
-version 1.093400
+version 1.100120
 
 =head1 DESCRIPTION
 
 This plugin adds resources entries to the distribution's metadata.
 
   [MetaResources]
-  homepage: http://example.com/~dude/project.asp
+  homepage = http://example.com/~dude/project.asp
 
 =head1 AUTHOR
 
@@ -59,7 +59,7 @@ This plugin adds resources entries to the distribution's metadata.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2009 by Ricardo SIGNES.
+This software is copyright (c) 2010 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

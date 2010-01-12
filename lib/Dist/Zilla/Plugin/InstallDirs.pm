@@ -1,29 +1,33 @@
 package Dist::Zilla::Plugin::InstallDirs;
-our $VERSION = '1.093400';
+our $VERSION = '1.100120';
 # ABSTRACT: mark directory contents for installation
 use Moose;
+with 'Dist::Zilla::Role::Plugin';
 use Moose::Autobox;
-with 'Dist::Zilla::Role::FileMunger';
 
 
-# XXX: implement share -- rjbs, 2008-06-08
 sub mvp_multivalue_args { qw(bin share) }
 
-has mark_as_bin => (
+has bin => (
   is   => 'ro',
   isa  => 'ArrayRef[Str]',
-  default  => sub { [ qw(bin) ] },
-  init_arg => 'bin'
+  lazy => 1,
+  default => sub { [ qw(bin) ] },
 );
 
-sub munge_file {
-  my ($self, $file) = @_;
-
-  for my $dir ($self->mark_as_bin->flatten) {
-    next unless $file->name =~ qr{^\Q$dir\E[\\/]};
-    $file->install_type('bin');
-  }
-}
+has share => (
+  is   => 'ro',
+  isa  => 'ArrayRef[Str]',
+  lazy => 1,
+  default => sub {
+    my ($self) = @_;
+    if ($self->zilla->files->grep(sub { $_->name =~ m{\Ashare/} })->length) {
+      return [ qw(share) ];
+    } else {
+      return [];
+    }
+  },
+);
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -38,7 +42,7 @@ Dist::Zilla::Plugin::InstallDirs - mark directory contents for installation
 
 =head1 VERSION
 
-version 1.093400
+version 1.100120
 
 =head1 SYNOPSIS
 
@@ -53,13 +57,12 @@ In your F<dist.ini>:
 This plugin marks the contents of certain directories as files to be installed
 under special locations.
 
-The only implemented attribute is C<bin>, which indicates directories that
-contain executable files to install.  If no value is given, the directory
-C<bin> will be considered.
+C<bin> indicates directories that contain executable files to install.  If no
+value is given, the directory C<bin> will be used.
 
-=head1 TODO
-
-Add support for ShareDir-style C<dist_dir> files.
+C<share> indicates directories that contain shared content to install for use
+with L<File::ShareDir>.  If no value is given, it will try to guess whether or
+not F<./share> should be used.
 
 =head1 AUTHOR
 
@@ -67,7 +70,7 @@ Add support for ShareDir-style C<dist_dir> files.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2009 by Ricardo SIGNES.
+This software is copyright (c) 2010 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

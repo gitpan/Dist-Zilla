@@ -1,28 +1,30 @@
 package Dist::Zilla::Plugin::ModuleBuild;
-our $VERSION = '1.093400';
+our $VERSION = '1.100120';
 # ABSTRACT: build a Build.PL that uses Module::Build
+use List::MoreUtils qw(any uniq);
 use Moose;
 use Moose::Autobox;
+with 'Dist::Zilla::Role::BuildRunner';
 with 'Dist::Zilla::Role::InstallTool';
 with 'Dist::Zilla::Role::TextTemplate';
 with 'Dist::Zilla::Role::TestRunner';
 with 'Dist::Zilla::Role::MetaProvider';
 
 use Dist::Zilla::File::InMemory;
-
+use List::MoreUtils qw(any uniq);
 
 
 has 'mb_version' => (
   isa => 'Str',
   is  => 'rw',
-  default => '0.35',
+  default => '0.3601',
 );
 
 my $template = q|
 use strict;
 use warnings;
 
-use Module::Build;
+use Module::Build 0.3601;
 
 my $build = Module::Build->new(
   module_name   => '{{ $module_name }}',
@@ -45,6 +47,11 @@ my $build = Module::Build->new(
 }}
   },
   script_files => [ qw({{ $exe_files }}) ],
+{{
+    return defined($share_dir)
+      ? qq{  share_dir    => '$share_dir',}
+      : '';
+}}
 );
 
 $build->create_build_script;
@@ -71,10 +78,25 @@ sub setup_installer {
 
   (my $name = $self->zilla->name) =~ s/-/::/g;
 
-  my $exe_files = $self->zilla->files
-                ->grep(sub { ($_->install_type||'') eq 'bin' })
-                ->map(sub { $_->name })
-                ->join(' ');
+  # XXX: SHAMELESSLY COPIED AND PASTED FROM MakeMaker -- rjbs, 2010-01-05
+  my @dir_plugins = $self->zilla->plugins
+    ->grep( sub { $_->isa('Dist::Zilla::Plugin::InstallDirs') })
+    ->flatten;
+
+  my @bin_dirs    = uniq map {; $_->bin->flatten   } @dir_plugins;
+  my @share_dirs  = uniq map {; $_->share->flatten } @dir_plugins;
+
+  confess "can't install more than one ShareDir" if @share_dirs > 1;
+
+  my @exe_files = $self->zilla->files
+    ->grep(sub { my $f = $_; any { $f->name =~ qr{^\Q$_\E[\\/]} } @bin_dirs; })
+    ->map( sub { $_->name })
+    ->flatten;
+
+  confess "can't install files with whitespace in their names"
+    if grep { /\s/ } @exe_files;
+
+  my $exe_files = join q{, }, map { q{"} . quotemeta($_) . q{"} } @exe_files;
 
   my $content = $self->fill_in_string(
     $template,
@@ -82,6 +104,7 @@ sub setup_installer {
       module_name => $name,
       dist        => \$self->zilla,
       exe_files   => \$exe_files,
+      share_dir   => \$share_dirs[0],
     },
   );
 
@@ -94,12 +117,18 @@ sub setup_installer {
   return;
 }
 
+sub build {
+  my $self = shift;
+  system($^X => 'Build.PL') and die "error with Build.PL\n";
+  system('./Build')         and die "error running ./Build\n";
+  return;
+}
+
 sub test {
   my ( $self, $target ) = @_;
   ## no critic Punctuation
-  system($^X => 'Build.PL') and die "error with Makefile.PL\n";
-  system('./Build') and die "error running make\n";
-  system('./Build test') and die "error running make test\n";
+  $self->build;
+  system('./Build test') and die "error running ./Build test\n";
   return;
 }
 
@@ -116,7 +145,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 1.093400
+version 1.100120
 
 =head1 DESCRIPTION
 
@@ -129,7 +158,7 @@ L<Module::Build>.
 
 B<Optional:> Specify the minimum version of L<Module::Build> to depend on.
 
-Defaults to 0.35.
+Defaults to 0.3601
 
 =head1 AUTHOR
 
@@ -137,7 +166,7 @@ Defaults to 0.35.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2009 by Ricardo SIGNES.
+This software is copyright (c) 2010 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

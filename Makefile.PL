@@ -4,15 +4,17 @@ use warnings;
 
 
 
-use ExtUtils::MakeMaker;
+use ExtUtils::MakeMaker 6.11;
+
+
 
 WriteMakefile(
   DISTNAME  => 'Dist-Zilla',
   NAME      => 'Dist::Zilla',
   AUTHOR    => "Ricardo\ SIGNES\ \<rjbs\@cpan\.org\>",
   ABSTRACT  => "distribution\ builder\;\ installer\ not\ included\!",
-  VERSION   => '1.093400',
-  EXE_FILES => [ qw(bin/dzil) ],
+  VERSION   => '1.100120',
+  EXE_FILES => [ "bin\/dzil" ],
   (eval { ExtUtils::MakeMaker->VERSION(6.31) } ? (LICENSE => 'perl') : ()),
   PREREQ_PM    => {
     "DateTime" => '0.44',
@@ -46,8 +48,11 @@ WriteMakefile(
     "File::Temp" => '0',
     "Path::Class" => '0',
     "String::Formatter" => '0',
+    "File::ShareDir::Install" => '0.03',
     "Text::Template" => '0',
   },
   test => {TESTS => 't/*.t'}
 );
+
+
 

@@ -8,8 +8,8 @@
       "version" : 1.4,
       "url" : "http://module-build.sourceforge.net/META-spec-v1.4.html"
    },
-   "generated_by" : "Dist::Zilla version 1.093400",
-   "version" : "1.093400",
+   "generated_by" : "Dist::Zilla version 1.100120",
+   "version" : "1.100120",
    "name" : "Dist-Zilla",
    "author" : [
       "Ricardo SIGNES <rjbs@cpan.org>"
@@ -47,6 +47,7 @@
       "File::Temp" : "0",
       "Path::Class" : "0",
       "String::Formatter" : "0",
+      "File::ShareDir::Install" : "0.03",
       "Text::Template" : "0"
    },
    "abstract" : "distribution builder; installer not included!"

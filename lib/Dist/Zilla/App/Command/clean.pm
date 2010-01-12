@@ -1,9 +1,11 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::clean;
-our $VERSION = '1.093400';
+our $VERSION = '1.100120';
 # ABSTRACT: clean up after build, test, or install
 use Dist::Zilla::App -command;
+
+use File::Find::Rule;
 
 
 sub abstract { 'clean up after build, test, or install' }
@@ -16,6 +18,14 @@ sub execute {
     $self->log("clean: removing $x");
     File::Path::rmtree($x);
   };
+
+  # removing leftovers
+  my @temps =
+    File::Find::Rule
+    ->file
+    ->name( qr/~$/ )
+    ->in('.');
+  unlink @temps;
 }
 
 1;
@@ -29,7 +39,7 @@ Dist::Zilla::App::Command::clean - clean up after build, test, or install
 
 =head1 VERSION
 
-version 1.093400
+version 1.100120
 
 =head1 SYNOPSIS
 
@@ -54,7 +64,7 @@ ie:
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2009 by Ricardo SIGNES.
+This software is copyright (c) 2010 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
