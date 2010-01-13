@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::ModuleBuild;
-our $VERSION = '1.100120';
+our $VERSION = '1.100130';
 # ABSTRACT: build a Build.PL that uses Module::Build
 use List::MoreUtils qw(any uniq);
 use Moose;
@@ -26,41 +26,12 @@ use warnings;
 
 use Module::Build 0.3601;
 
-my $build = Module::Build->new(
-  module_name   => '{{ $module_name }}',
-  license       => '{{ $dist->license->meta_yml_name }}',
-  dist_abstract => "{{ quotemeta($dist->abstract) }}",
-  dist_name     => "{{ quotemeta($dist->name) }}",
-  dist_author   => [
-{{
-    $OUT .= q{"} . quotemeta($_) . q{",} for @{ $dist->authors };
-    chomp $OUT;
-    return '';
-}}
-  ],
-  requires      => {
-{{
-    my $prereq = $dist->prereq;
-    $OUT .= qq{    "$_" => '$prereq->{$_}',\n} for keys %$prereq;
-    chomp $OUT;
-    return '';
-}}
-  },
-  script_files => [ qw({{ $exe_files }}) ],
-{{
-    return defined($share_dir)
-      ? qq{  share_dir    => '$share_dir',}
-      : '';
-}}
-);
+my {{ $module_build_args }}
+
+my $build = Module::Build->new(%module_build_args);
 
 $build->create_build_script;
 |;
-
-#  module_name   => "{{ quotemeta(
-#    (sort {length $a <=> length $b}
-#     grep { m{^lib/.+\.pm$} } @{$dist->files})[0]
-#  ) }}",
 
 sub metadata {
   my $self = shift;
@@ -96,15 +67,26 @@ sub setup_installer {
   confess "can't install files with whitespace in their names"
     if grep { /\s/ } @exe_files;
 
-  my $exe_files = join q{, }, map { q{"} . quotemeta($_) . q{"} } @exe_files;
+  my %module_build_args = (
+    module_name   => $name,
+    license       => $self->zilla->license->meta_yml_name,
+    dist_abstract => $self->zilla->abstract,
+    dist_name     => $self->zilla->name,
+    dist_author   => [ $self->zilla->authors->flatten ],
+    requires      => $self->zilla->prereq,
+    script_files  => \@exe_files,
+    (defined $share_dirs[0] ? (share_dir => $share_dirs[0]) : ()),
+  );
+
+  my $module_build_dumper = Data::Dumper->new(
+    [ \%module_build_args ],
+    [ '*module_build_args' ],
+  );
 
   my $content = $self->fill_in_string(
     $template,
     {
-      module_name => $name,
-      dist        => \$self->zilla,
-      exe_files   => \$exe_files,
-      share_dir   => \$share_dirs[0],
+      module_build_args => \($module_build_dumper->Dump),
     },
   );
 
@@ -145,7 +127,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 1.100120
+version 1.100130
 
 =head1 DESCRIPTION
 

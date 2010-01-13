@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::FailTest;
-our $VERSION = '1.100120';
+our $VERSION = '1.100130';
 # ABSTRACT: fake plugin to test dzil testing
 
 use Moose;
