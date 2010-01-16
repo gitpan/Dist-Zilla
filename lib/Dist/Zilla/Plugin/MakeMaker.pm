@@ -1,14 +1,15 @@
 package Dist::Zilla::Plugin::MakeMaker;
-our $VERSION = '1.100130';
+our $VERSION = '1.100160';
 
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::BuildRunner';
-with 'Dist::Zilla::Role::InstallTool';
-with 'Dist::Zilla::Role::TextTemplate';
-with 'Dist::Zilla::Role::TestRunner';
 with 'Dist::Zilla::Role::FixedPrereqs';
+with 'Dist::Zilla::Role::InstallTool';
+with 'Dist::Zilla::Role::MetaProvider';
+with 'Dist::Zilla::Role::TestRunner';
+with 'Dist::Zilla::Role::TextTemplate';
 
 
 use Data::Dumper ();
@@ -38,6 +39,20 @@ WriteMakefile(%WriteMakefileArgs);
 {{ $share_dir_block[1] }}
 
 |;
+
+sub metadata {
+  my ($self) = @_;
+
+  my @dir_plugins = $self->zilla->plugins
+    ->grep( sub { $_->isa('Dist::Zilla::Plugin::InstallDirs') })
+    ->flatten;
+
+  return {} unless uniq map {; $_->share->flatten } @dir_plugins;
+
+  return {
+    configure_requires => { 'File::ShareDir::Install' => 0 },
+  };
+}
 
 sub setup_installer {
   my ($self, $arg) = @_;
@@ -167,7 +182,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 1.100130
+version 1.100160
 
 =head1 DESCRIPTION
 
