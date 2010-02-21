@@ -19,7 +19,7 @@ my %WriteMakefileArgs = (
                        'EXE_FILES' => [
                                         'bin/dzil'
                                       ],
-                       'VERSION' => '1.100160',
+                       'VERSION' => '1.100520',
                        'LICENSE' => 'perl',
                        'PREREQ_PM' => {
                                         'PPI' => '0',

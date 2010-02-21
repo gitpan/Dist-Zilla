@@ -86,3 +86,15 @@ t/eg/DZ2/dist.pl
 t/eg/DZ2/lib/DZ1.pm
 t/lib/Dist/Zilla/Plugin/CreditTaker.pm
 t/lib/Dist/Zilla/Plugin/FailTest.pm
+todo/command-classes.txt
+todo/config-arg-prefix.txt
+todo/core-filefinders.txt
+todo/delay-core-attrs.txt
+todo/logging.txt
+todo/meta-dzilconfig.txt
+todo/new-dist-events.txt
+todo/prereq-overhaul.txt
+todo/register-on-fly.txt
+todo/test-tools.txt
+todo/test-upstream.txt
+todo/xs-improvement.txt

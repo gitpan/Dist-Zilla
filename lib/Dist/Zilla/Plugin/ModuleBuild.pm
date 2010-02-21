@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::ModuleBuild;
-our $VERSION = '1.100160';
+our $VERSION = '1.100520';
 # ABSTRACT: build a Build.PL that uses Module::Build
 use List::MoreUtils qw(any uniq);
 use Moose;
@@ -12,6 +12,8 @@ with 'Dist::Zilla::Role::MetaProvider';
 
 use Dist::Zilla::File::InMemory;
 use List::MoreUtils qw(any uniq);
+use Data::Dumper;
+
 
 
 has 'mb_version' => (
@@ -72,6 +74,7 @@ sub setup_installer {
     license       => $self->zilla->license->meta_yml_name,
     dist_abstract => $self->zilla->abstract,
     dist_name     => $self->zilla->name,
+    dist_version  => $self->zilla->version,
     dist_author   => [ $self->zilla->authors->flatten ],
     requires      => $self->zilla->prereq,
     script_files  => \@exe_files,
@@ -127,7 +130,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 1.100160
+version 1.100520
 
 =head1 DESCRIPTION
 

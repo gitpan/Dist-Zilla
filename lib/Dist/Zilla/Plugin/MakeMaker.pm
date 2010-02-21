@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MakeMaker;
-our $VERSION = '1.100160';
+our $VERSION = '1.100520';
 
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
 use Moose;
@@ -119,7 +119,7 @@ sub setup_installer {
   my $content = $self->fill_in_string(
     $template,
     {
-      perl_prereq => \($self->prereq->{perl}),
+      perl_prereq       => \($self->zilla->prereq->{perl}),
       share_dir_block   => \@share_dir_block,
       WriteMakefileArgs => \($makefile_args_dumper->Dump),
     },
@@ -182,7 +182,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 1.100160
+version 1.100520
 
 =head1 DESCRIPTION
 
