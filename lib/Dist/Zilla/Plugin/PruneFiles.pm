@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::PruneFiles;
-our $VERSION = '1.100520';
+our $VERSION = '1.100600';
 # ABSTRACT: prune arbirary files from the dist
 use Moose;
 use Moose::Autobox;
@@ -43,7 +43,7 @@ Dist::Zilla::Plugin::PruneFiles - prune arbirary files from the dist
 
 =head1 VERSION
 
-version 1.100520
+version 1.100600
 
 =head1 SYNOPSIS
 

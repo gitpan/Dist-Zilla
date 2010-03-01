@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::AllFiles;
-our $VERSION = '1.100520';
+our $VERSION = '1.100600';
 # ABSTRACT: gather all the files in your dist's root
 use Moose;
 use Moose::Autobox;
@@ -33,12 +33,14 @@ sub gather_files {
   $root =~ s{^~([\\/])}{File::HomeDir->my_home . $1}e;
   $root = Path::Class::dir($root);
 
-  my @files =
-    map { Dist::Zilla::File::OnDisk->new({ name => $_ }) }
-    File::Find::Rule
-    ->not( File::Find::Rule->name(qr/^\./) )
-    ->file
-    ->in($root);
+  my @files;
+  for my $filename (File::Find::Rule->file->in($root)) {
+    next if $filename =~ qr/^\./;
+    push @files, Dist::Zilla::File::OnDisk->new({
+      name => $filename,
+      mode => (stat $filename)[2] & 0755, # kill world-writeability
+    });
+  }
 
   for my $file (@files) {
     (my $newname = $file->name) =~ s{\A\Q$root\E[\\/]}{}g;
@@ -64,7 +66,7 @@ Dist::Zilla::Plugin::AllFiles - gather all the files in your dist's root
 
 =head1 VERSION
 
-version 1.100520
+version 1.100600
 
 =head1 DESCRIPTION
 

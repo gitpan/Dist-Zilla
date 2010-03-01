@@ -1,5 +1,5 @@
 package Dist::Zilla;
-our $VERSION = '1.100520';
+our $VERSION = '1.100600';
 # ABSTRACT: distribution builder; installer not included!
 use Moose;
 use Moose::Autobox;
@@ -513,6 +513,7 @@ sub _write_out_file {
   open my $out_fh, '>', "$to" or die "couldn't open $to to write: $!";
   print { $out_fh } $file->content;
   close $out_fh or die "error closing $to: $!";
+  chmod $file->mode, "$to" or die "couldn't chmod $to: $!";
 }
 
 
@@ -563,7 +564,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.100520
+version 1.100600
 
 =head1 DESCRIPTION
 

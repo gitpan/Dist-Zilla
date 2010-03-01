@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MakeMaker;
-our $VERSION = '1.100520';
+our $VERSION = '1.100600';
 
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
 use Moose;
@@ -91,7 +91,7 @@ sub setup_installer {
     my $share_dir = quotemeta $share_dirs[0];
     @share_dir_block = (
       qq{use File::ShareDir::Install;\ninstall_share "$share_dir";\n},
-      qq{package MY;\nuse File::ShareDir::Install qw(postamble);\n},
+      qq{package\nMY;\nuse File::ShareDir::Install qw(postamble);\n},
     );
   }
 
@@ -182,7 +182,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 1.100520
+version 1.100600
 
 =head1 DESCRIPTION
 
