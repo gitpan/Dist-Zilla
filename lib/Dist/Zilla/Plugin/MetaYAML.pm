@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MetaYAML;
-our $VERSION = '1.100600';
+our $VERSION = '1.100630';
 # ABSTRACT: produce a META.yml
 use Moose;
 use Moose::Autobox;
@@ -11,12 +11,15 @@ use Hash::Merge::Simple ();
 sub gather_files {
   my ($self, $arg) = @_;
 
-  require Dist::Zilla::File::InMemory;
+  require Dist::Zilla::File::FromCode;
   require YAML::Tiny;
 
-  my $file = Dist::Zilla::File::InMemory->new({
-    name    => 'META.yml',
-    content => YAML::Tiny::Dump($self->zilla->distmeta),
+  my $zilla = $self->zilla;
+  my $file  = Dist::Zilla::File::FromCode->new({
+    name => 'META.yml',
+    code => sub {
+      YAML::Tiny::Dump($zilla->distmeta);
+    },
   });
 
   $self->add_file($file);
@@ -36,7 +39,7 @@ Dist::Zilla::Plugin::MetaYAML - produce a META.yml
 
 =head1 VERSION
 
-version 1.100600
+version 1.100630
 
 =head1 DESCRIPTION
 

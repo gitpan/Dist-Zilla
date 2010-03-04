@@ -1,5 +1,13 @@
 Revision history for Dist-Zilla
 
+1.100630  2010-03-03 22:23:21 America/New_York
+          the log method now uses a pluggable logger, defaulting to
+            Log::Dispatchouli
+          plugins now log with a useful prefix to indicate what is logging
+
+          prerequisites are now managed by Dist::Zilla::Prereq
+          complex prereqs (a la Version::Requirement) are possible
+
 1.100600  2010-03-01 08:19:06 America/New_York
           the File role provides a mode attribute; files are chmodded on write
           the mode attribute may not be world-writeable

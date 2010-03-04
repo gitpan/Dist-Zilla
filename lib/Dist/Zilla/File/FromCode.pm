@@ -1,14 +1,21 @@
-package Dist::Zilla::File::InMemory;
+package Dist::Zilla::File::FromCode;
 our $VERSION = '1.100630';
-# ABSTRACT: a file that you build entirely in memory
+# ABSTRACT: a file whose content is (re-)built on demand
 use Moose;
 
 
-has content => (
+has code => (
   is  => 'rw',
-  isa => 'Str',
+  isa => 'CodeRef|Str',
   required => 1,
 );
+
+sub content {
+  my ($self) = @_;
+
+  my $code = $self->code;
+  return $self->$code;
+}
 
 with 'Dist::Zilla::Role::File';
 __PACKAGE__->meta->make_immutable;
@@ -20,7 +27,7 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::File::InMemory - a file that you build entirely in memory
+Dist::Zilla::File::FromCode - a file whose content is (re-)built on demand
 
 =head1 VERSION
 
@@ -28,8 +35,8 @@ version 1.100630
 
 =head1 DESCRIPTION
 
-This represents a file created in memory -- it's not much more than a glorified
-string.
+This represents a file whose contents will be generated on demand from a
+callback or method name.
 
 =head1 AUTHOR
 

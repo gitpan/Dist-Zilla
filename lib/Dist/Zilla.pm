@@ -1,9 +1,10 @@
 package Dist::Zilla;
-our $VERSION = '1.100600';
+our $VERSION = '1.100630';
 # ABSTRACT: distribution builder; installer not included!
 use Moose;
 use Moose::Autobox;
 use Dist::Zilla::Types qw(DistName License);
+use MooseX::Types::Moose qw(Bool HashRef);
 use MooseX::Types::Path::Class qw(Dir File);
 use Moose::Util::TypeConstraints;
 
@@ -12,9 +13,13 @@ use Hash::Merge::Simple ();
 use Path::Class ();
 use Software::License;
 use String::RewritePrefix;
+use version 0.79 ();
 
+use Dist::Zilla::Prereqs;
 use Dist::Zilla::File::OnDisk;
+use Dist::Zilla::Logger::Global;
 use Dist::Zilla::Role::Plugin;
+use Dist::Zilla::Util;
 
 use namespace::autoclean;
 
@@ -82,7 +87,6 @@ has abstract => (
       die "no abstract given and no main_module found; make sure your main module is in ./lib\n";
     }
 
-    require Dist::Zilla::Util;
     my $filename = $self->main_module->name;
     $self->log("extracting distribution abstract from $filename");
     my $abstract = Dist::Zilla::Util->abstract_from_file($filename);
@@ -265,41 +269,38 @@ has distmeta => (
   isa  => 'HashRef',
   init_arg  => undef,
   lazy      => 1,
-  default => sub {
-    my ($self) = @_;
-
-    my $meta = {
-      'meta-spec' => {
-        version => 1.4,
-        url     => 'http://module-build.sourceforge.net/META-spec-v1.4.html',
-      },
-      name     => $self->name,
-      version  => $self->version,
-      abstract => $self->abstract,
-      author   => $self->authors,
-      license  => $self->license->meta_yml_name,
-      requires => $self->prereq,
-      generated_by => (ref $self) . ' version ' . $self->VERSION,
-    };
-
-    $meta = Hash::Merge::Simple::merge($meta, $_->metadata)
-      for $self->plugins_with(-MetaProvider)->flatten;
-
-    $meta;
-  } # end default for distmeta
+  builder   => '_build_distmeta',
 );
 
-
-sub prereq {
+sub _build_distmeta {
   my ($self) = @_;
 
-  # XXX: This needs to always include the highest version. -- rjbs, 2008-06-01
-  my $prereq = {};
-  $prereq = $prereq->merge( $_->prereq )
-    for $self->plugins_with(-FixedPrereqs)->flatten;
+  my $meta = {
+    'meta-spec' => {
+      version => 1.4,
+      url     => 'http://module-build.sourceforge.net/META-spec-v1.4.html',
+    },
+    name     => $self->name,
+    version  => $self->version,
+    abstract => $self->abstract,
+    author   => $self->authors,
+    license  => $self->license->meta_yml_name,
+    generated_by => (ref $self) . ' version ' . $self->VERSION,
+  };
 
-  return $prereq;
+  $meta = Hash::Merge::Simple::merge($meta, $_->metadata)
+    for $self->plugins_with(-MetaProvider)->flatten;
+
+  return $meta;
 }
+
+
+has prereq => (
+  is   => 'ro',
+  isa  => 'Dist::Zilla::Prereqs',
+  default => sub { Dist::Zilla::Prereqs->new },
+  handles => [ qw(register_prereqs) ],
+);
 
 
 sub from_config {
@@ -353,7 +354,9 @@ sub _load_config {
     die "couldn't load $config_class: $@"; ## no critic Carp
   }
 
-  $self->log("reading configuration using $config_class");
+  Dist::Zilla::Logger::Global->instance->log(
+    "reading configuration using $config_class"
+  );
 
   my ($sequence) = $config_class->new->read_config({
     root     => $root,
@@ -403,6 +406,18 @@ sub build_in {
   $_->gather_files    for $self->plugins_with(-FileGatherer)->flatten;
   $_->prune_files     for $self->plugins_with(-FilePruner)->flatten;
   $_->munge_files     for $self->plugins_with(-FileMunger)->flatten;
+
+  for my $plugin ($self->plugins_with(-FixedPrereqs)->flatten) {
+    my $prereq = $plugin->prereq;
+    $self->register_prereqs($_ => $prereq->{$_}) for keys %$prereq;
+  }
+
+  $self->prereq->finalize;
+
+  my $meta   = $self->distmeta;
+  my $prereq = $self->prereq->as_distmeta;
+  $meta->{ $_ } = $prereq->{ $_ } for keys %$prereq;
+
   $_->setup_installer for $self->plugins_with(-InstallTool)->flatten;
 
   $self->_check_dupe_files;
@@ -539,11 +554,17 @@ sub release {
 }
 
 
-# XXX: yeah, uh, do something more awesome -- rjbs, 2008-06-01
-sub log { ## no critic
-  my ($self, $msg) = @_;
-  require Dist::Zilla::Util;
-  Dist::Zilla::Util->_log($msg);
+has logger => (
+  is   => 'ro',
+  does => 'Dist::Zilla::Role::Logger',
+  default => sub { Dist::Zilla::Logger::Global->instance }
+);
+
+for my $method (qw(log log_debug log_fatal)) {
+  Sub::Install::install_sub({
+    code => sub { shift()->logger->$method('[DZ]', @_); },
+    as   => $method,
+  });
 }
 
 sub BUILD {
@@ -564,7 +585,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.100600
+version 1.100630
 
 =head1 DESCRIPTION
 
@@ -673,6 +694,9 @@ metadata in this hash; use a MetaProvider plugin instead.
 This is a hashref of module prerequisites.  This attribute is likely to get
 greatly overhauled, or possibly replaced with a method based on other
 (private?) attributes.
+
+I<Actually>, it is more likely that this attribute will contain an object in
+the future.
 
 =head1 METHODS
 

@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command;
-our $VERSION = '1.100600';
+our $VERSION = '1.100630';
 # ABSTRACT: base class for dzil commands
 use App::Cmd::Setup -command;
 use Moose::Autobox;
@@ -26,8 +26,7 @@ sub config {
 
 
 sub log {
-  require Dist::Zilla::Util;
-  shift; Dist::Zilla::Util->_log($_[0]);
+  $_[0]->zilla->log($_[1]);
 }
 
 1;
@@ -41,7 +40,7 @@ Dist::Zilla::App::Command - base class for dzil commands
 
 =head1 VERSION
 
-version 1.100600
+version 1.100630
 
 =head1 METHODS
 

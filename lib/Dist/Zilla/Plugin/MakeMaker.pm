@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MakeMaker;
-our $VERSION = '1.100600';
+our $VERSION = '1.100630';
 
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
 use Moose;
@@ -7,7 +7,6 @@ use Moose::Autobox;
 with 'Dist::Zilla::Role::BuildRunner';
 with 'Dist::Zilla::Role::FixedPrereqs';
 with 'Dist::Zilla::Role::InstallTool';
-with 'Dist::Zilla::Role::MetaProvider';
 with 'Dist::Zilla::Role::TestRunner';
 with 'Dist::Zilla::Role::TextTemplate';
 
@@ -40,8 +39,13 @@ WriteMakefile(%WriteMakefileArgs);
 
 |;
 
-sub metadata {
+sub prereq {
   my ($self) = @_;
+
+  $self->zilla->register_prereqs(
+    { phase => 'configure' },
+    'ExtUtils::MakeMaker' => $self->eumm_version,
+  );
 
   my @dir_plugins = $self->zilla->plugins
     ->grep( sub { $_->isa('Dist::Zilla::Plugin::InstallDirs') })
@@ -49,9 +53,12 @@ sub metadata {
 
   return {} unless uniq map {; $_->share->flatten } @dir_plugins;
 
-  return {
-    configure_requires => { 'File::ShareDir::Install' => 0 },
-  };
+  $self->zilla->register_prereqs(
+    { phase => 'configure' },
+    'File::ShareDir::Install' => 0.03,
+  );
+
+  return {};
 }
 
 sub setup_installer {
@@ -95,7 +102,8 @@ sub setup_installer {
     );
   }
 
-  my $prereq = $self->zilla->prereq;
+  my $meta_prereq = $self->zilla->prereq->as_distmeta;
+  my $perl_prereq = delete $meta_prereq->{requires}{perl};
 
   my %write_makefile_args = (
     DISTNAME  => $self->zilla->name,
@@ -105,9 +113,11 @@ sub setup_installer {
     VERSION   => $self->zilla->version,
     LICENSE   => $self->zilla->license->meta_yml_name,
     EXE_FILES => [ @exe_files ],
-    PREREQ_PM    => {
-      map {; $_ => $prereq->{$_} } grep { $_ ne 'perl' } keys %$prereq
-    },
+
+    CONFIGURE_REQUIRES => delete $meta_prereq->{configure_requires},
+    BUILD_REQUIRES     => delete $meta_prereq->{build_requires},
+    PREREQ_PM          => delete $meta_prereq->{requires},
+
     test => { TESTS => join q{ }, sort keys %test_dirs },
   );
 
@@ -119,7 +129,7 @@ sub setup_installer {
   my $content = $self->fill_in_string(
     $template,
     {
-      perl_prereq       => \($self->zilla->prereq->{perl}),
+      perl_prereq       => \$perl_prereq,
       share_dir_block   => \@share_dir_block,
       WriteMakefileArgs => \($makefile_args_dumper->Dump),
     },
@@ -149,20 +159,6 @@ sub test {
   return;
 }
 
-sub prereq {
-  my ($self) = @_;
-
-  my $has_share = $self->zilla->plugins
-    ->grep(sub { $_->isa('Dist::Zilla::Plugins::InstallDirs') })
-    ->grep(sub { $_->share->length > 0 })
-    ->length;
-
-  return {
-    'ExtUtils::MakeMaker'     => $self->eumm_version,
-    ($has_share ? ('File::ShareDir::Install' => 0.03) : ()),
-  };
-}
-
 has 'eumm_version' => (
   isa => 'Str',
   is  => 'rw',
@@ -182,7 +178,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 1.100600
+version 1.100630
 
 =head1 DESCRIPTION
 

@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::ModuleBuild;
-our $VERSION = '1.100600';
+our $VERSION = '1.100630';
 # ABSTRACT: build a Build.PL that uses Module::Build
 use List::MoreUtils qw(any uniq);
 use Moose;
@@ -26,7 +26,7 @@ my $template = q|
 use strict;
 use warnings;
 
-use Module::Build 0.3601;
+use Module::Build {{ $plugin->mb_version }};
 
 my {{ $module_build_args }}
 
@@ -76,9 +76,12 @@ sub setup_installer {
     dist_name     => $self->zilla->name,
     dist_version  => $self->zilla->version,
     dist_author   => [ $self->zilla->authors->flatten ],
-    requires      => $self->zilla->prereq,
     script_files  => \@exe_files,
     (defined $share_dirs[0] ? (share_dir => $share_dirs[0]) : ()),
+
+    # I believe it is a happy coincidence, for the moment, that this happens to
+    # return just the same thing that is needed here. -- rjbs, 2010-01-22
+    $self->zilla->prereq->as_distmeta->flatten,
   );
 
   my $module_build_dumper = Data::Dumper->new(
@@ -89,6 +92,7 @@ sub setup_installer {
   my $content = $self->fill_in_string(
     $template,
     {
+      plugin            => \$self,
       module_build_args => \($module_build_dumper->Dump),
     },
   );
@@ -130,7 +134,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 1.100600
+version 1.100630
 
 =head1 DESCRIPTION
 

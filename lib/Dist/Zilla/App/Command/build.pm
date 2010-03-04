@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::build;
-our $VERSION = '1.100600';
+our $VERSION = '1.100630';
 # ABSTRACT: build your dist
 use Dist::Zilla::App -command;
 
@@ -32,7 +32,7 @@ Dist::Zilla::App::Command::build - build your dist
 
 =head1 VERSION
 
-version 1.100600
+version 1.100630
 
 =head1 SYNOPSIS
 

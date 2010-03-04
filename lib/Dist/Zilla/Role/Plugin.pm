@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::Plugin;
-our $VERSION = '1.100600';
+our $VERSION = '1.100630';
 # ABSTRACT: something that gets plugged in to Dist::Zilla
 use Moose::Role;
 
@@ -16,9 +16,18 @@ has zilla => (
   isa => 'Dist::Zilla',
   required => 1,
   weak_ref => 1,
-  handles  => [ qw(log) ],
 );
 
+
+for my $method (qw(log log_debug log_fatal)) {
+  Sub::Install::install_sub({
+    code => sub {
+      my $self = shift;
+      $self->zilla->$method($self->plugin_name, @_);
+    },
+    as   => $method,
+  });
+}
 
 no Moose::Role;
 1;
@@ -32,7 +41,7 @@ Dist::Zilla::Role::Plugin - something that gets plugged in to Dist::Zilla
 
 =head1 VERSION
 
-version 1.100600
+version 1.100630
 
 =head1 DESCRIPTION
 
@@ -56,7 +65,7 @@ plugged.
 =head2 log
 
 The plugin's C<log> method delegates to the Dist::Zilla object's
-L<Dist::Zilla/log> method.
+L<Dist::Zilla/log> method after including a bit of argument-munging.
 
 =head1 AUTHOR
 

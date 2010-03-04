@@ -2,7 +2,10 @@
 abstract: 'distribution builder; installer not included!'
 author:
   - 'Ricardo SIGNES <rjbs@cpan.org>'
-generated_by: 'Dist::Zilla version 1.100600'
+build_requires: {}
+configure_requires:
+  ExtUtils::MakeMaker: 6.11
+generated_by: 'Dist::Zilla version 1.100630'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -25,9 +28,11 @@ requires:
   File::chdir: 0
   Hash::Merge::Simple: 0
   List::MoreUtils: 0
+  Log::Dispatchouli: 1.004
   Mixin::ExtraFields::Param: 0
   Moose: 0.92
   Moose::Autobox: 0.09
+  MooseX::Singleton: 0.22
   MooseX::Types::Path::Class: 0
   PPI: 0
   Path::Class: 0
@@ -42,8 +47,9 @@ requires:
   YAML::Tiny: 0
   autobox: 2.53
   namespace::autoclean: 0
+  perl: v5.8.5
 resources:
   MailingList: http://www.listbox.com/subscribe/?list_id=139292
   homepage: http://search.cpan.org/dist/Dist-Zilla/
   repository: http://github.com/rjbs/dist-zilla
-version: 1.100600
+version: 1.100630
