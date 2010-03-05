@@ -1,5 +1,5 @@
 package inc::Dist::Zilla::Plugin::VersionBootstrap;
-our $VERSION = '1.100630';
+our $VERSION = '1.100630_001';
 # ABSTRACT: set Dist::Zilla::* $VERSION during Dist-Zilla dzilling
 use Moose;
 use Moose::Autobox;

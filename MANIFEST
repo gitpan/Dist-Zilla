@@ -90,6 +90,8 @@ t/eg/DZ2/dist.pl
 t/eg/DZ2/lib/DZ1.pm
 t/lib/Dist/Zilla/Plugin/CreditTaker.pm
 t/lib/Dist/Zilla/Plugin/FailTest.pm
+t/release-pod-coverage.t
+t/release-pod-syntax.t
 todo/command-classes.txt
 todo/config-arg-prefix.txt
 todo/core-filefinders.txt

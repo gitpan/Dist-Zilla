@@ -5,7 +5,7 @@ author:
 build_requires: {}
 configure_requires:
   ExtUtils::MakeMaker: 6.11
-generated_by: 'Dist::Zilla version 1.100630'
+generated_by: 'Dist::Zilla version 1.100630_001'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -13,43 +13,66 @@ meta-spec:
 name: Dist-Zilla
 requires:
   App::Cmd: 0.299
+  App::Cmd::Setup: 0
   Archive::Tar: 0
+  CPAN: 0
   CPAN::Uploader: 0
+  CPAN::Version: 0
+  Carp: 0
+  Config: 0
   Config::INI::MVP::Reader: 0.024
+  Config::INI::Reader: 0
   Config::MVP: 0.092990
+  Config::MVP::Assembler: 0
+  Config::MVP::Assembler::WithBundles: 0
+  Config::MVP::Reader: 0
+  Config::MVP::Reader::Findable: 0
+  Config::MVP::Reader::Finder: 0
+  Data::Dumper: 0
   Data::Section: 0.004
   DateTime: 0.44
   ExtUtils::MakeMaker: 0
   ExtUtils::Manifest: 1.54
   File::Find::Rule: 0
   File::HomeDir: 0
+  File::Path: 0
   File::ShareDir::Install: 0.03
+  File::Spec: 0
   File::Temp: 0
   File::chdir: 0
   Hash::Merge::Simple: 0
+  JSON: 0
   List::MoreUtils: 0
   Log::Dispatchouli: 1.004
+  Mixin::ExtraFields: 0
   Mixin::ExtraFields::Param: 0
   Moose: 0.92
   Moose::Autobox: 0.09
+  Moose::Role: 0
+  Moose::Util::TypeConstraints: 0
   MooseX::Singleton: 0.22
+  MooseX::Types: 0
+  MooseX::Types::Moose: 0
   MooseX::Types::Path::Class: 0
   PPI: 0
   Path::Class: 0
   Perl::Version: 0
   Pod::Eventual: 0.091480
   Software::License: 0
+  Software::LicenseUtils: 0
   String::Flogger: 1
   String::Formatter: 0
   String::RewritePrefix: 0.002
   Test::More: 0
   Text::Template: 0
+  Version::Requirements: 0
   YAML::Tiny: 0
   autobox: 2.53
   namespace::autoclean: 0
   perl: v5.8.5
+  version: 0.79
 resources:
   MailingList: http://www.listbox.com/subscribe/?list_id=139292
   homepage: http://search.cpan.org/dist/Dist-Zilla/
   repository: http://github.com/rjbs/dist-zilla
-version: 1.100630
+version: 1.100630_001

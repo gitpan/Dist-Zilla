@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::Logger;
-our $VERSION = '1.100630';
+our $VERSION = '1.100630_001';
 use Moose::Role;
 use namespace::autoclean;
 
@@ -21,7 +21,7 @@ Dist::Zilla::Role::Logger
 
 =head1 VERSION
 
-version 1.100630
+version 1.100630_001
 
 =head1 AUTHOR
 

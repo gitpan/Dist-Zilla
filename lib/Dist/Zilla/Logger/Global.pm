@@ -1,5 +1,5 @@
 package Dist::Zilla::Logger::Global;
-our $VERSION = '1.100630';
+our $VERSION = '1.100630_001';
 use MooseX::Singleton;
 
 use Log::Dispatchouli 0.004;
@@ -37,7 +37,7 @@ Dist::Zilla::Logger::Global
 
 =head1 VERSION
 
-version 1.100630
+version 1.100630_001
 
 =head1 AUTHOR
 
