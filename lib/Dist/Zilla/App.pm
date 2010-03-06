@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App;
-our $VERSION = '1.100630_001';
+our $VERSION = '1.100650';
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup -app;
 
@@ -66,7 +66,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 1.100630_001
+version 1.100650
 
 =head1 AUTHOR
 

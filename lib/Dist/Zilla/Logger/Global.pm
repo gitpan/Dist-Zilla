@@ -1,6 +1,7 @@
 package Dist::Zilla::Logger::Global;
-our $VERSION = '1.100630_001';
+our $VERSION = '1.100650';
 use MooseX::Singleton;
+# ABSTRACT: the generic, global logger for use pre-configuration-phase
 
 use Log::Dispatchouli 0.004;
 
@@ -33,11 +34,11 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Logger::Global
+Dist::Zilla::Logger::Global - the generic, global logger for use pre-configuration-phase
 
 =head1 VERSION
 
-version 1.100630_001
+version 1.100650
 
 =head1 AUTHOR
 

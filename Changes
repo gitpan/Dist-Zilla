@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla
 
-1.100630_001 2010-03-04 23:01:08 America/New_York
+1.100650  2010-03-06 11:46:23 America/New_York
           add some missing prereqs
           now configured with @RJBS rather than custom set of plugins
 

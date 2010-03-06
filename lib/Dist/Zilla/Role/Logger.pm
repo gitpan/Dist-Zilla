@@ -1,7 +1,8 @@
 package Dist::Zilla::Role::Logger;
-our $VERSION = '1.100630_001';
+our $VERSION = '1.100650';
 use Moose::Role;
 use namespace::autoclean;
+# ABSTRACT: something that logs activity
 
 requires 'log';
 requires 'log_debug';
@@ -17,11 +18,11 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Role::Logger
+Dist::Zilla::Role::Logger - something that logs activity
 
 =head1 VERSION
 
-version 1.100630_001
+version 1.100650
 
 =head1 AUTHOR
 
