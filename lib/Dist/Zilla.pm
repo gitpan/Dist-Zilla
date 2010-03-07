@@ -1,5 +1,5 @@
 package Dist::Zilla;
-our $VERSION = '1.100650';
+our $VERSION = '1.100651';
 # ABSTRACT: distribution builder; installer not included!
 use Moose;
 use Moose::Autobox;
@@ -327,20 +327,24 @@ sub from_config {
       $section->payload,
     );
 
-    $self->log("initializing plugin $name ($plugin_class)");
-
     confess "arguments attempted to override plugin name"
       if defined $arg->{plugin_name};
 
     confess "arguments attempted to override plugin name"
       if defined $arg->{zilla};
 
-    $self->plugins->push(
-      $plugin_class->new( $arg->merge({
+    my $plugin = $plugin_class->new(
+      $arg->merge({
         plugin_name => $name,
         zilla       => $self,
-      }) )
+      }),
     );
+
+    my $version = $plugin->VERSION || 0;
+
+    $plugin->log_debug([ 'online, %s v%s', $plugin->meta->name, $version ]);
+
+    $self->plugins->push($plugin);
   }
 
   return $self;
@@ -585,7 +589,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.100650
+version 1.100651
 
 =head1 DESCRIPTION
 

@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::AutoVersion;
-our $VERSION = '1.100650';
+our $VERSION = '1.100651';
 # ABSTRACT: take care of numbering versions so you don't have to
 use Moose;
 with(
@@ -30,7 +30,9 @@ has format => (
   is       => 'ro',
   isa      => 'Str',
   required => 1,
-  default  => q[{{ $major }}.{{ cldr('yyDDD') }}{{ sprintf '%01u', ($ENV{N} || 0) }}],
+  default  => q<{{ $major }}.{{ cldr('yyDDD') }}>
+            . q<{{ sprintf('%01u', ($ENV{N} || 0)) }}>
+            . q<{{$ENV{DEV} ? (sprintf '_%03u', $ENV{DEV}) : ''}}>
 );
 
 sub provide_version {
@@ -60,7 +62,7 @@ Dist::Zilla::Plugin::AutoVersion - take care of numbering versions so you don't 
 
 =head1 VERSION
 
-version 1.100650
+version 1.100651
 
 =head1 DESCRIPTION
 
@@ -86,7 +88,9 @@ which consult the L<DateTime> documentation).
 
 The default value is:
 
-  {{ $major }}.{{ cldr('yyDDD') }}{{ sprintf '%01u', ($ENV{N} || 0) }}
+  {{ $major }}.{{ cldr('yyDDD') }}
+  {{ sprintf('%01u', ($ENV{N} || 0)) }}
+  {{$ENV{DEV} ? (sprintf '_%03u', $ENV{DEV}) : ''}}
 
 =head1 AUTHOR
 

@@ -1,5 +1,5 @@
 package Dist::Zilla::PluginBundle::Filter;
-our $VERSION = '1.100650';
+our $VERSION = '1.100651';
 # ABSTRACT: use another bundle, with some plugins removed
 use Moose;
 use Moose::Autobox;
@@ -23,7 +23,11 @@ sub bundle_config {
 
   eval "require $bundle; 1" or die;
 
-  my @plugins = $bundle->bundle_config;
+  my @plugins = $bundle->bundle_config({
+    name    => $section->{name}, # not 100% sure about this -- rjbs, 2010-03-06
+    package => $bundle,
+    payload => {},
+  });
 
   return @plugins unless my $remove = $config->{remove};
 
@@ -50,7 +54,7 @@ Dist::Zilla::PluginBundle::Filter - use another bundle, with some plugins remove
 
 =head1 VERSION
 
-version 1.100650
+version 1.100651
 
 =head1 SYNOPSIS
 

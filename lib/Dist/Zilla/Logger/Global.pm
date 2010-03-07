@@ -1,5 +1,5 @@
 package Dist::Zilla::Logger::Global;
-our $VERSION = '1.100650';
+our $VERSION = '1.100651';
 use MooseX::Singleton;
 # ABSTRACT: the generic, global logger for use pre-configuration-phase
 
@@ -38,7 +38,7 @@ Dist::Zilla::Logger::Global - the generic, global logger for use pre-configurati
 
 =head1 VERSION
 
-version 1.100650
+version 1.100651
 
 =head1 AUTHOR
 

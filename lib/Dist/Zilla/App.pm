@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App;
-our $VERSION = '1.100650';
+our $VERSION = '1.100651';
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup -app;
 
@@ -48,12 +48,12 @@ sub config_for {
 
 sub global_opt_spec {
   return (
-    [ "inc|I=s@", "additional \@INC dirs", {
+    [ "verbose|v", "log additional output" ],
+    [ "inc|I=s@",  "additional \@INC dirs", {
         callbacks => { 'always fine' => sub { unshift @INC, @{$_[0]}; } }
     } ]
   );
 }
-
 
 1;
 
@@ -66,7 +66,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 1.100650
+version 1.100651
 
 =head1 AUTHOR
 

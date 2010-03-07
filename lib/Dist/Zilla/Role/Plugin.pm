@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::Plugin;
-our $VERSION = '1.100650';
+our $VERSION = '1.100651';
 # ABSTRACT: something that gets plugged in to Dist::Zilla
 use Moose::Role;
 
@@ -23,7 +23,10 @@ for my $method (qw(log log_debug log_fatal)) {
   Sub::Install::install_sub({
     code => sub {
       my $self = shift;
-      $self->zilla->$method($self->plugin_name, @_);
+      $self->zilla->logger->$method(
+        '[' . $self->plugin_name . ']',
+        @_,
+      );
     },
     as   => $method,
   });
@@ -41,7 +44,7 @@ Dist::Zilla::Role::Plugin - something that gets plugged in to Dist::Zilla
 
 =head1 VERSION
 
-version 1.100650
+version 1.100651
 
 =head1 DESCRIPTION
 
