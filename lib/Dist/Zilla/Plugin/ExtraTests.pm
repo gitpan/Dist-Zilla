@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::ExtraTests;
-our $VERSION = '1.100651';
+our $VERSION = '1.100660';
 # ABSTRACT: rewrite ./xt tests to ./t tests with skips
 use Moose;
 with 'Dist::Zilla::Role::FileMunger';
@@ -66,7 +66,7 @@ Dist::Zilla::Plugin::ExtraTests - rewrite ./xt tests to ./t tests with skips
 
 =head1 VERSION
 
-version 1.100651
+version 1.100660
 
 =head1 DESCRIPTION
 

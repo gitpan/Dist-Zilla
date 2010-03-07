@@ -4,12 +4,12 @@
       "repository" : "http://github.com/rjbs/dist-zilla",
       "MailingList" : "http://www.listbox.com/subscribe/?list_id=139292"
    },
-   "generated_by" : "Dist::Zilla version 1.100651",
+   "generated_by" : "Dist::Zilla version 1.100660",
    "meta-spec" : {
       "version" : 1.4,
       "url" : "http://module-build.sourceforge.net/META-spec-v1.4.html"
    },
-   "version" : "1.100651",
+   "version" : "1.100660",
    "name" : "Dist-Zilla",
    "author" : [
       "Ricardo SIGNES <rjbs@cpan.org>"
