@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::NextRelease;
-our $VERSION = '1.100660';
+our $VERSION = '1.100710';
 # ABSTRACT: update the next release number in your changelog
 
 use Moose;
@@ -8,7 +8,7 @@ with 'Dist::Zilla::Role::TextTemplate';
 with 'Dist::Zilla::Role::AfterRelease';
 
 use DateTime;
-use String::Formatter stringf => {
+use String::Formatter 0.100680 stringf => {
   -as => '_format_version',
 
   input_processor => 'require_single_input',
@@ -96,7 +96,7 @@ Dist::Zilla::Plugin::NextRelease - update the next release number in your change
 
 =head1 VERSION
 
-version 1.100660
+version 1.100710
 
 =head1 SYNOPSIS
 

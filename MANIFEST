@@ -19,13 +19,13 @@ lib/Dist/Zilla/App/Command/release.pm
 lib/Dist/Zilla/App/Command/run.pm
 lib/Dist/Zilla/App/Command/smoke.pm
 lib/Dist/Zilla/App/Command/test.pm
+lib/Dist/Zilla/App/Tester.pm
 lib/Dist/Zilla/Config.pm
 lib/Dist/Zilla/Config/Finder.pm
 lib/Dist/Zilla/Config/Perl.pm
 lib/Dist/Zilla/File/FromCode.pm
 lib/Dist/Zilla/File/InMemory.pm
 lib/Dist/Zilla/File/OnDisk.pm
-lib/Dist/Zilla/Logger/Global.pm
 lib/Dist/Zilla/Plugin/AllFiles.pm
 lib/Dist/Zilla/Plugin/AutoVersion.pm
 lib/Dist/Zilla/Plugin/BumpVersion.pm
@@ -67,7 +67,6 @@ lib/Dist/Zilla/Role/FileMunger.pm
 lib/Dist/Zilla/Role/FilePruner.pm
 lib/Dist/Zilla/Role/FixedPrereqs.pm
 lib/Dist/Zilla/Role/InstallTool.pm
-lib/Dist/Zilla/Role/Logger.pm
 lib/Dist/Zilla/Role/MetaProvider.pm
 lib/Dist/Zilla/Role/Plugin.pm
 lib/Dist/Zilla/Role/PluginBundle.pm
@@ -75,6 +74,7 @@ lib/Dist/Zilla/Role/Releaser.pm
 lib/Dist/Zilla/Role/TestRunner.pm
 lib/Dist/Zilla/Role/TextTemplate.pm
 lib/Dist/Zilla/Role/VersionProvider.pm
+lib/Dist/Zilla/Tester.pm
 lib/Dist/Zilla/Tutorial.pm
 lib/Dist/Zilla/Types.pm
 lib/Dist/Zilla/Util.pm

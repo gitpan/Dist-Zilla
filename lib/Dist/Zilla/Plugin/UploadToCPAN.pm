@@ -1,14 +1,27 @@
 package Dist::Zilla::Plugin::UploadToCPAN;
-our $VERSION = '1.100660';
+our $VERSION = '1.100710';
 # ABSTRACT: upload the dist to CPAN
 use Moose;
 with 'Dist::Zilla::Role::Releaser';
 
+use CPAN::Uploader 0.100660; # log method
 use File::HomeDir;
 use File::Spec;
+use Scalar::Util qw(weaken);
+
+use namespace::autoclean;
 
 
-use CPAN::Uploader;
+{
+  package
+    Dist::Zilla::Plugin::UploadToCPAN::_Uploader;
+our $VERSION = '1.100710';
+  use base 'CPAN::Uploader';
+  sub log {
+    my $self = shift;
+    $self->{'Dist::Zilla'}{plugin}->log(@_);
+  }
+}
 
 has user => (
   is   => 'ro',
@@ -67,19 +80,32 @@ has pause_cfg => (
   },
 );
 
+has uploader => (
+  is   => 'ro',
+  isa  => 'CPAN::Uploader',
+  lazy => 1,
+  default => sub {
+    my ($self) = @_;
+
+    my $user     = $self->user;
+    my $password = $self->password;
+
+    my $uploader = Dist::Zilla::Plugin::UploadToCPAN::_Uploader->new({
+      user     => $user,
+      password => $password,
+    });
+
+    $uploader->{'Dist::Zilla'}{plugin} = $self;
+    weaken $uploader->{'Dist::Zilla'}{plugin};
+
+    return $uploader;
+  }
+);
+
 sub release {
   my ($self, $archive) = @_;
 
-  my $user     = $self->user;
-  my $password = $self->password;
-
-  CPAN::Uploader->upload_file(
-    "$archive",
-    {
-      user     => $user,
-      password => $password,
-    },
-  );
+  $self->uploader->upload_file("$archive");
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -95,7 +121,7 @@ Dist::Zilla::Plugin::UploadToCPAN - upload the dist to CPAN
 
 =head1 VERSION
 
-version 1.100660
+version 1.100710
 
 =head1 SYNOPSIS
 

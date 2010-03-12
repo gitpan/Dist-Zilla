@@ -1,21 +1,27 @@
 package Dist::Zilla::Plugin::FakeRelease;
-our $VERSION = '1.100660';
+our $VERSION = '1.100710';
 # ABSTRACT: fake plugin to test release
 
 use Moose;
-
 with 'Dist::Zilla::Role::Releaser';
 
 sub release {
   my $self = shift;
-  die '[FakeRelease] DIST_ZILLA_FAKERELEASE_FAIL set, aborting'
-    if $ENV{DIST_ZILLA_FAKERELEASE_FAIL};
-  $self->log( '[FakeRelease] Fake realase happening (nothing was really done)' );
+
+  for my $env (
+    'DIST_ZILLA_FAKERELEASE_FAIL', # old
+    'DZIL_FAKERELEASE_FAIL',       # new
+  ) {
+    $self->log_fatal("$env set, aborting") if $ENV{$env};
+  }
+
+  $self->log('Fake release happening (nothing was really done)');
 }
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
+
 
 
 =pod
@@ -26,7 +32,7 @@ Dist::Zilla::Plugin::FakeRelease - fake plugin to test release
 
 =head1 VERSION
 
-version 1.100660
+version 1.100710
 
 =head1 DESCRIPTION
 
@@ -36,9 +42,9 @@ implementing C<BeforeRelease> and C<AfterRelease>.
 
 When this plugin does the release, it will just log a message and finish.
 
-If you happen to have a C<DIST_ZILLA_FAKERELEASE_FAIL> environment var
-set, the plugin will die instead of logging and exiting nicely. This can
-be interesting for authors wanting to test reliably that release failed.
+If you set the environment variable C<DZIL_FAKERELEASE_FAIL> to a true value,
+the plugin will die instead of doing nothing. This can be usefulfor
+authors wanting to test reliably that release failed.
 
 =head1 AUTHOR
 

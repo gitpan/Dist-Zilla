@@ -1,5 +1,5 @@
 package Dist::Zilla;
-our $VERSION = '1.100660';
+our $VERSION = '1.100710';
 # ABSTRACT: distribution builder; installer not included!
 use Moose;
 use Moose::Autobox;
@@ -10,6 +10,8 @@ use Moose::Util::TypeConstraints;
 
 use File::Find::Rule;
 use Hash::Merge::Simple ();
+use Log::Dispatchouli 1.100710; # proxy loggers
+use Params::Util qw(_HASHLIKE);
 use Path::Class ();
 use Software::License;
 use String::RewritePrefix;
@@ -17,7 +19,6 @@ use version 0.79 ();
 
 use Dist::Zilla::Prereqs;
 use Dist::Zilla::File::OnDisk;
-use Dist::Zilla::Logger::Global;
 use Dist::Zilla::Role::Plugin;
 use Dist::Zilla::Util;
 
@@ -123,9 +124,7 @@ has main_module => (
     my $guessing = q{};
 
     if ( $self->has_main_module_override ) {
-
        $file = $self->files->grep(sub{ $_->name eq $self->main_module_override })->head;
-
     } else {
        $guessing = 'guessing '; # We're having to guess
 
@@ -139,14 +138,13 @@ has main_module => (
              ->head;
     }
 
-    die "Unable to find main_module in dist\n" unless $file;
+    $self->log_fatal("Unable to find main_module in dist") unless $file;
 
     $self->log("${guessing}dist's main_module is " . $file->name);
 
     return $file;
   },
 );
-
 
 
 has copyright_holder => (
@@ -285,7 +283,9 @@ sub _build_distmeta {
     abstract => $self->abstract,
     author   => $self->authors,
     license  => $self->license->meta_yml_name,
-    generated_by => (ref $self) . ' version ' . $self->VERSION,
+    generated_by => (ref $self)
+                  . ' version '
+                  . (defined $self->VERSION ? $self->VERSION : '(undef)')
   };
 
   $meta = Hash::Merge::Simple::merge($meta, $_->metadata)
@@ -309,10 +309,13 @@ sub from_config {
 
   my $root = Path::Class::dir($arg->{dist_root} || '.');
 
-  my ($seq) = $class->_load_config(
-    $arg->{config_class},
-    $root,
-  );
+  my $logger = $arg->{logger} || $class->default_logger;
+
+  my ($seq) = $class->_load_config({
+    root   => $root,
+    logger => $logger,
+    config_class => $arg->{config_class},
+  });
 
   my $core_config = $seq->section_named('_')->payload;
 
@@ -351,17 +354,19 @@ sub from_config {
 }
 
 sub _load_config {
-  my ($self, $config_class, $root) = @_;
+  my ($self, $arg) = @_;
+  $arg ||= {};
 
-  $config_class ||= 'Dist::Zilla::Config::Finder';
+  my $config_class = $arg->{config_class} ||= 'Dist::Zilla::Config::Finder';
   unless (eval "require $config_class; 1") {
     die "couldn't load $config_class: $@"; ## no critic Carp
   }
 
-  Dist::Zilla::Logger::Global->instance->log(
-    "reading configuration using $config_class"
+  $arg->{logger}->log_debug(
+    "[DZ] reading configuration using $config_class"
   );
 
+  my $root = $arg->{root};
   my ($sequence) = $config_class->new->read_config({
     root     => $root,
     basename => 'dist',
@@ -560,13 +565,28 @@ sub release {
 
 has logger => (
   is   => 'ro',
-  does => 'Dist::Zilla::Role::Logger',
-  default => sub { Dist::Zilla::Logger::Global->instance }
+  isa  => 'Log::Dispatchouli', # could be duck typed, I guess
+  builder => 'default_logger',
 );
+
+sub default_logger {
+  return Log::Dispatchouli->new({
+    ident     => 'Dist::Zilla',
+    to_stdout => 1,
+    log_pid   => 0,
+  });
+}
 
 for my $method (qw(log log_debug log_fatal)) {
   Sub::Install::install_sub({
-    code => sub { shift()->logger->$method('[DZ]', @_); },
+    code => sub {
+      my ($self, @rest) = @_;
+      my $arg = _HASHLIKE($rest[0]) ? (shift @rest) : {};
+      local $arg->{prefix} = '[DZ] '
+                           . (defined $arg->{prefix} ? $arg->{prefix} : '');
+
+      $self->logger->$method($arg, @rest);
+    },
     as   => $method,
   });
 }
@@ -589,7 +609,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.100660
+version 1.100710
 
 =head1 DESCRIPTION
 
@@ -774,9 +794,7 @@ by the loaded plugins.
 
   $zilla->log($message);
 
-This method logs the given message.  In the future it will be a more useful and
-expressive method.  For now, it just prints the string after tacking on a
-newline.
+This method logs the given message.
 
 =head1 SUPPORT
 

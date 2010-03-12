@@ -1,26 +1,14 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command;
-our $VERSION = '1.100660';
+our $VERSION = '1.100710';
 # ABSTRACT: base class for dzil commands
 use App::Cmd::Setup -command;
 use Moose::Autobox;
 
 
 sub zilla {
-  my ($self) = @_;
-
-  require Dist::Zilla;
-  return $self->{__PACKAGE__}{zilla} ||= do {
-    my $zilla = Dist::Zilla->from_config;
-    $zilla->dzil_app($self->app);
-
-    $zilla->logger->logger->set_debug(
-      $self->app->global_options->verbose
-    );
-
-    $zilla;
-  }
+  return $_[0]->app->zilla;
 }
 
 
@@ -45,7 +33,7 @@ Dist::Zilla::App::Command - base class for dzil commands
 
 =head1 VERSION
 
-version 1.100660
+version 1.100710
 
 =head1 METHODS
 
@@ -53,6 +41,8 @@ version 1.100660
 
 This returns the Dist::Zilla object in use by the command.  If none has yet
 been constructed, one will be by calling C<< Dist::Zilla->from_config >>.
+
+(This method just delegates to the Dist::Zilla::App object!)
 
 =head2 config
 

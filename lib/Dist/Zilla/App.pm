@@ -1,9 +1,9 @@
 use strict;
 use warnings;
 package Dist::Zilla::App;
-our $VERSION = '1.100660';
+our $VERSION = '1.100710';
 # ABSTRACT: Dist::Zilla's App::Cmd
-use App::Cmd::Setup -app;
+use App::Cmd::Setup 0.307 -app; # need ->app in Result of Tester, GLD vers
 
 use Carp ();
 use Dist::Zilla::Config::Finder;
@@ -55,6 +55,28 @@ sub global_opt_spec {
   );
 }
 
+
+sub zilla {
+  my ($self) = @_;
+
+  require Dist::Zilla;
+  require Dist::Zilla::Logger::Global;
+
+  return $self->{__PACKAGE__}{zilla} ||= do {
+    my $verbose = $self->global_options->verbose;
+
+    my $logger = Dist::Zilla->default_logger;
+    $logger->set_debug($verbose);
+
+    my $zilla = Dist::Zilla->from_config({ logger => $logger });
+    $zilla->dzil_app($self);
+
+    $zilla->logger->set_debug($verbose);
+
+    $zilla;
+  }
+}
+
 1;
 
 __END__
@@ -66,7 +88,14 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 1.100660
+version 1.100710
+
+=head1 METHODS
+
+=head2 zilla
+
+This returns the Dist::Zilla object in use by the command.  If none has yet
+been constructed, one will be by calling C<< Dist::Zilla->from_config >>.
 
 =head1 AUTHOR
 

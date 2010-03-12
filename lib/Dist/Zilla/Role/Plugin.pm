@@ -1,7 +1,11 @@
 package Dist::Zilla::Role::Plugin;
-our $VERSION = '1.100660';
+our $VERSION = '1.100710';
 # ABSTRACT: something that gets plugged in to Dist::Zilla
 use Moose::Role;
+
+use Params::Util qw(_HASHLIKE);
+
+use namespace::autoclean;
 
 
 has plugin_name => (
@@ -19,18 +23,16 @@ has zilla => (
 );
 
 
-for my $method (qw(log log_debug log_fatal)) {
-  Sub::Install::install_sub({
-    code => sub {
-      my $self = shift;
-      $self->zilla->logger->$method(
-        '[' . $self->plugin_name . ']',
-        @_,
-      );
-    },
-    as   => $method,
-  });
-}
+has logger => (
+  is   => 'ro',
+  lazy => 1,
+  handles => [ qw(log log_debug log_fatal) ],
+  default => sub {
+    $_[0]->zilla->logger->proxy({
+      proxy_prefix => '[' . $_[0]->plugin_name . '] ',
+    });
+  },
+);
 
 no Moose::Role;
 1;
@@ -44,7 +46,7 @@ Dist::Zilla::Role::Plugin - something that gets plugged in to Dist::Zilla
 
 =head1 VERSION
 
-version 1.100660
+version 1.100710
 
 =head1 DESCRIPTION
 
