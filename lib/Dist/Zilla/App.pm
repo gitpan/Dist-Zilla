@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App;
-our $VERSION = '1.100710';
+our $VERSION = '1.100711';
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup 0.307 -app; # need ->app in Result of Tester, GLD vers
 
@@ -60,7 +60,6 @@ sub zilla {
   my ($self) = @_;
 
   require Dist::Zilla;
-  require Dist::Zilla::Logger::Global;
 
   return $self->{__PACKAGE__}{zilla} ||= do {
     my $verbose = $self->global_options->verbose;
@@ -88,7 +87,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 1.100710
+version 1.100711
 
 =head1 METHODS
 

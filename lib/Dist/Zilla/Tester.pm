@@ -1,5 +1,5 @@
 package Dist::Zilla::Tester;
-our $VERSION = '1.100710';
+our $VERSION = '1.100711';
 use Moose;
 extends 'Dist::Zilla';
 
@@ -77,7 +77,7 @@ Dist::Zilla::Tester
 
 =head1 VERSION
 
-version 1.100710
+version 1.100711
 
 =head1 AUTHOR
 
