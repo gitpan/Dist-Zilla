@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::TestRunner;
-$Dist::Zilla::Role::TestRunner::VERSION = '2.100860';
+$Dist::Zilla::Role::TestRunner::VERSION = '2.100861';
 
 # ABSTRACT: something used as a delegating agent to 'dzil test'
 
@@ -23,7 +23,7 @@ Dist::Zilla::Role::TestRunner - something used as a delegating agent to 'dzil te
 
 =head1 VERSION
 
-version 2.100860
+version 2.100861
 
 =head1 DESCRIPTION
 

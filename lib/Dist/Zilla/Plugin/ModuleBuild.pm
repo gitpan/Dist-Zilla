@@ -1,14 +1,14 @@
 package Dist::Zilla::Plugin::ModuleBuild;
-$Dist::Zilla::Plugin::ModuleBuild::VERSION = '2.100860';
+$Dist::Zilla::Plugin::ModuleBuild::VERSION = '2.100861';
 # ABSTRACT: build a Build.PL that uses Module::Build
 use List::MoreUtils qw(any uniq);
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::BuildRunner';
+with 'Dist::Zilla::Role::PrereqSource';
 with 'Dist::Zilla::Role::InstallTool';
 with 'Dist::Zilla::Role::TextTemplate';
 with 'Dist::Zilla::Role::TestRunner';
-with 'Dist::Zilla::Role::MetaProvider';
 
 use Dist::Zilla::File::InMemory;
 use List::MoreUtils qw(any uniq);
@@ -35,12 +35,18 @@ my $build = Module::Build->new(%module_build_args);
 $build->create_build_script;
 |;
 
-sub metadata {
+sub register_prereqs {
   my ($self) = @_;
-  return {
-    configure_requires => { 'Module::Build' => $self->mb_version },
-    build_requires     => { 'Module::Build' => $self->mb_version },
-  };
+
+  $self->zilla->register_prereqs(
+    { phase => 'configure' },
+    'Module::Build' => $self->mb_version,
+  );
+
+  $self->zilla->register_prereqs(
+    { phase => 'build' },
+    'Module::Build' => $self->mb_version,
+  );
 }
 
 sub setup_installer {
@@ -130,7 +136,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 2.100860
+version 2.100861
 
 =head1 DESCRIPTION
 

@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::nop;
-$Dist::Zilla::App::Command::nop::VERSION = '2.100860';
+$Dist::Zilla::App::Command::nop::VERSION = '2.100861';
 # ABSTRACT: initialize dzil, then exit
 use Dist::Zilla::App -command;
 
@@ -28,7 +28,7 @@ Dist::Zilla::App::Command::nop - initialize dzil, then exit
 
 =head1 VERSION
 
-version 2.100860
+version 2.100861
 
 =head1 SYNOPSIS
 

@@ -1,5 +1,5 @@
 package Dist::Zilla::App::Tester;
-$Dist::Zilla::App::Tester::VERSION = '2.100860';
+$Dist::Zilla::App::Tester::VERSION = '2.100861';
 use base 'App::Cmd::Tester';
 use App::Cmd::Tester 0.306 (); # result_class, ->app
 # ABSTRACT: testing library for Dist::Zilla::App
@@ -42,7 +42,7 @@ sub test_dzil {
 
 {
   package Dist::Zilla::App::Tester::Result;
-$Dist::Zilla::App::Tester::Result::VERSION = '2.100860';
+$Dist::Zilla::App::Tester::Result::VERSION = '2.100861';
   BEGIN { our @ISA = qw(App::Cmd::Tester::Result); }
 
   sub tempdir {
@@ -88,7 +88,7 @@ Dist::Zilla::App::Tester - testing library for Dist::Zilla::App
 
 =head1 VERSION
 
-version 2.100860
+version 2.100861
 
 =head1 AUTHOR
 
