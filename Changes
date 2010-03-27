@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla
 
-1.100860  2010-03-27 09:43:22 America/New_York
+2.100860  2010-03-27 11:34:27 America/New_York
           INCOMPATIBLE CHANGES:
 
           the AllFiles plugin is now known as GatherDir
@@ -35,6 +35,8 @@ Revision history for Dist-Zilla
           dzil takes -v arg to enable debugging globally or per-plugin
 
           PkgVersion now adds a fully-qualified $VERSION variables, not 'our'
+
+          PruneCruft prunes MYMETA.yml
 
           add 'dzil nop' command to initialize zilla object and exit
 

@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::PodCoverageTests;
-$Dist::Zilla::Plugin::PodCoverageTests::VERSION = '1.100860';
+$Dist::Zilla::Plugin::PodCoverageTests::VERSION = '2.100860';
 # ABSTRACT: a release test for Pod coverage
 use Moose;
 extends 'Dist::Zilla::Plugin::InlineFiles';
@@ -19,7 +19,7 @@ Dist::Zilla::Plugin::PodCoverageTests - a release test for Pod coverage
 
 =head1 VERSION
 
-version 1.100860
+version 2.100860
 
 =head1 DESCRIPTION
 

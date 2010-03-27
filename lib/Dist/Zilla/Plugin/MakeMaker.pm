@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MakeMaker;
-$Dist::Zilla::Plugin::MakeMaker::VERSION = '1.100860';
+$Dist::Zilla::Plugin::MakeMaker::VERSION = '2.100860';
 
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
 use Moose;
@@ -172,7 +172,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 1.100860
+version 2.100860
 
 =head1 DESCRIPTION
 

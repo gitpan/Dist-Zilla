@@ -7,7 +7,7 @@ build_requires:
   Try::Tiny: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.31
-generated_by: 'Dist::Zilla version 1.100860'
+generated_by: 'Dist::Zilla version 2.100860'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -78,89 +78,89 @@ resources:
   MailingList: http://www.listbox.com/subscribe/?list_id=139292
   homepage: http://search.cpan.org/dist/Dist-Zilla/
   repository: http://github.com/rjbs/dist-zilla
-version: 1.100860
+version: 2.100860
 x_Dist_Zilla:
   plugins:
     -
       class: Dist::Zilla::Plugin::GatherDir
       name: '@RJBS/@Classic/GatherDir'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::PruneCruft
       name: '@RJBS/@Classic/PruneCruft'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::ManifestSkip
       name: '@RJBS/@Classic/ManifestSkip'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::MetaYAML
       name: '@RJBS/@Classic/MetaYAML'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::License
       name: '@RJBS/@Classic/License'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::Readme
       name: '@RJBS/@Classic/Readme'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::PkgVersion
       name: '@RJBS/@Classic/PkgVersion'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::PodCoverageTests
       name: '@RJBS/@Classic/PodCoverageTests'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::PodSyntaxTests
       name: '@RJBS/@Classic/PodSyntaxTests'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::ExtraTests
       name: '@RJBS/@Classic/ExtraTests'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::ExecDir
       name: '@RJBS/@Classic/ExecDir'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::ShareDir
       name: '@RJBS/@Classic/ShareDir'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::MakeMaker
       name: '@RJBS/@Classic/MakeMaker'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::Manifest
       name: '@RJBS/@Classic/Manifest'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::ConfirmRelease
       name: '@RJBS/@Classic/ConfirmRelease'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::UploadToCPAN
       name: '@RJBS/@Classic/UploadToCPAN'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::AutoPrereq
       name: '@RJBS/AutoPrereq'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::AutoVersion
       name: '@RJBS/AutoVersion'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::MetaJSON
       name: '@RJBS/MetaJSON'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::NextRelease
       name: '@RJBS/NextRelease'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::PodWeaver
       name: '@RJBS/PodWeaver'
@@ -188,7 +188,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::MetaResources
       name: MetaResources
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::Prereq
       config:
@@ -196,7 +196,7 @@ x_Dist_Zilla:
           phase: build
           type: requires
       name: TestRequires
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::Prereq
       config:
@@ -204,33 +204,33 @@ x_Dist_Zilla:
           phase: runtime
           type: requires
       name: Prereq
-      version: 1.100860
+      version: 2.100860
     -
       class: inc::Dist::Zilla::Plugin::VersionBootstrap
       name: VersionBootstrap
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::MetaConfig
       name: MetaConfig
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':InstallModules'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':TestFiles'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':ExecFiles'
-      version: 1.100860
+      version: 2.100860
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':ShareFiles'
-      version: 1.100860
+      version: 2.100860
   zilla:
     class: Dist::Zilla
     config:
       is_trial: 1
-    version: 1.100860
+    version: 2.100860
