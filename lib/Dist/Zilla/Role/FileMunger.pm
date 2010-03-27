@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::FileMunger;
-$Dist::Zilla::Role::FileMunger::VERSION = '2.100861';
+$Dist::Zilla::Role::FileMunger::VERSION = '2.100862';
 # ABSTRACT: something that alters a file's destination or content
 use Moose::Role;
 use Moose::Autobox;
@@ -28,7 +28,7 @@ Dist::Zilla::Role::FileMunger - something that alters a file's destination or co
 
 =head1 VERSION
 
-version 2.100861
+version 2.100862
 
 =head1 DESCRIPTION
 
