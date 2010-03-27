@@ -1,14 +1,28 @@
 package Dist::Zilla::Plugin::PkgVersion;
-our $VERSION = '1.100711';
+$Dist::Zilla::Plugin::PkgVersion::VERSION = '1.100860';
 # ABSTRACT: add a $VERSION to your packages
 use Moose;
-with 'Dist::Zilla::Role::FileMunger';
+with(
+  'Dist::Zilla::Role::FileMunger',
+  'Dist::Zilla::Role::FileFinderUser' => {
+    default_finders => [ ':InstallModules' ],
+  },
+);
 
 use PPI;
 
 
+sub munge_files {
+  my ($self) = @_;
+
+  $self->munge_file($_) for @{ $self->found_files };
+}
+
 sub munge_file {
   my ($self, $file) = @_;
+
+  # XXX: for test purposes, for now! evil! -- rjbs, 2010-03-17
+  return                          if $file->name    =~ /^corpus\//;
 
   return                          if $file->name    =~ /\.t$/i;
   return $self->munge_perl($file) if $file->name    =~ /\.(?:pm|pl)$/i;
@@ -41,11 +55,17 @@ sub munge_perl {
 
   return unless my $package_stmts = $document->find('PPI::Statement::Package');
 
-  # $hack is here so that when we scan *this* document we
-  my $version_doc = PPI::Document->new(\"our \$VERSION\x20=\x20'$version';\n");
-  my @children = $version_doc->schildren;
-
   for my $stmt (@$package_stmts) {
+    my $package = $stmt->namespace;
+
+    # the \x20 hack is here so that when we scan *this* document we don't find
+    # an assignment to version; it shouldn't be needed, but it's been annoying
+    # enough in the past that I'm keeping it here until tests are better
+    my $perl = "\$$package\::VERSION\x20=\x20'$version';\n";
+
+    my $version_doc = PPI::Document->new(\$perl);
+    my @children = $version_doc->schildren;
+
     Carp::carp("error inserting version in " . $file->name)
       unless $stmt->insert_after($children[0]->clone)
       and    $stmt->insert_after( PPI::Token::Whitespace->new("\n") );
@@ -67,7 +87,7 @@ Dist::Zilla::Plugin::PkgVersion - add a $VERSION to your packages
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 DESCRIPTION
 

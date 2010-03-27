@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::clean;
-our $VERSION = '1.100711';
+$Dist::Zilla::App::Command::clean::VERSION = '1.100860';
 # ABSTRACT: clean up after build, test, or install
 use Dist::Zilla::App -command;
 
@@ -20,12 +20,8 @@ sub execute {
   };
 
   # removing leftovers
-  my @temps =
-    File::Find::Rule
-    ->file
-    ->name( qr/~$/ )
-    ->in('.');
-  unlink @temps;
+  my @temps = File::Find::Rule->file->name( qr{~$} )->in('.');
+  $self->log("clean: removing $_"), unlink for @temps;
 }
 
 1;
@@ -39,7 +35,7 @@ Dist::Zilla::App::Command::clean - clean up after build, test, or install
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 SYNOPSIS
 

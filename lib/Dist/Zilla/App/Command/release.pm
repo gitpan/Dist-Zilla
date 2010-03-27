@@ -1,15 +1,24 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::release;
-our $VERSION = '1.100711';
+$Dist::Zilla::App::Command::release::VERSION = '1.100860';
 # ABSTRACT: release your dist to the CPAN
 use Dist::Zilla::App -command;
 
 
 sub abstract { 'release your dist' }
 
+sub opt_spec {
+  [ 'trial' => 'build a trial release that PAUSE will not index' ],
+}
+
 sub execute {
   my ($self, $opt, $arg) = @_;
+
+  my $zilla = $self->zilla;
+
+  $zilla->is_trial(1) if $opt->trial;
+
   $self->zilla->release;
 }
 
@@ -24,7 +33,7 @@ Dist::Zilla::App::Command::release - release your dist to the CPAN
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 SYNOPSIS
 

@@ -1,9 +1,11 @@
 package Dist::Zilla::Plugin::Manifest;
-our $VERSION = '1.100711';
+$Dist::Zilla::Plugin::Manifest::VERSION = '1.100860';
 # ABSTRACT: build a MANIFEST file
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::InstallTool';
+
+use Dist::Zilla::File::InMemory;
 
 
 sub setup_installer {
@@ -31,7 +33,7 @@ Dist::Zilla::Plugin::Manifest - build a MANIFEST file
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 DESCRIPTION
 

@@ -1,24 +1,24 @@
 package Dist::Zilla::Plugin::MetaJSON;
-our $VERSION = '1.100711';
+$Dist::Zilla::Plugin::MetaJSON::VERSION = '1.100860';
 # ABSTRACT: produce a META.json
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
 
+use Dist::Zilla::File::FromCode;
 use Hash::Merge::Simple ();
+use JSON 2;
 
 
 sub gather_files {
   my ($self, $arg) = @_;
 
-  require Dist::Zilla::File::FromCode;
-  require JSON;
-
   my $zilla = $self->zilla;
   my $file  = Dist::Zilla::File::FromCode->new({
     name => 'META.json',
     code => sub {
-      JSON->new->ascii(1)->pretty->encode($zilla->distmeta) . "\n";
+      JSON->new->ascii(1)->canonical(1)->pretty->encode($zilla->distmeta)
+      . "\n";
     },
   });
 
@@ -39,7 +39,7 @@ Dist::Zilla::Plugin::MetaJSON - produce a META.json
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 DESCRIPTION
 

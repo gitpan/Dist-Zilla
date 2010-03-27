@@ -1,27 +1,16 @@
 use strict;
 use warnings;
 package Dist::Zilla::Util;
-our $VERSION = '1.100711';
+$Dist::Zilla::Util::VERSION = '1.100860';
 # ABSTRACT: random snippets of code that Dist::Zilla wants
 
-use String::Flogger;
-use String::RewritePrefix;
-
-{
-  package
-    Dist::Zilla::Util::Nonpod;
-our $VERSION = '1.100711';
-  use base 'Pod::Eventual';
-  sub _new  { bless { nonpod => '' } => shift; }
-  sub handle_nonpod { $_[0]->{nonpod} .= $_[1]->{content} }
-  sub handle_event {}
-  sub _nonpod { $_[0]->{nonpod} }
-}
+use String::RewritePrefix 0.002; # better string context behavior
 
 {
   package
     Dist::Zilla::Util::PEA;
-our $VERSION = '1.100711';
+$Dist::Zilla::Util::PEA::VERSION = '1.100860';
+  use Pod::Eventual 0.091480; # better nonpod/blank events
   use base 'Pod::Eventual';
   sub _new  { bless {} => shift; }
   sub handle_nonpod {
@@ -91,7 +80,7 @@ Dist::Zilla::Util - random snippets of code that Dist::Zilla wants
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 METHODS
 

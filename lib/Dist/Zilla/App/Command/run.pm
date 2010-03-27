@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 package Dist::Zilla::App::Command::run;
-our $VERSION = '1.100711';
+$Dist::Zilla::App::Command::run::VERSION = '1.100860';
 # ABSTRACT: run stuff in a dir where your dist is built
 
 use Dist::Zilla::App -command;
@@ -19,7 +19,7 @@ sub execute {
     unless my @builders =
     $self->zilla->plugins_with(-BuildRunner)->sort->reverse->flatten;
 
-  require Config;
+  require "Config.pm"; # skip autoprereq
   require File::chdir;
   require File::Temp;
   require Path::Class;
@@ -67,35 +67,35 @@ Dist::Zilla::App::Command::run - run stuff in a dir where your dist is built
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 SYNOPSIS
 
-    $ dzil run ./bin/myscript
-    $ dzil run prove -bv t/mytest.t
-    $ dzil run bash
+  $ dzil run ./bin/myscript
+  $ dzil run prove -bv t/mytest.t
+  $ dzil run bash
 
 =head1 DESCRIPTION
 
-This command will dzil-build your dist, then build the distribution
-and finally run a command in this directory. It's ultimately like
+This command will build your dist with Dist::Zilla, then build the
+distribution and then run a command in the build directory. It's like
 doing this:
 
-    dzil build
-    rsync -avp My-Project-version/ .build/
-    cd .build
-    perl Makefile.PL            # or perl Build.PL
-    make                        # or ./Build        
-    export PERL5LIB=$PWD/blib/lib:$PWD/blib/arch
-    <your command as defined by rest of params>
+  dzil build
+  rsync -avp My-Project-version/ .build/
+  cd .build
+  perl Makefile.PL            # or perl Build.PL
+  make                        # or ./Build        
+  export PERL5LIB=$PWD/blib/lib:$PWD/blib/arch
+  <your command as defined by rest of params>
 
 Except for the fact it's built directly in a subdir of .build (like
 F<.build/asdf123>).
 
 A command returning with an non-zero error code will left the build
-directory behind for analysis, and dzil will exit with status 1.
+directory behind for analysis, and dzil will exit with a non-zero status.
 Otherwise, the build directory will be removed and dzil will exit
-with status 0.
+with status zero.
 
 =head1 AUTHOR
 

@@ -1,8 +1,10 @@
 package Dist::Zilla::Tester;
-our $VERSION = '1.100711';
+$Dist::Zilla::Tester::VERSION = '1.100860';
 use Moose;
 extends 'Dist::Zilla';
+# ABSTRACT: a testing-enabling stand-in for  Dist::Zilla
 
+use autodie;
 use File::Copy::Recursive qw(dircopy);
 use File::chdir;
 use File::Spec;
@@ -10,24 +12,47 @@ use File::Temp;
 use Path::Class;
 
 around from_config => sub {
-  my ($orig, $self, $orig_arg) = @_;
+  my ($orig, $self, $arg, $tester_arg) = @_;
 
-  my $arg = { %{ $orig_arg || {} } };
-  delete $arg->{dist_root};
+  confess "dist_root required for from_config" unless $arg->{dist_root};
 
-  local @INC = map {; ref($_) ? $_ : File::Spec->rel2abs($_) } @INC;
+  my $source = $arg->{dist_root};
 
-  confess "dist_root required for from_config" unless $orig_arg->{dist_root};
-  my $source = $orig_arg->{dist_root};
+  my $tempdir_root = exists $tester_arg->{tempdir_root}
+                   ? $tester_arg->{tempdir_root}
+                   : 'tmp';
 
-  my $tempdir ||= dir( File::Temp::tempdir(CLEANUP => 1) );
+  mkdir $tempdir_root if defined $tempdir_root and not -d $tempdir_root;
+
+  my $tempdir = dir( File::Temp::tempdir(
+      CLEANUP => 1,
+      (defined $tempdir_root ? (DIR => $tempdir_root) : ()),
+  ))->absolute;
 
   my $root = $tempdir->subdir('source');
   $root->mkpath;
 
   dircopy($source, $root);
 
-  $arg->{dist_root} = "$root";
+  if ($tester_arg->{also_copy}) {
+    while (my ($src, $dest) = each %{ $tester_arg->{also_copy} }) {
+      dircopy($src, $tempdir->subdir($dest));
+    }
+  }
+
+  if (my $files = $tester_arg->{add_files}) {
+    while (my ($name, $content) = each %$files) {
+      my $fn = $tempdir->file($name);
+      $fn->dir->mkpath;
+      open my $fh, '>', $fn;
+      print { $fh } $content;
+      close $fh;
+    }
+  }
+
+  local $arg->{dist_root} = "$root";
+
+  local @INC = map {; ref($_) ? $_ : File::Spec->rel2abs($_) } @INC;
 
   my $zilla = $self->$orig($arg);
 
@@ -52,6 +77,17 @@ around build_in => sub {
   return $self->$orig($target);
 };
 
+around release => sub {
+  my ($orig, $self) = @_;
+
+  # XXX: We *must eliminate* the need for this!  It's only here because right
+  # now building a dist with (root <> cwd) doesn't work. -- rjbs, 2010-03-08
+  local $CWD = $self->root;
+
+  return $self->$orig;
+};
+
+
 sub default_logger {
   return Log::Dispatchouli->new({
     ident   => 'Dist::Zilla::Tester',
@@ -66,6 +102,31 @@ has tempdir => (
   init_arg => undef,
 );
 
+sub clear_log_events {
+  my ($self) = @_;
+  $self->logger->clear_events;
+}
+
+sub log_events {
+  my ($self) = @_;
+  $self->logger->events;
+}
+
+sub log_messages {
+  my ($self) = @_;
+  [ map {; $_->{message} } @{ $self->logger->events } ];
+}
+
+sub slurp_file {
+  my ($self, $filename) = @_;
+
+  return scalar do {
+    local $/;
+    open my $fh, '<', $self->tempdir->file($filename);
+    <$fh>;
+  };
+}
+
 1;
 
 __END__
@@ -73,11 +134,11 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Tester
+Dist::Zilla::Tester - a testing-enabling stand-in for  Dist::Zilla
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 AUTHOR
 

@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::Readme;
-our $VERSION = '1.100711';
+$Dist::Zilla::Plugin::Readme::VERSION = '1.100860';
 # ABSTRACT: build a README file
 use Moose;
 use Moose::Autobox;
@@ -14,12 +14,13 @@ sub gather_files {
 
   my $template = q|
 
-This archive contains the distribution {{ $dist->name }}, version
-{{ $dist->version }}:
+This archive contains the distribution {{ $dist->name }},
+version {{ $dist->version }}:
 
   {{ $dist->abstract }}
 
 {{ $dist->license->notice }}
+
 |;
 
   my $content = $self->fill_in_string(
@@ -49,7 +50,7 @@ Dist::Zilla::Plugin::Readme - build a README file
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 DESCRIPTION
 

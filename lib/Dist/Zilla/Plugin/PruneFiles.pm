@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::PruneFiles;
-our $VERSION = '1.100711';
+$Dist::Zilla::Plugin::PruneFiles::VERSION = '1.100860';
 # ABSTRACT: prune arbirary files from the dist
 use Moose;
 use Moose::Autobox;
@@ -7,7 +7,7 @@ with 'Dist::Zilla::Role::FilePruner';
 
 
 sub mvp_multivalue_args { qw(filenames) }
-# sub mvp_aliases {  warn "..."; return { filename => 'filenames' } }
+sub mvp_aliases { return { filename => 'filenames' } }
 
 
 has filenames => (
@@ -43,7 +43,7 @@ Dist::Zilla::Plugin::PruneFiles - prune arbirary files from the dist
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 SYNOPSIS
 

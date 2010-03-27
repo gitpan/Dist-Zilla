@@ -1,7 +1,9 @@
 package Dist::Zilla::Role::Plugin;
-our $VERSION = '1.100711';
+$Dist::Zilla::Role::Plugin::VERSION = '1.100860';
 # ABSTRACT: something that gets plugged in to Dist::Zilla
 use Moose::Role;
+
+with 'Dist::Zilla::Role::ConfigDumper';
 
 use Params::Util qw(_HASHLIKE);
 
@@ -34,6 +36,11 @@ has logger => (
   },
 );
 
+# We define these effectively-pointless subs here to allow other roles to
+# modify them with around. -- rjbs, 2010-03-21
+sub mvp_multivalue_args {};
+sub mvp_aliases         { return {} };
+
 no Moose::Role;
 1;
 
@@ -46,7 +53,7 @@ Dist::Zilla::Role::Plugin - something that gets plugged in to Dist::Zilla
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 DESCRIPTION
 
@@ -57,8 +64,7 @@ methods and attributes that all plugins will need.
 
 =head2 plugin_name
 
-The plugin name is generally determined when configuration is read.  It is
-initialized by the C<=name> argument to the plugin's constructor.
+The plugin name is generally determined when configuration is read.
 
 =head2 zilla
 

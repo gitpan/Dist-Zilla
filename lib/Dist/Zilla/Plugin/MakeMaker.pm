@@ -1,11 +1,11 @@
 package Dist::Zilla::Plugin::MakeMaker;
-our $VERSION = '1.100711';
+$Dist::Zilla::Plugin::MakeMaker::VERSION = '1.100860';
 
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::BuildRunner';
-with 'Dist::Zilla::Role::FixedPrereqs';
+with 'Dist::Zilla::Role::PrereqSource';
 with 'Dist::Zilla::Role::InstallTool';
 with 'Dist::Zilla::Role::TestRunner';
 with 'Dist::Zilla::Role::TextTemplate';
@@ -24,14 +24,17 @@ use warnings;
 
 {{ $perl_prereq ? qq{ BEGIN { require $perl_prereq; } } : ''; }}
 
-use ExtUtils::MakeMaker 6.11;
+use ExtUtils::MakeMaker {{ $eumm_version }};
 
 {{ $share_dir_block[0] }}
 
 my {{ $WriteMakefileArgs }}
 
-delete $WriteMakefileArgs{LICENSE}
-  unless eval { ExtUtils::MakeMaker->VERSION(6.31) };
+delete $WriteMakefileArgs{BUILD_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.56) };
+
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
 
 WriteMakefile(%WriteMakefileArgs);
 
@@ -39,7 +42,7 @@ WriteMakefile(%WriteMakefileArgs);
 
 |;
 
-sub prereq {
+sub register_prereqs {
   my ($self) = @_;
 
   $self->zilla->register_prereqs(
@@ -47,18 +50,12 @@ sub prereq {
     'ExtUtils::MakeMaker' => $self->eumm_version,
   );
 
-  my @dir_plugins = $self->zilla->plugins
-    ->grep( sub { $_->isa('Dist::Zilla::Plugin::InstallDirs') })
-    ->flatten;
-
-  return {} unless uniq map {; $_->share->flatten } @dir_plugins;
+  return unless $self->zilla->_share_dir;
 
   $self->zilla->register_prereqs(
     { phase => 'configure' },
     'File::ShareDir::Install' => 0.03,
   );
-
-  return {};
 }
 
 sub setup_installer {
@@ -66,22 +63,10 @@ sub setup_installer {
 
   (my $name = $self->zilla->name) =~ s/-/::/g;
 
-  # XXX: SHAMELESSLY COPIED AND PASTED INTO ModuleBuild -- rjbs, 2010-01-05
-  my @dir_plugins = $self->zilla->plugins
-    ->grep( sub { $_->isa('Dist::Zilla::Plugin::InstallDirs') })
-    ->flatten;
+  my @exe_files =
+    $self->zilla->find_files(':ExecFiles')->map(sub { $_->name })->flatten;
 
-  my @bin_dirs    = uniq map {; $_->bin->flatten   } @dir_plugins;
-  my @share_dirs  = uniq map {; $_->share->flatten } @dir_plugins;
-
-  confess "can't install more than one ShareDir" if @share_dirs > 1;
-
-  my @exe_files = $self->zilla->files
-    ->grep(sub { my $f = $_; any { $f->name =~ qr{^\Q$_\E[\\/]} } @bin_dirs; })
-    ->map( sub { $_->name })
-    ->flatten;
-
-  confess "can't install files with whitespace in their names"
+  $self->log_fatal("can't install files with whitespace in their names")
     if grep { /\s/ } @exe_files;
 
   my %test_dirs;
@@ -94,8 +79,8 @@ sub setup_installer {
 
   my @share_dir_block = (q{}, q{});
 
-  if ($share_dirs[0]) {
-    my $share_dir = quotemeta $share_dirs[0];
+  if (my $share_dir = $self->zilla->_share_dir) {
+    my $share_dir = quotemeta $share_dir;
     @share_dir_block = (
       qq{use File::ShareDir::Install;\ninstall_share "$share_dir";\n},
       qq{package\nMY;\nuse File::ShareDir::Install qw(postamble);\n},
@@ -121,6 +106,8 @@ sub setup_installer {
     test => { TESTS => join q{ }, sort keys %test_dirs },
   );
 
+  $self->__write_makefile_args(\%write_makefile_args);
+
   my $makefile_args_dumper = Data::Dumper->new(
     [ \%write_makefile_args ],
     [ '*WriteMakefileArgs' ],
@@ -129,6 +116,7 @@ sub setup_installer {
   my $content = $self->fill_in_string(
     $template,
     {
+      eumm_version      => \($self->eumm_version),
       perl_prereq       => \$perl_prereq,
       share_dir_block   => \@share_dir_block,
       WriteMakefileArgs => \($makefile_args_dumper->Dump),
@@ -143,6 +131,12 @@ sub setup_installer {
   $self->add_file($file);
   return;
 }
+
+# XXX:  Just here to facilitate testing. -- rjbs, 2010-03-20
+has __write_makefile_args => (
+  is   => 'rw',
+  isa  => 'HashRef',
+);
 
 sub build {
   my $self = shift;
@@ -162,7 +156,7 @@ sub test {
 has 'eumm_version' => (
   isa => 'Str',
   is  => 'rw',
-  default => '6.11',
+  default => '6.31',
 );
 
 __PACKAGE__->meta->make_immutable;
@@ -178,7 +172,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 DESCRIPTION
 

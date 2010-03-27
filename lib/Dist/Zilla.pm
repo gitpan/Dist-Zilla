@@ -1,8 +1,10 @@
 package Dist::Zilla;
-our $VERSION = '1.100711';
+$Dist::Zilla::VERSION = '1.100860';
 # ABSTRACT: distribution builder; installer not included!
-use Moose;
-use Moose::Autobox;
+use Moose 0.92; # role composition fixes
+with 'Dist::Zilla::Role::ConfigDumper';
+
+use Moose::Autobox 0.09; # ->flatten
 use Dist::Zilla::Types qw(DistName License);
 use MooseX::Types::Moose qw(Bool HashRef);
 use MooseX::Types::Path::Class qw(Dir File);
@@ -10,12 +12,13 @@ use Moose::Util::TypeConstraints;
 
 use File::Find::Rule;
 use Hash::Merge::Simple ();
-use Log::Dispatchouli 1.100710; # proxy loggers
+use List::MoreUtils qw(uniq);
+use List::Util qw(first);
+use Log::Dispatchouli 1.100712; # proxy_loggers, quiet_fatal
 use Params::Util qw(_HASHLIKE);
 use Path::Class ();
 use Software::License;
 use String::RewritePrefix;
-use version 0.79 ();
 
 use Dist::Zilla::Prereqs;
 use Dist::Zilla::File::OnDisk;
@@ -25,7 +28,7 @@ use Dist::Zilla::Util;
 use namespace::autoclean;
 
 
-has 'dzil_app' => (
+has controller => (
   is  => 'rw',
   isa => 'Dist::Zilla::App',
 );
@@ -62,12 +65,12 @@ sub _build_version {
   for my $plugin ($self->plugins_with(-VersionProvider)->flatten) {
     next unless defined(my $this_version = $plugin->provide_version);
 
-    confess('attempted to set version twice') if defined $version;
+    $self->log_fatal('attempted to set version twice') if defined $version;
 
     $version = $this_version;
   }
 
-  confess('no version was ever set') unless defined $version;
+  $self->log_fatal('no version was ever set') unless defined $version;
 
   $self->log("warning: version number does not look like a number")
     unless $version =~ m{\A\d+(?:\.\d+)\z};
@@ -124,14 +127,15 @@ has main_module => (
     my $guessing = q{};
 
     if ( $self->has_main_module_override ) {
-       $file = $self->files->grep(sub{ $_->name eq $self->main_module_override })->head;
+       $file = first { $_->name eq $self->main_module_override }
+               $self->files->flatten;
     } else {
        $guessing = 'guessing '; # We're having to guess
 
        (my $guess = $self->name) =~ s{-}{/}g;
        $guess = "lib/$guess.pm";
 
-       $file = $self->files->grep(sub{ $_->name eq $guess })->head
+       $file = (first { $_->name eq $guess } $self->files->flatten)
            ||  $self->files
              ->grep(sub { $_->name =~ m{\.pm\z} and $_->name =~ m{\Alib/} })
              ->sort(sub { length $_[0]->name <=> length $_[1]->name })
@@ -201,7 +205,7 @@ sub _initialize_license {
         $self->main_module->content
       );
 
-      Carp::confess("couldn't make a good guess at license") if @guess != 1;
+      $self->log_fatal("couldn't make a good guess at license") if @guess != 1;
 
       my $filename = $self->main_module->name;
       $license_class = $guess[0];
@@ -216,7 +220,8 @@ sub _initialize_license {
     });
   }
 
-  confess "$value is not a valid license" if ! License->check($license);
+  $self->log_fatal("$value is not a valid license")
+    if ! License->check($license);
 
   $self->_set_license($license);
 }
@@ -248,10 +253,18 @@ has root => (
 );
 
 
+has is_trial => (
+  is => 'rw', # XXX: make SetOnce -- rjbs, 2010-03-23
+  isa => Bool,
+  default => sub { $ENV{TRIAL} ? 1 : 0 }
+);
+
+
 has plugins => (
   is   => 'ro',
   isa  => 'ArrayRef[Dist::Zilla::Role::Plugin]',
-  default => sub { [ ] },
+  init_arg => undef,
+  default  => sub { [ ] },
 );
 
 
@@ -298,8 +311,9 @@ sub _build_distmeta {
 has prereq => (
   is   => 'ro',
   isa  => 'Dist::Zilla::Prereqs',
-  default => sub { Dist::Zilla::Prereqs->new },
-  handles => [ qw(register_prereqs) ],
+  init_arg => undef,
+  default  => sub { Dist::Zilla::Prereqs->new },
+  handles  => [ qw(register_prereqs) ],
 );
 
 
@@ -319,7 +333,12 @@ sub from_config {
 
   my $core_config = $seq->section_named('_')->payload;
 
-  my $self = $class->new($core_config);
+  my $self = $class->new({
+    logger => $logger,
+    %$core_config
+  });
+
+  $self->core_logger->set_debug(1) if $arg->{core_debug};
 
   for my $section ($seq->sections) {
     next if $section->name eq '_';
@@ -330,10 +349,10 @@ sub from_config {
       $section->payload,
     );
 
-    confess "arguments attempted to override plugin name"
+    $self->log_fatal("$name arguments attempted to override plugin name")
       if defined $arg->{plugin_name};
 
-    confess "arguments attempted to override plugin name"
+    $self->log_fatal("$name arguments attempted to override plugin name")
       if defined $arg->{zilla};
 
     my $plugin = $plugin_class->new(
@@ -350,7 +369,71 @@ sub from_config {
     $self->plugins->push($plugin);
   }
 
+  $self->_setup_default_plugins;
+
   return $self;
+}
+
+sub _setup_default_plugins {
+  my ($self) = @_;
+
+  unless ($self->plugin_named(':InstallModules')) {
+    require Dist::Zilla::Plugin::FinderCode;
+    my $plugin = Dist::Zilla::Plugin::FinderCode->new({
+      plugin_name => ':InstallModules',
+      zilla       => $self,
+      style       => 'grep',
+      code        => sub { local $_ = $_->name; m{\Alib/} and m{\.(pm|pod)$} },
+    });
+
+    $self->plugins->push($plugin);
+  }
+
+  unless ($self->plugin_named(':TestFiles')) {
+    require Dist::Zilla::Plugin::FinderCode;
+    my $plugin = Dist::Zilla::Plugin::FinderCode->new({
+      plugin_name => ':TestFiles',
+      zilla       => $self,
+      style       => 'grep',
+      code        => sub { local $_ = $_->name; m{\At/} },
+    });
+
+    $self->plugins->push($plugin);
+  }
+
+  unless ($self->plugin_named(':ExecFiles')) {
+    require Dist::Zilla::Plugin::FinderCode;
+    my $plugin = Dist::Zilla::Plugin::FinderCode->new({
+      plugin_name => ':ExecFiles',
+      zilla       => $self,
+      style       => 'list',
+      code        => sub {
+        my $plugins = $_[0]->zilla->plugins_with(-ExecFiles);
+        my @files = map {; @{ $_->find_files } } @$plugins;
+
+        return \@files;
+      },
+    });
+
+    $self->plugins->push($plugin);
+  }
+
+  unless ($self->plugin_named(':ShareFiles')) {
+    require Dist::Zilla::Plugin::FinderCode;
+    my $plugin = Dist::Zilla::Plugin::FinderCode->new({
+      plugin_name => ':ShareFiles',
+      zilla       => $self,
+      style       => 'list',
+      code        => sub {
+        return [] unless my $dir = $self->zilla->_share_dir;
+        return $self->zilla->files->grep(sub {
+          local $_ = $_->name; m{\A\Q$dir\E/}
+        });
+      },
+    });
+
+    $self->plugins->push($plugin);
+  }
 }
 
 sub _load_config {
@@ -363,7 +446,8 @@ sub _load_config {
   }
 
   $arg->{logger}->log_debug(
-    "[DZ] reading configuration using $config_class"
+    { prefix => '[DZ] ' },
+    "reading configuration using $config_class"
   );
 
   my $root = $arg->{root};
@@ -380,6 +464,15 @@ sub _load_config {
 }
 
 
+sub plugin_named {
+  my ($self, $name) = @_;
+  my $plugin = first { $_->plugin_name eq $name } $self->plugins->flatten;
+
+  return $plugin if $plugin;
+  return;
+}
+
+
 sub plugins_with {
   my ($self, $role) = @_;
 
@@ -393,33 +486,49 @@ sub plugins_with {
 sub find_files {
   my ($self, $finder_name) = @_;
 
-  my $plugin = $self->plugins_with(-FileFinder)
-             ->grep(sub { $_->plugin_name eq $finder_name })->head;
+  $self->log_fatal("no plugin named $finder_name found")
+    unless my $plugin = $self->plugin_named($finder_name);
 
-  confess("no FileFinder named $finder_name found") unless $plugin;
+  $self->log_fatal("plugin $finder_name is not a FileFinder")
+    unless $plugin->does('Dist::Zilla::Role::FileFinder');
 
   $plugin->find_files;
 }
 
+sub _share_dir {
+  my ($self) = @_;
+
+  my @share_dirs =
+    uniq $self->plugins_with(-ShareDir)->map(sub { $_->dir })->flatten;
+
+  $self->log_fatal("can't install more than one ShareDir") if @share_dirs > 1;
+
+  return unless defined(my $share_dir = $share_dirs[0]);
+
+  return unless grep { $_->name =~ m{\A\Q$share_dir\E/} }
+                $self->files->flatten;
+
+  return $share_dirs[0];
+}
+
+
+sub build { $_[0]->build_in }
 
 sub build_in {
   my ($self, $root) = @_;
 
-  Carp::confess("attempted to build " . $self->name . " a second time")
+  $self->log_fatal("attempted to build " . $self->name . " a second time")
     if $self->built_in;
 
   $_->before_build for $self->plugins_with(-BeforeBuild)->flatten;
 
   $self->log("beginning to build " . $self->name);
 
-  $_->gather_files    for $self->plugins_with(-FileGatherer)->flatten;
-  $_->prune_files     for $self->plugins_with(-FilePruner)->flatten;
-  $_->munge_files     for $self->plugins_with(-FileMunger)->flatten;
+  $_->gather_files     for $self->plugins_with(-FileGatherer)->flatten;
+  $_->prune_files      for $self->plugins_with(-FilePruner)->flatten;
+  $_->munge_files      for $self->plugins_with(-FileMunger)->flatten;
 
-  for my $plugin ($self->plugins_with(-FixedPrereqs)->flatten) {
-    my $prereq = $plugin->prereq;
-    $self->register_prereqs($_ => $prereq->{$_}) for keys %$prereq;
-  }
+  $_->register_prereqs for $self->plugins_with(-PrereqSource)->flatten;
 
   $self->prereq->finalize;
 
@@ -450,7 +559,7 @@ sub ensure_built_in {
   my ($self, $root) = @_;
 
   # $root ||= $self->name . q{-} . $self->version;
-  return if $self->built_in and
+  return $self->built_in if $self->built_in and
     (!$root or ($self->built_in eq $root));
 
   Carp::croak("dist is already built, but not in $root") if $self->built_in;
@@ -476,7 +585,13 @@ sub build_archive {
   }
 
   ## no critic
-  my $file = Path::Class::file($self->name . '-' . $self->version . '.tar.gz');
+  my $file = Path::Class::file(join(q{},
+    $self->name,
+    '-',
+    $self->version,
+    ($self->is_trial ? '-TRIAL' : ''),
+    '.tar.gz',
+  ));
 
   $self->log("writing archive to $file");
   $archive->write("$file", 9);
@@ -553,19 +668,30 @@ sub release {
   my $tgz = $self->build_archive;
 
   # call all plugins implementing BeforeRelease role
-  $_->before_release() for $self->plugins_with(-BeforeRelease)->flatten;
+  $_->before_release($tgz) for $self->plugins_with(-BeforeRelease)->flatten;
 
   # do the actual release
   $_->release($tgz) for @releasers;
 
   # call all plugins implementing AfterRelease role
-  $_->after_release() for $self->plugins_with(-AfterRelease)->flatten;
+  $_->after_release($tgz) for $self->plugins_with(-AfterRelease)->flatten;
 }
 
 
+has core_logger => (
+  is   => 'ro',
+  isa  => 'Log::Dispatchouli::Proxy', # could be duck typed, I guess
+  lazy => 1,
+  handles => [ qw(log log_debug log_fatal) ],
+  default => sub {
+    $_[0]->logger->proxy({ proxy_prefix => '[DZ] ' })
+  },
+);
+
 has logger => (
   is   => 'ro',
-  isa  => 'Log::Dispatchouli', # could be duck typed, I guess
+  isa  => 'Log::Dispatchouli',
+  lazy => 1,
   builder => 'default_logger',
 );
 
@@ -574,20 +700,8 @@ sub default_logger {
     ident     => 'Dist::Zilla',
     to_stdout => 1,
     log_pid   => 0,
-  });
-}
-
-for my $method (qw(log log_debug log_fatal)) {
-  Sub::Install::install_sub({
-    code => sub {
-      my ($self, @rest) = @_;
-      my $arg = _HASHLIKE($rest[0]) ? (shift @rest) : {};
-      local $arg->{prefix} = '[DZ] '
-                           . (defined $arg->{prefix} ? $arg->{prefix} : '');
-
-      $self->logger->$method($arg, @rest);
-    },
-    as   => $method,
+    to_self   => ($ENV{DZIL_TESTING} ? 1 : 0),
+    quiet_fatal => 'stdout',
   });
 }
 
@@ -596,6 +710,13 @@ sub BUILD {
 
   $self->_initialize_license($arg->{license});
 }
+
+around dump_config => sub {
+  my ($orig, $self) = @_;
+  my $config = $self->$orig;
+  $config->{is_trial} = $self->is_trial;
+  return $config;
+};
 
 __PACKAGE__->meta->make_immutable;
 1;
@@ -609,7 +730,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 DESCRIPTION
 
@@ -624,12 +745,6 @@ make much more ludicrous demands in terms of prerequisites.
 For more information, see L<Dist::Zilla::Tutorial>.
 
 =head1 ATTRIBUTES
-
-=head2 dzil_app
-
-This attribute (which is optional) will provide the Dist::Zilla::App object if
-the Dist::Zilla object is being used in the context of the F<dzil> command (or
-anything else using it through Dist::Zilla::App).
 
 =head2 name
 
@@ -698,6 +813,10 @@ will, if left in this arrayref, be built into the dist.
 This is the root directory of the dist, as a L<Path::Class::Dir>.  It will
 nearly always be the current working directory in which C<dzil> was run.
 
+=head2 is_trial
+
+This attribute tells us whether or not the dist will be a trial release.
+
 =head2 plugins
 
 This is an arrayref of plugins that have been plugged into this Dist::Zilla
@@ -736,6 +855,10 @@ Valid arguments are:
   config_class - the class to use to read the config
                  default: Dist::Zilla::Config::Finder
 
+=head2 plugin_named
+
+  my $plugin = $zilla->plugin_named( $plugin_name );
+
 =head2 plugins_with
 
   my $roles = $zilla->plugins_with( -SomeRole );
@@ -760,6 +883,12 @@ found, an exception will be raised.
 This method builds the distribution in the given directory.  If no directory
 name is given, it defaults to DistName-Version.  If the distribution has
 already been built, an exception will be thrown.
+
+=head2 build
+
+This method just calls C<build_in> with no arguments.  It get you the default
+behavior without the weird-looking formulation of C<build_in> with no object
+for the preposition!
 
 =head2 ensure_built_in
 

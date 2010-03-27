@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::NextRelease;
-our $VERSION = '1.100711';
+$Dist::Zilla::Plugin::NextRelease::VERSION = '1.100860';
 # ABSTRACT: update the next release number in your changelog
 
 use Moose;
@@ -7,7 +7,7 @@ with 'Dist::Zilla::Role::FileMunger';
 with 'Dist::Zilla::Role::TextTemplate';
 with 'Dist::Zilla::Role::AfterRelease';
 
-use DateTime;
+use DateTime 0.44; # CLDR fixes
 use String::Formatter 0.100680 stringf => {
   -as => '_format_version',
 
@@ -40,10 +40,11 @@ sub section_header {
   return _format_version($self->format, $self->zilla);
 }
 
-sub munge_file {
-  my ($self, $file) = @_;
+sub munge_files {
+  my ($self) = @_;
 
-  return unless $file->name eq $self->filename;
+  my ($file) = grep { $_->name eq $self->filename } @{ $self->zilla->files };
+  return unless $file;
 
   my $content = $self->fill_in_string(
     $file->content,
@@ -96,7 +97,7 @@ Dist::Zilla::Plugin::NextRelease - update the next release number in your change
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 SYNOPSIS
 

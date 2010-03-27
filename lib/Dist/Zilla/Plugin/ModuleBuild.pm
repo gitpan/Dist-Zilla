@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::ModuleBuild;
-our $VERSION = '1.100711';
+$Dist::Zilla::Plugin::ModuleBuild::VERSION = '1.100860';
 # ABSTRACT: build a Build.PL that uses Module::Build
 use List::MoreUtils qw(any uniq);
 use Moose;
@@ -46,27 +46,15 @@ sub metadata {
 sub setup_installer {
   my ($self, $arg) = @_;
 
-  Carp::croak("can't build a Build.PL; license has no known META.yml value")
+  $self->log_fatal("can't build Build.PL; license has no known META.yml value")
     unless $self->zilla->license->meta_yml_name;
 
   (my $name = $self->zilla->name) =~ s/-/::/g;
 
-  # XXX: SHAMELESSLY COPIED AND PASTED FROM MakeMaker -- rjbs, 2010-01-05
-  my @dir_plugins = $self->zilla->plugins
-    ->grep( sub { $_->isa('Dist::Zilla::Plugin::InstallDirs') })
-    ->flatten;
+  my @exe_files =
+    $self->zilla->find_files(':ExecFiles')->map(sub { $_->name })->flatten;
 
-  my @bin_dirs    = uniq map {; $_->bin->flatten   } @dir_plugins;
-  my @share_dirs  = uniq map {; $_->share->flatten } @dir_plugins;
-
-  confess "can't install more than one ShareDir" if @share_dirs > 1;
-
-  my @exe_files = $self->zilla->files
-    ->grep(sub { my $f = $_; any { $f->name =~ qr{^\Q$_\E[\\/]} } @bin_dirs; })
-    ->map( sub { $_->name })
-    ->flatten;
-
-  confess "can't install files with whitespace in their names"
+  $self->log_fatal("can't install files with whitespace in their names")
     if grep { /\s/ } @exe_files;
 
   my %module_build_args = (
@@ -77,12 +65,14 @@ sub setup_installer {
     dist_version  => $self->zilla->version,
     dist_author   => [ $self->zilla->authors->flatten ],
     script_files  => \@exe_files,
-    (defined $share_dirs[0] ? (share_dir => $share_dirs[0]) : ()),
+    ($self->zilla->_share_dir ? (share_dir => $self->zilla->_share_dir) : ()),
 
     # I believe it is a happy coincidence, for the moment, that this happens to
     # return just the same thing that is needed here. -- rjbs, 2010-01-22
     $self->zilla->prereq->as_distmeta->flatten,
   );
+
+  $self->__module_build_args(\%module_build_args);
 
   my $module_build_dumper = Data::Dumper->new(
     [ \%module_build_args ],
@@ -105,6 +95,12 @@ sub setup_installer {
   $self->add_file($file);
   return;
 }
+
+# XXX:  Just here to facilitate testing. -- rjbs, 2010-03-20
+has __module_build_args => (
+  is   => 'rw',
+  isa  => 'HashRef',
+);
 
 sub build {
   my $self = shift;
@@ -134,7 +130,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 DESCRIPTION
 

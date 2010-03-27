@@ -1,12 +1,12 @@
 package Dist::Zilla::Plugin::InlineFiles;
-our $VERSION = '1.100711';
+$Dist::Zilla::Plugin::InlineFiles::VERSION = '1.100860';
 # ABSTRACT: files in a data section
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
 
 
-use Data::Section -setup;
+use Data::Section 0.004 -setup; # fixed header_re
 use Dist::Zilla::File::InMemory;
 
 sub gather_files {
@@ -40,7 +40,7 @@ Dist::Zilla::Plugin::InlineFiles - files in a data section
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 DESCRIPTION
 

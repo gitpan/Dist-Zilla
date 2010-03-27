@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App;
-our $VERSION = '1.100711';
+$Dist::Zilla::App::VERSION = '1.100860';
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup 0.307 -app; # need ->app in Result of Tester, GLD vers
 
@@ -48,8 +48,8 @@ sub config_for {
 
 sub global_opt_spec {
   return (
-    [ "verbose|v", "log additional output" ],
-    [ "inc|I=s@",  "additional \@INC dirs", {
+    [ "verbose|v:s@", "log additional output" ],
+    [ "inc|I=s@",     "additional \@INC dirs", {
         callbacks => { 'always fine' => sub { unshift @INC, @{$_[0]}; } }
     } ]
   );
@@ -62,15 +62,32 @@ sub zilla {
   require Dist::Zilla;
 
   return $self->{__PACKAGE__}{zilla} ||= do {
-    my $verbose = $self->global_options->verbose;
+    my @v_plugins = $self->global_options->verbose
+                  ? grep { length } @{ $self->global_options->verbose }
+                  : ();
+
+    my $verbose = $self->global_options->verbose && ! @v_plugins;
 
     my $logger = Dist::Zilla->default_logger;
-    $logger->set_debug($verbose);
+    $logger->set_debug($verbose ? 1 : 0);
 
-    my $zilla = Dist::Zilla->from_config({ logger => $logger });
-    $zilla->dzil_app($self);
+    my $core_debug = grep { m/\A[-_]\z/ } @v_plugins;
 
-    $zilla->logger->set_debug($verbose);
+    my $zilla = Dist::Zilla->from_config({
+      logger     => $logger,
+      core_debug => $core_debug,
+    });
+
+    $zilla->controller($self);
+
+    $zilla->logger->set_debug($verbose ? 1 : 0);
+
+    VERBOSE_PLUGIN: for my $plugin_name (grep { ! m{\A[-_]\z} } @v_plugins) {
+      $zilla->log_fatal("can't find plugin $plugin_name to set debug mode")
+        unless my $plugin = $zilla->plugin_named($plugin_name);
+
+      $plugin->logger->set_debug(1);
+    }
 
     $zilla;
   }
@@ -87,7 +104,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 METHODS
 

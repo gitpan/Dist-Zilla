@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::MetaTests;
-our $VERSION = '1.100711';
+$Dist::Zilla::Plugin::MetaTests::VERSION = '1.100860';
 # ABSTRACT: common extra tests for META.yml
 use Moose;
 extends 'Dist::Zilla::Plugin::InlineFiles';
@@ -19,14 +19,14 @@ Dist::Zilla::Plugin::MetaTests - common extra tests for META.yml
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 DESCRIPTION
 
 This is an extension of L<Dist::Zilla::Plugin::InlineFiles>, providing the
 following files:
 
-    xt/release/meta-yaml.t - a standard Test::CPAN::Meta test
+  xt/release/meta-yaml.t - a standard Test::CPAN::Meta test
 
 =head1 AUTHOR
 
@@ -43,7 +43,7 @@ the same terms as the Perl 5 programming language system itself.
 
 
 __DATA__
-___[ xt/release/meta-yaml.t ]___
+___[ xt/release/distmeta.t ]___
 #!perl
 
 use Test::More;

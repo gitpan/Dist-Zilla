@@ -1,5 +1,5 @@
 package Dist::Zilla::PluginBundle::Classic;
-our $VERSION = '1.100711';
+$Dist::Zilla::PluginBundle::Classic::VERSION = '1.100860';
 # ABSTRACT: build something more or less like a "classic" CPAN dist
 use Moose;
 use Moose::Autobox;
@@ -9,7 +9,7 @@ sub bundle_config {
   my ($self, $arg) = @_;
 
   my @plugins = qw(
-    AllFiles
+    GatherDir
     PruneCruft
     ManifestSkip
     MetaYAML
@@ -17,13 +17,16 @@ sub bundle_config {
     Readme
     PkgVersion
     PodVersion
-    PodTests
+    PodCoverageTests
+    PodSyntaxTests
     ExtraTests
-    InstallDirs
+    ExecDir
+    ShareDir
 
     MakeMaker
     Manifest
 
+    ConfirmRelease
     UploadToCPAN
   );
 
@@ -51,7 +54,7 @@ Dist::Zilla::PluginBundle::Classic - build something more or less like a "classi
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 DESCRIPTION
 
@@ -62,7 +65,7 @@ It includes the following plugins with their default configuration:
 
 =over
 
-=item * L<Dist::Zilla::Plugin::AllFiles>
+=item * L<Dist::Zilla::Plugin::GatherDir>
 
 =item * L<Dist::Zilla::Plugin::PruneCruft>
 
@@ -82,7 +85,9 @@ It includes the following plugins with their default configuration:
 
 =item * L<Dist::Zilla::Plugin::ExtraTests>
 
-=item * L<Dist::Zilla::Plugin::InstallDirs>
+=item * L<Dist::Zilla::Plugin::ExecDir>
+
+=item * L<Dist::Zilla::Plugin::ShareDir>
 
 =item * L<Dist::Zilla::Plugin::MakeMaker>
 

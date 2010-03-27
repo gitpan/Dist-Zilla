@@ -1,7 +1,8 @@
 package Dist::Zilla::App::Tester;
-our $VERSION = '1.100711';
+$Dist::Zilla::App::Tester::VERSION = '1.100860';
 use base 'App::Cmd::Tester';
 use App::Cmd::Tester 0.306 (); # result_class, ->app
+# ABSTRACT: testing library for Dist::Zilla::App
 
 use Dist::Zilla::App;
 use File::Copy::Recursive qw(dircopy);
@@ -32,6 +33,7 @@ sub test_dzil {
 
   local $CWD = $root;
 
+  local $ENV{DZIL_TESTING} = 1;
   my $result = $self->test_app('Dist::Zilla::App' => $argv);
   $result->{tempdir} = $tempdir;
 
@@ -40,7 +42,7 @@ sub test_dzil {
 
 {
   package Dist::Zilla::App::Tester::Result;
-our $VERSION = '1.100711';
+$Dist::Zilla::App::Tester::Result::VERSION = '1.100860';
   BEGIN { our @ISA = qw(App::Cmd::Tester::Result); }
 
   sub tempdir {
@@ -67,6 +69,11 @@ our $VERSION = '1.100711';
     my ($self) = @_;
     $self->app->zilla->logger->logger->events;
   }
+
+  sub log_messages {
+    my ($self) = @_;
+    [ map {; $_->{message} } @{ $self->app->zilla->logger->logger->events } ];
+  }
 }
 
 
@@ -77,11 +84,11 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::App::Tester
+Dist::Zilla::App::Tester - testing library for Dist::Zilla::App
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 AUTHOR
 

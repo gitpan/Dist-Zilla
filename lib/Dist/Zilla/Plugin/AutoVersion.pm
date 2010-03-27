@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::AutoVersion;
-our $VERSION = '1.100711';
+$Dist::Zilla::Plugin::AutoVersion::VERSION = '1.100860';
 # ABSTRACT: take care of numbering versions so you don't have to
 use Moose;
 with(
@@ -7,7 +7,7 @@ with(
   'Dist::Zilla::Role::TextTemplate',
 );
 
-use DateTime ();
+use DateTime 0.44 (); # CLDR fixes
 
 
 
@@ -62,7 +62,7 @@ Dist::Zilla::Plugin::AutoVersion - take care of numbering versions so you don't 
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 DESCRIPTION
 

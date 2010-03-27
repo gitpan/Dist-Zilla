@@ -1,5 +1,43 @@
 Revision history for Dist-Zilla
 
+1.100860  2010-03-27 09:43:22 America/New_York
+          INCOMPATIBLE CHANGES:
+
+          the AllFiles plugin is now known as GatherDir
+
+          the InstallDirs plugin has been replaced by ExecDir and ShareDir
+
+          the PodTests plugin has been replaced by PodCoverageTests and
+          PodSyntaxTests
+
+          the FixedPrereq role is replaced with PrereqSource
+
+          OTHER CHANGES:
+
+          numerous improvements to testing libraries
+          ...and numerous actual tests!
+
+          added include_dotfiles option to GatherDir
+          allow relative root directory for GatherDir
+
+          AutoPrereq is now distributed with Dist::Zilla
+
+          AutoPrereq will make requirements only found in ./t "build_requires"
+
+          ConfirmRelease plugin added and made part of @Classic (dagolden)
+
+          MakeMaker-produced Makefile.PL will produce warnings less often
+          
+          MakeMaker-produced Makefile.PL will require v6.31 for INSTALL_BASE
+
+          Prereq plugin can target config_requires, build_requires, etc
+
+          dzil takes -v arg to enable debugging globally or per-plugin
+
+          PkgVersion now adds a fully-qualified $VERSION variables, not 'our'
+
+          add 'dzil nop' command to initialize zilla object and exit
+
 1.100711  2010-03-12 12:51:55 America/New_York
           remove bogus attempt to load obsolete DZ::Logger::Global
 

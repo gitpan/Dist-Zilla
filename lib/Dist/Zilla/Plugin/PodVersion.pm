@@ -1,21 +1,23 @@
 package Dist::Zilla::Plugin::PodVersion;
-our $VERSION = '1.100711';
+$Dist::Zilla::Plugin::PodVersion::VERSION = '1.100860';
 # ABSTRACT: add a VERSION head1 to each Perl document
 use Moose;
-with 'Dist::Zilla::Role::FileMunger';
+with(
+  'Dist::Zilla::Role::FileMunger',
+  'Dist::Zilla::Role::FileFinderUser' => {
+    default_finders => [ ':InstallModules' ],
+  },
+);
 
+
+sub munge_files {
+  my ($self) = @_;
+
+  $self->munge_file($_) for @{ $self->found_files };
+}
 
 sub munge_file {
   my ($self, $file) = @_;
-
-  return $self->munge_pod($file)
-    if $file->name =~ /\.pm$/i and $file->name !~ m{^t/};
-
-  return unless $file->content =~ /^#!(?:.*)perl(?:$|\s)/;
-
-  return if $file->name eq 'Makefile.PL';
-  return if $file->name eq 'Build.PL';
-  return if $file->name =~ /\.t$/;
 
   return $self->munge_pod($file);
 }
@@ -70,7 +72,7 @@ Dist::Zilla::Plugin::PodVersion - add a VERSION head1 to each Perl document
 
 =head1 VERSION
 
-version 1.100711
+version 1.100860
 
 =head1 DESCRIPTION
 
