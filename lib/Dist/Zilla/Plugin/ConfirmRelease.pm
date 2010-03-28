@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::ConfirmRelease;
-$Dist::Zilla::Plugin::ConfirmRelease::VERSION = '2.100862';
+$Dist::Zilla::Plugin::ConfirmRelease::VERSION = '2.100870';
 # ABSTRACT: prompt for confirmation before releasing
 
 use ExtUtils::MakeMaker ();
@@ -19,7 +19,7 @@ sub before_release {
 
   my $answer = ExtUtils::MakeMaker::prompt($prompt, $default);
 
-  if ( $answer !~ /\Ay(?:e(?:s))\z/i ) {
+  if ($answer !~ /\A(?:y|ye|yes)\z/i) {
     $self->log_fatal("Aborting release");
   }
 }
@@ -38,7 +38,7 @@ Dist::Zilla::Plugin::ConfirmRelease - prompt for confirmation before releasing
 
 =head1 VERSION
 
-version 2.100862
+version 2.100870
 
 =head1 DESCRIPTION
 
@@ -47,7 +47,8 @@ the distribution to CPAN.  It gives authors a chance to abort before
 they upload.
 
 The default is "no", but you can set the environment variable
-C<DZIL_CONFIRM_RELEASE> to "yes" if you just want to hit enter to release.
+C<DZIL_CONFIRMRELEASE_DEFAULT> to "yes" if you just want to hit enter to
+release.
 
 This plugin uses C<ExtUtils::MakeMaker::prompt()>, so setting
 C<PERL_MM_USE_DEFAULT> to a true value will accept the default without

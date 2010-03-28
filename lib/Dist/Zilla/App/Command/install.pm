@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::install;
-$Dist::Zilla::App::Command::install::VERSION = '2.100862';
+$Dist::Zilla::App::Command::install::VERSION = '2.100870';
 # ABSTRACT: install your dist
 use Dist::Zilla::App -command;
 
@@ -13,38 +13,12 @@ sub opt_spec {
 }
 
 
-
 sub execute {
   my ($self, $opt, $arg) = @_;
 
-  require File::chdir;
-  require File::Temp;
-  require Path::Class;
-
-  my $build_root = Path::Class::dir('.build');
-  $build_root->mkpath unless -d $build_root;
-
-  my $target = Path::Class::dir( File::Temp::tempdir(DIR => $build_root) );
-  $self->log("building distribution under $target for installation");
-  $self->zilla->ensure_built_in($target);
-
-  eval {
-    ## no critic Punctuation
-    local $File::chdir::CWD = $target;
-    my @cmd = $opt->{install_command}
-            ? $opt->{install_command}
-            : ($^X => '-MCPAN' => '-einstall "."');
-
-    system(@cmd) && die "error with '@cmd'\n";
-  };
-
-  if ($@) {
-    $self->log($@);
-    $self->log("left failed dist in place at $target");
-  } else {
-    $self->log("all's well; removing $target");
-    $target->rmtree;
-  }
+  $self->zilla->install({
+    ($opt->install_command ? (install_command => $opt->install_command) : ()),
+  });
 }
 
 1;
@@ -58,7 +32,7 @@ Dist::Zilla::App::Command::install - install your dist
 
 =head1 VERSION
 
-version 2.100862
+version 2.100870
 
 =head1 SYNOPSIS
 

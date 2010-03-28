@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::test;
-$Dist::Zilla::App::Command::test::VERSION = '2.100862';
+$Dist::Zilla::App::Command::test::VERSION = '2.100870';
 # ABSTRACT: test your dist
 use Dist::Zilla::App -command;
 
@@ -13,47 +13,7 @@ sub abstract { 'test your dist' }
 sub execute {
   my ($self, $opt, $arg) = @_;
 
-  Carp::croak("you can't test without any TestRunner plugins")
-    unless my @testers = $self->zilla->plugins_with(-TestRunner)->flatten;
-
-  require File::chdir;
-  require File::Temp;
-  require Path::Class;
-
-  my $build_root = Path::Class::dir('.build');
-  $build_root->mkpath unless -d $build_root;
-
-  my $target = Path::Class::dir( File::Temp::tempdir(DIR => $build_root) );
-  $self->log("building test distribution under $target");
-
-  local $ENV{AUTHOR_TESTING} = 1;
-  local $ENV{RELEASE_TESTING} = 1;
-
-  $self->zilla->ensure_built_in($target);
-
-  my $error;
-
-  for my $tester ( @testers ) {
-    undef $error;
-    eval {
-      local $File::chdir::CWD = $target;
-      $error = $tester->test( $target );
-      1;
-    } or do {
-      $error = $@;
-    };
-    last if $error;
-  }
-
-  if ($error) {
-    $self->log($error);
-    $self->log("left failed dist in place at $target");
-    exit 1;
-  } else {
-    $self->log("all's well; removing $target");
-    $target->rmtree;
-  }
-
+  $self->zilla->test;
 }
 
 1;
@@ -67,7 +27,7 @@ Dist::Zilla::App::Command::test - test your dist
 
 =head1 VERSION
 
-version 2.100862
+version 2.100870
 
 =head1 SYNOPSIS
 

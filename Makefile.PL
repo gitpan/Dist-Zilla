@@ -4,7 +4,7 @@ use warnings;
 
  BEGIN { require v5.8.5; } 
 
-use ExtUtils::MakeMaker 6.11;
+use ExtUtils::MakeMaker 6.31;
 
 
 
@@ -15,17 +15,18 @@ my %WriteMakefileArgs = (
                        'NAME' => 'Dist::Zilla',
                        'DISTNAME' => 'Dist-Zilla',
                        'CONFIGURE_REQUIRES' => {
-                                                 'ExtUtils::MakeMaker' => '6.11'
+                                                 'ExtUtils::MakeMaker' => '6.31'
                                                },
                        'AUTHOR' => 'Ricardo SIGNES <rjbs@cpan.org>',
                        'BUILD_REQUIRES' => {
+                                             'Try::Tiny' => '0',
                                              'Test::More' => '0.90'
                                            },
                        'ABSTRACT' => 'distribution builder; installer not included!',
                        'EXE_FILES' => [
                                         'bin/dzil'
                                       ],
-                       'VERSION' => '2.100862',
+                       'VERSION' => '2.100870',
                        'PREREQ_PM' => {
                                         'DateTime' => '0.44',
                                         'PPI' => '0',
@@ -44,14 +45,12 @@ my %WriteMakefileArgs = (
                                         'Archive::Tar' => '0',
                                         'List::MoreUtils' => '0',
                                         'ExtUtils::Manifest' => '1.54',
-                                        'Try::Tiny' => '0',
                                         'Moose::Role' => '0',
                                         'File::HomeDir' => '0',
                                         'Data::Dumper' => '0',
                                         'ExtUtils::MakeMaker' => '0',
                                         'Config::MVP::Reader' => '0',
                                         'Moose::Autobox' => '0.09',
-                                        'Test::More' => '0.88',
                                         'MooseX::Types::Path::Class' => '0',
                                         'Hash::Merge::Simple' => '0',
                                         'MooseX::Types' => '0',
@@ -61,9 +60,9 @@ my %WriteMakefileArgs = (
                                         'Path::Class' => '0',
                                         'Text::Template' => '0',
                                         'App::Cmd::Tester' => '0.306',
-                                        'Config::MVP::Assembler' => '0',
-                                        'Scalar::Util' => '0',
                                         'MooseX::Types::Moose' => '0',
+                                        'Scalar::Util' => '0',
+                                        'Config::MVP::Assembler' => '0',
                                         'Config::INI::MVP::Reader' => '0.024',
                                         'File::Spec' => '0',
                                         'String::RewritePrefix' => '0.002',
@@ -92,9 +91,6 @@ my %WriteMakefileArgs = (
                        'LICENSE' => 'perl'
                      );
 
-
-delete $WriteMakefileArgs{LICENSE}
-  unless eval { ExtUtils::MakeMaker->VERSION(6.31) };
 
 delete $WriteMakefileArgs{BUILD_REQUIRES}
   unless eval { ExtUtils::MakeMaker->VERSION(6.56) };

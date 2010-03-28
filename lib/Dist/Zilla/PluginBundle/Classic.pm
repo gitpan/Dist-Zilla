@@ -1,5 +1,5 @@
 package Dist::Zilla::PluginBundle::Classic;
-$Dist::Zilla::PluginBundle::Classic::VERSION = '2.100862';
+$Dist::Zilla::PluginBundle::Classic::VERSION = '2.100870';
 # ABSTRACT: build something more or less like a "classic" CPAN dist
 use Moose;
 use Moose::Autobox;
@@ -54,7 +54,7 @@ Dist::Zilla::PluginBundle::Classic - build something more or less like a "classi
 
 =head1 VERSION
 
-version 2.100862
+version 2.100870
 
 =head1 DESCRIPTION
 

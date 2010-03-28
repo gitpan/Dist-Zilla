@@ -1,5 +1,5 @@
 package Dist::Zilla::Role::PrereqSource;
-$Dist::Zilla::Role::PrereqSource::VERSION = '2.100862';
+$Dist::Zilla::Role::PrereqSource::VERSION = '2.100870';
 # ABSTRACT: something that registers prerequisites
 use Moose::Role;
 
@@ -19,7 +19,7 @@ Dist::Zilla::Role::PrereqSource - something that registers prerequisites
 
 =head1 VERSION
 
-version 2.100862
+version 2.100870
 
 =head1 DESCRIPTION
 

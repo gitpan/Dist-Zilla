@@ -1,5 +1,5 @@
 package Dist::Zilla;
-$Dist::Zilla::VERSION = '2.100862';
+$Dist::Zilla::VERSION = '2.100870';
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
 with 'Dist::Zilla::Role::ConfigDumper';
@@ -656,9 +656,6 @@ sub _write_out_file {
 }
 
 
-sub test { die '...' }
-
-
 sub release {
   my $self = shift;
 
@@ -675,6 +672,149 @@ sub release {
 
   # call all plugins implementing AfterRelease role
   $_->after_release($tgz) for $self->plugins_with(-AfterRelease)->flatten;
+}
+
+
+sub clean {
+  my ($self) = @_;
+
+  require File::Path;
+  for my $x (grep { -e } '.build', glob($self->name . '-*')) {
+    $self->log("clean: removing $x");
+    File::Path::rmtree($x);
+  };
+
+  # removing leftovers
+  my @temps = File::Find::Rule->file->name( qr{~$} )->in('.');
+  $self->log("clean: removing $_"), unlink for @temps;
+}
+
+
+sub install {
+  my ($self, $arg) = @_;
+  $arg ||= {};
+
+  require File::chdir;
+  require File::Temp;
+  require Path::Class;
+
+  my $build_root = Path::Class::dir('.build');
+  $build_root->mkpath unless -d $build_root;
+
+  my $target = Path::Class::dir( File::Temp::tempdir(DIR => $build_root) );
+  $self->log("building distribution under $target for installation");
+  $self->ensure_built_in($target);
+
+  eval {
+    ## no critic Punctuation
+    local $File::chdir::CWD = $target;
+    my @cmd = $arg->{install_command}
+            ? $arg->{install_command}
+            : ($^X => '-MCPAN' => '-einstall "."');
+
+    system(@cmd) && $self->log_fatal([ "error running %s", \@cmd ]);
+  };
+
+  if ($@) {
+    $self->log($@);
+    $self->log("left failed dist in place at $target");
+  } else {
+    $self->log("all's well; removing $target");
+    $target->rmtree;
+  }
+
+  return;
+}
+
+
+sub test {
+  my ($self) = @_;
+
+  Carp::croak("you can't test without any TestRunner plugins")
+    unless my @testers = $self->plugins_with(-TestRunner)->flatten;
+
+  require File::chdir;
+  require File::Temp;
+  require Path::Class;
+
+  my $build_root = Path::Class::dir('.build');
+  $build_root->mkpath unless -d $build_root;
+
+  my $target = Path::Class::dir( File::Temp::tempdir(DIR => $build_root) );
+  $self->log("building test distribution under $target");
+
+  local $ENV{AUTHOR_TESTING} = 1;
+  local $ENV{RELEASE_TESTING} = 1;
+
+  $self->ensure_built_in($target);
+
+  my $error;
+
+  for my $tester (@testers) {
+    undef $error;
+    eval {
+      local $File::chdir::CWD = $target;
+      $error = $tester->test( $target );
+      1;
+    } or do {
+      $error = $@;
+    };
+    last if $error;
+  }
+
+  if ($error) {
+    $self->log($error);
+    $self->log_fatal("left failed dist in place at $target");
+  } else {
+    $self->log("all's well; removing $target");
+    $target->rmtree;
+  }
+}
+
+
+sub run_in_build {
+  my ($self, $cmd) = @_;
+
+  # The sort below is a cheap hack to get ModuleBuild ahead of
+  # ExtUtils::MakeMaker. -- rjbs, 2010-01-05
+  Carp::croak("you can't build without any BuildRunner plugins")
+    unless my @builders =
+    $self->plugins_with(-BuildRunner)->sort->reverse->flatten;
+
+  require "Config.pm"; # skip autoprereq
+  require File::chdir;
+  require File::Temp;
+  require Path::Class;
+
+  # dzil-build the dist
+  my $build_root = Path::Class::dir('.build');
+  $build_root->mkpath unless -d $build_root;
+
+  my $target    = Path::Class::dir( File::Temp::tempdir(DIR => $build_root) );
+  my $abstarget = $target->absolute;
+  $self->log("building test distribution under $target");
+
+  $self->ensure_built_in($target);
+
+  # building the dist for real
+  my $ok = eval {
+    local $File::chdir::CWD = $target;
+    $builders[0]->build;
+    local $ENV{PERL5LIB} =
+      join $Config::Config{path_sep},
+      map { $abstarget->subdir('blib', $_) } qw{ arch lib };
+    system(@$cmd) and die "error while running: @$cmd";
+    1;
+  };
+
+  if ($ok) {
+    $self->log("all's well; removing $target");
+    $target->rmtree;
+  } else {
+    my $error = $@ || '(unknown error)';
+    $self->log($error);
+    $self->log_fatal("left failed dist in place at $target");
+  }
 }
 
 
@@ -730,7 +870,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 2.100862
+version 2.100870
 
 =head1 DESCRIPTION
 
@@ -904,13 +1044,6 @@ C<$root> (or the default root, if no root is given), no exception is raised.
 This method will ensure that the dist has been built in the given root, and
 will then build a tarball of that directory in the current directory.
 
-=head2 test
-
-  $zilla->test;
-
-This method builds a new copy of the distribution and tests it.  If the tests
-appear to pass, it returns true.  If something goes wrong, it returns false.
-
 =head2 release
 
   $zilla->release;
@@ -918,6 +1051,18 @@ appear to pass, it returns true.  If something goes wrong, it returns false.
 This method releases the distribution, probably by uploading it to the CPAN.
 The actual effects of this method (as with most of the methods) is determined
 by the loaded plugins.
+
+=head2 clean
+
+=head2 install
+
+=head2 test
+
+  $zilla->test;
+
+This method builds a new copy of the distribution and tests it.
+
+=head2 run_in_build
 
 =head2 log
 
