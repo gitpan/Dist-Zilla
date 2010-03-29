@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::License;
-$Dist::Zilla::Plugin::License::VERSION = '2.100870';
+$Dist::Zilla::Plugin::License::VERSION = '2.100880';
 # ABSTRACT: output a LICENSE file
 use Moose;
 with 'Dist::Zilla::Role::FileGatherer';
@@ -32,7 +32,7 @@ Dist::Zilla::Plugin::License - output a LICENSE file
 
 =head1 VERSION
 
-version 2.100870
+version 2.100880
 
 =head1 DESCRIPTION
 
