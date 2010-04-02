@@ -1,21 +1,18 @@
-use strict;
-use warnings;
-
 package Dist::Zilla::Role::BuildRunner;
 BEGIN {
-  $Dist::Zilla::Role::BuildRunner::VERSION = '2.100921';
+  $Dist::Zilla::Role::BuildRunner::VERSION = '2.100922';
 }
+use Moose::Role;
+with 'Dist::Zilla::Role::Plugin';
 # ABSTRACT: something used as a delegating agent during 'dzil run'
 
-use Moose::Role;
-
-with 'Dist::Zilla::Role::Plugin';
 requires 'build';
 
 no Moose::Role;
 1;
 
 
+__END__
 =pod
 
 =head1 NAME
@@ -24,31 +21,18 @@ Dist::Zilla::Role::BuildRunner - something used as a delegating agent during 'dz
 
 =head1 VERSION
 
-version 2.100921
+version 2.100922
 
 =head1 DESCRIPTION
 
 Plugins implementing this role have their C<build> method called during
-C<dzil run>. It's passed the root directory of the build test dir.
+C<dzil run>.  It's passed the root directory of the build test dir.
 
 =head1 REQUIRED METHODS
 
-=head2 build()
+=head2 build
 
-This method should return C<undef> on success. Any other value is
-interpreted as an error message.
-
-Calling "die" inside build also will be caught.
-
-The following 2 subs should behave(mostly) the same:
-
-    sub build {
-        die "Failed";
-    }
-
-    sub build {
-        return "Failed";
-    }
+This method will throw an exception on failure.
 
 =head1 AUTHOR
 
@@ -62,7 +46,4 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
 

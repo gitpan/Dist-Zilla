@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::Prereq;
 BEGIN {
-  $Dist::Zilla::Plugin::Prereq::VERSION = '2.100921';
+  $Dist::Zilla::Plugin::Prereq::VERSION = '2.100922';
 }
 # ABSTRACT: list simple prerequisites
 use Moose;
@@ -122,7 +122,7 @@ Dist::Zilla::Plugin::Prereq - list simple prerequisites
 
 =head1 VERSION
 
-version 2.100921
+version 2.100922
 
 =head1 SYNOPSIS
 

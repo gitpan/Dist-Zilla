@@ -1,14 +1,10 @@
 package Dist::Zilla::Role::TestRunner;
 BEGIN {
-  $Dist::Zilla::Role::TestRunner::VERSION = '2.100921';
+  $Dist::Zilla::Role::TestRunner::VERSION = '2.100922';
 }
-
-# ABSTRACT: something used as a delegating agent to 'dzil test'
-
 use Moose::Role;
-
-
 with 'Dist::Zilla::Role::Plugin';
+# ABSTRACT: something used as a delegating agent to 'dzil test'
 
 
 requires 'test';
@@ -25,34 +21,18 @@ Dist::Zilla::Role::TestRunner - something used as a delegating agent to 'dzil te
 
 =head1 VERSION
 
-version 2.100921
+version 2.100922
 
 =head1 DESCRIPTION
 
 Plugins implementing this role have their C<test> method called when
 testing.  It's passed the root directory of the build test dir.
 
-=head1 REQUIRED METHODS
+=head1 METHODS
 
 =head2 test
 
-  ->test( $build_dir )
-
-This method should return C<undef> on success.
-
-Any other value is interpreted as an error message, and no more tests are run.
-
-Calling "die" inside test also will be caught.
-
-The following 2 subs should behave(mostly) the same:
-
-    sub test {
-        die "Failed";
-    }
-
-    sub test {
-        return "Failed";
-    }
+This method should throw an exception on failure.
 
 =head1 AUTHOR
 

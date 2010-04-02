@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MakeMaker;
 BEGIN {
-  $Dist::Zilla::Plugin::MakeMaker::VERSION = '2.100921';
+  $Dist::Zilla::Plugin::MakeMaker::VERSION = '2.100922';
 }
 
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
@@ -142,16 +142,19 @@ has __write_makefile_args => (
 
 sub build {
   my $self = shift;
+
   system($^X => 'Makefile.PL') and die "error with Makefile.PL\n";
   system('make')               and die "error running make\n";
+
   return;
 }
 
 sub test {
   my ( $self, $target ) = @_;
-  ## no critic Punctuation
+
   $self->build;
   system('make test') and die "error running make test\n";
+
   return;
 }
 
@@ -174,7 +177,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 2.100921
+version 2.100922
 
 =head1 DESCRIPTION
 

@@ -1,6 +1,6 @@
 package Dist::Zilla;
 BEGIN {
-  $Dist::Zilla::VERSION = '2.100921';
+  $Dist::Zilla::VERSION = '2.100922';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -14,6 +14,7 @@ use Moose::Util::TypeConstraints;
 
 use Archive::Tar;
 use File::Find::Rule;
+use File::chdir ();
 use Hash::Merge::Simple ();
 use List::MoreUtils qw(uniq);
 use List::Util qw(first);
@@ -575,7 +576,7 @@ sub ensure_built_in {
 
 
 sub build_archive {
-  my ($self) = @_;
+  my ($self, $file) = @_;
 
   my $built_in = $self->ensure_built;
 
@@ -584,14 +585,14 @@ sub build_archive {
   $_->before_archive for $self->plugins_with(-BeforeArchive)->flatten;
 
   my %seen_dir;
-  for my $file ($self->files->flatten) {
-    my $in = Path::Class::file($file->name)->dir;
+  for my $distfile ($self->files->flatten) {
+    my $in = Path::Class::file($distfile->name)->dir;
     $archive->add_files( $built_in->subdir($in) ) unless $seen_dir{ $in }++;
-    $archive->add_files( $built_in->file( $file->name ) );
+    $archive->add_files( $built_in->file( $distfile->name ) );
   }
 
   ## no critic
-  my $file = Path::Class::file(join(q{},
+  $file ||= Path::Class::file(join(q{},
     $self->name,
     '-',
     $self->version,
@@ -738,7 +739,6 @@ sub test {
   Carp::croak("you can't test without any TestRunner plugins")
     unless my @testers = $self->plugins_with(-TestRunner)->flatten;
 
-  require File::chdir;
   require File::Temp;
 
   my $build_root = Path::Class::dir('.build');
@@ -752,26 +752,22 @@ sub test {
 
   $self->ensure_built_in($target);
 
-  my $error;
+  my $error = $self->run_tests_in($target);
+
+  $self->log("all's well; removing $target");
+  $target->rmtree;
+}
+
+
+sub run_tests_in {
+  my ($self, $target) = @_;
+
+  Carp::croak("you can't test without any TestRunner plugins")
+    unless my @testers = $self->plugins_with(-TestRunner)->flatten;
 
   for my $tester (@testers) {
-    undef $error;
-    eval {
-      local $File::chdir::CWD = $target;
-      $error = $tester->test( $target );
-      1;
-    } or do {
-      $error = $@;
-    };
-    last if $error;
-  }
-
-  if ($error) {
-    $self->log($error);
-    $self->log_fatal("left failed dist in place at $target");
-  } else {
-    $self->log("all's well; removing $target");
-    $target->rmtree;
+    local $File::chdir::CWD = $target;
+    $tester->test( $target );
   }
 }
 
@@ -873,7 +869,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 2.100921
+version 2.100922
 
 =head1 DESCRIPTION
 
@@ -1064,6 +1060,17 @@ by the loaded plugins.
   $zilla->test;
 
 This method builds a new copy of the distribution and tests it.
+
+=head2 run_tests_in
+
+  my $error = $zilla->run_tests_in($directory);
+
+This method runs the tests in $directory (a Path::Class::Dir), which
+must contain an already-built copy of the distribution.  It returns
+C<undef> if the tests pass, or the error message if they failed.
+
+It does I<not> set any of the C<*_TESTING> environment variables, nor
+does it clean up C<$directory> afterwards.
 
 =head2 run_in_build
 
