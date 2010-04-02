@@ -1,5 +1,7 @@
 package Dist::Zilla::Prereqs;
-$Dist::Zilla::Prereqs::VERSION = '2.100920';
+BEGIN {
+  $Dist::Zilla::Prereqs::VERSION = '2.100921';
+}
 # ABSTRACT: the prerequisites of a Dist::Zilla distribution
 use Moose;
 use Moose::Autobox;
@@ -82,7 +84,7 @@ Dist::Zilla::Prereqs - the prerequisites of a Dist::Zilla distribution
 
 =head1 VERSION
 
-version 2.100920
+version 2.100921
 
 =head1 AUTHOR
 

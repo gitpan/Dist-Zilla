@@ -1,5 +1,7 @@
 package Dist::Zilla::Plugin::ConfirmRelease;
-$Dist::Zilla::Plugin::ConfirmRelease::VERSION = '2.100920';
+BEGIN {
+  $Dist::Zilla::Plugin::ConfirmRelease::VERSION = '2.100921';
+}
 # ABSTRACT: prompt for confirmation before releasing
 
 use ExtUtils::MakeMaker ();
@@ -38,7 +40,7 @@ Dist::Zilla::Plugin::ConfirmRelease - prompt for confirmation before releasing
 
 =head1 VERSION
 
-version 2.100920
+version 2.100921
 
 =head1 DESCRIPTION
 

@@ -1,5 +1,7 @@
 package Dist::Zilla;
-$Dist::Zilla::VERSION = '2.100920';
+BEGIN {
+  $Dist::Zilla::VERSION = '2.100921';
+}
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
 with 'Dist::Zilla::Role::ConfigDumper';
@@ -556,6 +558,10 @@ sub build_in {
 }
 
 
+sub ensure_built {
+  $_[0]->ensure_built_in;
+}
+
 sub ensure_built_in {
   my ($self, $root) = @_;
 
@@ -867,7 +873,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 2.100920
+version 2.100921
 
 =head1 DESCRIPTION
 

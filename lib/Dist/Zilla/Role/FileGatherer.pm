@@ -1,5 +1,7 @@
 package Dist::Zilla::Role::FileGatherer;
-$Dist::Zilla::Role::FileGatherer::VERSION = '2.100920';
+BEGIN {
+  $Dist::Zilla::Role::FileGatherer::VERSION = '2.100921';
+}
 use Moose::Autobox;
 # ABSTRACT: something that gathers files into the distribution
 use Moose::Role;
@@ -21,7 +23,7 @@ Dist::Zilla::Role::FileGatherer - something that gathers files into the distribu
 
 =head1 VERSION
 
-version 2.100920
+version 2.100921
 
 =head1 DESCRIPTION
 

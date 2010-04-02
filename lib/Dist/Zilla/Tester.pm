@@ -1,5 +1,7 @@
 package Dist::Zilla::Tester;
-$Dist::Zilla::Tester::VERSION = '2.100920';
+BEGIN {
+  $Dist::Zilla::Tester::VERSION = '2.100921';
+}
 use Moose;
 extends 'Dist::Zilla';
 # ABSTRACT: a testing-enabling stand-in for  Dist::Zilla
@@ -138,7 +140,7 @@ Dist::Zilla::Tester - a testing-enabling stand-in for  Dist::Zilla
 
 =head1 VERSION
 
-version 2.100920
+version 2.100921
 
 =head1 AUTHOR
 
