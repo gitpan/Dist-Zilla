@@ -1,7 +1,9 @@
 package Dist::Zilla::Config;
-$Dist::Zilla::Config::VERSION = '2.100880';
+$Dist::Zilla::Config::VERSION = '2.100920';
 use Moose::Role;
 # ABSTRACT: stored configuration loader role
+
+use Config::MVP 0.100780; # fix mvp_* method laziness
 
 with q(Config::MVP::Reader) => { -excludes => 'build_assembler' };
 
@@ -34,7 +36,7 @@ Dist::Zilla::Config - stored configuration loader role
 
 =head1 VERSION
 
-version 2.100880
+version 2.100920
 
 =head1 DESCRIPTION
 

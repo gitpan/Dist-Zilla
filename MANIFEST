@@ -77,6 +77,7 @@ lib/Dist/Zilla/PluginBundle/Filter.pm
 lib/Dist/Zilla/Prereqs.pm
 lib/Dist/Zilla/Role/AfterBuild.pm
 lib/Dist/Zilla/Role/AfterRelease.pm
+lib/Dist/Zilla/Role/BeforeArchive.pm
 lib/Dist/Zilla/Role/BeforeBuild.pm
 lib/Dist/Zilla/Role/BeforeRelease.pm
 lib/Dist/Zilla/Role/BuildRunner.pm
@@ -126,7 +127,6 @@ t/plugins/pkgversion.t
 t/plugins/podversion.t
 t/plugins/prunes.t
 t/plugins/readme.t
-t/release-pod-coverage.t
 t/release-pod-syntax.t
 t/tester-demo.t
 todo/CHECKLIST-testing.txt

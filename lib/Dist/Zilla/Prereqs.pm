@@ -1,5 +1,5 @@
 package Dist::Zilla::Prereqs;
-$Dist::Zilla::Prereqs::VERSION = '2.100880';
+$Dist::Zilla::Prereqs::VERSION = '2.100920';
 # ABSTRACT: the prerequisites of a Dist::Zilla distribution
 use Moose;
 use Moose::Autobox;
@@ -35,6 +35,9 @@ sub as_distmeta {
   my $distmeta = {
     requires           =>
       ($self->_guts->{runtime}{requires} || Version::Requirements->new)
+      ->as_string_hash,
+    recommends         =>
+      ($self->_guts->{runtime}{recommends} || Version::Requirements->new)
       ->as_string_hash,
     build_requires     =>
       ($self->_guts->{build}{requires} || Version::Requirements->new)
@@ -79,7 +82,7 @@ Dist::Zilla::Prereqs - the prerequisites of a Dist::Zilla distribution
 
 =head1 VERSION
 
-version 2.100880
+version 2.100920
 
 =head1 AUTHOR
 

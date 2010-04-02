@@ -1,5 +1,5 @@
 package Dist::Zilla;
-$Dist::Zilla::VERSION = '2.100880';
+$Dist::Zilla::VERSION = '2.100920';
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
 with 'Dist::Zilla::Role::ConfigDumper';
@@ -10,6 +10,7 @@ use MooseX::Types::Moose qw(Bool HashRef);
 use MooseX::Types::Path::Class qw(Dir File);
 use Moose::Util::TypeConstraints;
 
+use Archive::Tar;
 use File::Find::Rule;
 use Hash::Merge::Simple ();
 use List::MoreUtils qw(uniq);
@@ -568,16 +569,15 @@ sub ensure_built_in {
 
 
 sub build_archive {
-  my ($self, $root) = @_;
+  my ($self) = @_;
 
-  $self->ensure_built_in($root);
+  my $built_in = $self->ensure_built;
 
-  require Archive::Tar;
   my $archive = Archive::Tar->new;
-  my $built_in = $self->built_in;
+
+  $_->before_archive for $self->plugins_with(-BeforeArchive)->flatten;
 
   my %seen_dir;
-
   for my $file ($self->files->flatten) {
     my $in = Path::Class::file($file->name)->dir;
     $archive->add_files( $built_in->subdir($in) ) unless $seen_dir{ $in }++;
@@ -696,7 +696,6 @@ sub install {
 
   require File::chdir;
   require File::Temp;
-  require Path::Class;
 
   my $build_root = Path::Class::dir('.build');
   $build_root->mkpath unless -d $build_root;
@@ -735,7 +734,6 @@ sub test {
 
   require File::chdir;
   require File::Temp;
-  require Path::Class;
 
   my $build_root = Path::Class::dir('.build');
   $build_root->mkpath unless -d $build_root;
@@ -784,7 +782,6 @@ sub run_in_build {
   require "Config.pm"; # skip autoprereq
   require File::chdir;
   require File::Temp;
-  require Path::Class;
 
   # dzil-build the dist
   my $build_root = Path::Class::dir('.build');
@@ -870,7 +867,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 2.100880
+version 2.100920
 
 =head1 DESCRIPTION
 
@@ -1039,10 +1036,10 @@ C<$root> (or the default root, if no root is given), no exception is raised.
 
 =head2 build_archive
 
-  $dist->build_archive($root);
+  $dist->build_archive;
 
-This method will ensure that the dist has been built in the given root, and
-will then build a tarball of that directory in the current directory.
+This method will ensure that the dist has been built, and will then build a
+tarball of the build directory in the current directory.
 
 =head2 release
 
