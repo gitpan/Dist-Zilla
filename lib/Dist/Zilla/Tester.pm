@@ -1,6 +1,6 @@
 package Dist::Zilla::Tester;
 BEGIN {
-  $Dist::Zilla::Tester::VERSION = '2.100922';
+  $Dist::Zilla::Tester::VERSION = '2.100960';
 }
 use Moose;
 extends 'Dist::Zilla';
@@ -8,7 +8,7 @@ extends 'Dist::Zilla';
 
 use autodie;
 use File::Copy::Recursive qw(dircopy);
-use File::chdir;
+use File::pushd ();
 use File::Spec;
 use File::Temp;
 use Path::Class;
@@ -53,6 +53,7 @@ around from_config => sub {
   }
 
   local $arg->{dist_root} = "$root";
+  local $arg->{chrome} = Dist::Zilla::Tester::UI->new;
 
   local @INC = map {; ref($_) ? $_ : File::Spec->rel2abs($_) } @INC;
 
@@ -68,7 +69,7 @@ around build_in => sub {
 
   # XXX: We *must eliminate* the need for this!  It's only here because right
   # now building a dist with (root <> cwd) doesn't work. -- rjbs, 2010-03-08
-  local $CWD = $self->root;
+  my $wd = File::pushd::pushd($self->root);
 
   $target ||= do {
     my $target = dir($self->tempdir)->subdir('build');
@@ -84,18 +85,30 @@ around release => sub {
 
   # XXX: We *must eliminate* the need for this!  It's only here because right
   # now building a dist with (root <> cwd) doesn't work. -- rjbs, 2010-03-08
-  local $CWD = $self->root;
+  my $wd = File::pushd::pushd($self->root);
 
   return $self->$orig;
 };
 
 
-sub default_logger {
-  return Log::Dispatchouli->new({
-    ident   => 'Dist::Zilla::Tester',
-    log_pid => 0,
-    to_self => 1,
-  });
+{
+  package
+    Dist::Zilla::Tester::UI;
+BEGIN {
+  $Dist::Zilla::Tester::UI::VERSION = '2.100960';
+}
+
+  use Moose;
+  has logger => (
+    is => 'ro',
+    default => sub {
+      Log::Dispatchouli->new({
+        ident   => 'Dist::Zilla::Tester',
+        log_pid => 0,
+        to_self => 1,
+      });
+    }
+  );
 }
 
 has tempdir => (
@@ -106,17 +119,17 @@ has tempdir => (
 
 sub clear_log_events {
   my ($self) = @_;
-  $self->logger->clear_events;
+  $self->chrome->logger->clear_events;
 }
 
 sub log_events {
   my ($self) = @_;
-  $self->logger->events;
+  $self->chrome->logger->events;
 }
 
 sub log_messages {
   my ($self) = @_;
-  [ map {; $_->{message} } @{ $self->logger->events } ];
+  [ map {; $_->{message} } @{ $self->chrome->logger->events } ];
 }
 
 sub slurp_file {
@@ -140,7 +153,7 @@ Dist::Zilla::Tester - a testing-enabling stand-in for  Dist::Zilla
 
 =head1 VERSION
 
-version 2.100922
+version 2.100960
 
 =head1 AUTHOR
 

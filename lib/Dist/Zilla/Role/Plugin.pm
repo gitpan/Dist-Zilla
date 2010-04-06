@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::Plugin;
 BEGIN {
-  $Dist::Zilla::Role::Plugin::VERSION = '2.100922';
+  $Dist::Zilla::Role::Plugin::VERSION = '2.100960';
 }
 # ABSTRACT: something that gets plugged in to Dist::Zilla
 use Moose::Role;
@@ -32,7 +32,7 @@ has logger => (
   lazy => 1,
   handles => [ qw(log log_debug log_fatal) ],
   default => sub {
-    $_[0]->zilla->logger->proxy({
+    $_[0]->zilla->chrome->logger->proxy({
       proxy_prefix => '[' . $_[0]->plugin_name . '] ',
     });
   },
@@ -55,7 +55,7 @@ Dist::Zilla::Role::Plugin - something that gets plugged in to Dist::Zilla
 
 =head1 VERSION
 
-version 2.100922
+version 2.100960
 
 =head1 DESCRIPTION
 

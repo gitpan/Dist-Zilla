@@ -1,12 +1,14 @@
 package Dist::Zilla::Plugin::TestRelease;
 BEGIN {
-  $Dist::Zilla::Plugin::TestRelease::VERSION = '2.100922';
+  $Dist::Zilla::Plugin::TestRelease::VERSION = '2.100960';
 }
 use Moose;
 with 'Dist::Zilla::Role::BeforeRelease';
+# ABSTRACT: extract archive and run tests before releasing the dist
+
 
 use Archive::Tar;
-use File::chdir ();
+use File::pushd ();
 use Moose::Autobox;
 use Path::Class ();
 
@@ -22,7 +24,7 @@ sub before_release {
   $self->log("Extracting $tgz to $tmpdir");
 
   my @files = do {
-    local $File::chdir::CWD = $tmpdir;
+    my $wd = File::pushd::pushd($tmpdir);
     Archive::Tar->extract_archive("$tgz");
   };
 
@@ -48,11 +50,23 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Plugin::TestRelease
+Dist::Zilla::Plugin::TestRelease - extract archive and run tests before releasing the dist
 
 =head1 VERSION
 
-version 2.100922
+version 2.100960
+
+=head1 DESCRIPTION
+
+This plugin runs before a release happens.  It will extract the to-be-released
+archive into a temporary directory and use the TestRunner plugins to run its
+tests.  If the tests fail, the release is aborted and the temporary directory
+is left in place.  If the tests pass, the temporary directory is cleaned up and
+the release process continues.
+
+=head1 CREDITS
+
+This plugin was originally contributed by Christopher J. Madsen.
 
 =head1 AUTHOR
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoPrereq;
 BEGIN {
-  $Dist::Zilla::Plugin::AutoPrereq::VERSION = '2.100922';
+  $Dist::Zilla::Plugin::AutoPrereq::VERSION = '2.100960';
 }
 use Moose;
 with(
@@ -23,15 +23,11 @@ use Version::Requirements 0.100630;  # merge with 0-min bug
 use version;
 
 
-# -- attributes
-
 # skiplist - a regex
 has skip => (
   is => 'ro',
   predicate => 'has_skip',
 );
-
-# -- public methods
 
 sub register_prereqs {
   my $self  = shift;
@@ -110,7 +106,7 @@ Dist::Zilla::Plugin::AutoPrereq - automatically extract prereqs from your module
 
 =head1 VERSION
 
-version 2.100922
+version 2.100960
 
 =head1 SYNOPSIS
 
@@ -129,17 +125,16 @@ L<Dist::Zilla::Plugin::Prereq> plugin.
 
 This plugin will skip the modules shipped within your dist.
 
-The module accept the following options:
+=head1 ATTRIBUTES
 
-=over 4
+=head2 skip
 
-=item skip
+This string will be used as a regular expression.  Any module names matching
+this regex will not be registered as prerequisites.
 
-a regex that will remove any matching modules found from prereqs
+=head1 CREDITS
 
-=back
-
-=for Pod::Coverage prereq
+This plugin was originally contributed by Jerome Quelin.
 
 =head1 AUTHOR
 

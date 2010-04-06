@@ -1,6 +1,6 @@
 package Dist::Zilla;
 BEGIN {
-  $Dist::Zilla::VERSION = '2.100922';
+  $Dist::Zilla::VERSION = '2.100960';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -14,7 +14,7 @@ use Moose::Util::TypeConstraints;
 
 use Archive::Tar;
 use File::Find::Rule;
-use File::chdir ();
+use File::pushd ();
 use Hash::Merge::Simple ();
 use List::MoreUtils qw(uniq);
 use List::Util qw(first);
@@ -32,9 +32,10 @@ use Dist::Zilla::Util;
 use namespace::autoclean;
 
 
-has controller => (
+has chrome => (
   is  => 'rw',
-  isa => 'Dist::Zilla::App',
+  isa => 'Object', # will be does => 'Dist::Zilla::Role::Chrome' when it exists
+  required => 1,
 );
 
 
@@ -327,22 +328,18 @@ sub from_config {
 
   my $root = Path::Class::dir($arg->{dist_root} || '.');
 
-  my $logger = $arg->{logger} || $class->default_logger;
-
   my ($seq) = $class->_load_config({
     root   => $root,
-    logger => $logger,
+    logger => $arg->{chrome}->logger,
     config_class => $arg->{config_class},
   });
 
   my $core_config = $seq->section_named('_')->payload;
 
   my $self = $class->new({
-    logger => $logger,
-    %$core_config
+    %$core_config,
+    chrome => $arg->{chrome},
   });
-
-  $self->core_logger->set_debug(1) if $arg->{core_debug};
 
   for my $section ($seq->sections) {
     next if $section->name eq '_';
@@ -701,7 +698,6 @@ sub install {
   my ($self, $arg) = @_;
   $arg ||= {};
 
-  require File::chdir;
   require File::Temp;
 
   my $build_root = Path::Class::dir('.build');
@@ -713,7 +709,7 @@ sub install {
 
   eval {
     ## no critic Punctuation
-    local $File::chdir::CWD = $target;
+    my $wd = File::pushd::pushd($target);
     my @cmd = $arg->{install_command}
             ? $arg->{install_command}
             : ($^X => '-MCPAN' => '-einstall "."');
@@ -766,7 +762,7 @@ sub run_tests_in {
     unless my @testers = $self->plugins_with(-TestRunner)->flatten;
 
   for my $tester (@testers) {
-    local $File::chdir::CWD = $target;
+    my $wd = File::pushd::pushd($target);
     $tester->test( $target );
   }
 }
@@ -782,7 +778,6 @@ sub run_in_build {
     $self->plugins_with(-BuildRunner)->sort->reverse->flatten;
 
   require "Config.pm"; # skip autoprereq
-  require File::chdir;
   require File::Temp;
 
   # dzil-build the dist
@@ -797,7 +792,7 @@ sub run_in_build {
 
   # building the dist for real
   my $ok = eval {
-    local $File::chdir::CWD = $target;
+    my $wd = File::pushd::pushd($target);
     $builders[0]->build;
     local $ENV{PERL5LIB} =
       join $Config::Config{path_sep},
@@ -817,32 +812,15 @@ sub run_in_build {
 }
 
 
-has core_logger => (
+has logger => (
   is   => 'ro',
   isa  => 'Log::Dispatchouli::Proxy', # could be duck typed, I guess
   lazy => 1,
   handles => [ qw(log log_debug log_fatal) ],
   default => sub {
-    $_[0]->logger->proxy({ proxy_prefix => '[DZ] ' })
+    $_[0]->chrome->logger->proxy({ proxy_prefix => '[DZ] ' })
   },
 );
-
-has logger => (
-  is   => 'ro',
-  isa  => 'Log::Dispatchouli',
-  lazy => 1,
-  builder => 'default_logger',
-);
-
-sub default_logger {
-  return Log::Dispatchouli->new({
-    ident     => 'Dist::Zilla',
-    to_stdout => 1,
-    log_pid   => 0,
-    to_self   => ($ENV{DZIL_TESTING} ? 1 : 0),
-    quiet_fatal => 'stdout',
-  });
-}
 
 sub BUILD {
   my ($self, $arg) = @_;
@@ -869,7 +847,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 2.100922
+version 2.100960
 
 =head1 DESCRIPTION
 
@@ -1066,8 +1044,8 @@ This method builds a new copy of the distribution and tests it.
   my $error = $zilla->run_tests_in($directory);
 
 This method runs the tests in $directory (a Path::Class::Dir), which
-must contain an already-built copy of the distribution.  It returns
-C<undef> if the tests pass, or the error message if they failed.
+must contain an already-built copy of the distribution.  It will throw an
+exception if there are test failures.
 
 It does I<not> set any of the C<*_TESTING> environment variables, nor
 does it clean up C<$directory> afterwards.

@@ -1,6 +1,6 @@
 package Dist::Zilla::App::Tester;
 BEGIN {
-  $Dist::Zilla::App::Tester::VERSION = '2.100922';
+  $Dist::Zilla::App::Tester::VERSION = '2.100960';
 }
 use base 'App::Cmd::Tester';
 use App::Cmd::Tester 0.306 (); # result_class, ->app
@@ -8,7 +8,7 @@ use App::Cmd::Tester 0.306 (); # result_class, ->app
 
 use Dist::Zilla::App;
 use File::Copy::Recursive qw(dircopy);
-use File::chdir;
+use File::pushd ();
 use File::Spec;
 use File::Temp;
 use Path::Class;
@@ -33,7 +33,7 @@ sub test_dzil {
 
   dircopy($source, $root);
 
-  local $CWD = $root;
+  my $wd = File::pushd::pushd($root);
 
   local $ENV{DZIL_TESTING} = 1;
   my $result = $self->test_app('Dist::Zilla::App' => $argv);
@@ -45,7 +45,7 @@ sub test_dzil {
 {
   package Dist::Zilla::App::Tester::Result;
 BEGIN {
-  $Dist::Zilla::App::Tester::Result::VERSION = '2.100922';
+  $Dist::Zilla::App::Tester::Result::VERSION = '2.100960';
 }
   BEGIN { our @ISA = qw(App::Cmd::Tester::Result); }
 
@@ -92,7 +92,7 @@ Dist::Zilla::App::Tester - testing library for Dist::Zilla::App
 
 =head1 VERSION
 
-version 2.100922
+version 2.100960
 
 =head1 AUTHOR
 
