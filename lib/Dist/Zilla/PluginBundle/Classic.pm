@@ -1,7 +1,4 @@
 package Dist::Zilla::PluginBundle::Classic;
-BEGIN {
-  $Dist::Zilla::PluginBundle::Classic::VERSION = '2.100960';
-}
 # ABSTRACT: the classic (old) default configuration for Dist::Zilla
 use Moose;
 use Moose::Autobox;
@@ -56,7 +53,7 @@ Dist::Zilla::PluginBundle::Classic - the classic (old) default configuration for
 
 =head1 VERSION
 
-version 2.100960
+version 2.100990
 
 =head1 DESCRIPTION
 
@@ -69,23 +66,77 @@ lot of more useful features like autoversioning, autoprereqs, or Pod::Weaver.
 
 It includes the following plugins with their default configuration:
 
-* L<Dist::Zilla::Plugin::GatherDir>
-* L<Dist::Zilla::Plugin::PruneCruft>
-* L<Dist::Zilla::Plugin::ManifestSkip>
-* L<Dist::Zilla::Plugin::MetaYAML>
-* L<Dist::Zilla::Plugin::License>
-* L<Dist::Zilla::Plugin::Readme>
-* L<Dist::Zilla::Plugin::PkgVersion>
-* L<Dist::Zilla::Plugin::PodVersion>
-* L<Dist::Zilla::Plugin::PodCoverageTests>
-* L<Dist::Zilla::Plugin::PodSyntaxTests>
-* L<Dist::Zilla::Plugin::ExtraTests>
-* L<Dist::Zilla::Plugin::ExecDir>
-* L<Dist::Zilla::Plugin::ShareDir>
-* L<Dist::Zilla::Plugin::MakeMaker>
-* L<Dist::Zilla::Plugin::Manifest>
-* L<Dist::Zilla::Plugin::ConfirmRelease>
-* L<Dist::Zilla::Plugin::UploadToCPAN>
+=over 4
+
+=item *
+
+L<Dist::Zilla::Plugin::GatherDir>
+
+=item *
+
+L<Dist::Zilla::Plugin::PruneCruft>
+
+=item *
+
+L<Dist::Zilla::Plugin::ManifestSkip>
+
+=item *
+
+L<Dist::Zilla::Plugin::MetaYAML>
+
+=item *
+
+L<Dist::Zilla::Plugin::License>
+
+=item *
+
+L<Dist::Zilla::Plugin::Readme>
+
+=item *
+
+L<Dist::Zilla::Plugin::PkgVersion>
+
+=item *
+
+L<Dist::Zilla::Plugin::PodVersion>
+
+=item *
+
+L<Dist::Zilla::Plugin::PodCoverageTests>
+
+=item *
+
+L<Dist::Zilla::Plugin::PodSyntaxTests>
+
+=item *
+
+L<Dist::Zilla::Plugin::ExtraTests>
+
+=item *
+
+L<Dist::Zilla::Plugin::ExecDir>
+
+=item *
+
+L<Dist::Zilla::Plugin::ShareDir>
+
+=item *
+
+L<Dist::Zilla::Plugin::MakeMaker>
+
+=item *
+
+L<Dist::Zilla::Plugin::Manifest>
+
+=item *
+
+L<Dist::Zilla::Plugin::ConfirmRelease>
+
+=item *
+
+L<Dist::Zilla::Plugin::UploadToCPAN>
+
+=back
 
 =head1 AUTHOR
 

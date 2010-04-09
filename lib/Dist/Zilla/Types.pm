@@ -1,7 +1,4 @@
 package Dist::Zilla::Types;
-BEGIN {
-  $Dist::Zilla::Types::VERSION = '2.100960';
-}
 # ABSTRACT: dzil-specific type library
 
 use MooseX::Types -declare => [qw(DistName License)];
@@ -26,7 +23,7 @@ Dist::Zilla::Types - dzil-specific type library
 
 =head1 VERSION
 
-version 2.100960
+version 2.100990
 
 =head1 AUTHOR
 

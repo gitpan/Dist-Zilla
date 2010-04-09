@@ -1,7 +1,4 @@
 package Dist::Zilla::Plugin::PodSyntaxTests;
-BEGIN {
-  $Dist::Zilla::Plugin::PodSyntaxTests::VERSION = '2.100960';
-}
 # ABSTRACT: a release test for Pod syntax
 use Moose;
 extends 'Dist::Zilla::Plugin::InlineFiles';
@@ -21,7 +18,7 @@ Dist::Zilla::Plugin::PodSyntaxTests - a release test for Pod syntax
 
 =head1 VERSION
 
-version 2.100960
+version 2.100990
 
 =head1 DESCRIPTION
 

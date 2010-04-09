@@ -1,7 +1,4 @@
 package Dist::Zilla::Plugin::MetaConfig;
-BEGIN {
-  $Dist::Zilla::Plugin::MetaConfig::VERSION = '2.100960';
-}
 # ABSTRACT: summarize Dist::Zilla configuration into distmeta
 use Moose;
 with 'Dist::Zilla::Role::MetaProvider';
@@ -48,7 +45,7 @@ Dist::Zilla::Plugin::MetaConfig - summarize Dist::Zilla configuration into distm
 
 =head1 VERSION
 
-version 2.100960
+version 2.100990
 
 =head1 AUTHOR
 
