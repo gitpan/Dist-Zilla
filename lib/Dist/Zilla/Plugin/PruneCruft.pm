@@ -1,4 +1,7 @@
 package Dist::Zilla::Plugin::PruneCruft;
+BEGIN {
+  $Dist::Zilla::Plugin::PruneCruft::VERSION = '2.100991';
+}
 # ABSTRACT: prune stuff that you probably don't mean to include
 use Moose;
 use Moose::Autobox;
@@ -22,7 +25,17 @@ sub prune_files {
 
   my $files = $self->zilla->files;
 
-  @$files = $files->grep(sub { ! $self->exclude_file($_) })->flatten;
+  @$files = grep {
+    $self->exclude_file($_)
+    ? do {
+      # This can be re-enabled when we can collapse logging to only log whole
+      # directories once, so that pruning .git is not a massive deluge of logs.
+      # This should be easy, but I'm not interested in doing it tonight.
+      # -- rjbs, 2010-04-09
+      # $self->log_debug([ 'pruning %s', $_->name ]);
+      0 }
+    : 1
+  } @$files;
 
   return;
 }
@@ -40,7 +53,7 @@ Dist::Zilla::Plugin::PruneCruft - prune stuff that you probably don't mean to in
 
 =head1 VERSION
 
-version 2.100990
+version 2.100991
 
 =head1 SYNOPSIS
 

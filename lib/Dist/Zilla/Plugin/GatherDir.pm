@@ -1,4 +1,7 @@
 package Dist::Zilla::Plugin::GatherDir;
+BEGIN {
+  $Dist::Zilla::Plugin::GatherDir::VERSION = '2.100991';
+}
 # ABSTRACT: gather all the files in a directory
 use Moose;
 use Moose::Autobox;
@@ -33,6 +36,10 @@ has include_dotfiles => (
   isa => 'Bool',
   default => 0,
 );
+
+# Total hack to work around adding 234249018 files in .git only to remove them
+# later.  Will fix more elegantly later. -- rjbs, 2010-04-09
+sub __log_inject { 0 }
 
 sub gather_files {
   my ($self) = @_;
@@ -74,7 +81,7 @@ Dist::Zilla::Plugin::GatherDir - gather all the files in a directory
 
 =head1 VERSION
 
-version 2.100990
+version 2.100991
 
 =head1 DESCRIPTION
 

@@ -1,4 +1,7 @@
 package Dist::Zilla::Plugin::AutoVersion;
+BEGIN {
+  $Dist::Zilla::Plugin::AutoVersion::VERSION = '2.100991';
+}
 # ABSTRACT: take care of numbering versions so you don't have to
 use Moose;
 with(
@@ -46,6 +49,10 @@ sub provide_version {
       cldr  => sub { $now->format_cldr($_[0]) },
     },
   );
+
+  $self->log_debug([ 'providing version %s', $version ]);
+
+  return $version;
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -61,7 +68,7 @@ Dist::Zilla::Plugin::AutoVersion - take care of numbering versions so you don't 
 
 =head1 VERSION
 
-version 2.100990
+version 2.100991
 
 =head1 DESCRIPTION
 

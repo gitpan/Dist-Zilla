@@ -1,4 +1,7 @@
 package Dist::Zilla::PluginBundle::Basic;
+BEGIN {
+  $Dist::Zilla::PluginBundle::Basic::VERSION = '2.100991';
+}
 # ABSTRACT: the basic plugins to maintain and release CPAN dists
 use Moose;
 use Moose::Autobox;
@@ -50,7 +53,7 @@ Dist::Zilla::PluginBundle::Basic - the basic plugins to maintain and release CPA
 
 =head1 VERSION
 
-version 2.100990
+version 2.100991
 
 =head1 DESCRIPTION
 

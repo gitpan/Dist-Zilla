@@ -1,4 +1,7 @@
 package Dist::Zilla::Plugin::Manifest;
+BEGIN {
+  $Dist::Zilla::Plugin::Manifest::VERSION = '2.100991';
+}
 # ABSTRACT: build a MANIFEST file
 use Moose;
 use Moose::Autobox;
@@ -32,7 +35,7 @@ Dist::Zilla::Plugin::Manifest - build a MANIFEST file
 
 =head1 VERSION
 
-version 2.100990
+version 2.100991
 
 =head1 DESCRIPTION
 

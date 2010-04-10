@@ -1,4 +1,7 @@
 package Dist::Zilla::Tester;
+BEGIN {
+  $Dist::Zilla::Tester::VERSION = '2.100991';
+}
 use Moose;
 extends 'Dist::Zilla';
 # ABSTRACT: a testing-enabling stand-in for  Dist::Zilla
@@ -91,6 +94,9 @@ around release => sub {
 {
   package
     Dist::Zilla::Tester::UI;
+BEGIN {
+  $Dist::Zilla::Tester::UI::VERSION = '2.100991';
+}
 
   use Moose;
   has logger => (
@@ -147,7 +153,7 @@ Dist::Zilla::Tester - a testing-enabling stand-in for  Dist::Zilla
 
 =head1 VERSION
 
-version 2.100990
+version 2.100991
 
 =head1 AUTHOR
 

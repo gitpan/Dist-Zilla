@@ -1,4 +1,7 @@
 package Dist::Zilla::Plugin::MetaTests;
+BEGIN {
+  $Dist::Zilla::Plugin::MetaTests::VERSION = '2.100991';
+}
 # ABSTRACT: common extra tests for META.yml
 use Moose;
 extends 'Dist::Zilla::Plugin::InlineFiles';
@@ -18,7 +21,7 @@ Dist::Zilla::Plugin::MetaTests - common extra tests for META.yml
 
 =head1 VERSION
 
-version 2.100990
+version 2.100991
 
 =head1 DESCRIPTION
 

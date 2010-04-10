@@ -1,6 +1,9 @@
 use strict;
 use warnings;
 package Dist::Zilla::App;
+BEGIN {
+  $Dist::Zilla::App::VERSION = '2.100991';
+}
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup 0.307 -app; # need ->app in Result of Tester, GLD vers
 
@@ -89,10 +92,13 @@ sub zilla {
     $zilla->logger->set_debug($verbose ? 1 : 0);
 
     VERBOSE_PLUGIN: for my $plugin_name (grep { ! m{\A[-_]\z} } @v_plugins) {
-      $zilla->log_fatal("can't find plugin $plugin_name to set debug mode")
-        unless my $plugin = $zilla->plugin_named($plugin_name);
+      my @plugins = grep { $_->plugin_name =~ /\b\Q$plugin_name\E\b/ }
+                    $zilla->plugins->flatten;
 
-      $plugin->logger->set_debug(1);
+      $zilla->log_fatal("can't find plugins matching $plugin_name to set debug")
+        unless @plugins;
+
+      $_->logger->set_debug(1) for @plugins;
     }
 
     $zilla;
@@ -110,7 +116,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 2.100990
+version 2.100991
 
 =head1 METHODS
 

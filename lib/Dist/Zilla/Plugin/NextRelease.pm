@@ -1,4 +1,7 @@
 package Dist::Zilla::Plugin::NextRelease;
+BEGIN {
+  $Dist::Zilla::Plugin::NextRelease::VERSION = '2.100991';
+}
 # ABSTRACT: update the next release number in your changelog
 
 use Moose;
@@ -54,6 +57,7 @@ sub munge_files {
     },
   );
 
+  $self->log_debug([ 'updating contents of %s in memory', $file->name ]);
   $file->content($content);
 }
 
@@ -76,6 +80,8 @@ sub after_release {
   $content =~ s{ (\Q$delim->[0]\E \s*) \$NEXT (\s* \Q$delim->[1]\E) }
                {$1\$NEXT$2\n\n$header}xs;
 
+  $self->log_debug([ 'updating contents of %s on disk', $filename ]);
+
   # and finally rewrite the changelog on disk
   open my $out_fh, '>', $filename
     or Carp::croak("can't open $filename for writing: $!");
@@ -96,7 +102,7 @@ Dist::Zilla::Plugin::NextRelease - update the next release number in your change
 
 =head1 VERSION
 
-version 2.100990
+version 2.100991
 
 =head1 SYNOPSIS
 

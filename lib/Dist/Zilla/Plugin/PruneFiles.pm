@@ -1,4 +1,7 @@
 package Dist::Zilla::Plugin::PruneFiles;
+BEGIN {
+  $Dist::Zilla::Plugin::PruneFiles::VERSION = '2.100991';
+}
 # ABSTRACT: prune arbirary files from the dist
 use Moose;
 use Moose::Autobox;
@@ -22,7 +25,9 @@ sub prune_files {
 
   for my $filename ($self->filenames->flatten) {
     @$files = $files->grep(sub {
-      ($_->name ne $filename) && ($_->name !~ m{\A\Q$filename\E/})
+      (($_->name ne $filename) && ($_->name !~ m{\A\Q$filename\E/}))
+      ? 1
+      : do { $self->log_debug([ 'pruning %s', $_->name ]); 0 }
     })->flatten;
   }
 
@@ -42,7 +47,7 @@ Dist::Zilla::Plugin::PruneFiles - prune arbirary files from the dist
 
 =head1 VERSION
 
-version 2.100990
+version 2.100991
 
 =head1 SYNOPSIS
 

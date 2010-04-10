@@ -1,4 +1,7 @@
 package Dist::Zilla::Plugin::ExecDir;
+BEGIN {
+  $Dist::Zilla::Plugin::ExecDir::VERSION = '2.100991';
+}
 # ABSTRACT: install a directory's contents as executables
 use Moose;
 
@@ -15,9 +18,7 @@ sub find_files {
   my ($self) = @_;
 
   my $dir = $self->dir;
-  my $files = $self->zilla->files->grep(sub {
-  #warn $_->name;
-  index($_->name, "$dir/") == 0 });
+  my $files = $self->zilla->files->grep(sub { index($_->name, "$dir/") == 0 });
 }
 
 with 'Dist::Zilla::Role::ExecFiles';
@@ -34,7 +35,7 @@ Dist::Zilla::Plugin::ExecDir - install a directory's contents as executables
 
 =head1 VERSION
 
-version 2.100990
+version 2.100991
 
 =head1 SYNOPSIS
 

@@ -1,4 +1,7 @@
 package Dist::Zilla::Plugin::ManifestSkip;
+BEGIN {
+  $Dist::Zilla::Plugin::ManifestSkip::VERSION = '2.100991';
+}
 # ABSTRACT: decline to build files that appear in a MANIFEST.SKIP-like file
 use Moose;
 with 'Dist::Zilla::Role::FilePruner';
@@ -14,7 +17,11 @@ sub prune_files {
   my $skip = ExtUtils::Manifest::maniskip($self->skipfile);
 
   my $files = $self->zilla->files;
-  @$files = grep { ! $skip->($_->name) } @$files;
+  @$files = grep {
+    $skip->($_->name)
+    ? do { $self->log_debug([ 'pruning %s', $_->name ]); 0 }
+    : 1
+  } @$files;
 
   return;
 }
@@ -32,7 +39,7 @@ Dist::Zilla::Plugin::ManifestSkip - decline to build files that appear in a MANI
 
 =head1 VERSION
 
-version 2.100990
+version 2.100991
 
 =head1 DESCRIPTION
 

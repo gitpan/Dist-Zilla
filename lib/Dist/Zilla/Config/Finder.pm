@@ -1,4 +1,7 @@
 package Dist::Zilla::Config::Finder;
+BEGIN {
+  $Dist::Zilla::Config::Finder::VERSION = '2.100991';
+}
 use Moose;
 extends 'Config::MVP::Reader::Finder';
 with 'Dist::Zilla::Config';
@@ -23,7 +26,7 @@ Dist::Zilla::Config::Finder - the reader for dist.ini files
 
 =head1 VERSION
 
-version 2.100990
+version 2.100991
 
 =head1 AUTHOR
 

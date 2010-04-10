@@ -2,6 +2,9 @@ use strict;
 use warnings;
 
 package Dist::Zilla::Role::BeforeRelease;
+BEGIN {
+  $Dist::Zilla::Role::BeforeRelease::VERSION = '2.100991';
+}
 # ABSTRACT: something that runs before release really begins
 
 use Moose::Role;
@@ -21,7 +24,7 @@ Dist::Zilla::Role::BeforeRelease - something that runs before release really beg
 
 =head1 VERSION
 
-version 2.100990
+version 2.100991
 
 =head1 DESCRIPTION
 

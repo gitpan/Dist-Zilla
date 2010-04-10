@@ -1,4 +1,7 @@
 package Dist::Zilla::File::FromCode;
+BEGIN {
+  $Dist::Zilla::File::FromCode::VERSION = '2.100991';
+}
 # ABSTRACT: a file whose content is (re-)built on demand
 use Moose;
 
@@ -11,6 +14,8 @@ has code => (
 
 sub content {
   my ($self) = @_;
+
+  confess "cannot set content of a FromCode file" if @_ > 1;
 
   my $code = $self->code;
   return $self->$code;
@@ -30,7 +35,7 @@ Dist::Zilla::File::FromCode - a file whose content is (re-)built on demand
 
 =head1 VERSION
 
-version 2.100990
+version 2.100991
 
 =head1 DESCRIPTION
 

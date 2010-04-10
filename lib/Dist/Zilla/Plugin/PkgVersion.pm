@@ -1,4 +1,7 @@
 package Dist::Zilla::Plugin::PkgVersion;
+BEGIN {
+  $Dist::Zilla::Plugin::PkgVersion::VERSION = '2.100991';
+}
 # ABSTRACT: add a $VERSION to your packages
 use Moose;
 with(
@@ -65,6 +68,12 @@ sub munge_perl {
     my $version_doc = PPI::Document->new(\$perl);
     my @children = $version_doc->schildren;
 
+    $self->log_debug([
+      'adding $VERSION assignment to %s in %s',
+      $package,
+      $file->name,
+    ]);
+
     Carp::carp("error inserting version in " . $file->name)
       unless $stmt->insert_after($children[0]->clone)
       and    $stmt->insert_after( PPI::Token::Whitespace->new("\n") );
@@ -86,7 +95,7 @@ Dist::Zilla::Plugin::PkgVersion - add a $VERSION to your packages
 
 =head1 VERSION
 
-version 2.100990
+version 2.100991
 
 =head1 DESCRIPTION
 

@@ -1,6 +1,9 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::test;
+BEGIN {
+  $Dist::Zilla::App::Command::test::VERSION = '2.100991';
+}
 # ABSTRACT: test your dist
 use Dist::Zilla::App -command;
 
@@ -26,7 +29,7 @@ Dist::Zilla::App::Command::test - test your dist
 
 =head1 VERSION
 
-version 2.100990
+version 2.100991
 
 =head1 SYNOPSIS
 
