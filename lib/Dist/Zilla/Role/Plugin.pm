@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::Plugin;
 BEGIN {
-  $Dist::Zilla::Role::Plugin::VERSION = '2.100991';
+  $Dist::Zilla::Role::Plugin::VERSION = '2.101040';
 }
 # ABSTRACT: something that gets plugged in to Dist::Zilla
 use Moose::Role;
@@ -55,7 +55,7 @@ Dist::Zilla::Role::Plugin - something that gets plugged in to Dist::Zilla
 
 =head1 VERSION
 
-version 2.100991
+version 2.101040
 
 =head1 DESCRIPTION
 

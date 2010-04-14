@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ModuleBuild;
 BEGIN {
-  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '2.100991';
+  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '2.101040';
 }
 # ABSTRACT: build a Build.PL that uses Module::Build
 use List::MoreUtils qw(any uniq);
@@ -141,7 +141,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 2.100991
+version 2.101040
 
 =head1 DESCRIPTION
 

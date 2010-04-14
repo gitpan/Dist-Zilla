@@ -3,7 +3,7 @@ use warnings;
 
 package Dist::Zilla::Role::BeforeRelease;
 BEGIN {
-  $Dist::Zilla::Role::BeforeRelease::VERSION = '2.100991';
+  $Dist::Zilla::Role::BeforeRelease::VERSION = '2.101040';
 }
 # ABSTRACT: something that runs before release really begins
 
@@ -24,7 +24,7 @@ Dist::Zilla::Role::BeforeRelease - something that runs before release really beg
 
 =head1 VERSION
 
-version 2.100991
+version 2.101040
 
 =head1 DESCRIPTION
 

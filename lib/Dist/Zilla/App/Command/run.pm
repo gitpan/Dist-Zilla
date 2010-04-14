@@ -3,7 +3,7 @@ use warnings;
 
 package Dist::Zilla::App::Command::run;
 BEGIN {
-  $Dist::Zilla::App::Command::run::VERSION = '2.100991';
+  $Dist::Zilla::App::Command::run::VERSION = '2.101040';
 }
 # ABSTRACT: run stuff in a dir where your dist is built
 
@@ -29,7 +29,7 @@ Dist::Zilla::App::Command::run - run stuff in a dir where your dist is built
 
 =head1 VERSION
 
-version 2.100991
+version 2.101040
 
 =head1 SYNOPSIS
 
