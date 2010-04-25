@@ -26,7 +26,7 @@ my %WriteMakefileArgs = (
                        'EXE_FILES' => [
                                         'bin/dzil'
                                       ],
-                       'VERSION' => '2.101040',
+                       'VERSION' => '2.101150',
                        'PREREQ_PM' => {
                                         'DateTime' => '0.44',
                                         'PPI' => '0',
@@ -66,11 +66,11 @@ my %WriteMakefileArgs = (
                                         'MooseX::Types::Moose' => '0',
                                         'Config::INI::MVP::Reader' => '0.024',
                                         'File::Spec' => '0',
-                                        'String::RewritePrefix' => '0.002',
+                                        'String::RewritePrefix' => '0.005',
                                         'Data::Section' => '0.004',
                                         'Moose::Util::TypeConstraints' => '0',
-                                        'Log::Dispatchouli' => '1.100712',
                                         'Params::Util' => '0',
+                                        'Log::Dispatchouli' => '1.100712',
                                         'Perl::Version' => '0',
                                         'Moose' => '0.92',
                                         'Software::LicenseUtils' => '0',

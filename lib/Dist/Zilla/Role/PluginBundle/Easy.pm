@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::PluginBundle::Easy;
 BEGIN {
-  $Dist::Zilla::Role::PluginBundle::Easy::VERSION = '2.101040';
+  $Dist::Zilla::Role::PluginBundle::Easy::VERSION = '2.101150';
 }
 # ABSTRACT: something that bundles a bunch of plugins easily
 # This plugin was originally contributed by Christopher J. Madsen
@@ -11,7 +11,7 @@ with 'Dist::Zilla::Role::PluginBundle';
 use Moose::Autobox;
 use MooseX::Types::Moose qw(Str ArrayRef HashRef);
 
-use String::RewritePrefix
+use String::RewritePrefix 0.005
   rewrite => {
     -as => '_plugin_class',
     prefixes => { '' => 'Dist::Zilla::Plugin::', '=' => '' },
@@ -140,7 +140,7 @@ Dist::Zilla::Role::PluginBundle::Easy - something that bundles a bunch of plugin
 
 =head1 VERSION
 
-version 2.101040
+version 2.101150
 
 =head1 SYNOPSIS
 

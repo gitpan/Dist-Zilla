@@ -1,15 +1,12 @@
-package Dist::Zilla::Role::ConfigDumper;
+package Dist::Zilla::Role::Chrome;
 BEGIN {
-  $Dist::Zilla::Role::ConfigDumper::VERSION = '2.101150';
+  $Dist::Zilla::Role::Chrome::VERSION = '2.101150';
 }
-# ABSTRACT: something that can dump its (public, simplified) configuraiton
 use Moose::Role;
+# ABSTRACT: something that provides a user interface for Dist::Zilla
 
-use namespace::autoclean;
+requires 'logger';
 
-sub dump_config { return {}; }
-
-no Moose::Role;
 1;
 
 __END__
@@ -17,7 +14,7 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Role::ConfigDumper - something that can dump its (public, simplified) configuraiton
+Dist::Zilla::Role::Chrome - something that provides a user interface for Dist::Zilla
 
 =head1 VERSION
 

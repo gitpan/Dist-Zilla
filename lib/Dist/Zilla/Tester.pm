@@ -1,12 +1,13 @@
 package Dist::Zilla::Tester;
 BEGIN {
-  $Dist::Zilla::Tester::VERSION = '2.101040';
+  $Dist::Zilla::Tester::VERSION = '2.101150';
 }
 use Moose;
 extends 'Dist::Zilla';
 # ABSTRACT: a testing-enabling stand-in for  Dist::Zilla
 
 use autodie;
+use Dist::Zilla::Chrome::Test;
 use File::Copy::Recursive qw(dircopy);
 use File::pushd ();
 use File::Spec;
@@ -53,7 +54,7 @@ around from_config => sub {
   }
 
   local $arg->{dist_root} = "$root";
-  local $arg->{chrome} = Dist::Zilla::Tester::UI->new;
+  local $arg->{chrome} = Dist::Zilla::Chrome::Test->new;
 
   local @INC = map {; ref($_) ? $_ : File::Spec->rel2abs($_) } @INC;
 
@@ -89,27 +90,6 @@ around release => sub {
 
   return $self->$orig;
 };
-
-
-{
-  package
-    Dist::Zilla::Tester::UI;
-BEGIN {
-  $Dist::Zilla::Tester::UI::VERSION = '2.101040';
-}
-
-  use Moose;
-  has logger => (
-    is => 'ro',
-    default => sub {
-      Log::Dispatchouli->new({
-        ident   => 'Dist::Zilla::Tester',
-        log_pid => 0,
-        to_self => 1,
-      });
-    }
-  );
-}
 
 has tempdir => (
   is   => 'ro',
@@ -153,7 +133,7 @@ Dist::Zilla::Tester - a testing-enabling stand-in for  Dist::Zilla
 
 =head1 VERSION
 
-version 2.101040
+version 2.101150
 
 =head1 AUTHOR
 

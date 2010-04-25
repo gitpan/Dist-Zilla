@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::UploadToCPAN;
 BEGIN {
-  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '2.101040';
+  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '2.101150';
 }
 # ABSTRACT: upload the dist to CPAN
 use Moose;
@@ -18,7 +18,7 @@ use namespace::autoclean;
   package
     Dist::Zilla::Plugin::UploadToCPAN::_Uploader;
 BEGIN {
-  $Dist::Zilla::Plugin::UploadToCPAN::_Uploader::VERSION = '2.101040';
+  $Dist::Zilla::Plugin::UploadToCPAN::_Uploader::VERSION = '2.101150';
 }
   use base 'CPAN::Uploader';
   sub log {
@@ -125,7 +125,7 @@ Dist::Zilla::Plugin::UploadToCPAN - upload the dist to CPAN
 
 =head1 VERSION
 
-version 2.101040
+version 2.101150
 
 =head1 SYNOPSIS
 

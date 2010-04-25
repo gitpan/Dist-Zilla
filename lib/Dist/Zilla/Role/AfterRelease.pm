@@ -3,7 +3,7 @@ use warnings;
 
 package Dist::Zilla::Role::AfterRelease;
 BEGIN {
-  $Dist::Zilla::Role::AfterRelease::VERSION = '2.101040';
+  $Dist::Zilla::Role::AfterRelease::VERSION = '2.101150';
 }
 # ABSTRACT: something that runs after release is mostly complete
 
@@ -24,7 +24,7 @@ Dist::Zilla::Role::AfterRelease - something that runs after release is mostly co
 
 =head1 VERSION
 
-version 2.101040
+version 2.101150
 
 =head1 DESCRIPTION
 

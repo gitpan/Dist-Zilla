@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::build;
 BEGIN {
-  $Dist::Zilla::App::Command::build::VERSION = '2.101040';
+  $Dist::Zilla::App::Command::build::VERSION = '2.101150';
 }
 # ABSTRACT: build your dist
 use Dist::Zilla::App -command;
@@ -37,7 +37,7 @@ Dist::Zilla::App::Command::build - build your dist
 
 =head1 VERSION
 
-version 2.101040
+version 2.101150
 
 =head1 SYNOPSIS
 

@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App;
 BEGIN {
-  $Dist::Zilla::App::VERSION = '2.101040';
+  $Dist::Zilla::App::VERSION = '2.101150';
 }
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup 0.307 -app; # need ->app in Result of Tester, GLD vers
@@ -58,15 +58,11 @@ sub global_opt_spec {
 }
 
 
-sub logger {
+sub chrome {
   my ($self) = @_;
-  $self->{__logger__} ||= Log::Dispatchouli->new({
-    ident     => 'Dist::Zilla',
-    to_stdout => 1,
-    log_pid   => 0,
-    to_self   => ($ENV{DZIL_TESTING} ? 1 : 0),
-    quiet_fatal => 'stdout',
-  });
+  require Dist::Zilla::Chrome::Term;
+
+  $self->{__chrome__} ||= Dist::Zilla::Chrome::Term->new;
 }
 
 sub zilla {
@@ -81,12 +77,12 @@ sub zilla {
 
     my $verbose = $self->global_options->verbose && ! @v_plugins;
 
-    $self->logger->set_debug($verbose ? 1 : 0);
+    $self->chrome->logger->set_debug($verbose ? 1 : 0);
 
     my $core_debug = grep { m/\A[-_]\z/ } @v_plugins;
 
     my $zilla = Dist::Zilla->from_config({
-      chrome => $self,
+      chrome => $self->chrome,
     });
 
     $zilla->logger->set_debug($verbose ? 1 : 0);
@@ -116,7 +112,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 2.101040
+version 2.101150
 
 =head1 METHODS
 
