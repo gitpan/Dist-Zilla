@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::TestRelease;
 BEGIN {
-  $Dist::Zilla::Plugin::TestRelease::VERSION = '2.101150';
+  $Dist::Zilla::Plugin::TestRelease::VERSION = '2.101151';
 }
 use Moose;
 with 'Dist::Zilla::Role::BeforeRelease';
@@ -32,7 +32,7 @@ sub before_release {
     unless @files;
 
   # Run tests on the extracted tarball:
-  my $target = $tmpdir->subdir($files[0]); # Should be the root of the tarball
+  my $target = $tmpdir->subdir( $self->zilla->built_in->dir_list(-1) );
 
   local $ENV{RELEASE_TESTING} = 1;
   $self->zilla->run_tests_in($target);
@@ -54,7 +54,7 @@ Dist::Zilla::Plugin::TestRelease - extract archive and run tests before releasin
 
 =head1 VERSION
 
-version 2.101150
+version 2.101151
 
 =head1 DESCRIPTION
 

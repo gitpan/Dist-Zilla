@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command;
 BEGIN {
-  $Dist::Zilla::App::Command::VERSION = '2.101150';
+  $Dist::Zilla::App::Command::VERSION = '2.101151';
 }
 # ABSTRACT: base class for dzil commands
 use App::Cmd::Setup -command;
@@ -13,10 +13,10 @@ sub zilla {
   return $_[0]->app->zilla;
 }
 
-
 sub config {
   my ($self) = @_;
-  return $self->{__PACKAGE__}{config} ||= $self->app->config_for(ref $self);
+  return $self->{__PACKAGE__}{config}
+    ||= $self->zilla->_global_config_for(ref $self);
 }
 
 
@@ -35,7 +35,7 @@ Dist::Zilla::App::Command - base class for dzil commands
 
 =head1 VERSION
 
-version 2.101150
+version 2.101151
 
 =head1 METHODS
 
@@ -45,10 +45,6 @@ This returns the Dist::Zilla object in use by the command.  If none has yet
 been constructed, one will be by calling C<< Dist::Zilla->from_config >>.
 
 (This method just delegates to the Dist::Zilla::App object!)
-
-=head2 config
-
-This method returns the configuration for the current command.
 
 =head2 log
 

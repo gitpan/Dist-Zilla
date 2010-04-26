@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App;
 BEGIN {
-  $Dist::Zilla::App::VERSION = '2.101150';
+  $Dist::Zilla::App::VERSION = '2.101151';
 }
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup 0.307 -app; # need ->app in Result of Tester, GLD vers
@@ -12,41 +12,6 @@ use Dist::Zilla::Config::Finder;
 use File::HomeDir ();
 use Moose::Autobox;
 use Path::Class;
-
-sub config {
-  my ($self) = @_;
-
-  my $homedir = File::HomeDir->my_home
-    or Carp::croak("couldn't determine home directory");
-
-  my $file = dir($homedir)->file('.dzil');
-  return unless -e $file;
-
-  if (-d $file) {
-    return Dist::Zilla::Config::Finder->new->read_config({
-      root     =>  dir($homedir)->subdir('.dzil'),
-      basename => 'config',
-    });
-  } else {
-    return Dist::Zilla::Config::Finder->new->read_config({
-      root     => dir($homedir),
-      filename => '.dzil',
-    });
-  }
-}
-
-sub config_for {
-  my ($self, $plugin_class) = @_;
-
-  return {} unless $self->config;
-
-  my ($section) = grep { ($_->package||'') eq $plugin_class }
-                  $self->config->sections;
-
-  return {} unless $section;
-
-  return $section->payload;
-}
 
 sub global_opt_spec {
   return (
@@ -112,7 +77,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 2.101150
+version 2.101151
 
 =head1 METHODS
 

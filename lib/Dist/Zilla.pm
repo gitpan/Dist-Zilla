@@ -1,13 +1,13 @@
 package Dist::Zilla;
 BEGIN {
-  $Dist::Zilla::VERSION = '2.101150';
+  $Dist::Zilla::VERSION = '2.101151';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
 with 'Dist::Zilla::Role::ConfigDumper';
 
 use Moose::Autobox 0.09; # ->flatten
-use Dist::Zilla::Types qw(DistName License);
+use Dist::Zilla::Types qw(DistName License VersionStr);
 use MooseX::Types::Moose qw(Bool HashRef);
 use MooseX::Types::Path::Class qw(Dir File);
 use Moose::Util::TypeConstraints;
@@ -55,7 +55,7 @@ has version_override => (
 # XXX: *clearly* this needs to be really much smarter -- rjbs, 2008-06-01
 has version => (
   is   => 'rw',
-  isa  => 'Str',
+  isa  => VersionStr,
   lazy => 1,
   init_arg  => undef,
   required  => 1,
@@ -76,9 +76,6 @@ sub _build_version {
   }
 
   $self->log_fatal('no version was ever set') unless defined $version;
-
-  $self->log("warning: version number does not look like a number")
-    unless $version =~ m{\A\d+(?:\.\d+)\z};
 
   $version;
 }
@@ -687,10 +684,6 @@ sub clean {
     $self->log("clean: removing $x");
     File::Path::rmtree($x);
   };
-
-  # removing leftovers
-  my @temps = File::Find::Rule->file->name( qr{~$} )->in('.');
-  $self->log("clean: removing $_"), unlink for @temps;
 }
 
 
@@ -835,6 +828,42 @@ around dump_config => sub {
   return $config;
 };
 
+sub _global_config {
+  my ($self) = @_;
+
+  my $homedir = File::HomeDir->my_home
+    or Carp::croak("couldn't determine home directory");
+
+  my $file = Path::Class::dir($homedir)->file('.dzil');
+  return unless -e $file;
+
+  if (-d $file) {
+    return Dist::Zilla::Config::Finder->new->read_config({
+      root     =>  Path::Class::dir($homedir)->subdir('.dzil'),
+      basename => 'config',
+    });
+  } else {
+    return Dist::Zilla::Config::Finder->new->read_config({
+      root     => Path::Class::dir($homedir),
+      filename => '.dzil',
+    });
+  }
+}
+
+sub _global_config_for {
+  my ($self, $plugin_class) = @_;
+
+  return {} unless my $global_config = $self->_global_config;
+
+  my ($section) = grep { ($_->package||'') eq $plugin_class }
+                  $global_config->sections;
+
+  return {} unless $section;
+
+  return $section->payload;
+}
+
+
 __PACKAGE__->meta->make_immutable;
 1;
 
@@ -847,7 +876,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 2.101150
+version 2.101151
 
 =head1 DESCRIPTION
 

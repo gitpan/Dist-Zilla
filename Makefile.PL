@@ -26,7 +26,7 @@ my %WriteMakefileArgs = (
                        'EXE_FILES' => [
                                         'bin/dzil'
                                       ],
-                       'VERSION' => '2.101150',
+                       'VERSION' => '2.101151',
                        'PREREQ_PM' => {
                                         'DateTime' => '0.44',
                                         'PPI' => '0',
@@ -77,7 +77,7 @@ my %WriteMakefileArgs = (
                                         'File::Find::Rule' => '0',
                                         'namespace::autoclean' => '0',
                                         'YAML::Tiny' => '0',
-                                        'version' => '0',
+                                        'version' => '0.82',
                                         'CPAN::Uploader' => '0.100660',
                                         'Carp' => '0',
                                         'Sub::Exporter::Util' => '0',
@@ -92,8 +92,18 @@ my %WriteMakefileArgs = (
                      );
 
 
-delete $WriteMakefileArgs{BUILD_REQUIRES}
-  unless eval { ExtUtils::MakeMaker->VERSION(6.56) };
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
+  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
+  my $pp = $WriteMakefileArgs{PREREQ_PM}; 
+  for my $mod ( keys %$br ) {
+    if ( exists $pp->{$mod} ) {
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod}; 
+    }
+    else {
+      $pp->{$mod} = $br->{$mod};
+    }
+  }
+}
 
 delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
   unless eval { ExtUtils::MakeMaker->VERSION(6.52) };

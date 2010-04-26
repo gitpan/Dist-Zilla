@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::UploadToCPAN;
 BEGIN {
-  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '2.101150';
+  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '2.101151';
 }
 # ABSTRACT: upload the dist to CPAN
 use Moose;
@@ -18,7 +18,7 @@ use namespace::autoclean;
   package
     Dist::Zilla::Plugin::UploadToCPAN::_Uploader;
 BEGIN {
-  $Dist::Zilla::Plugin::UploadToCPAN::_Uploader::VERSION = '2.101150';
+  $Dist::Zilla::Plugin::UploadToCPAN::_Uploader::VERSION = '2.101151';
 }
   use base 'CPAN::Uploader';
   sub log {
@@ -34,8 +34,7 @@ has user => (
   required => 1,
   default  => sub {
     my ($self) = @_;
-    return unless my $app = $self->zilla->chrome;
-    my $user = $app->config_for('Dist::Zilla::App::Command::release')->{user};
+    my $user = $self->zilla->_global_config_for('Dist::Zilla::App::Command::release')->{user};
     return $user if defined $user;
     return $self->pause_cfg->{user};
   },
@@ -48,8 +47,7 @@ has password => (
   required => 1,
   default  => sub {
     my ($self) = @_;
-    return unless my $app = $self->zilla->chrome;
-    my $pass = $app->config_for('Dist::Zilla::App::Command::release')->{password};
+    my $pass = $self->zilla->_global_config_for('Dist::Zilla::App::Command::release')->{password};
     return $pass if defined $pass;
     return $self->pause_cfg->{password};
   },
@@ -125,7 +123,7 @@ Dist::Zilla::Plugin::UploadToCPAN - upload the dist to CPAN
 
 =head1 VERSION
 
-version 2.101150
+version 2.101151
 
 =head1 SYNOPSIS
 

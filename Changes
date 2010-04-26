@@ -1,5 +1,22 @@
 Revision history for Dist-Zilla
 
+2.101151  2010-04-25 23:40:28 America/New_York
+          GatherDir and PruneCruft now both have verbose log output
+
+          the App config system has been moved and made non-public; it was
+          crazy and awful
+
+          version numbers are not validated by version.pm, not my own dumb
+          regex
+
+          `dzil clean` no longer removes backup~ files (sorry, jq)
+
+          TestRelease is better about picking a build location (Christopher J.
+          Madsen)
+
+          better BUILD_REQUIRES treatment on ancient installer-side EU:MM
+          (David Golden)
+
 2.101150  2010-04-25 11:52:11 America/New_York
           when duplicate files are added, report plugin_names with pkg/line
           add missing version on String::RewritePrefix usage (Andrew Rodland)
