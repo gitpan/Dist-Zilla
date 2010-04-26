@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ExtraTests;
 BEGIN {
-  $Dist::Zilla::Plugin::ExtraTests::VERSION = '2.101151';
+  $Dist::Zilla::Plugin::ExtraTests::VERSION = '2.101160';
 }
 # ABSTRACT: rewrite ./xt tests to ./t tests with skips
 use Moose;
@@ -67,7 +67,7 @@ Dist::Zilla::Plugin::ExtraTests - rewrite ./xt tests to ./t tests with skips
 
 =head1 VERSION
 
-version 2.101151
+version 2.101160
 
 =head1 DESCRIPTION
 

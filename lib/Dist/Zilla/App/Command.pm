@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command;
 BEGIN {
-  $Dist::Zilla::App::Command::VERSION = '2.101151';
+  $Dist::Zilla::App::Command::VERSION = '2.101160';
 }
 # ABSTRACT: base class for dzil commands
 use App::Cmd::Setup -command;
@@ -21,7 +21,7 @@ sub config {
 
 
 sub log {
-  $_[0]->zilla->log($_[1]);
+  $_[0]->app->chrome->logger->log($_[1]);
 }
 
 1;
@@ -35,7 +35,7 @@ Dist::Zilla::App::Command - base class for dzil commands
 
 =head1 VERSION
 
-version 2.101151
+version 2.101160
 
 =head1 METHODS
 
@@ -48,8 +48,7 @@ been constructed, one will be by calling C<< Dist::Zilla->from_config >>.
 
 =head2 log
 
-This method calls the C<log> method of the command's L<Dist::Zilla|Dist::Zilla>
-object.
+This method calls the C<log> method of the application's chrome.
 
 =head1 AUTHOR
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ConfirmRelease;
 BEGIN {
-  $Dist::Zilla::Plugin::ConfirmRelease::VERSION = '2.101151';
+  $Dist::Zilla::Plugin::ConfirmRelease::VERSION = '2.101160';
 }
 # ABSTRACT: prompt for confirmation before releasing
 
@@ -40,7 +40,7 @@ Dist::Zilla::Plugin::ConfirmRelease - prompt for confirmation before releasing
 
 =head1 VERSION
 
-version 2.101151
+version 2.101160
 
 =head1 DESCRIPTION
 

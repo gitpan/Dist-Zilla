@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::PluginBundle::Easy;
 BEGIN {
-  $Dist::Zilla::Role::PluginBundle::Easy::VERSION = '2.101151';
+  $Dist::Zilla::Role::PluginBundle::Easy::VERSION = '2.101160';
 }
 # ABSTRACT: something that bundles a bunch of plugins easily
 # This plugin was originally contributed by Christopher J. Madsen
@@ -49,7 +49,6 @@ has plugins => (
   isa      => ArrayRef,
   default  => sub { [] },
 );
-#---------------------------------------------------------------------
 
 sub bundle_config {
   my ($class, $section) = @_;
@@ -59,8 +58,7 @@ sub bundle_config {
   $self->configure;
 
   return $self->plugins->flatten;
-} # end bundle_config
-#---------------------------------------------------------------------
+}
 
 
 sub add_plugins {
@@ -99,9 +97,11 @@ sub add_bundle {
 
   Class::MOP::load_class($package);
 
+  $bundle = "\@$bundle" unless $bundle =~ /^@/;
+
   $self->plugins->push(
     $package->bundle_config({
-      name    => $self->name . '/@' . $bundle,
+      name    => $self->name . '/' . $bundle,
       package => $package,
       payload => $payload,
     })
@@ -140,7 +140,7 @@ Dist::Zilla::Role::PluginBundle::Easy - something that bundles a bunch of plugin
 
 =head1 VERSION
 
-version 2.101151
+version 2.101160
 
 =head1 SYNOPSIS
 
