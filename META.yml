@@ -7,7 +7,7 @@ build_requires:
   Try::Tiny: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.31
-generated_by: 'Dist::Zilla version 2.101160'
+generated_by: 'Dist::Zilla version 2.101170'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -82,7 +82,7 @@ resources:
   MailingList: http://www.listbox.com/subscribe/?list_id=139292
   homepage: http://dzil.org/
   repository: http://github.com/rjbs/dist-zilla
-version: 2.101160
+version: 2.101170
 x_Dist_Zilla:
   plugins:
     -
@@ -220,7 +220,7 @@ x_Dist_Zilla:
     -
       class: inc::Dist::Zilla::Plugin::VersionBootstrap
       name: VersionBootstrap
-      version: 2.101160
+      version: 2.101170
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':InstallModules'
@@ -241,4 +241,4 @@ x_Dist_Zilla:
     class: Dist::Zilla
     config:
       is_trial: 0
-    version: 2.101160
+    version: 2.101170

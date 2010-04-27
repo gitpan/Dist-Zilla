@@ -1,6 +1,6 @@
 package Dist::Zilla::Types;
 BEGIN {
-  $Dist::Zilla::Types::VERSION = '2.101160';
+  $Dist::Zilla::Types::VERSION = '2.101170';
 }
 # ABSTRACT: dzil-specific type library
 
@@ -18,7 +18,7 @@ subtype ModuleName,
 
 subtype DistName,
   as Str,
-  where   { return if /:/; (my $str = $_) =~ s/-/::/; _CLASS($str) },
+  where   { return if /:/; (my $str = $_) =~ s/-/::/g; _CLASS($str) },
   message {
     /::/
     ? "$_ looks like a module name, not a dist name"
@@ -44,7 +44,7 @@ Dist::Zilla::Types - dzil-specific type library
 
 =head1 VERSION
 
-version 2.101160
+version 2.101170
 
 =head1 AUTHOR
 

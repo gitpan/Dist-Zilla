@@ -26,7 +26,7 @@ my %WriteMakefileArgs = (
                        'EXE_FILES' => [
                                         'bin/dzil'
                                       ],
-                       'VERSION' => '2.101160',
+                       'VERSION' => '2.101170',
                        'PREREQ_PM' => {
                                         'DateTime' => '0.44',
                                         'PPI' => '0',
