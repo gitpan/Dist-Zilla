@@ -1,6 +1,6 @@
 package Dist::Zilla::Chrome::Term;
 BEGIN {
-  $Dist::Zilla::Chrome::Term::VERSION = '2.101170';
+  $Dist::Zilla::Chrome::Term::VERSION = '2.101230';
 }
 use Moose;
 # ABSTRACT: chrome used for terminal-based interaction
@@ -11,6 +11,7 @@ has logger => (
   is  => 'ro',
   isa => 'Log::Dispatchouli',
   init_arg => undef,
+  writer   => '_set_logger',
   default  => sub {
     Log::Dispatchouli->new({
       ident     => 'Dist::Zilla',
@@ -34,7 +35,7 @@ Dist::Zilla::Chrome::Term - chrome used for terminal-based interaction
 
 =head1 VERSION
 
-version 2.101170
+version 2.101230
 
 =head1 AUTHOR
 

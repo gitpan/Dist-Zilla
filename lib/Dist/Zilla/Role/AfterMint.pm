@@ -1,13 +1,13 @@
-package Dist::Zilla::Role::AfterBuild;
+package Dist::Zilla::Role::AfterMint;
 BEGIN {
-  $Dist::Zilla::Role::AfterBuild::VERSION = '2.101230';
+  $Dist::Zilla::Role::AfterMint::VERSION = '2.101230';
 }
-# ABSTRACT: something that runs after building is mostly complete
+# ABSTRACT: something that runs after minting is mostly complete
 use Moose::Role;
 
 
 with 'Dist::Zilla::Role::Plugin';
-requires 'after_build';
+requires 'after_mint';
 
 no Moose::Role;
 1;
@@ -17,7 +17,7 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Role::AfterBuild - something that runs after building is mostly complete
+Dist::Zilla::Role::AfterMint - something that runs after minting is mostly complete
 
 =head1 VERSION
 
@@ -25,11 +25,11 @@ version 2.101230
 
 =head1 DESCRIPTION
 
-Plugins implementing this role have their C<after_build> method called once all
+Plugins implementing this role have their C<after_mint> method called once all
 the files have been written out.  It is passed a hashref with the following
 data:
 
-  build_root - the directory in which the dist was built
+  mint_root - the directory in which the dist was minted
 
 =head1 AUTHOR
 

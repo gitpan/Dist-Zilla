@@ -26,7 +26,7 @@ my %WriteMakefileArgs = (
                        'EXE_FILES' => [
                                         'bin/dzil'
                                       ],
-                       'VERSION' => '2.101170',
+                       'VERSION' => '2.101230',
                        'PREREQ_PM' => {
                                         'DateTime' => '0.44',
                                         'PPI' => '0',
@@ -37,7 +37,6 @@ my %WriteMakefileArgs = (
                                         'Config::MVP' => '0.100780',
                                         'App::Cmd::Setup' => '0.307',
                                         'autodie' => '0',
-                                        'Mixin::ExtraFields' => '0',
                                         'Config::MVP::Assembler::WithBundles' => '0',
                                         'autobox' => '2.53',
                                         'Software::License' => '0',
@@ -62,8 +61,8 @@ my %WriteMakefileArgs = (
                                         'Text::Template' => '0',
                                         'App::Cmd::Tester' => '0.306',
                                         'Config::MVP::Assembler' => '0',
-                                        'Scalar::Util' => '0',
                                         'MooseX::Types::Moose' => '0',
+                                        'Scalar::Util' => '0',
                                         'Config::INI::MVP::Reader' => '0.024',
                                         'File::Spec' => '0',
                                         'String::RewritePrefix' => '0.005',

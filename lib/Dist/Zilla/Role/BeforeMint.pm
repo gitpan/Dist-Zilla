@@ -1,26 +1,23 @@
-use strict;
-use warnings;
-
-package Dist::Zilla::Role::BeforeRelease;
+package Dist::Zilla::Role::BeforeMint;
 BEGIN {
-  $Dist::Zilla::Role::BeforeRelease::VERSION = '2.101230';
+  $Dist::Zilla::Role::BeforeMint::VERSION = '2.101230';
 }
-# ABSTRACT: something that runs before release really begins
-
+# ABSTRACT: something that runs before minting really begins
 use Moose::Role;
 
+
 with 'Dist::Zilla::Role::Plugin';
-requires 'before_release';
+requires 'before_mint';
 
 no Moose::Role;
 1;
 
-
+__END__
 =pod
 
 =head1 NAME
 
-Dist::Zilla::Role::BeforeRelease - something that runs before release really begins
+Dist::Zilla::Role::BeforeMint - something that runs before minting really begins
 
 =head1 VERSION
 
@@ -28,8 +25,8 @@ version 2.101230
 
 =head1 DESCRIPTION
 
-Plugins implementing this role have their C<before_release> method
-called before the release is actually done.
+Plugins implementing this role have their C<before_mint> method called
+before any other plugins are consulted.
 
 =head1 AUTHOR
 
@@ -43,7 +40,4 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
 

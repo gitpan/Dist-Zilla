@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::Plugin;
 BEGIN {
-  $Dist::Zilla::Role::Plugin::VERSION = '2.101170';
+  $Dist::Zilla::Role::Plugin::VERSION = '2.101230';
 }
 # ABSTRACT: something that gets plugged in to Dist::Zilla
 use Moose::Role;
@@ -8,6 +8,7 @@ use Moose::Role;
 with 'Dist::Zilla::Role::ConfigDumper';
 
 use Params::Util qw(_HASHLIKE);
+use MooseX::Types;
 
 use namespace::autoclean;
 
@@ -21,7 +22,7 @@ has plugin_name => (
 
 has zilla => (
   is  => 'ro',
-  isa => 'Dist::Zilla',
+  isa => class_type('Dist::Zilla'),
   required => 1,
   weak_ref => 1,
 );
@@ -55,7 +56,7 @@ Dist::Zilla::Role::Plugin - something that gets plugged in to Dist::Zilla
 
 =head1 VERSION
 
-version 2.101170
+version 2.101230
 
 =head1 DESCRIPTION
 

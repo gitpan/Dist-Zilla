@@ -1,6 +1,6 @@
 package Dist::Zilla;
 BEGIN {
-  $Dist::Zilla::VERSION = '2.101170';
+  $Dist::Zilla::VERSION = '2.101230';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -20,7 +20,7 @@ use List::MoreUtils qw(uniq);
 use List::Util qw(first);
 use Log::Dispatchouli 1.100712; # proxy_loggers, quiet_fatal
 use Params::Util qw(_HASHLIKE);
-use Path::Class ();
+use Path::Class;
 use Software::License;
 use String::RewritePrefix;
 
@@ -323,11 +323,11 @@ sub from_config {
   my ($class, $arg) = @_;
   $arg ||= {};
 
-  my $root = Path::Class::dir($arg->{dist_root} || '.');
+  my $root = dir($arg->{dist_root} || '.');
 
   my ($seq) = $class->_load_config({
     root   => $root,
-    logger => $arg->{chrome}->logger,
+    chrome => $arg->{chrome},
     config_class => $arg->{config_class},
   });
 
@@ -375,6 +375,27 @@ sub from_config {
 sub _setup_default_plugins {
   my ($self) = @_;
 
+  my $infix  = $self->__is_minter ? 'minter' : 'builder';
+  my $method = "_setup_default_$infix\_plugins";
+  $self->$method;
+}
+
+sub _setup_default_minter_plugins {
+  my ($self) = @_;
+
+  unless ($self->plugin_named(':DefaultModuleMaker')) {
+    require Dist::Zilla::Plugin::TemplateModule;
+    my $plugin = Dist::Zilla::Plugin::TemplateModule->new({
+      plugin_name => ':DefaultModuleMaker',
+      zilla       => $self,
+    });
+
+    $self->plugins->push($plugin);
+  }
+}
+
+sub _setup_default_builder_plugins {
+  my ($self) = @_;
   unless ($self->plugin_named(':InstallModules')) {
     require Dist::Zilla::Plugin::FinderCode;
     my $plugin = Dist::Zilla::Plugin::FinderCode->new({
@@ -439,11 +460,9 @@ sub _load_config {
   $arg ||= {};
 
   my $config_class = $arg->{config_class} ||= 'Dist::Zilla::Config::Finder';
-  unless (eval "require $config_class; 1") {
-    die "couldn't load $config_class: $@"; ## no critic Carp
-  }
+  Class::MOP::load_class($config_class);
 
-  $arg->{logger}->log_debug(
+  $arg->{chrome}->logger->log_debug(
     { prefix => '[DZ] ' },
     "reading configuration using $config_class"
   );
@@ -515,6 +534,8 @@ sub build { $_[0]->build_in }
 sub build_in {
   my ($self, $root) = @_;
 
+  $self->log_fatal("tried to build with a minter") if $self->__is_minter;
+
   $self->log_fatal("attempted to build " . $self->name . " a second time")
     if $self->built_in;
 
@@ -580,13 +601,13 @@ sub build_archive {
 
   my %seen_dir;
   for my $distfile ($self->files->flatten) {
-    my $in = Path::Class::file($distfile->name)->dir;
+    my $in = file($distfile->name)->dir;
     $archive->add_files( $built_in->subdir($in) ) unless $seen_dir{ $in }++;
     $archive->add_files( $built_in->file( $distfile->name ) );
   }
 
   ## no critic
-  $file ||= Path::Class::file(join(q{},
+  $file ||= file(join(q{},
     $self->name,
     '-',
     $self->version,
@@ -624,7 +645,7 @@ sub _prep_build_root {
   my ($self, $build_root) = @_;
 
   my $default_name = $self->name . q{-} . $self->version;
-  $build_root = Path::Class::dir($build_root || $default_name);
+  $build_root = dir($build_root || $default_name);
 
   $build_root->mkpath unless -d $build_root;
 
@@ -641,7 +662,7 @@ sub _write_out_file {
   # Okay, this is a bit much, until we have ->debug. -- rjbs, 2008-06-13
   # $self->log("writing out " . $file->name);
 
-  my $file_path = Path::Class::file($file->name);
+  my $file_path = file($file->name);
 
   my $to_dir = $build_root->subdir( $file_path->dir );
   my $to = $to_dir->file( $file_path->basename );
@@ -693,10 +714,10 @@ sub install {
 
   require File::Temp;
 
-  my $build_root = Path::Class::dir('.build');
+  my $build_root = dir('.build');
   $build_root->mkpath unless -d $build_root;
 
-  my $target = Path::Class::dir( File::Temp::tempdir(DIR => $build_root) );
+  my $target = dir( File::Temp::tempdir(DIR => $build_root) );
   $self->log("building distribution under $target for installation");
   $self->ensure_built_in($target);
 
@@ -730,10 +751,10 @@ sub test {
 
   require File::Temp;
 
-  my $build_root = Path::Class::dir('.build');
+  my $build_root = dir('.build');
   $build_root->mkpath unless -d $build_root;
 
-  my $target = Path::Class::dir( File::Temp::tempdir(DIR => $build_root) );
+  my $target = dir( File::Temp::tempdir(DIR => $build_root) );
   $self->log("building test distribution under $target");
 
   local $ENV{AUTHOR_TESTING} = 1;
@@ -774,10 +795,10 @@ sub run_in_build {
   require File::Temp;
 
   # dzil-build the dist
-  my $build_root = Path::Class::dir('.build');
+  my $build_root = dir('.build');
   $build_root->mkpath unless -d $build_root;
 
-  my $target    = Path::Class::dir( File::Temp::tempdir(DIR => $build_root) );
+  my $target    = dir( File::Temp::tempdir(DIR => $build_root) );
   my $abstarget = $target->absolute;
   $self->log("building test distribution under $target");
 
@@ -834,17 +855,17 @@ sub _global_config {
   my $homedir = File::HomeDir->my_home
     or Carp::croak("couldn't determine home directory");
 
-  my $file = Path::Class::dir($homedir)->file('.dzil');
+  my $file = dir($homedir)->file('.dzil');
   return unless -e $file;
 
   if (-d $file) {
     return Dist::Zilla::Config::Finder->new->read_config({
-      root     =>  Path::Class::dir($homedir)->subdir('.dzil'),
+      root     =>  dir($homedir)->subdir('.dzil'),
       basename => 'config',
     });
   } else {
     return Dist::Zilla::Config::Finder->new->read_config({
-      root     => Path::Class::dir($homedir),
+      root     => dir($homedir),
       filename => '.dzil',
     });
   }
@@ -863,6 +884,139 @@ sub _global_config_for {
   return $section->payload;
 }
 
+#####################################
+## BEGIN DIST MINTING CODE
+#####################################
+
+sub _new_from_profile {
+  my ($class, $profile_name, $arg) = @_;
+  $arg ||= {};
+
+  my $config_class = $arg->{config_class} ||= 'Dist::Zilla::Config::Finder';
+  Class::MOP::load_class($config_class);
+
+  $arg->{chrome}->logger->log_debug(
+    { prefix => '[DZ] ' },
+    "reading configuration using $config_class"
+  );
+
+  my $profile_dir = dir( File::HomeDir->my_home )->subdir(qw(.dzil profiles));
+
+  my $sequence;
+
+  if ($profile_name eq 'default' and ! -e $profile_dir->subdir('default')) {
+    ...
+  } else {
+    ($sequence) = $config_class->new->read_config({
+      root     => $profile_dir->subdir($profile_name),
+      basename => 'profile',
+    });
+  }
+
+  my $self = $class->new({
+    %{ $sequence->section_named('_')->payload },
+    name   => $arg->{name},
+    chrome => $arg->{chrome},
+    root   => $profile_dir->subdir($profile_name),
+    __is_minter => 1,
+  });
+
+  for my $section ($sequence->sections) {
+    next if $section->name eq '_';
+
+    my ($name, $plugin_class, $arg) = (
+      $section->name,
+      $section->package,
+      $section->payload,
+    );
+
+    $self->log_fatal("$name arguments attempted to override plugin name")
+      if defined $arg->{plugin_name};
+
+    $self->log_fatal("$name arguments attempted to override plugin name")
+      if defined $arg->{zilla};
+
+    my $plugin = $plugin_class->new(
+      $arg->merge({
+        plugin_name => $name,
+        zilla       => $self,
+      }),
+    );
+
+    my $version = $plugin->VERSION || 0;
+
+    $plugin->log_debug([ 'online, %s v%s', $plugin->meta->name, $version ]);
+
+    $self->plugins->push($plugin);
+  }
+
+  $self->_setup_default_plugins;
+
+  return $self;
+}
+
+# XXX: This is here only because we have not yet broken Zilla into a abstract
+# base class with Minter and Builder subclasses. -- rjbs, 2010-05-03
+has __is_minter => (
+  is  => 'ro',
+  isa => Bool,
+  default => 0,
+);
+
+sub mint_dist {
+  my ($self, $arg) = @_;
+
+  $self->log_fatal("tried to mint with a builder") unless $self->__is_minter;
+
+  my $name = $self->name;
+  my $dir  = dir($name);
+  $self->log_fatal("./$name already exists") if -e $dir;
+
+  $dir = $dir->absolute;
+
+  # XXX: We should have a way to get more than one module name in, and to
+  # supply plugin names for the minter to use. -- rjbs, 2010-05-03
+  my @modules = do {
+    (my $module_name = $name) =~ s/-/::/g;
+    ({ name => $module_name });
+  };
+
+  $self->log("making directory ./$name");
+  $dir->mkpath;
+
+  my $wd = File::pushd::pushd($self->root);
+
+  $_->before_mint  for $self->plugins_with(-BeforeMint)->flatten;
+  $_->gather_files for $self->plugins_with(-FileGatherer)->flatten;
+
+  for my $module (@modules) {
+    my $minter = $self->plugin_named(
+      $module->{minter_name} || ':DefaultModuleMaker'
+    );
+    
+    $minter->make_module({ name => $module->{name} })
+  }
+
+  $_->prune_files  for $self->plugins_with(-FilePruner)->flatten;
+  $_->munge_files  for $self->plugins_with(-FileMunger)->flatten;
+
+  $self->_check_dupe_files;
+
+  $self->log("writing files to $dir");
+
+  for my $file ($self->files->flatten) {
+    $self->_write_out_file($file, $dir);
+  }
+
+  $_->after_mint({ mint_root => $dir })
+    for $self->plugins_with(-AfterMint)->flatten;
+
+  $self->log("dist minted in ./$name");
+}
+
+#####################################
+## END DIST MINTING CODE
+#####################################
 
 __PACKAGE__->meta->make_immutable;
 1;
@@ -876,7 +1030,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 2.101170
+version 2.101230
 
 =head1 DESCRIPTION
 

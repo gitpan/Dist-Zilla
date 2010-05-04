@@ -2,26 +2,17 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::new;
 BEGIN {
-  $Dist::Zilla::App::Command::new::VERSION = '2.101170';
+  $Dist::Zilla::App::Command::new::VERSION = '2.101230';
 }
 # ABSTRACT: start a new dist
 use Dist::Zilla::App -command;
 
 
-# I wouldn't need this if I properly moosified my commands. -- rjbs, 2008-10-12
-use Mixin::ExtraFields -fields => {
-  driver  => 'HashGuts',
-  id      => undef,
-};
-
-use Dist::Zilla::Types qw(ModuleName);
+use Dist::Zilla::Types qw(DistName);
 use Moose::Autobox;
 use Path::Class;
 
 sub abstract { 'start a new dist' }
-
-sub mvp_aliases         { { author => 'authors' } }
-sub mvp_multivalue_args { qw(authors) }
 
 sub validate_args {
   my ($self, $opt, $args) = @_;
@@ -30,22 +21,31 @@ sub validate_args {
 
   my $name = $args->[0];
 
-  $self->usage_error("$name is not a valid module name")
-    unless is_ModuleName($args->[0]);
+  $self->usage_error("$name is not a valid distribution name")
+    unless is_DistName($args->[0]);
 }
 
 sub opt_spec {
+  [ 'profile|p=s', 'name of the profile to use', { default => 'default' } ],
+  # [ 'module|m=s@', 'module(s) to create; may be given many times'         ],
 }
 
 sub execute {
   my ($self, $opt, $arg) = @_;
 
-  (my $dist = $arg->[0]) =~ s/::/-/g;
+  my $dist = $arg->[0];
 
-  $self->log([
-    'dzil new does nothing; if it did something, it would have created %s',
-    $dist,
-  ]);
+  require Dist::Zilla;
+  my $minter = Dist::Zilla->_new_from_profile(
+    $opt->profile => {
+      chrome  => $self->app->chrome,
+      name    => $dist,
+    },
+  );
+
+  $minter->mint_dist({
+    # modules => $opt->module,
+  });
 }
 
 1;
@@ -59,7 +59,7 @@ Dist::Zilla::App::Command::new - start a new dist
 
 =head1 VERSION
 
-version 2.101170
+version 2.101230
 
 =head1 SYNOPSIS
 

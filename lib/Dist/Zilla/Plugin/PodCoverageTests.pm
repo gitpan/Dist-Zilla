@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PodCoverageTests;
 BEGIN {
-  $Dist::Zilla::Plugin::PodCoverageTests::VERSION = '2.101170';
+  $Dist::Zilla::Plugin::PodCoverageTests::VERSION = '2.101230';
 }
 # ABSTRACT: a release test for Pod coverage
 use Moose;
@@ -21,7 +21,7 @@ Dist::Zilla::Plugin::PodCoverageTests - a release test for Pod coverage
 
 =head1 VERSION
 
-version 2.101170
+version 2.101230
 
 =head1 DESCRIPTION
 
@@ -29,6 +29,12 @@ This is an extension of L<Dist::Zilla::Plugin::InlineFiles>, providing the
 following files:
 
   xt/release/pod-coverage.t - a standard Test::Pod::Coverage test
+
+This test uses L<Pod::Coverage::TrustPod> to check your Pod coverage.  This
+means that to indicate that some subs should be treated as covered, even if no
+documentation can be found, you can add:
+
+  =for Pod::Coverage sub_name other_sub this_one_too
 
 =head1 AUTHOR
 
