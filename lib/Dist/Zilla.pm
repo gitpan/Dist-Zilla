@@ -1,6 +1,6 @@
 package Dist::Zilla;
 BEGIN {
-  $Dist::Zilla::VERSION = '2.101230';
+  $Dist::Zilla::VERSION = '2.101240';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -905,7 +905,10 @@ sub _new_from_profile {
   my $sequence;
 
   if ($profile_name eq 'default' and ! -e $profile_dir->subdir('default')) {
-    ...
+    $arg->{chrome}->logger->log_fatal(
+      { prefix => '[DZ] ' },
+      "no default dist minting profile available"
+    );
   } else {
     ($sequence) = $config_class->new->read_config({
       root     => $profile_dir->subdir($profile_name),
@@ -1030,7 +1033,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 2.101230
+version 2.101240
 
 =head1 DESCRIPTION
 

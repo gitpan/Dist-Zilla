@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::NextRelease;
 BEGIN {
-  $Dist::Zilla::Plugin::NextRelease::VERSION = '2.101230';
+  $Dist::Zilla::Plugin::NextRelease::VERSION = '2.101240';
 }
 # ABSTRACT: update the next release number in your changelog
 
@@ -108,7 +108,7 @@ Dist::Zilla::Plugin::NextRelease - update the next release number in your change
 
 =head1 VERSION
 
-version 2.101230
+version 2.101240
 
 =head1 SYNOPSIS
 

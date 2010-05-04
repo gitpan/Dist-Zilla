@@ -10,7 +10,7 @@
    "configure_requires" : {
       "ExtUtils::MakeMaker" : "6.31"
    },
-   "generated_by" : "Dist::Zilla version 2.101230",
+   "generated_by" : "Dist::Zilla version 2.101240",
    "license" : "perl",
    "meta-spec" : {
       "url" : "http://module-build.sourceforge.net/META-spec-v1.4.html",
@@ -89,7 +89,7 @@
       "homepage" : "http://dzil.org/",
       "repository" : "http://github.com/rjbs/dist-zilla"
    },
-   "version" : "2.101230",
+   "version" : "2.101240",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
@@ -262,7 +262,7 @@
          {
             "class" : "inc::Dist::Zilla::Plugin::VersionBootstrap",
             "name" : "VersionBootstrap",
-            "version" : "2.101230"
+            "version" : "2.101240"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
@@ -290,7 +290,7 @@
          "config" : {
             "is_trial" : 0
          },
-         "version" : "2.101230"
+         "version" : "2.101240"
       }
    }
 }
