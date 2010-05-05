@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MakeMaker;
 BEGIN {
-  $Dist::Zilla::Plugin::MakeMaker::VERSION = '2.101240';
+  $Dist::Zilla::Plugin::MakeMaker::VERSION = '2.101241';
 }
 
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
@@ -124,6 +124,8 @@ sub setup_installer {
     [ \%write_makefile_args ],
     [ '*WriteMakefileArgs' ],
   );
+  $makefile_args_dumper->Sortkeys( 1 );
+  $makefile_args_dumper->Indent( 1 );
 
   my $content = $self->fill_in_string(
     $template,
@@ -187,7 +189,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 2.101240
+version 2.101241
 
 =head1 DESCRIPTION
 

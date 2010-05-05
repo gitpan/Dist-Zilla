@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ModuleBuild;
 BEGIN {
-  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '2.101240';
+  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '2.101241';
 }
 # ABSTRACT: build a Build.PL that uses Module::Build
 use List::MoreUtils qw(any uniq);
@@ -86,6 +86,8 @@ sub setup_installer {
     [ \%module_build_args ],
     [ '*module_build_args' ],
   );
+  $module_build_dumper->Sortkeys( 1 );
+  $module_build_dumper->Indent( 1 );
 
   my $content = $self->fill_in_string(
     $template,
@@ -141,7 +143,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 2.101240
+version 2.101241
 
 =head1 DESCRIPTION
 

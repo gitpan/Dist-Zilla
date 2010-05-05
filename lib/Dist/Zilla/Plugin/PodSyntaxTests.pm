@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PodSyntaxTests;
 BEGIN {
-  $Dist::Zilla::Plugin::PodSyntaxTests::VERSION = '2.101240';
+  $Dist::Zilla::Plugin::PodSyntaxTests::VERSION = '2.101241';
 }
 # ABSTRACT: a release test for Pod syntax
 use Moose;
@@ -21,7 +21,7 @@ Dist::Zilla::Plugin::PodSyntaxTests - a release test for Pod syntax
 
 =head1 VERSION
 
-version 2.101240
+version 2.101241
 
 =head1 DESCRIPTION
 
@@ -49,7 +49,7 @@ ___[ xt/release/pod-syntax.t ]___
 #!perl
 use Test::More;
 
-eval "use Test::Pod 1.00";
-plan skip_all => "Test::Pod 1.00 required for testing POD" if $@;
+eval "use Test::Pod 1.41";
+plan skip_all => "Test::Pod 1.41 required for testing POD" if $@;
 
 all_pod_files_ok();

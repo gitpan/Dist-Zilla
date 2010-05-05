@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::NextRelease;
 BEGIN {
-  $Dist::Zilla::Plugin::NextRelease::VERSION = '2.101240';
+  $Dist::Zilla::Plugin::NextRelease::VERSION = '2.101241';
 }
 # ABSTRACT: update the next release number in your changelog
 
@@ -20,7 +20,9 @@ use String::Formatter 0.100680 stringf => {
     d => sub {
       DateTime->from_epoch(epoch => $^T, time_zone => $_[0]->time_zone)
               ->format_cldr($_[1]),
-    }
+    },
+    t => sub { "\t" },
+    n => sub { "\n" },
   },
 };
 
@@ -108,7 +110,7 @@ Dist::Zilla::Plugin::NextRelease - update the next release number in your change
 
 =head1 VERSION
 
-version 2.101240
+version 2.101241
 
 =head1 SYNOPSIS
 
@@ -151,11 +153,40 @@ The module accepts the following options in its F<dist.ini> section:
 
 =over 4
 
-=item * filename - the name of your changelog file. defaults to F<Changes>.
+=item filename
 
-=item * format - the date format. defaults to C<%-9v %{yyyy-MM-dd HH:mm:ss VVVV}d>.
+the name of your changelog file;  defaults to F<Changes>
 
-=item * time_zone - the timezone to use when generating the date. defaults to I<local>.
+=item format
+
+sprintf-like string used to compute the next value of C<{{$NEXT}}>;
+defaults to C<%-9v %{yyyy-MM-dd HH:mm:ss VVVV}d>
+
+=item time_zone
+
+the timezone to use when generating the date;  defaults to I<local>
+
+=back
+
+The module allows the following sprintf-like format codes in the format:
+
+=over 4
+
+=item *
+
+v - the version of the dist
+
+=item *
+
+d - the CLDR format for L<DateTime>
+
+=item *
+
+n - a newline
+
+=item *
+
+t - a tab
 
 =back
 

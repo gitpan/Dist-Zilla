@@ -1,6 +1,6 @@
 package Dist::Zilla::Chrome::Test;
 BEGIN {
-  $Dist::Zilla::Chrome::Test::VERSION = '2.101240';
+  $Dist::Zilla::Chrome::Test::VERSION = '2.101241';
 }
 use Moose;
 # ABSTRACT: the chrome used by Dist::Zilla::Tester
@@ -30,7 +30,7 @@ Dist::Zilla::Chrome::Test - the chrome used by Dist::Zilla::Tester
 
 =head1 VERSION
 
-version 2.101240
+version 2.101241
 
 =head1 AUTHOR
 
