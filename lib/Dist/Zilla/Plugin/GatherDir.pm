@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::GatherDir;
 BEGIN {
-  $Dist::Zilla::Plugin::GatherDir::VERSION = '2.101241';
+  $Dist::Zilla::Plugin::GatherDir::VERSION = '2.101290';
 }
 # ABSTRACT: gather all the files in a directory
 use Moose;
@@ -47,15 +47,12 @@ sub gather_files {
   my @files;
   FILE: for my $filename (File::Find::Rule->file->in($root)) {
     unless ($self->include_dotfiles) {
-      my $file = file($filename);
+      my $file = file($filename)->relative($root);
       next FILE if $file->basename =~ qr/^\./;
-      # next FILE if grep { /^\.[^.]/ } $file->dir->dir_list;
+      next FILE if grep { /^\.[^.]/ } $file->dir->dir_list;
     }
 
-    push @files, Dist::Zilla::File::OnDisk->new({
-      name => $filename,
-      mode => (stat $filename)[2] & 0755, # kill world-writeability
-    });
+    push @files, $self->_file_from_filename($filename);
   }
 
   for my $file (@files) {
@@ -67,6 +64,15 @@ sub gather_files {
   }
 
   return;
+}
+
+sub _file_from_filename {
+  my ($self, $filename) = @_;
+
+  return Dist::Zilla::File::OnDisk->new({
+    name => $filename,
+    mode => (stat $filename)[2] & 0755, # kill world-writeability
+  });
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -82,7 +88,7 @@ Dist::Zilla::Plugin::GatherDir - gather all the files in a directory
 
 =head1 VERSION
 
-version 2.101241
+version 2.101290
 
 =head1 DESCRIPTION
 

@@ -1,5 +1,9 @@
 Revision history for Dist-Zilla
 
+2.101290  2010-05-09 18:43:02 America/New_York
+          added GatherDir::Template (for use in dzil new profiles)
+          GatherDir will skip dot-dirs when excluding dotfiles
+
 2.101241  2010-05-04 22:51:31 America/New_York
           tests should now pass on Win32
 
