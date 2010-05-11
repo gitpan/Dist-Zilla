@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App;
 BEGIN {
-  $Dist::Zilla::App::VERSION = '2.101290';
+  $Dist::Zilla::App::VERSION = '2.101310';
 }
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup 0.307 -app; # need ->app in Result of Tester, GLD vers
@@ -47,7 +47,7 @@ sub zilla {
 
   require Dist::Zilla;
 
-  return $self->{__PACKAGE__}{zilla} ||= do {
+  return $self->{'' . __PACKAGE__}{zilla} ||= do {
     my @v_plugins = $self->global_options->verbose
                   ? grep { length } @{ $self->global_options->verbose }
                   : ();
@@ -89,7 +89,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 2.101290
+version 2.101310
 
 =head1 METHODS
 

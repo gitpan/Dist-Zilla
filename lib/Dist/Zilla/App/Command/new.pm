@@ -2,13 +2,13 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::new;
 BEGIN {
-  $Dist::Zilla::App::Command::new::VERSION = '2.101290';
+  $Dist::Zilla::App::Command::new::VERSION = '2.101310';
 }
 # ABSTRACT: start a new dist
 use Dist::Zilla::App -command;
 
 
-use Dist::Zilla::Types qw(DistName);
+use Dist::Zilla::Types qw(DistName ModuleName);
 use Moose::Autobox;
 use Path::Class;
 
@@ -21,8 +21,12 @@ sub validate_args {
 
   my $name = $args->[0];
 
+  $name =~ s/::/-/g if is_ModuleName($name) and not is_DistName($name);
+
   $self->usage_error("$name is not a valid distribution name")
-    unless is_DistName($args->[0]);
+    unless is_DistName($name);
+
+  $args->[0] = $name;
 }
 
 sub opt_spec {
@@ -59,7 +63,7 @@ Dist::Zilla::App::Command::new - start a new dist
 
 =head1 VERSION
 
-version 2.101290
+version 2.101310
 
 =head1 SYNOPSIS
 

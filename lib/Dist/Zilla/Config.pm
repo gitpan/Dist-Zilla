@@ -1,6 +1,6 @@
 package Dist::Zilla::Config;
 BEGIN {
-  $Dist::Zilla::Config::VERSION = '2.101290';
+  $Dist::Zilla::Config::VERSION = '2.101310';
 }
 use Moose::Role;
 # ABSTRACT: stored configuration loader role
@@ -38,7 +38,7 @@ Dist::Zilla::Config - stored configuration loader role
 
 =head1 VERSION
 
-version 2.101290
+version 2.101310
 
 =head1 DESCRIPTION
 
