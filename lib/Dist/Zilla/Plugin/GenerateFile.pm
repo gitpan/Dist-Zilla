@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::GenerateFile;
 BEGIN {
-  $Dist::Zilla::Plugin::GenerateFile::VERSION = '2.101310';
+  $Dist::Zilla::Plugin::GenerateFile::VERSION = '3.101390';
 }
 # ABSTRACT: build a custom file from only the plugin configuration
 use Moose;
@@ -37,7 +37,7 @@ sub gather_files {
   my ($self, $arg) = @_;
 
   my $content = join "\n", $self->content->flatten;
-  $content .= q{\\};
+  $content .= qq{\n};
 
   if ($self->is_template) {
     $content = $self->fill_in_string(
@@ -71,7 +71,7 @@ Dist::Zilla::Plugin::GenerateFile - build a custom file from only the plugin con
 
 =head1 VERSION
 
-version 2.101310
+version 3.101390
 
 =head1 SYNOPSIS
 

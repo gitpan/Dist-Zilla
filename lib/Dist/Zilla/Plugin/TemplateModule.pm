@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::TemplateModule;
 BEGIN {
-  $Dist::Zilla::Plugin::TemplateModule::VERSION = '2.101310';
+  $Dist::Zilla::Plugin::TemplateModule::VERSION = '3.101390';
 }
 # ABSTRACT: a simple module-from-template plugin
 use Moose;
@@ -10,6 +10,7 @@ use autodie;
 
 use Data::Section 0.004 -setup; # fixed header_re
 use Dist::Zilla::File::InMemory;
+
 
 has template => (
   is  => 'ro',
@@ -59,7 +60,30 @@ Dist::Zilla::Plugin::TemplateModule - a simple module-from-template plugin
 
 =head1 VERSION
 
-version 2.101310
+version 3.101390
+
+=head1 DESCRIPTION
+
+This is a L<ModuleMaker|Dist::Zilla::Role::ModuleMaker> used for creating new
+Perl modules files when minting a new dist with C<dzil new>.  It uses
+L<Text::Template> (via L<Dist::Zilla::Role::TextTemplate>) to render a template
+into a Perl module.  The only variable provided to the template is C<$name>,
+the module name.  The module is always created as a file under F<./lib>.
+
+By default, the template looks something like this:
+
+  use strict;
+  use warnings;
+  package {{ $name }};
+
+  1;
+
+=head1 ATTRIBUTES
+
+=head2 template
+
+The C<template> parameter may be given to the plugin to provide a different
+filename, absolute or relative to the build root.
 
 =head1 AUTHOR
 

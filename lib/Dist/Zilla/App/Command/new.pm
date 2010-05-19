@@ -2,13 +2,13 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::new;
 BEGIN {
-  $Dist::Zilla::App::Command::new::VERSION = '2.101310';
+  $Dist::Zilla::App::Command::new::VERSION = '3.101390';
 }
 # ABSTRACT: start a new dist
 use Dist::Zilla::App -command;
 
 
-use Dist::Zilla::Types qw(DistName ModuleName);
+use MooseX::Types::Perl qw(DistName ModuleName);
 use Moose::Autobox;
 use Path::Class;
 
@@ -63,7 +63,7 @@ Dist::Zilla::App::Command::new - start a new dist
 
 =head1 VERSION
 
-version 2.101310
+version 3.101390
 
 =head1 SYNOPSIS
 

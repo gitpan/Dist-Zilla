@@ -1,22 +1,35 @@
 package Dist::Zilla::Plugin::Manifest;
 BEGIN {
-  $Dist::Zilla::Plugin::Manifest::VERSION = '2.101310';
+  $Dist::Zilla::Plugin::Manifest::VERSION = '3.101390';
 }
 # ABSTRACT: build a MANIFEST file
 use Moose;
 use Moose::Autobox;
-with 'Dist::Zilla::Role::InstallTool';
+with 'Dist::Zilla::Role::FileGatherer';
 
-use Dist::Zilla::File::InMemory;
+use Dist::Zilla::File::FromCode;
 
 
-sub setup_installer {
+sub __fix_filename {
+  my ($name) = @_;
+  return $name unless $name =~ /[ '\\]/;
+  $name =~ s/\\/\\\\/g;
+  $name =~ s/'/\\'/g;
+  return qq{'$name'};
+}
+
+sub gather_files {
   my ($self, $arg) = @_;
 
-  my $file = Dist::Zilla::File::InMemory->new({
-    name    => 'MANIFEST',
-    content => $self->zilla->files->map(sub{$_->name})->push('MANIFEST')
-               ->sort->join("\n"),
+  my $zilla = $self->zilla;
+
+  my $file = Dist::Zilla::File::FromCode->new({
+    name => 'MANIFEST',
+    code => sub {
+      $zilla->files->map(sub { $_->name })
+            ->sort->map( sub { __fix_filename($_) } )->join("\n")
+      . "\n",
+    },
   });
 
   $self->add_file($file);
@@ -35,7 +48,7 @@ Dist::Zilla::Plugin::Manifest - build a MANIFEST file
 
 =head1 VERSION
 
-version 2.101310
+version 3.101390
 
 =head1 DESCRIPTION
 

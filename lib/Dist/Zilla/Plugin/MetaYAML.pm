@@ -1,14 +1,28 @@
 package Dist::Zilla::Plugin::MetaYAML;
 BEGIN {
-  $Dist::Zilla::Plugin::MetaYAML::VERSION = '2.101310';
+  $Dist::Zilla::Plugin::MetaYAML::VERSION = '3.101390';
 }
 # ABSTRACT: produce a META.yml
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
 
+use CPAN::Meta::Converter 2.101380; # downgrade
 use Hash::Merge::Simple ();
 
+
+has filename => (
+  is  => 'ro',
+  isa => 'Str',
+  default => 'META.yml',
+);
+
+
+has version => (
+  is  => 'ro',
+  isa => 'Num',
+  default => '1.4',
+);
 
 sub gather_files {
   my ($self, $arg) = @_;
@@ -17,10 +31,15 @@ sub gather_files {
   require YAML::Tiny;
 
   my $zilla = $self->zilla;
+
   my $file  = Dist::Zilla::File::FromCode->new({
-    name => 'META.yml',
+    name => $self->filename,
     code => sub {
-      YAML::Tiny::Dump($zilla->distmeta);
+      my $distmeta  = $zilla->distmeta;
+      my $converter = CPAN::Meta::Converter->new($distmeta);
+      my $output    = $converter->convert(version => $self->version);
+
+      YAML::Tiny::Dump($output);
     },
   });
 
@@ -41,14 +60,31 @@ Dist::Zilla::Plugin::MetaYAML - produce a META.yml
 
 =head1 VERSION
 
-version 2.101310
+version 3.101390
 
 =head1 DESCRIPTION
 
 This plugin will add a F<META.yml> file to the distribution.
 
-For more information on this file, see L<Module::Build::API> and
-L<http://module-build.sourceforge.net/META-spec-v1.3.html>.
+For more information on this file, see L<Module::Build::API> and L<CPAN::Meta>.
+
+=head1 ATTRIBUTES
+
+=head2 filename
+
+If given, parameter allows you to specify an alternate name for the generated
+file.  It defaults, of course, to F<META.yml>.
+
+=head2 version
+
+This parameter lets you pick what version of the spec to use when generating
+the output.  It defaults to 1.4, the most commonly supported version at
+present.
+
+B<This may change without notice in the future.>
+
+Once version 2 of the META file spec is more widely supported, this may default
+to 2.
 
 =head1 AUTHOR
 

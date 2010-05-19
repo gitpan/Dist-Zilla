@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::GatherDir::Template;
 BEGIN {
-  $Dist::Zilla::Plugin::GatherDir::Template::VERSION = '2.101310';
+  $Dist::Zilla::Plugin::GatherDir::Template::VERSION = '3.101390';
 }
 # ABSTRACT: gather all the files in a directory and use them as templates
 use Moose;
@@ -51,7 +51,7 @@ Dist::Zilla::Plugin::GatherDir::Template - gather all the files in a directory a
 
 =head1 VERSION
 
-version 2.101310
+version 3.101390
 
 =head1 DESCRIPTION
 
@@ -59,6 +59,9 @@ This is a very, very simple L<FileGatherer|Dist::Zilla::FileGatherer> plugin.
 It looks in the directory named in the L</root> attribute and adds all the
 files it finds there.  If the root begins with a tilde, the tilde is replaced
 with the current user's home directory according to L<File::HomeDir>.
+
+It is meant to be used when minting dists with C<dzil new>, but could be used
+in building existing dists, too.
 
 =head1 AUTHOR
 

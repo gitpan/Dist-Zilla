@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::GatherDir;
 BEGIN {
-  $Dist::Zilla::Plugin::GatherDir::VERSION = '2.101310';
+  $Dist::Zilla::Plugin::GatherDir::VERSION = '3.101390';
 }
 # ABSTRACT: gather all the files in a directory
 use Moose;
@@ -16,6 +16,7 @@ use Path::Class;
 
 use namespace::autoclean;
 
+
 has root => (
   is   => 'ro',
   isa  => Dir,
@@ -25,11 +26,13 @@ has root => (
   default  => sub { shift->zilla->root },
 );
 
+
 has prefix => (
   is  => 'ro',
   isa => 'Str',
   default => '',
 );
+
 
 has include_dotfiles => (
   is  => 'ro',
@@ -88,14 +91,52 @@ Dist::Zilla::Plugin::GatherDir - gather all the files in a directory
 
 =head1 VERSION
 
-version 2.101310
+version 3.101390
 
 =head1 DESCRIPTION
 
-This is a very, very simple L<FileGatherer|Dist::Zilla::FileGatherer> plugin.
-It looks in the directory named in the L</root> attribute and adds all the
-files it finds there.  If the root begins with a tilde, the tilde is replaced
-with the current user's home directory according to L<File::HomeDir>.
+This is a very, very simple L<FileGatherer|Dist::Zilla::Role::FileGatherer>
+plugin.  It looks in the directory named in the L</root> attribute and adds all
+the files it finds there.  If the root begins with a tilde, the tilde is
+replaced with the current user's home directory according to L<File::HomeDir>.
+
+Almost every dist will be built with one GatherDir plugin, since it's the
+easiest way to get files from disk into your dist.  Most users just need:
+
+  [GatherDir]
+
+...and this will pick up all the files from the current directory into the
+dist.  You can use it multiple times, as you can any other plugin, by providing
+a plugin name.  For example, if you want to include external specification
+files into a subdir of your dist, you might write:
+
+  [GatherDir]
+  ; this plugin needs no config and gathers most of your files
+
+  [GatherDir / SpecFiles]
+  ; this plugin gets all the files in the root dir and adds them under ./spec
+  root   = ~/projects/my-project/spec
+  prefix = spec
+
+=head1 ATTRIBUTES
+
+=head2 root
+
+This is the directory in which to look for files.  If not given, it defaults to
+the dist root -- generally, the place where your F<dist.ini> or other
+configuration file is located.
+
+=head2 prefix
+
+This parameter can be set to gather all the files found under a common
+directory.  See the L<description|DESCRIPTION> above for an example.
+
+=head2 include_dotfiles
+
+By default, files will not be included if they begin with a dot.  This goes
+both for files and for directories relative to the C<root>.
+
+In almost all cases, the default value (false) is correct.
 
 =head1 AUTHOR
 

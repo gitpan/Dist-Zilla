@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::listdeps;
 BEGIN {
-  $Dist::Zilla::App::Command::listdeps::VERSION = '2.101310';
+  $Dist::Zilla::App::Command::listdeps::VERSION = '3.101390';
 }
 use Dist::Zilla::App -command;
 # ABSTRACT: print your distribution's prerequisites
@@ -28,11 +28,10 @@ sub execute {
   $_->register_prereqs for $self->zilla->plugins_with(-PrereqSource)->flatten;
 
   my $req = Version::Requirements->new;
-  my $prereq = $self->zilla->prereq->as_distmeta;
+  my $prereqs = $self->zilla->prereqs;
 
-  for my $type (qw(requires build_requires configure_requires)) {
-    $req->add_minimum($_ => $prereq->{ $type }{$_})
-      for keys %{ $prereq->{$type} };
+  for my $phase (qw(build test configure runtime)) {
+    $req->add_requirements( $prereqs->requirements_for($phase, 'requires') );
   }
 
   print "$_\n" for sort { lc $a cmp lc $b }
@@ -52,7 +51,7 @@ Dist::Zilla::App::Command::listdeps - print your distribution's prerequisites
 
 =head1 VERSION
 
-version 2.101310
+version 3.101390
 
 =head1 SYNOPSIS
 

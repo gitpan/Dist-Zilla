@@ -1,37 +1,14 @@
 package Dist::Zilla::Types;
 BEGIN {
-  $Dist::Zilla::Types::VERSION = '2.101310';
+  $Dist::Zilla::Types::VERSION = '3.101390';
 }
 # ABSTRACT: dzil-specific type library
 
-use MooseX::Types -declare => [qw(DistName License ModuleName VersionStr)];
+
+use MooseX::Types -declare => [qw(License)];
 use MooseX::Types::Moose qw(Str);
 
-use Params::Util qw(_CLASS);
-
-use version 0.82;
-
-subtype ModuleName,
-  as Str,
-  where   { _CLASS($_) },
-  message { "$_ is not a valid module name" };
-
-subtype DistName,
-  as Str,
-  where   { return if /:/; (my $str = $_) =~ s/-/::/g; _CLASS($str) },
-  message {
-    /::/
-    ? "$_ looks like a module name, not a dist name"
-    : "$_ is not a valid dist name"
-  };
-
-subtype License,
-  as class_type('Software::License');
-
-subtype VersionStr,
-  as Str,
-  where { version::is_lax($_) },
-  message { "$_ is not a valid version string" };
+subtype License, as class_type('Software::License');
 
 1;
 
@@ -44,7 +21,15 @@ Dist::Zilla::Types - dzil-specific type library
 
 =head1 VERSION
 
-version 2.101310
+version 3.101390
+
+=head1 OVERVIEW
+
+This library provides L<MooseX::Types> types for use by Dist::Zilla.  These
+types are not (yet?) for public consumption, and you should not rely on them.
+
+Dist::Zilla uses a number of types found in L<MooseX::Types::Perl>.  Maybe
+that's what you want.
 
 =head1 AUTHOR
 

@@ -1,12 +1,13 @@
 package Dist::Zilla::Prereqs;
 BEGIN {
-  $Dist::Zilla::Prereqs::VERSION = '2.101310';
+  $Dist::Zilla::Prereqs::VERSION = '3.101390';
 }
 # ABSTRACT: the prerequisites of a Dist::Zilla distribution
 use Moose;
 use Moose::Autobox;
 use MooseX::Types::Moose qw(Bool HashRef);
 
+use CPAN::Meta::Prereqs 2.101390;
 use Hash::Merge::Simple ();
 use Path::Class ();
 use String::RewritePrefix;
@@ -14,60 +15,33 @@ use Version::Requirements;
 
 use namespace::autoclean;
 
-has is_finalized => (
-  is  => 'ro',
-  isa => Bool,
-  traits  => [ qw(Bool) ],
-  default => 0,
-  handles => {
-    finalize => 'set',
-  },
-);
 
-has _guts => (
+has cpan_meta_prereqs => (
   is  => 'ro',
-  isa => HashRef,
-  default  => sub { {} },
+  isa => 'CPAN::Meta::Prereqs',
   init_arg => undef,
+  default  => sub { CPAN::Meta::Prereqs->new },
+  handles  => [ qw(
+    finalize
+    is_finalized
+    requirements_for
+    as_string_hash
+  ) ],
 );
 
-sub as_distmeta {
-  my ($self) = @_;
-
-  my $distmeta = {
-    requires           =>
-      ($self->_guts->{runtime}{requires} || Version::Requirements->new)
-      ->as_string_hash,
-    recommends         =>
-      ($self->_guts->{runtime}{recommends} || Version::Requirements->new)
-      ->as_string_hash,
-    build_requires     =>
-      ($self->_guts->{build}{requires} || Version::Requirements->new)
-      ->as_string_hash,
-    configure_requires =>
-      ($self->_guts->{configure}{requires} || Version::Requirements->new)
-      ->as_string_hash,
-  };
-
-  return $distmeta;
-}
 
 sub register_prereqs {
   my $self = shift;
   my $arg  = ref($_[0]) ? shift(@_) : {};
   my %prereq = @_;
 
-  confess "too late to register a prereq" if $self->is_finalized;
-
   my $phase = $arg->{phase} || 'runtime';
   my $type  = $arg->{type}  || 'requires';
 
-  $phase = 'build' if $phase eq 'test';
-
-  my $prereq = ($self->_guts->{$phase}{$type} ||= Version::Requirements->new);
+  my $req = $self->requirements_for($phase, $type);
 
   while (my ($package, $version) = each %prereq) {
-    $prereq->add_minimum($package, $version);
+    $req->add_minimum($package, $version);
   }
 
   return;
@@ -84,7 +58,63 @@ Dist::Zilla::Prereqs - the prerequisites of a Dist::Zilla distribution
 
 =head1 VERSION
 
-version 2.101310
+version 3.101390
+
+=head1 DESCRIPTION
+
+Dist::Zilla::Prereqs is a subcomponent of Dist::Zilla.  The C<prereqs>
+attribute on your Dist::Zilla object is a Dist::Zilla::Prereqs object, and is
+responsible for keeping track of the distribution's prerequisites.
+
+In fact, a Dist::Zilla::Prereqs object is just a thin layer over a
+L<CPAN::Meta::Prereqs> object, stored in the C<cpan_meta_prereqs> attribute.
+
+Almost everything this object does is proxied to the CPAN::Meta::Prereqs
+object, so you should really read how I<that> works.
+
+Dist::Zilla::Prereqs proxies the following methods to the CPAN::Meta::Prereqs
+object:
+
+=over 4
+
+=item *
+
+finalize
+
+=item *
+
+is_finalized
+
+=item *
+
+requirements_for
+
+=item *
+
+as_string_hash
+
+=back
+
+=head1 METHODS
+
+=head2 register_prereqs
+
+  $prereqs->register_prereqs(%prereqs);
+
+  $prereqs->register_prereqs(\%arg, %prereqs);
+
+This method adds new minimums to the prereqs object.  If a hashref is the first
+arg, it may have entries for C<phase> and C<type> to indicate what kind of
+prereqs are being registered.  (For more information on phase and type, see
+L<CPAN::Meta::Spec>.)  For example, you might say:
+
+  $prereqs->register_prereqs(
+    { phase => 'test', type => 'recommends' },
+    'Test::Foo' => '1.23',
+    'XML::YZZY' => '2.01',
+  );
+
+If not given, phase and type default to runtime and requires, respectively.
 
 =head1 AUTHOR
 

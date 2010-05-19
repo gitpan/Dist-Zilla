@@ -1,14 +1,15 @@
 package Dist::Zilla;
 BEGIN {
-  $Dist::Zilla::VERSION = '2.101310';
+  $Dist::Zilla::VERSION = '3.101390';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
 with 'Dist::Zilla::Role::ConfigDumper';
 
 use Moose::Autobox 0.09; # ->flatten
-use Dist::Zilla::Types qw(DistName License VersionStr);
+use Dist::Zilla::Types qw(License);
 use MooseX::Types::Moose qw(Bool HashRef);
+use MooseX::Types::Perl qw(DistName LaxVersionStr);
 use MooseX::Types::Path::Class qw(Dir File);
 use Moose::Util::TypeConstraints;
 
@@ -21,7 +22,7 @@ use List::Util qw(first);
 use Log::Dispatchouli 1.100712; # proxy_loggers, quiet_fatal
 use Params::Util qw(_HASHLIKE);
 use Path::Class;
-use Software::License;
+use Software::License 0.101370; # meta2_name
 use String::RewritePrefix;
 
 use Dist::Zilla::Prereqs;
@@ -55,7 +56,7 @@ has version_override => (
 # XXX: *clearly* this needs to be really much smarter -- rjbs, 2008-06-01
 has version => (
   is   => 'rw',
-  isa  => VersionStr,
+  isa  => LaxVersionStr,
   lazy => 1,
   init_arg  => undef,
   required  => 1,
@@ -290,17 +291,18 @@ sub _build_distmeta {
 
   my $meta = {
     'meta-spec' => {
-      version => 1.4,
-      url     => 'http://module-build.sourceforge.net/META-spec-v1.4.html',
+      version => 2,
+      url     => 'http://github.com/dagolden/cpan-meta/',
     },
     name     => $self->name,
     version  => $self->version,
     abstract => $self->abstract,
     author   => $self->authors,
-    license  => $self->license->meta_yml_name,
-    generated_by => (ref $self)
-                  . ' version '
-                  . (defined $self->VERSION ? $self->VERSION : '(undef)')
+    license  => $self->license->meta2_name,
+    dynamic_config => 0,
+    generated_by   => (ref $self)
+                    . ' version '
+                    . (defined $self->VERSION ? $self->VERSION : '(undef)')
   };
 
   $meta = Hash::Merge::Simple::merge($meta, $_->metadata)
@@ -310,7 +312,7 @@ sub _build_distmeta {
 }
 
 
-has prereq => (
+has prereqs => (
   is   => 'ro',
   isa  => 'Dist::Zilla::Prereqs',
   init_arg => undef,
@@ -549,11 +551,10 @@ sub build_in {
 
   $_->register_prereqs for $self->plugins_with(-PrereqSource)->flatten;
 
-  $self->prereq->finalize;
+  $self->prereqs->finalize;
 
-  my $meta   = $self->distmeta;
-  my $prereq = $self->prereq->as_distmeta;
-  $meta->{ $_ } = $prereq->{ $_ } for keys %$prereq;
+  # Barf if someone has already set up a prereqs entry? -- rjbs, 2010-04-13
+  $self->distmeta->{prereqs} = $self->prereqs->as_string_hash;
 
   $_->setup_installer for $self->plugins_with(-InstallTool)->flatten;
 
@@ -726,8 +727,10 @@ sub install {
     my $wd = File::pushd::pushd($target);
     my @cmd = $arg->{install_command}
             ? $arg->{install_command}
-            : ($^X => '-MCPAN' => '-einstall "."');
+            : ($^X => '-MCPAN' =>
+                $^O eq 'MSWin32' ? q{-e"install '.'"} : '-einstall "."');
 
+    $self->log_debug([ 'installing via %s', \@cmd ]);
     system(@cmd) && $self->log_fatal([ "error running %s", \@cmd ]);
   };
 
@@ -1033,7 +1036,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 2.101310
+version 3.101390
 
 =head1 DESCRIPTION
 
@@ -1135,14 +1138,34 @@ This is a hashref containing the metadata about this distribution that
 will be stored in META.yml or META.json.  You should not alter the
 metadata in this hash; use a MetaProvider plugin instead.
 
-=head2 prereq
+=head2 prereqs
 
-This is a hashref of module prerequisites.  This attribute is likely to get
-greatly overhauled, or possibly replaced with a method based on other
-(private?) attributes.
+This is a L<Dist::Zilla::Prereqs> object, which is a thin layer atop
+L<CPAN::Meta::Prereqs>, and describes the distribution's prerequisites.
 
-I<Actually>, it is more likely that this attribute will contain an object in
-the future.
+=head2 logger
+
+This attribute stores a L<Log::Dispatchouli::Proxy> object, used to log
+messages.  By default, a proxy to the dist's L<Chrome|Dist::Zilla::Chrome> is
+taken.
+
+The following methods are delegated from the Dist::Zilla object to the logger:
+
+=over 4
+
+=item *
+
+log
+
+=item *
+
+log_debug
+
+=item *
+
+log_fatal
+
+=back
 
 =head1 METHODS
 
@@ -1238,11 +1261,12 @@ does it clean up C<$directory> afterwards.
 
 =head2 run_in_build
 
-=head2 log
+  $zilla->run_in_build(\@cmd);
 
-  $zilla->log($message);
-
-This method logs the given message.
+This method makes a temporary directory, builds the distribution there,
+executes the dist's first L<BuildRunner|Dist::Zilla::Role::BuildRunner>, and
+then runs the given command in the build directory.  If the command exits
+non-zero, the directory will be left in place.
 
 =head1 SUPPORT
 

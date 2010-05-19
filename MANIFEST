@@ -135,6 +135,8 @@ t/plugins/generatefile.t
 t/plugins/installdirs.t
 t/plugins/license.t
 t/plugins/makemaker.t
+t/plugins/manifest.t
+t/plugins/metaresources.t
 t/plugins/misctests.t
 t/plugins/modulebuild.t
 t/plugins/nextrelease.t
