@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MakeMaker;
 BEGIN {
-  $Dist::Zilla::Plugin::MakeMaker::VERSION = '3.101390';
+  $Dist::Zilla::Plugin::MakeMaker::VERSION = '3.101400';
 }
 
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
@@ -12,6 +12,8 @@ with 'Dist::Zilla::Role::InstallTool';
 with 'Dist::Zilla::Role::TestRunner';
 with 'Dist::Zilla::Role::TextTemplate';
 
+
+use Config;
 
 use Data::Dumper ();
 use List::MoreUtils qw(any uniq);
@@ -160,11 +162,18 @@ has __write_makefile_args => (
   isa  => 'HashRef',
 );
 
+has 'make_path' => (
+  isa => 'Str',
+  is  => 'ro',
+  default => $Config{make} || 'make',
+);
+
 sub build {
   my $self = shift;
 
+  my $make = $self->make_path;
   system($^X => 'Makefile.PL') and die "error with Makefile.PL\n";
-  system('make')               and die "error running make\n";
+  system($make)                and die "error running $make\n";
 
   return;
 }
@@ -172,8 +181,9 @@ sub build {
 sub test {
   my ( $self, $target ) = @_;
 
+  my $make = $self->make_path;
   $self->build;
-  system('make test') and die "error running make test\n";
+  system($make, 'test') and die "error running $make test\n";
 
   return;
 }
@@ -197,7 +207,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 3.101390
+version 3.101400
 
 =head1 DESCRIPTION
 

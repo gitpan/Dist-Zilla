@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ShareDir;
 BEGIN {
-  $Dist::Zilla::Plugin::ShareDir::VERSION = '3.101390';
+  $Dist::Zilla::Plugin::ShareDir::VERSION = '3.101400';
 }
 # ABSTRACT: install a directory's contents as "ShareDir" content
 use Moose;
@@ -28,7 +28,7 @@ Dist::Zilla::Plugin::ShareDir - install a directory's contents as "ShareDir" con
 
 =head1 VERSION
 
-version 3.101390
+version 3.101400
 
 =head1 SYNOPSIS
 

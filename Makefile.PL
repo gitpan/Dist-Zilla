@@ -31,6 +31,7 @@ my %WriteMakefileArgs = (
     'CPAN::Meta::Prereqs' => '2.101390',
     'CPAN::Uploader' => '0.100660',
     'Carp' => '0',
+    'Config' => '0',
     'Config::MVP' => '0.100780',
     'Config::MVP::Assembler' => '0',
     'Config::MVP::Assembler::WithBundles' => '0',
@@ -86,7 +87,7 @@ my %WriteMakefileArgs = (
     'namespace::autoclean' => '0',
     'version' => '0'
   },
-  'VERSION' => '3.101390',
+  'VERSION' => '3.101400',
   'test' => {
     'TESTS' => 't/*.t t/plugins/*.t'
   }

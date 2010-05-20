@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::TestRelease;
 BEGIN {
-  $Dist::Zilla::Plugin::TestRelease::VERSION = '3.101390';
+  $Dist::Zilla::Plugin::TestRelease::VERSION = '3.101400';
 }
 use Moose;
 with 'Dist::Zilla::Role::BeforeRelease';
@@ -54,7 +54,7 @@ Dist::Zilla::Plugin::TestRelease - extract archive and run tests before releasin
 
 =head1 VERSION
 
-version 3.101390
+version 3.101400
 
 =head1 DESCRIPTION
 

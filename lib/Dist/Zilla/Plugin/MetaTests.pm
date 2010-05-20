@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaTests;
 BEGIN {
-  $Dist::Zilla::Plugin::MetaTests::VERSION = '3.101390';
+  $Dist::Zilla::Plugin::MetaTests::VERSION = '3.101400';
 }
 # ABSTRACT: common extra tests for META.yml
 use Moose;
@@ -21,7 +21,7 @@ Dist::Zilla::Plugin::MetaTests - common extra tests for META.yml
 
 =head1 VERSION
 
-version 3.101390
+version 3.101400
 
 =head1 DESCRIPTION
 
