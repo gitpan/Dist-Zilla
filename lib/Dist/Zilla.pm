@@ -1,17 +1,18 @@
 package Dist::Zilla;
 BEGIN {
-  $Dist::Zilla::VERSION = '3.101400';
+  $Dist::Zilla::VERSION = '3.101410';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
 with 'Dist::Zilla::Role::ConfigDumper';
 
 use Moose::Autobox 0.09; # ->flatten
-use Dist::Zilla::Types qw(License);
 use MooseX::Types::Moose qw(Bool HashRef);
 use MooseX::Types::Perl qw(DistName LaxVersionStr);
 use MooseX::Types::Path::Class qw(Dir File);
 use Moose::Util::TypeConstraints;
+
+use Dist::Zilla::Types qw(License);
 
 use Archive::Tar;
 use File::Find::Rule;
@@ -336,6 +337,7 @@ sub from_config {
   my $core_config = $seq->section_named('_')->payload;
 
   my $self = $class->new({
+    root   => $root,
     %$core_config,
     chrome => $arg->{chrome},
   });
@@ -474,10 +476,6 @@ sub _load_config {
     root     => $root,
     basename => 'dist',
   });
-
-  # I wonder if the root should be named '' or something, but that's probably
-  # sort of a ridiculous thing to worry about. -- rjbs, 2009-08-24
-  $sequence->section_named('_')->add_value(root => $root);
 
   return $sequence;
 }
@@ -1036,7 +1034,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 3.101400
+version 3.101410
 
 =head1 DESCRIPTION
 

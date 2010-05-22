@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::Manifest;
 BEGIN {
-  $Dist::Zilla::Plugin::Manifest::VERSION = '3.101400';
+  $Dist::Zilla::Plugin::Manifest::VERSION = '3.101410';
 }
 # ABSTRACT: build a MANIFEST file
 use Moose;
@@ -48,7 +48,7 @@ Dist::Zilla::Plugin::Manifest - build a MANIFEST file
 
 =head1 VERSION
 
-version 3.101400
+version 3.101410
 
 =head1 DESCRIPTION
 
