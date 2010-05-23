@@ -1,13 +1,13 @@
 package Dist::Zilla::Plugin::MetaYAML;
 BEGIN {
-  $Dist::Zilla::Plugin::MetaYAML::VERSION = '3.101410';
+  $Dist::Zilla::Plugin::MetaYAML::VERSION = '3.101421';
 }
 # ABSTRACT: produce a META.yml
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
 
-use CPAN::Meta::Converter 2.101380; # downgrade
+use CPAN::Meta::Converter 2.101410; # downgrade with test/build merge
 use Hash::Merge::Simple ();
 
 
@@ -60,7 +60,7 @@ Dist::Zilla::Plugin::MetaYAML - produce a META.yml
 
 =head1 VERSION
 
-version 3.101410
+version 3.101421
 
 =head1 DESCRIPTION
 

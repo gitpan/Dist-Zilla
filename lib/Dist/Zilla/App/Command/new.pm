@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::new;
 BEGIN {
-  $Dist::Zilla::App::Command::new::VERSION = '3.101410';
+  $Dist::Zilla::App::Command::new::VERSION = '3.101421';
 }
 # ABSTRACT: start a new dist
 use Dist::Zilla::App -command;
@@ -13,6 +13,8 @@ use Moose::Autobox;
 use Path::Class;
 
 sub abstract { 'start a new dist' }
+
+sub usage_desc { '%c %o <DistName>' }
 
 sub validate_args {
   my ($self, $opt, $args) = @_;
@@ -63,7 +65,7 @@ Dist::Zilla::App::Command::new - start a new dist
 
 =head1 VERSION
 
-version 3.101410
+version 3.101421
 
 =head1 SYNOPSIS
 

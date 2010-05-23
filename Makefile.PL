@@ -27,7 +27,7 @@ my %WriteMakefileArgs = (
     'App::Cmd::Setup' => '0.307',
     'App::Cmd::Tester' => '0.306',
     'Archive::Tar' => '0',
-    'CPAN::Meta::Converter' => '2.101380',
+    'CPAN::Meta::Converter' => '2.101410',
     'CPAN::Meta::Prereqs' => '2.101390',
     'CPAN::Uploader' => '0.100660',
     'Carp' => '0',
@@ -87,7 +87,7 @@ my %WriteMakefileArgs = (
     'namespace::autoclean' => '0',
     'version' => '0'
   },
-  'VERSION' => '3.101410',
+  'VERSION' => '3.101421',
   'test' => {
     'TESTS' => 't/*.t t/plugins/*.t'
   }
