@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MakeMaker;
 BEGIN {
-  $Dist::Zilla::Plugin::MakeMaker::VERSION = '3.101421';
+  $Dist::Zilla::Plugin::MakeMaker::VERSION = '3.101450';
 }
 
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
@@ -112,6 +112,12 @@ sub setup_installer {
             ->as_string_hash;
   };
 
+  my $build_prereq
+    = $prereqs->requirements_for(qw(build requires))
+    ->clone
+    ->add_requirements($prereqs->requirements_for(qw(test requires)))
+    ->as_string_hash;
+
   my %write_makefile_args = (
     DISTNAME  => $self->zilla->name,
     NAME      => $name,
@@ -122,7 +128,7 @@ sub setup_installer {
     EXE_FILES => [ @exe_files ],
 
     CONFIGURE_REQUIRES => $prereqs_dump->(qw(configure requires)),
-    BUILD_REQUIRES     => $prereqs_dump->(qw(build     requires)),
+    BUILD_REQUIRES     => $build_prereq,
     PREREQ_PM          => $prereqs_dump->(qw(runtime   requires)),
 
     test => { TESTS => join q{ }, sort keys %test_dirs },
@@ -207,7 +213,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 3.101421
+version 3.101450
 
 =head1 DESCRIPTION
 

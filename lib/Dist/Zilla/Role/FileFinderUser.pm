@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::FileFinderUser;
 BEGIN {
-  $Dist::Zilla::Role::FileFinderUser::VERSION = '3.101421';
+  $Dist::Zilla::Role::FileFinderUser::VERSION = '3.101450';
 }
 use MooseX::Role::Parameterized;
 # ABSTRACT: something that uses FileFinder plugins
@@ -78,7 +78,7 @@ Dist::Zilla::Role::FileFinderUser - something that uses FileFinder plugins
 
 =head1 VERSION
 
-version 3.101421
+version 3.101450
 
 =head1 AUTHOR
 

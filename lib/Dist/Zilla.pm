@@ -1,6 +1,6 @@
 package Dist::Zilla;
 BEGIN {
-  $Dist::Zilla::VERSION = '3.101421';
+  $Dist::Zilla::VERSION = '3.101450';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -472,10 +472,7 @@ sub _load_config {
   );
 
   my $root = $arg->{root};
-  my ($sequence) = $config_class->new->read_config({
-    root     => $root,
-    basename => 'dist',
-  });
+  my ($sequence) = $config_class->new->read_config( $root->file('dist') );
 
   return $sequence;
 }
@@ -857,19 +854,11 @@ sub _global_config {
     or Carp::croak("couldn't determine home directory");
 
   my $file = dir($homedir)->file('.dzil');
-  return unless -e $file;
+  return unless -e $file and -d $file;
 
-  if (-d $file) {
-    return Dist::Zilla::Config::Finder->new->read_config({
-      root     =>  dir($homedir)->subdir('.dzil'),
-      basename => 'config',
-    });
-  } else {
-    return Dist::Zilla::Config::Finder->new->read_config({
-      root     => dir($homedir),
-      filename => '.dzil',
-    });
-  }
+  return Dist::Zilla::Config::Finder->new->read_config(
+    dir($homedir)->subdir('.dzil')->file('config')
+  );
 }
 
 sub _global_config_for {
@@ -911,10 +900,9 @@ sub _new_from_profile {
       "no default dist minting profile available"
     );
   } else {
-    ($sequence) = $config_class->new->read_config({
-      root     => $profile_dir->subdir($profile_name),
-      basename => 'profile',
-    });
+    ($sequence) = $config_class->new->read_config(
+      $profile_dir->subdir($profile_name)->file('profile'),
+    );
   }
 
   my $self = $class->new({
@@ -1034,7 +1022,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 3.101421
+version 3.101450
 
 =head1 DESCRIPTION
 

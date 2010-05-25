@@ -1,10 +1,11 @@
 package Dist::Zilla::Config::Finder;
 BEGIN {
-  $Dist::Zilla::Config::Finder::VERSION = '3.101421';
+  $Dist::Zilla::Config::Finder::VERSION = '3.101450';
 }
 use Moose;
+use Config::MVP::Reader 1;
 extends 'Config::MVP::Reader::Finder';
-with 'Dist::Zilla::Config';
+with 'Dist::Zilla::Config' => { -excludes => 'read_config' };
 # ABSTRACT: the reader for dist.ini files
 
 use Dist::Zilla::Util::MVPAssembler;
@@ -26,7 +27,7 @@ Dist::Zilla::Config::Finder - the reader for dist.ini files
 
 =head1 VERSION
 
-version 3.101421
+version 3.101450
 
 =head1 AUTHOR
 
