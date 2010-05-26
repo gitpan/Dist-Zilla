@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::InlineFiles;
 BEGIN {
-  $Dist::Zilla::Plugin::InlineFiles::VERSION = '3.101450';
+  $Dist::Zilla::Plugin::InlineFiles::VERSION = '3.101460';
 }
 # ABSTRACT: files in a data section
 use Moose;
@@ -42,7 +42,7 @@ Dist::Zilla::Plugin::InlineFiles - files in a data section
 
 =head1 VERSION
 
-version 3.101450
+version 3.101460
 
 =head1 DESCRIPTION
 

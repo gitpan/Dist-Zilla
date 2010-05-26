@@ -1,13 +1,13 @@
 package Dist::Zilla::Plugin::MetaJSON;
 BEGIN {
-  $Dist::Zilla::Plugin::MetaJSON::VERSION = '3.101450';
+  $Dist::Zilla::Plugin::MetaJSON::VERSION = '3.101460';
 }
 # ABSTRACT: produce a META.json
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
 
-use CPAN::Meta::Converter 2.101450; # downgrade custom keys
+use CPAN::Meta::Converter 2.101460; # lax url schema validation
 use Dist::Zilla::File::FromCode;
 use Hash::Merge::Simple ();
 use JSON 2;
@@ -60,7 +60,7 @@ Dist::Zilla::Plugin::MetaJSON - produce a META.json
 
 =head1 VERSION
 
-version 3.101450
+version 3.101460
 
 =head1 DESCRIPTION
 

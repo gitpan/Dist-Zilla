@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::Prereq;
 BEGIN {
-  $Dist::Zilla::Plugin::Prereq::VERSION = '3.101450';
+  $Dist::Zilla::Plugin::Prereq::VERSION = '3.101460';
 }
 # ABSTRACT: list simple prerequisites
 use Moose;
@@ -32,7 +32,6 @@ has prereq_phase => (
     my ($phase, $type) = $self->__from_name;
     $phase ||= 'runtime';
     $phase = lc $phase;
-    $phase = 'build' if $phase eq 'test'; # XXX: Temporary -- rjbs, 2010-03-20
     return $phase;
   },
 );
@@ -122,7 +121,7 @@ Dist::Zilla::Plugin::Prereq - list simple prerequisites
 
 =head1 VERSION
 
-version 3.101450
+version 3.101460
 
 =head1 SYNOPSIS
 

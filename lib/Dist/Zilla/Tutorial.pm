@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Tutorial;
 BEGIN {
-  $Dist::Zilla::Tutorial::VERSION = '3.101450';
+  $Dist::Zilla::Tutorial::VERSION = '3.101460';
 }
 # ABSTRACT: how to use this "Dist::Zilla" thing
 use Carp ();
@@ -18,7 +18,7 @@ Dist::Zilla::Tutorial - how to use this "Dist::Zilla" thing
 
 =head1 VERSION
 
-version 3.101450
+version 3.101460
 
 =head1 SYNOPSIS
 

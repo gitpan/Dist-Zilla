@@ -1,6 +1,6 @@
 package Dist::Zilla::Config::Perl;
 BEGIN {
-  $Dist::Zilla::Config::Perl::VERSION = '3.101450';
+  $Dist::Zilla::Config::Perl::VERSION = '3.101460';
 }
 use Moose;
 with qw(Config::MVP::Reader::Findable::ByExtension);
@@ -56,7 +56,7 @@ Dist::Zilla::Config::Perl - the reader for dist.pl files
 
 =head1 VERSION
 
-version 3.101450
+version 3.101460
 
 =head1 DESCRIPTION
 

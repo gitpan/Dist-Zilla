@@ -28,7 +28,7 @@ my %WriteMakefileArgs = (
     'App::Cmd::Setup' => '0.307',
     'App::Cmd::Tester' => '0.306',
     'Archive::Tar' => '0',
-    'CPAN::Meta::Converter' => '2.101450',
+    'CPAN::Meta::Converter' => '2.101460',
     'CPAN::Meta::Prereqs' => '2.101390',
     'CPAN::Uploader' => '0.100660',
     'Carp' => '0',
@@ -39,7 +39,7 @@ my %WriteMakefileArgs = (
     'Config::MVP::Reader' => '1',
     'Config::MVP::Reader::Findable::ByExtension' => '0',
     'Config::MVP::Reader::Finder' => '0',
-    'Config::MVP::Reader::INI' => '0',
+    'Config::MVP::Reader::INI' => '1.101450',
     'Data::Dumper' => '0',
     'Data::Section' => '0.004',
     'DateTime' => '0.44',
@@ -88,7 +88,7 @@ my %WriteMakefileArgs = (
     'namespace::autoclean' => '0',
     'version' => '0'
   },
-  'VERSION' => '3.101450',
+  'VERSION' => '3.101460',
   'test' => {
     'TESTS' => 't/*.t t/plugins/*.t'
   }

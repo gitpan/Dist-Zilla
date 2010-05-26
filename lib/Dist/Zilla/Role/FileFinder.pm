@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::FileFinder;
 BEGIN {
-  $Dist::Zilla::Role::FileFinder::VERSION = '3.101450';
+  $Dist::Zilla::Role::FileFinder::VERSION = '3.101460';
 }
 use Moose::Autobox;
 # ABSTRACT: something that finds files within the distribution
@@ -22,7 +22,7 @@ Dist::Zilla::Role::FileFinder - something that finds files within the distributi
 
 =head1 VERSION
 
-version 3.101450
+version 3.101460
 
 =head1 DESCRIPTION
 

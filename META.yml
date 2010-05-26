@@ -8,7 +8,7 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: 6.31
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 3.101450, CPAN::Meta::Converter version 2.101450'
+generated_by: 'Dist::Zilla version 3.101460, CPAN::Meta::Converter version 2.101460'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -21,7 +21,7 @@ requires:
   App::Cmd::Setup: 0.307
   App::Cmd::Tester: 0.306
   Archive::Tar: 0
-  CPAN::Meta::Converter: 2.101450
+  CPAN::Meta::Converter: 2.101460
   CPAN::Meta::Prereqs: 2.101390
   CPAN::Uploader: 0.100660
   Carp: 0
@@ -32,7 +32,7 @@ requires:
   Config::MVP::Reader: 1
   Config::MVP::Reader::Findable::ByExtension: 0
   Config::MVP::Reader::Finder: 0
-  Config::MVP::Reader::INI: 0
+  Config::MVP::Reader::INI: 1.101450
   Data::Dumper: 0
   Data::Section: 0.004
   DateTime: 0.44
@@ -85,7 +85,7 @@ resources:
   MailingList: http://www.listbox.com/subscribe/?list_id=139292
   homepage: http://dzil.org/
   repository: http://github.com/rjbs/dist-zilla
-version: 3.101450
+version: 3.101460
 x_Dist_Zilla:
   plugins:
     -
@@ -223,7 +223,7 @@ x_Dist_Zilla:
     -
       class: inc::Dist::Zilla::Plugin::VersionBootstrap
       name: VersionBootstrap
-      version: 3.101450
+      version: 3.101460
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':InstallModules'
@@ -244,4 +244,4 @@ x_Dist_Zilla:
     class: Dist::Zilla
     config:
       is_trial: 0
-    version: 3.101450
+    version: 3.101460
