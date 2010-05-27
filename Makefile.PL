@@ -33,13 +33,13 @@ my %WriteMakefileArgs = (
     'CPAN::Uploader' => '0.100660',
     'Carp' => '0',
     'Config' => '0',
-    'Config::MVP' => '0.101410',
+    'Config::MVP' => '2',
     'Config::MVP::Assembler' => '0',
     'Config::MVP::Assembler::WithBundles' => '0',
-    'Config::MVP::Reader' => '1',
+    'Config::MVP::Reader' => '2',
     'Config::MVP::Reader::Findable::ByExtension' => '0',
     'Config::MVP::Reader::Finder' => '0',
-    'Config::MVP::Reader::INI' => '1.101450',
+    'Config::MVP::Reader::INI' => '2',
     'Data::Dumper' => '0',
     'Data::Section' => '0.004',
     'DateTime' => '0.44',
@@ -88,7 +88,7 @@ my %WriteMakefileArgs = (
     'namespace::autoclean' => '0',
     'version' => '0'
   },
-  'VERSION' => '3.101460',
+  'VERSION' => '3.101461',
   'test' => {
     'TESTS' => 't/*.t t/plugins/*.t'
   }
