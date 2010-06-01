@@ -1,6 +1,6 @@
 package Dist::Zilla;
 BEGIN {
-  $Dist::Zilla::VERSION = '3.101461';
+  $Dist::Zilla::VERSION = '3.101520';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -300,6 +300,7 @@ sub _build_distmeta {
     abstract => $self->abstract,
     author   => $self->authors,
     license  => $self->license->meta2_name,
+    release_status => ($self->is_trial or $self->version =~ /_/) ? 'testing' : 'stable', # XXX: what about unstable?
     dynamic_config => 0,
     generated_by   => (ref $self)
                     . ' version '
@@ -1022,7 +1023,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 3.101461
+version 3.101520
 
 =head1 DESCRIPTION
 
@@ -1198,7 +1199,7 @@ already been built, an exception will be thrown.
 
 =head2 build
 
-This method just calls C<build_in> with no arguments.  It get you the default
+This method just calls C<build_in> with no arguments.  It gets you the default
 behavior without the weird-looking formulation of C<build_in> with no object
 for the preposition!
 

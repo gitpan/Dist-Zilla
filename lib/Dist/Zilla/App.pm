@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App;
 BEGIN {
-  $Dist::Zilla::App::VERSION = '3.101461';
+  $Dist::Zilla::App::VERSION = '3.101520';
 }
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup 0.307 -app; # need ->app in Result of Tester, GLD vers
@@ -16,7 +16,7 @@ use Path::Class;
 sub global_opt_spec {
   return (
     [ "verbose|v:s@", "log additional output" ],
-    [ "inc|I=s@",     "additional \@INC dirs", {
+    [ "lib-inc|I=s@",     "additional \@INC dirs", {
         callbacks => { 'always fine' => sub { unshift @INC, @{$_[0]}; } }
     } ]
   );
@@ -89,7 +89,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 3.101461
+version 3.101520
 
 =head1 METHODS
 

@@ -88,7 +88,7 @@ my %WriteMakefileArgs = (
     'namespace::autoclean' => '0',
     'version' => '0'
   },
-  'VERSION' => '3.101461',
+  'VERSION' => '3.101520',
   'test' => {
     'TESTS' => 't/*.t t/plugins/*.t'
   }

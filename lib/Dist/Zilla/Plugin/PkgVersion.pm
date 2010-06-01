@@ -1,13 +1,13 @@
 package Dist::Zilla::Plugin::PkgVersion;
 BEGIN {
-  $Dist::Zilla::Plugin::PkgVersion::VERSION = '3.101461';
+  $Dist::Zilla::Plugin::PkgVersion::VERSION = '3.101520';
 }
 # ABSTRACT: add a $VERSION to your packages
 use Moose;
 with(
   'Dist::Zilla::Role::FileMunger',
   'Dist::Zilla::Role::FileFinderUser' => {
-    default_finders => [ ':InstallModules' ],
+    default_finders => [ ':InstallModules', ':ExecFiles' ],
   },
 );
 
@@ -67,6 +67,11 @@ sub munge_perl {
       next;
     }
 
+    if ($stmt->content =~ /package\s*\n\s*\Q$package/) {
+      $self->log([ 'skipping private package %s', $package ]);
+      next;
+    }
+
     # the \x20 hack is here so that when we scan *this* document we don't find
     # an assignment to version; it shouldn't be needed, but it's been annoying
     # enough in the past that I'm keeping it here until tests are better
@@ -102,7 +107,7 @@ Dist::Zilla::Plugin::PkgVersion - add a $VERSION to your packages
 
 =head1 VERSION
 
-version 3.101461
+version 3.101520
 
 =head1 DESCRIPTION
 
@@ -110,6 +115,15 @@ This plugin will add a line like the following to each package in each Perl
 module or program (more or less) within the distribution:
 
   our $VERSION = 0.001; # where 0.001 is the version of the dist
+
+It will skip any package declaration that includes a newline between the
+C<package> keyword and the package name, like:
+
+  package
+    Foo::Bar;
+
+This sort of declaration is also ignored by the CPAN toolchain, and is
+typically used when doing monkey patching or other tricky things.
 
 =head1 AUTHOR
 

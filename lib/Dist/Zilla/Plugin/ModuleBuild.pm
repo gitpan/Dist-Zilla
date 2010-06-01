@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ModuleBuild;
 BEGIN {
-  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '3.101461';
+  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '3.101520';
 }
 # ABSTRACT: build a Build.PL that uses Module::Build
 use List::MoreUtils qw(any uniq);
@@ -24,18 +24,36 @@ has 'mb_version' => (
   default => '0.3601',
 );
 
+has 'mb_class' => (
+  isa => 'Str',
+  is  => 'rw',
+  default => 'Module::Build',
+);
+
 my $template = q|
 use strict;
 use warnings;
 
 use Module::Build {{ $plugin->mb_version }};
+{{ $plugin->_use_custom_class }}
 
 my {{ $module_build_args }}
 
-my $build = Module::Build->new(%module_build_args);
+my $build = {{ $plugin->mb_class }}->new(%module_build_args);
 
 $build->create_build_script;
 |;
+
+sub _use_custom_class {
+  my ($self) = @_;
+  my $class = $self->mb_class;
+  if ( $class eq 'Module::Build' ) {
+    return "";
+  }
+  else {
+    return "use lib 'inc'; use $class;";
+  }
+}
 
 sub register_prereqs {
   my ($self) = @_;
@@ -153,7 +171,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 3.101461
+version 3.101520
 
 =head1 DESCRIPTION
 
@@ -167,6 +185,12 @@ L<Module::Build>.
 B<Optional:> Specify the minimum version of L<Module::Build> to depend on.
 
 Defaults to 0.3601
+
+=head2 mb_class
+
+B<Optional:> Specify the class to use to create the build object.  Defaults
+to C<Module::Build> itself.  If another class is specified, C<use lib 'inc'>
+is also added to the Build.PL file.
 
 =head1 AUTHOR
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::TestRunner;
 BEGIN {
-  $Dist::Zilla::Role::TestRunner::VERSION = '3.101461';
+  $Dist::Zilla::Role::TestRunner::VERSION = '3.101520';
 }
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
@@ -21,7 +21,7 @@ Dist::Zilla::Role::TestRunner - something used as a delegating agent to 'dzil te
 
 =head1 VERSION
 
-version 3.101461
+version 3.101520
 
 =head1 DESCRIPTION
 

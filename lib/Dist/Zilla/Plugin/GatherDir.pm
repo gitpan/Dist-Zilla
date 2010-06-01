@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::GatherDir;
 BEGIN {
-  $Dist::Zilla::Plugin::GatherDir::VERSION = '3.101461';
+  $Dist::Zilla::Plugin::GatherDir::VERSION = '3.101520';
 }
 # ABSTRACT: gather all the files in a directory
 use Moose;
@@ -61,6 +61,7 @@ sub gather_files {
   for my $file (@files) {
     (my $newname = $file->name) =~ s{\A\Q$root\E[\\/]}{}g;
     $newname = File::Spec->catdir($self->prefix, $newname) if $self->prefix;
+    $newname = Path::Class::dir($newname)->as_foreign('Unix')->stringify;
 
     $file->name($newname);
     $self->add_file($file);
@@ -91,7 +92,7 @@ Dist::Zilla::Plugin::GatherDir - gather all the files in a directory
 
 =head1 VERSION
 
-version 3.101461
+version 3.101520
 
 =head1 DESCRIPTION
 
