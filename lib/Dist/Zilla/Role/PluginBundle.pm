@@ -1,10 +1,16 @@
 package Dist::Zilla::Role::PluginBundle;
 BEGIN {
-  $Dist::Zilla::Role::PluginBundle::VERSION = '3.101520';
+  $Dist::Zilla::Role::PluginBundle::VERSION = '4.101540';
 }
 # ABSTRACT: something that bundles a bunch of plugins
 use Moose::Role;
 
+
+sub register_component {
+  my ($class, $name, $arg, $self) = @_;
+  # ... we should register a placeholder so MetaConfig can tell us about the
+  # pluginbundle that was loaded
+}
 
 requires 'bundle_config';
 
@@ -20,7 +26,7 @@ Dist::Zilla::Role::PluginBundle - something that bundles a bunch of plugins
 
 =head1 VERSION
 
-version 3.101520
+version 4.101540
 
 =head1 DESCRIPTION
 

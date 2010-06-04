@@ -2,16 +2,17 @@ use strict;
 use warnings;
 package Dist::Zilla::App;
 BEGIN {
-  $Dist::Zilla::App::VERSION = '3.101520';
+  $Dist::Zilla::App::VERSION = '4.101540';
 }
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup 0.307 -app; # need ->app in Result of Tester, GLD vers
 
 use Carp ();
-use Dist::Zilla::Config::Finder;
+use Dist::Zilla::MVP::Reader::Finder;
 use File::HomeDir ();
 use Moose::Autobox;
 use Path::Class;
+use Try::Tiny;
 
 sub global_opt_spec {
   return (
@@ -20,6 +21,48 @@ sub global_opt_spec {
         callbacks => { 'always fine' => sub { unshift @INC, @{$_[0]}; } }
     } ]
   );
+}
+
+sub _build_global_stashes {
+  my ($self) = @_;
+
+  return $self->{__global_stash__} if $self->{__global_stash__};
+
+  my $stash = $self->{__global_stash__} = {};
+
+  my $homedir = File::HomeDir->my_home
+    or Carp::croak("couldn't determine home directory");
+
+  my $config_dir  = $ENV{DZIL_GLOBAL_CONFIG_ROOT}
+                  ? dir($ENV{DZIL_GLOBAL_CONFIG_ROOT})
+                  : dir($homedir)->subdir('.dzil');
+
+  my $config_base = $config_dir->file('config');
+
+  require Dist::Zilla::MVP::Assembler::GlobalConfig;
+  require Dist::Zilla::MVP::Section;
+  my $assembler = Dist::Zilla::MVP::Assembler::GlobalConfig->new({
+    chrome => $self->chrome,
+    stash  => $stash,
+    section_class => 'Dist::Zilla::MVP::Section', # make this DZMA default
+  });
+
+  try {
+    my $reader = Dist::Zilla::MVP::Reader::Finder->new({
+      if_none => sub { return $_[2]->{assembler}->sequence },
+    });
+
+    my $seq = $reader->read_config($config_base, { assembler => $assembler });
+  } catch {
+    die "\n"
+      . "Your global configuration file couldn't be loaded.  It's a file\n"
+      . "matching ~/.dzil/config.*\n\n"
+      . "You can try deleting the file or you might need to upgrade from\n"
+      . "pre-version 4 format.  In most cases, this will just mean replacing\n"
+      . "[!release] with [%PAUSE] and deleting any [!new] stanza.\n";
+  };
+
+  return $stash;
 }
 
 
@@ -60,6 +103,7 @@ sub zilla {
 
     my $zilla = Dist::Zilla->from_config({
       chrome => $self->chrome,
+      _global_stashes => $self->_build_global_stashes,
     });
 
     $zilla->logger->set_debug($verbose ? 1 : 0);
@@ -89,7 +133,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 3.101520
+version 4.101540
 
 =head1 METHODS
 

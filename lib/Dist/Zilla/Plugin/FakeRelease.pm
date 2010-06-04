@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::FakeRelease;
 BEGIN {
-  $Dist::Zilla::Plugin::FakeRelease::VERSION = '3.101520';
+  $Dist::Zilla::Plugin::FakeRelease::VERSION = '4.101540';
 }
 # ABSTRACT: fake plugin to test release
 
@@ -41,7 +41,12 @@ Dist::Zilla::Plugin::FakeRelease - fake plugin to test release
 
 =head1 VERSION
 
-version 3.101520
+version 4.101540
+
+=head1 SYNOPSIS
+
+    [FakeRelease]
+    user = CPANAUTHORID ; # optional.
 
 =head1 DESCRIPTION
 
@@ -54,6 +59,11 @@ When this plugin does the release, it will just log a message and finish.
 If you set the environment variable C<DZIL_FAKERELEASE_FAIL> to a true value,
 the plugin will die instead of doing nothing. This can be usefulfor
 authors wanting to test reliably that release failed.
+
+You can optionally provide the 'user' parameter, which defaults to 'AUTHORID',
+which will allow things that depend on this metadata
+( Sometimes provided by L<Dist::Zilla::Plugin::UploadToCPAN> ) to still work.
+( For example: L<Dist::Zilla::Plugin::Twitter> )
 
 =head1 AUTHOR
 

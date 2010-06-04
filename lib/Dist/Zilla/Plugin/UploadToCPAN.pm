@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::UploadToCPAN;
 BEGIN {
-  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '3.101520';
+  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '4.101540';
 }
 # ABSTRACT: upload the dist to CPAN
 use Moose;
@@ -9,6 +9,7 @@ with 'Dist::Zilla::Role::Releaser';
 use CPAN::Uploader 0.100660; # log method
 use File::HomeDir;
 use File::Spec;
+use Moose::Util::TypeConstraints;
 use Scalar::Util qw(weaken);
 
 use namespace::autoclean;
@@ -24,6 +25,27 @@ use namespace::autoclean;
   }
 }
 
+has credentials_stash => (
+  is  => 'ro',
+  isa => 'Str',
+  default => 'PAUSE'
+);
+
+has _credentials_stash_obj => (
+  is   => 'ro',
+  isa  => maybe_type( role_type('Dist::Zilla::Stash::PAUSE') ),
+  lazy => 1,
+  init_arg => undef,
+  default  => sub { $_[0]->zilla->stash_named( $_[0]->credentials_stash ) },
+);
+
+sub _credential {
+  my ($self, $name) = @_;
+
+  return unless my $stash = $self->_credentials_stash_obj;
+  return $stash->$name;
+}
+
 has user => (
   is   => 'ro',
   isa  => 'Str',
@@ -31,9 +53,7 @@ has user => (
   required => 1,
   default  => sub {
     my ($self) = @_;
-    my $user = $self->zilla->_global_config_for('Dist::Zilla::App::Command::release')->{user};
-    return $user if defined $user;
-    return $self->pause_cfg->{user};
+    return $self->_credential('user') || $self->pause_cfg->{user};
   },
 );
 
@@ -44,9 +64,7 @@ has password => (
   required => 1,
   default  => sub {
     my ($self) = @_;
-    my $pass = $self->zilla->_global_config_for('Dist::Zilla::App::Command::release')->{password};
-    return $pass if defined $pass;
-    return $self->pause_cfg->{password};
+    return $self->_credential('password') || $self->pause_cfg->{password};
   },
 );
 
@@ -120,7 +138,7 @@ Dist::Zilla::Plugin::UploadToCPAN - upload the dist to CPAN
 
 =head1 VERSION
 
-version 3.101520
+version 4.101540
 
 =head1 SYNOPSIS
 
@@ -128,10 +146,10 @@ If loaded, this plugin will allow the F<release> command to upload to the CPAN.
 
 =head1 DESCRIPTION
 
-This plugin looks for configuration in your C<dist.ini> or
-C<~/.dzil/config.ini>:
+This plugin looks for configuration in your C<dist.ini> or (more
+likely) C<~/.dzil/config.ini>:
 
-  [=Dist::Zilla::App::Command::release]
+  [%PAUSE]
   user     = YOUR-PAUSE-ID
   password = YOUR-PAUSE-PASSWORD
 

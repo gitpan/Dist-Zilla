@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Util;
 BEGIN {
-  $Dist::Zilla::Util::VERSION = '3.101520';
+  $Dist::Zilla::Util::VERSION = '4.101540';
 }
 # ABSTRACT: random snippets of code that Dist::Zilla wants
 
@@ -61,7 +61,7 @@ sub expand_config_package_name {
     {
       '=' => '',
       '@' => 'Dist::Zilla::PluginBundle::',
-      '!' => 'Dist::Zilla::App::Command::',
+      '%' => 'Dist::Zilla::Stash::',
       ''  => 'Dist::Zilla::Plugin::',
     },
     $package,
@@ -81,7 +81,7 @@ Dist::Zilla::Util - random snippets of code that Dist::Zilla wants
 
 =head1 VERSION
 
-version 3.101520
+version 4.101540
 
 =head1 METHODS
 

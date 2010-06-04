@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command;
 BEGIN {
-  $Dist::Zilla::App::Command::VERSION = '3.101520';
+  $Dist::Zilla::App::Command::VERSION = '4.101540';
 }
 # ABSTRACT: base class for dzil commands
 use App::Cmd::Setup -command;
@@ -11,12 +11,6 @@ use Moose::Autobox;
 
 sub zilla {
   return $_[0]->app->zilla;
-}
-
-sub config {
-  my ($self) = @_;
-  return $self->{'' . __PACKAGE__}{config}
-    ||= $self->zilla->_global_config_for(ref $self);
 }
 
 
@@ -35,7 +29,7 @@ Dist::Zilla::App::Command - base class for dzil commands
 
 =head1 VERSION
 
-version 3.101520
+version 4.101540
 
 =head1 METHODS
 

@@ -6,17 +6,19 @@ use warnings;
 
 use ExtUtils::MakeMaker 6.31;
 
+use File::ShareDir::Install;
+install_share "share";
 
 
 my %WriteMakefileArgs = (
   'ABSTRACT' => 'distribution builder; installer not included!',
   'AUTHOR' => 'Ricardo SIGNES <rjbs@cpan.org>',
   'BUILD_REQUIRES' => {
-    'Test::More' => '0.90',
-    'Try::Tiny' => '0'
+    'Test::More' => '0.90'
   },
   'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.31'
+    'ExtUtils::MakeMaker' => '6.31',
+    'File::ShareDir::Install' => '0.03'
   },
   'DISTNAME' => 'Dist-Zilla',
   'EXE_FILES' => [
@@ -36,19 +38,22 @@ my %WriteMakefileArgs = (
     'Config::MVP' => '2',
     'Config::MVP::Assembler' => '0',
     'Config::MVP::Assembler::WithBundles' => '0',
-    'Config::MVP::Reader' => '2',
+    'Config::MVP::Reader' => '2.101540',
     'Config::MVP::Reader::Findable::ByExtension' => '0',
     'Config::MVP::Reader::Finder' => '0',
     'Config::MVP::Reader::INI' => '2',
+    'Config::MVP::Section' => '0',
     'Data::Dumper' => '0',
     'Data::Section' => '0.004',
     'DateTime' => '0.44',
+    'Dist::Zilla::Config' => '0',
     'ExtUtils::MakeMaker' => '0',
     'ExtUtils::Manifest' => '1.54',
     'File::Copy::Recursive' => '0',
     'File::Find::Rule' => '0',
     'File::HomeDir' => '0',
     'File::Path' => '0',
+    'File::ShareDir' => '0',
     'File::ShareDir::Install' => '0.03',
     'File::Spec' => '0',
     'File::Temp' => '0',
@@ -62,7 +67,9 @@ my %WriteMakefileArgs = (
     'Moose::Autobox' => '0.09',
     'Moose::Role' => '0',
     'Moose::Util::TypeConstraints' => '0',
+    'MooseX::LazyRequire' => '0',
     'MooseX::Role::Parameterized' => '0',
+    'MooseX::SetOnce' => '0',
     'MooseX::Types' => '0',
     'MooseX::Types::Moose' => '0',
     'MooseX::Types::Path::Class' => '0',
@@ -81,6 +88,7 @@ my %WriteMakefileArgs = (
     'Sub::Exporter' => '0',
     'Sub::Exporter::Util' => '0',
     'Text::Template' => '0',
+    'Try::Tiny' => '0',
     'Version::Requirements' => '0.100630',
     'YAML::Tiny' => '0',
     'autobox' => '2.53',
@@ -88,7 +96,7 @@ my %WriteMakefileArgs = (
     'namespace::autoclean' => '0',
     'version' => '0'
   },
-  'VERSION' => '3.101520',
+  'VERSION' => '4.101540',
   'test' => {
     'TESTS' => 't/*.t t/plugins/*.t'
   }
@@ -97,10 +105,10 @@ my %WriteMakefileArgs = (
 
 unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
   my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
-  my $pp = $WriteMakefileArgs{PREREQ_PM}; 
+  my $pp = $WriteMakefileArgs{PREREQ_PM};
   for my $mod ( keys %$br ) {
     if ( exists $pp->{$mod} ) {
-      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod}; 
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
     }
     else {
       $pp->{$mod} = $br->{$mod};
@@ -113,5 +121,8 @@ delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
 
 WriteMakefile(%WriteMakefileArgs);
 
+package
+MY;
+use File::ShareDir::Install qw(postamble);
 
 

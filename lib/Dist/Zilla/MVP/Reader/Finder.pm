@@ -1,17 +1,17 @@
-package Dist::Zilla::Config::Finder;
+package Dist::Zilla::MVP::Reader::Finder;
 BEGIN {
-  $Dist::Zilla::Config::Finder::VERSION = '3.101520';
+  $Dist::Zilla::MVP::Reader::Finder::VERSION = '4.101540';
 }
 use Moose;
-use Config::MVP::Reader 2;
+use Config::MVP::Reader 2.101540; # if_none
 extends 'Config::MVP::Reader::Finder';
 with 'Dist::Zilla::Config';
 # ABSTRACT: the reader for dist.ini files
 
-use Dist::Zilla::Util::MVPAssembler;
+use Dist::Zilla::MVP::Assembler;
 
 sub default_search_path {
-  return qw(Dist::Zilla::Config Config::MVP::Reader);
+  return qw(Dist::Zilla::MVP::Reader Config::MVP::Reader);
 }
 
 no Moose;
@@ -23,11 +23,11 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Config::Finder - the reader for dist.ini files
+Dist::Zilla::MVP::Reader::Finder - the reader for dist.ini files
 
 =head1 VERSION
 
-version 3.101520
+version 4.101540
 
 =head1 AUTHOR
 

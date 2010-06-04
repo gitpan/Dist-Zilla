@@ -1,13 +1,14 @@
 package Dist::Zilla;
 BEGIN {
-  $Dist::Zilla::VERSION = '3.101520';
+  $Dist::Zilla::VERSION = '4.101540';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
 with 'Dist::Zilla::Role::ConfigDumper';
 
 use Moose::Autobox 0.09; # ->flatten
-use MooseX::Types::Moose qw(Bool HashRef);
+use MooseX::LazyRequire;
+use MooseX::Types::Moose qw(ArrayRef Bool HashRef Object);
 use MooseX::Types::Perl qw(DistName LaxVersionStr);
 use MooseX::Types::Path::Class qw(Dir File);
 use Moose::Util::TypeConstraints;
@@ -17,6 +18,7 @@ use Dist::Zilla::Types qw(License);
 use Archive::Tar;
 use File::Find::Rule;
 use File::pushd ();
+use File::ShareDir ();
 use Hash::Merge::Simple ();
 use List::MoreUtils qw(uniq);
 use List::Util qw(first);
@@ -44,7 +46,7 @@ has chrome => (
 has name => (
   is   => 'ro',
   isa  => DistName,
-  required => 1,
+  lazy_required => 1,
 );
 
 
@@ -155,80 +157,106 @@ has main_module => (
 );
 
 
-has copyright_holder => (
-  is   => 'ro',
-  isa  => 'Str',
-  required => 1,
-);
-
-
-has copyright_year => (
-  is   => 'ro',
-  isa  => 'Int',
-
-  # Oh man.  This is a terrible idea!  I mean, what if by the code gets run
-  # around like Dec 31, 23:59:59.9 and by the time the default gets called it's
-  # the next year but the default was already set up?  Oh man.  That could ruin
-  # lives!  I guess we could make this a sub to defer the guess, but think of
-  # the performance hit!  I guess we'll have to suffer through this until we
-  # can optimize the code to not take .1s to run, right? -- rjbs, 2008-06-13
-  default => (localtime)[5] + 1900,
-);
-
-
 has license => (
-  reader => 'license',
-  writer => '_set_license',
-  isa    => License,
-  init_arg => undef,
+  is   => 'ro',
+  isa  => License,
+  lazy => 1,
+  init_arg  => 'license_obj',
+  predicate => '_has_license',
+  builder   => '_build_license',
+  handles   => {
+    copyright_holder => 'holder',
+    copyright_year   => 'year',
+  },
 );
 
-sub _initialize_license {
-  my ($self, $value) = @_;
+sub _build_license {
+  my ($self) = @_;
 
-  my $license;
+  my $license_class    = $self->_license_class;
+  my $copyright_holder = $self->_copyright_holder;
+  my $copyright_year   = $self->_copyright_year;
 
-  # If it's an object (weird!) we're being handed a pre-created license and
-  # we should probably just trust it. -- rjbs, 2009-07-21
-  $license = $value if blessed $value;
+  if ($license_class) {
+    $license_class = String::RewritePrefix->rewrite(
+      {
+        '=' => '',
+        ''  => 'Software::License::'
+      },
+      $license_class,
+    );
+  } else {
+    require Software::LicenseUtils;
+    my @guess = Software::LicenseUtils->guess_license_from_pod(
+      $self->main_module->content
+    );
 
-  unless ($license) {
-    my $license_class = $value;
+    $self->log_fatal("couldn't make a good guess at license") if @guess != 1;
 
-    if ($license_class) {
-      $license_class = String::RewritePrefix->rewrite(
-        {
-          '=' => '',
-          ''  => 'Software::License::'
-        },
-        $license_class,
-      );
-    } else {
-      require Software::LicenseUtils;
-      my @guess = Software::LicenseUtils->guess_license_from_pod(
-        $self->main_module->content
-      );
-
-      $self->log_fatal("couldn't make a good guess at license") if @guess != 1;
-
-      my $filename = $self->main_module->name;
-      $license_class = $guess[0];
-      $self->log("based on POD in $filename, guessing license is $guess[0]");
-    }
-
-    eval "require $license_class; 1" or die;
-
-    $license = $license_class->new({
-      holder => $self->copyright_holder,
-      year   => $self->copyright_year,
-    });
+    my $filename = $self->main_module->name;
+    $license_class = $guess[0];
+    $self->log("based on POD in $filename, guessing license is $guess[0]");
   }
 
-  $self->log_fatal("$value is not a valid license")
-    if ! License->check($license);
+  Class::MOP::load_class($license_class);
 
-  $self->_set_license($license);
+  my $license = $license_class->new({
+    holder => $self->_copyright_holder,
+    year   => $self->_copyright_year,
+  });
+
+  $self->_clear_license_class;
+  $self->_clear_copyright_holder;
+  $self->_clear_copyright_year;
+
+  return $license;
 }
+
+has _license_class => (
+  is        => 'ro',
+  isa       => 'Maybe[Str]',
+  lazy      => 1,
+  init_arg  => 'license',
+  clearer   => '_clear_license_class',
+  default   => sub {
+    my $stash = $_[0]->stash_named('%Rights');
+    $stash && return $stash->license_class;
+    return;
+  }
+);
+
+has _copyright_holder => (
+  is        => 'ro',
+  isa       => 'Maybe[Str]',
+  lazy      => 1,
+  init_arg  => 'copyright_holder',
+  clearer   => '_clear_copyright_holder',
+  default   => sub {
+    return unless my $stash = $_[0]->stash_named('%Rights');
+    $stash && return $stash->copyright_holder;
+    return;
+  }
+);
+
+has _copyright_year => (
+  is        => 'ro',
+  isa       => 'Int',
+  lazy      => 1,
+  init_arg  => 'copyright_year',
+  clearer   => '_clear_copyright_year',
+  default   => sub {
+    # Oh man.  This is a terrible idea!  I mean, what if by the code gets run
+    # around like Dec 31, 23:59:59.9 and by the time the default gets called
+    # it's the next year but the default was already set up?  Oh man.  That
+    # could ruin lives!  I guess we could make this a sub to defer the guess,
+    # but think of the performance hit!  I guess we'll have to suffer through
+    # this until we can optimize the code to not take .1s to run, right? --
+    # rjbs, 2008-06-13
+    my $stash = $_[0]->stash_named('%Rights');
+    my $year  = $stash && $stash->copyright_year;
+    return defined $year ? $year : (localtime)[5] + 1900;
+  }
+);
 
 
 has authors => (
@@ -329,48 +357,14 @@ sub from_config {
 
   my $root = dir($arg->{dist_root} || '.');
 
-  my ($seq) = $class->_load_config({
+  my $sequence = $class->_load_config({
     root   => $root,
     chrome => $arg->{chrome},
-    config_class => $arg->{config_class},
+    config_class    => $arg->{config_class},
+    _global_stashes => $arg->{_global_stashes},
   });
 
-  my $core_config = $seq->section_named('_')->payload;
-
-  my $self = $class->new({
-    root   => $root,
-    %$core_config,
-    chrome => $arg->{chrome},
-  });
-
-  for my $section ($seq->sections) {
-    next if $section->name eq '_';
-
-    my ($name, $plugin_class, $arg) = (
-      $section->name,
-      $section->package,
-      $section->payload,
-    );
-
-    $self->log_fatal("$name arguments attempted to override plugin name")
-      if defined $arg->{plugin_name};
-
-    $self->log_fatal("$name arguments attempted to override plugin name")
-      if defined $arg->{zilla};
-
-    my $plugin = $plugin_class->new(
-      $arg->merge({
-        plugin_name => $name,
-        zilla       => $self,
-      }),
-    );
-
-    my $version = $plugin->VERSION || 0;
-
-    $plugin->log_debug([ 'online, %s v%s', $plugin->meta->name, $version ]);
-
-    $self->plugins->push($plugin);
-  }
+  my $self = $sequence->section_named('_')->zilla;
 
   $self->_setup_default_plugins;
 
@@ -461,10 +455,12 @@ sub _setup_default_builder_plugins {
 }
 
 sub _load_config {
-  my ($self, $arg) = @_;
+  my ($class, $arg) = @_;
   $arg ||= {};
 
-  my $config_class = $arg->{config_class} ||= 'Dist::Zilla::Config::Finder';
+  my $config_class =
+    $arg->{config_class} ||= 'Dist::Zilla::MVP::Reader::Finder';
+
   Class::MOP::load_class($config_class);
 
   $arg->{chrome}->logger->log_debug(
@@ -473,9 +469,30 @@ sub _load_config {
   );
 
   my $root = $arg->{root};
-  my ($sequence) = $config_class->new->read_config( $root->file('dist') );
 
-  return $sequence;
+  require Dist::Zilla::MVP::Assembler::Zilla;
+  require Dist::Zilla::MVP::Section;
+  my $assembler = Dist::Zilla::MVP::Assembler::Zilla->new({
+    chrome        => $arg->{chrome},
+    zilla_class   => $class,
+    section_class => 'Dist::Zilla::MVP::Section', # make this DZMA default
+  });
+
+  for ($assembler->sequence->section_named('_')) {
+    $_->add_value(chrome => $arg->{chrome});
+    $_->add_value(root   => $arg->{root});
+    $_->add_value(_global_stashes => $arg->{_global_stashes})
+      if $arg->{_global_stashes};
+  }
+
+  my $seq = $config_class->read_config(
+    $root->file('dist'),
+    {
+      assembler => $assembler
+    },
+  );
+
+  return $seq;
 }
 
 
@@ -835,12 +852,6 @@ has logger => (
   },
 );
 
-sub BUILD {
-  my ($self, $arg) = @_;
-
-  $self->_initialize_license($arg->{license});
-}
-
 around dump_config => sub {
   my ($orig, $self) = @_;
   my $config = $self->$orig;
@@ -848,31 +859,25 @@ around dump_config => sub {
   return $config;
 };
 
-sub _global_config {
-  my ($self) = @_;
+has _local_stashes => (
+  is   => 'ro',
+  isa  => HashRef[ Object ],
+  lazy => 1,
+  default => sub { {} },
+);
 
-  my $homedir = File::HomeDir->my_home
-    or Carp::croak("couldn't determine home directory");
+has _global_stashes => (
+  is   => 'ro',
+  isa  => HashRef[ Object ],
+  lazy => 1,
+  default => sub { {} },
+);
 
-  my $file = dir($homedir)->file('.dzil');
-  return unless -e $file and -d $file;
+sub stash_named {
+  my ($self, $name) = @_;
 
-  return Dist::Zilla::Config::Finder->new->read_config(
-    dir($homedir)->subdir('.dzil')->file('config')
-  );
-}
-
-sub _global_config_for {
-  my ($self, $plugin_class) = @_;
-
-  return {} unless my $global_config = $self->_global_config;
-
-  my ($section) = grep { ($_->package||'') eq $plugin_class }
-                  $global_config->sections;
-
-  return {} unless $section;
-
-  return $section->payload;
+  return $self->_local_stashes->{ $name } if $self->_local_stashes->{$name};
+  return $self->_global_stashes->{ $name };
 }
 
 #####################################
@@ -883,7 +888,8 @@ sub _new_from_profile {
   my ($class, $profile_name, $arg) = @_;
   $arg ||= {};
 
-  my $config_class = $arg->{config_class} ||= 'Dist::Zilla::Config::Finder';
+  my $config_class =
+    $arg->{config_class} ||= 'Dist::Zilla::MVP::Reader::Finder';
   Class::MOP::load_class($config_class);
 
   $arg->{chrome}->logger->log_debug(
@@ -891,57 +897,42 @@ sub _new_from_profile {
     "reading configuration using $config_class"
   );
 
-  my $profile_dir = dir( File::HomeDir->my_home )->subdir(qw(.dzil profiles));
-
-  my $sequence;
-
-  if ($profile_name eq 'default' and ! -e $profile_dir->subdir('default')) {
-    $arg->{chrome}->logger->log_fatal(
-      { prefix => '[DZ] ' },
-      "no default dist minting profile available"
-    );
-  } else {
-    ($sequence) = $config_class->new->read_config(
-      $profile_dir->subdir($profile_name)->file('profile'),
-    );
-  }
-
-  my $self = $class->new({
-    %{ $sequence->section_named('_')->payload },
-    name   => $arg->{name},
-    chrome => $arg->{chrome},
-    root   => $profile_dir->subdir($profile_name),
-    __is_minter => 1,
+  require Dist::Zilla::MVP::Assembler::Zilla;
+  require Dist::Zilla::MVP::Section;
+  my $assembler = Dist::Zilla::MVP::Assembler::Zilla->new({
+    chrome        => $arg->{chrome},
+    zilla_class   => $class,
+    section_class => 'Dist::Zilla::MVP::Section', # make this DZMA default
   });
 
-  for my $section ($sequence->sections) {
-    next if $section->name eq '_';
-
-    my ($name, $plugin_class, $arg) = (
-      $section->name,
-      $section->package,
-      $section->payload,
-    );
-
-    $self->log_fatal("$name arguments attempted to override plugin name")
-      if defined $arg->{plugin_name};
-
-    $self->log_fatal("$name arguments attempted to override plugin name")
-      if defined $arg->{zilla};
-
-    my $plugin = $plugin_class->new(
-      $arg->merge({
-        plugin_name => $name,
-        zilla       => $self,
-      }),
-    );
-
-    my $version = $plugin->VERSION || 0;
-
-    $plugin->log_debug([ 'online, %s v%s', $plugin->meta->name, $version ]);
-
-    $self->plugins->push($plugin);
+  for ($assembler->sequence->section_named('_')) {
+    $_->add_value(name   => $arg->{name});
+    $_->add_value(chrome => $arg->{chrome});
+    $_->add_value(__is_minter => 1);
+    $_->add_value(_global_stashes => $arg->{_global_stashes})
+      if $arg->{_global_stashes};
   }
+
+  my $profile_dir = dir( File::HomeDir->my_home )->subdir(qw(.dzil profiles));
+
+  my $seq;
+
+  if ($profile_name eq 'default' and ! -e $profile_dir->subdir('default')) {
+    $profile_dir = dir( File::ShareDir::dist_dir('Dist-Zilla') )
+                 ->subdir('profiles');
+  }
+
+  $assembler->sequence->section_named('_')->add_value(
+    root => $profile_dir->subdir($profile_name)
+  );
+  $seq = $config_class->read_config(
+    $profile_dir->subdir($profile_name)->file('profile'),
+    {
+      assembler => $assembler
+    },
+  );
+
+  my $self = $seq->section_named('_')->zilla;
 
   $self->_setup_default_plugins;
 
@@ -1023,7 +1014,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 3.101520
+version 4.101540
 
 =head1 DESCRIPTION
 
@@ -1065,15 +1056,6 @@ distribution.  This may change!
 You can override the default by specifying the file path explicitly,
 ie:
     main_module = lib/Foo/Bar.pm
-
-=head2 copyright_holder
-
-This is the name of the legal entity who holds the copyright on this code.
-This is a required attribute with no default!
-
-=head2 copyright_year
-
-This is the year of copyright for the dist.  By default, it's this year.
 
 =head2 license
 
@@ -1166,7 +1148,7 @@ directory.
 Valid arguments are:
 
   config_class - the class to use to read the config
-                 default: Dist::Zilla::Config::Finder
+                 default: Dist::Zilla::MVP::Reader::Finder
 
 =head2 plugin_named
 

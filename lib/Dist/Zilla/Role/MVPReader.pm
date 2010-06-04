@@ -1,27 +1,30 @@
-package Dist::Zilla::Config;
+package Dist::Zilla::Role::MVPReader;
 BEGIN {
-  $Dist::Zilla::Config::VERSION = '3.101520';
+  $Dist::Zilla::Role::MVPReader::VERSION = '4.101540';
 }
 use Moose::Role;
 # ABSTRACT: stored configuration loader role
 
 use Config::MVP 2; # finalization and what not
 
-use Dist::Zilla::Util::MVPAssembler;
+use Dist::Zilla::MVP::Assembler::GlobalConfig;
+use Dist::Zilla::MVP::Assembler::Zilla;
 
+use MooseX::Types::Perl qw(PackageName);
+
+
+has assembler_class => (
+  is  => 'ro',
+  isa => PackageName,
+);
 
 sub build_assembler {
-  my $assembler = Dist::Zilla::Util::MVPAssembler->new;
+  my ($self) = @_;
 
-  my $root = $assembler->section_class->new({
-    name    => '_',
-    aliases => { author => 'authors' },
-    multivalue_args => [ qw(authors) ],
-  });
+  confess "neither assembler nor assembler_class were provided"
+    unless my $assembler_class = $self->assembler_class;
 
-  $assembler->sequence->add_section($root);
-
-  return $assembler;
+  return $assembler_class->new
 }
 
 no Moose::Role;
@@ -32,11 +35,11 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Config - stored configuration loader role
+Dist::Zilla::Role::MVPReader - stored configuration loader role
 
 =head1 VERSION
 
-version 3.101520
+version 4.101540
 
 =head1 DESCRIPTION
 

@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::new;
 BEGIN {
-  $Dist::Zilla::App::Command::new::VERSION = '3.101520';
+  $Dist::Zilla::App::Command::new::VERSION = '4.101540';
 }
 # ABSTRACT: start a new dist
 use Dist::Zilla::App -command;
@@ -46,6 +46,7 @@ sub execute {
     $opt->profile => {
       chrome  => $self->app->chrome,
       name    => $dist,
+      _global_stashes => $self->app->_build_global_stashes,
     },
   );
 
@@ -65,7 +66,7 @@ Dist::Zilla::App::Command::new - start a new dist
 
 =head1 VERSION
 
-version 3.101520
+version 4.101540
 
 =head1 SYNOPSIS
 

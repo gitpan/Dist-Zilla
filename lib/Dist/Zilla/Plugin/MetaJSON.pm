@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaJSON;
 BEGIN {
-  $Dist::Zilla::Plugin::MetaJSON::VERSION = '3.101520';
+  $Dist::Zilla::Plugin::MetaJSON::VERSION = '4.101540';
 }
 # ABSTRACT: produce a META.json
 use Moose;
@@ -60,7 +60,7 @@ Dist::Zilla::Plugin::MetaJSON - produce a META.json
 
 =head1 VERSION
 
-version 3.101520
+version 4.101540
 
 =head1 DESCRIPTION
 
