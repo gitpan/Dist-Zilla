@@ -4,7 +4,7 @@
       "Ricardo SIGNES <rjbs@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.101540",
+   "generated_by" : "Dist::Zilla version 4.101550",
    "license" : "perl_5",
    "meta-spec" : {
       "url" : "http://github.com/dagolden/cpan-meta/",
@@ -30,7 +30,7 @@
             "Archive::Tar" : "0",
             "CPAN::Meta::Converter" : "2.101460",
             "CPAN::Meta::Prereqs" : "2.101390",
-            "CPAN::Uploader" : "0.100660",
+            "CPAN::Uploader" : "0.101550",
             "Carp" : "0",
             "Config" : "0",
             "Config::MVP" : "2",
@@ -44,7 +44,6 @@
             "Data::Dumper" : "0",
             "Data::Section" : "0.004",
             "DateTime" : "0.44",
-            "Dist::Zilla::Config" : "0",
             "ExtUtils::MakeMaker" : "0",
             "ExtUtils::Manifest" : "1.54",
             "File::Copy::Recursive" : "0",
@@ -112,7 +111,7 @@
          "web" : "http://github.com/rjbs/dist-zilla"
       }
    },
-   "version" : "4.101540",
+   "version" : "4.101550",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
@@ -285,7 +284,7 @@
          {
             "class" : "inc::Dist::Zilla::Plugin::VersionBootstrap",
             "name" : "VersionBootstrap",
-            "version" : "4.101540"
+            "version" : "4.101550"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
@@ -313,7 +312,7 @@
          "config" : {
             "is_trial" : 0
          },
-         "version" : "4.101540"
+         "version" : "4.101550"
       }
    }
 }

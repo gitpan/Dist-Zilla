@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::BeforeRelease;
 BEGIN {
-  $Dist::Zilla::Role::BeforeRelease::VERSION = '4.101540';
+  $Dist::Zilla::Role::BeforeRelease::VERSION = '4.101550';
 }
 # ABSTRACT: something that runs before release really begins
 
@@ -21,7 +21,7 @@ Dist::Zilla::Role::BeforeRelease - something that runs before release really beg
 
 =head1 VERSION
 
-version 4.101540
+version 4.101550
 
 =head1 DESCRIPTION
 

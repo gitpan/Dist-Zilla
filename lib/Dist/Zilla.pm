@@ -1,6 +1,6 @@
 package Dist::Zilla;
 BEGIN {
-  $Dist::Zilla::VERSION = '4.101540';
+  $Dist::Zilla::VERSION = '4.101550';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -8,7 +8,7 @@ with 'Dist::Zilla::Role::ConfigDumper';
 
 use Moose::Autobox 0.09; # ->flatten
 use MooseX::LazyRequire;
-use MooseX::Types::Moose qw(ArrayRef Bool HashRef Object);
+use MooseX::Types::Moose qw(ArrayRef Bool HashRef Object Str);
 use MooseX::Types::Perl qw(DistName LaxVersionStr);
 use MooseX::Types::Path::Class qw(Dir File);
 use Moose::Util::TypeConstraints;
@@ -38,7 +38,7 @@ use namespace::autoclean;
 
 has chrome => (
   is  => 'rw',
-  isa => 'Object', # will be does => 'Dist::Zilla::Role::Chrome' when it exists
+  isa => role_type('Dist::Zilla::Role::Chrome'),
   required => 1,
 );
 
@@ -50,8 +50,8 @@ has name => (
 );
 
 
-has version_override => (
-  isa => 'Str',
+has _version_override => (
+  isa => LaxVersionStr,
   is  => 'ro' ,
   init_arg => 'version',
 );
@@ -69,7 +69,7 @@ has version => (
 sub _build_version {
   my ($self) = @_;
 
-  my $version = $self->version_override;
+  my $version = $self->_version_override;
 
   for my $plugin ($self->plugins_with(-VersionProvider)->flatten) {
     next unless defined(my $this_version = $plugin->provide_version);
@@ -112,11 +112,11 @@ has abstract => (
 );
 
 
-has main_module_override => (
+has _main_module_override => (
   isa => 'Str',
   is  => 'ro' ,
-  init_arg => 'main_module',
-  predicate => 'has_main_module_override',
+  init_arg  => 'main_module',
+  predicate => '_has_main_module_override',
 );
 
 has main_module => (
@@ -132,8 +132,8 @@ has main_module => (
     my $file;
     my $guessing = q{};
 
-    if ( $self->has_main_module_override ) {
-       $file = first { $_->name eq $self->main_module_override }
+    if ( $self->_has_main_module_override ) {
+       $file = first { $_->name eq $self->_main_module_override }
                $self->files->flatten;
     } else {
        $guessing = 'guessing '; # We're having to guess
@@ -261,7 +261,7 @@ has _copyright_year => (
 
 has authors => (
   is   => 'ro',
-  isa  => 'ArrayRef[Str]',
+  isa  => ArrayRef[Str],
   lazy => 1,
   required => 1,
   default  => sub { [ $_[0]->copyright_holder ] },
@@ -270,7 +270,7 @@ has authors => (
 
 has files => (
   is   => 'ro',
-  isa  => 'ArrayRef[Dist::Zilla::Role::File]',
+  isa  => ArrayRef[ role_type('Dist::Zilla::Role::File') ],
   lazy => 1,
   init_arg => undef,
   default  => sub { [] },
@@ -328,8 +328,13 @@ sub _build_distmeta {
     abstract => $self->abstract,
     author   => $self->authors,
     license  => $self->license->meta2_name,
-    release_status => ($self->is_trial or $self->version =~ /_/) ? 'testing' : 'stable', # XXX: what about unstable?
-    dynamic_config => 0,
+
+    # XXX: what about unstable?
+    release_status => ($self->is_trial or $self->version =~ /_/)
+                    ? 'testing'
+                    : 'stable',
+
+    dynamic_config => 0, # problematic, I bet -- rjbs, 2010-06-04
     generated_by   => (ref $self)
                     . ' version '
                     . (defined $self->VERSION ? $self->VERSION : '(undef)')
@@ -739,7 +744,7 @@ sub install {
     ## no critic Punctuation
     my $wd = File::pushd::pushd($target);
     my @cmd = $arg->{install_command}
-            ? $arg->{install_command}
+            ? @{ $arg->{install_command} }
             : ($^X => '-MCPAN' =>
                 $^O eq 'MSWin32' ? q{-e"install '.'"} : '-einstall "."');
 
@@ -803,7 +808,7 @@ sub run_in_build {
 
   # The sort below is a cheap hack to get ModuleBuild ahead of
   # ExtUtils::MakeMaker. -- rjbs, 2010-01-05
-  Carp::croak("you can't build without any BuildRunner plugins")
+  $self->log_fatal("you can't build without any BuildRunner plugins")
     unless my @builders =
     $self->plugins_with(-BuildRunner)->sort->reverse->flatten;
 
@@ -872,6 +877,7 @@ has _global_stashes => (
   lazy => 1,
   default => sub { {} },
 );
+
 
 sub stash_named {
   my ($self, $name) = @_;
@@ -1014,7 +1020,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 4.101540
+version 4.101550
 
 =head1 DESCRIPTION
 
@@ -1026,7 +1032,9 @@ authors, and is meant to be run on a repository checkout rather than on
 published, released code, it can do much more than those tools, and is free to
 make much more ludicrous demands in terms of prerequisites.
 
-For more information, see L<Dist::Zilla::Tutorial>.
+If you have access to the web, you can learn more and find an interactive
+tutorial at L<dzil.org|http://dzil.org/>.  If not, try
+L<Dist::Zilla::Tutorial>.
 
 =head1 ATTRIBUTES
 
@@ -1055,12 +1063,15 @@ distribution.  This may change!
 
 You can override the default by specifying the file path explicitly,
 ie:
-    main_module = lib/Foo/Bar.pm
+
+  main_module = lib/Foo/Bar.pm
 
 =head2 license
 
 This is the L<Software::License|Software::License> object for this dist's
-license.  It will be created automatically, if possible, with the
+license and copyright.
+
+It will be created automatically, if possible, with the
 C<copyright_holder> and C<copyright_year> attributes.  If necessary, it will
 try to guess the license from the POD of the dist's main module.
 
@@ -1083,6 +1094,10 @@ This is likely to change at some point in the near future.
 This is an arrayref of objects implementing L<Dist::Zilla::Role::File> that
 will, if left in this arrayref, be built into the dist.
 
+Non-core code should avoid altering this arrayref, but sometimes there is not
+other way to change the list of files.  In the future, the representation used
+for storing files will be changed.
+
 =head2 root
 
 This is the root directory of the dist, as a L<Path::Class::Dir>.  It will
@@ -1097,15 +1112,17 @@ This attribute tells us whether or not the dist will be a trial release.
 This is an arrayref of plugins that have been plugged into this Dist::Zilla
 object.
 
+Non-core code should not alter this arrayref.
+
 =head2 built_in
 
 This is the L<Path::Class::Dir>, if any, in which the dist has been built.
 
 =head2 distmeta
 
-This is a hashref containing the metadata about this distribution that
-will be stored in META.yml or META.json.  You should not alter the
-metadata in this hash; use a MetaProvider plugin instead.
+This is a hashref containing the metadata about this distribution that will be
+stored in META.yml or META.json.  You should not alter the metadata in this
+hash; use a MetaProvider plugin instead.
 
 =head2 prereqs
 
@@ -1144,6 +1161,9 @@ log_fatal
 
 This routine returns a new Zilla from the configuration in the current working
 directory.
+
+This method should not be relied upon, yet.  Its semantics are likely to
+change.
 
 Valid arguments are:
 
@@ -1192,9 +1212,15 @@ for the preposition!
 This method behaves like C<L</build_in>>, but if the dist is already built in
 C<$root> (or the default root, if no root is given), no exception is raised.
 
+=head2 ensure_built_in
+
+This method just calls C<ensure_built_in> with no arguments.  It gets you the
+default behavior without the weird-looking formulation of C<ensure_built_in>
+with no object for the preposition!
+
 =head2 build_archive
 
-  $dist->build_archive;
+  $zilla->build_archive;
 
 This method will ensure that the dist has been built, and will then build a
 tarball of the build directory in the current directory.
@@ -1211,11 +1237,25 @@ by the loaded plugins.
 
 =head2 install
 
+  $zilla->install( \%arg );
+
+This method installs the distribution locally.  The distribution will be built
+in a temporary subdirectory, then the process will change directory to that
+subdir and an installer will be run.
+
+Valid arguments are:
+
+  install_command - the command to run in the subdir to install the dist
+                    default (roughly): $^X -MCPAN -einstall .
+
+                    this argument should be an arrayref
+
 =head2 test
 
   $zilla->test;
 
-This method builds a new copy of the distribution and tests it.
+This method builds a new copy of the distribution and tests it using
+C<L</run_tests_in>>.
 
 =head2 run_tests_in
 
@@ -1230,12 +1270,20 @@ does it clean up C<$directory> afterwards.
 
 =head2 run_in_build
 
-  $zilla->run_in_build(\@cmd);
+  $zilla->run_in_build( \@cmd );
 
 This method makes a temporary directory, builds the distribution there,
 executes the dist's first L<BuildRunner|Dist::Zilla::Role::BuildRunner>, and
 then runs the given command in the build directory.  If the command exits
 non-zero, the directory will be left in place.
+
+=head2 stash_named
+
+  my $stash = $zilla->stash_named( $name );
+
+This method will return the stash with the given name, or undef if none exists.
+It looks for a local stash (for this dist) first, then falls back to a global
+stash (from the user's global configuration).
 
 =head1 SUPPORT
 

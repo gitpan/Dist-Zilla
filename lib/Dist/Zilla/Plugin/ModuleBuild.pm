@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ModuleBuild;
 BEGIN {
-  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '4.101540';
+  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '4.101550';
 }
 # ABSTRACT: build a Build.PL that uses Module::Build
 use List::MoreUtils qw(any uniq);
@@ -106,6 +106,7 @@ sub setup_installer {
     ($self->zilla->_share_dir ? (share_dir => $self->zilla->_share_dir) : ()),
 
     (map {; $_ => $prereqs{$_}->as_string_hash } keys %prereqs),
+    recursive_test_files => 1,
   );
 
   $self->__module_build_args(\%module_build_args);
@@ -171,7 +172,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 4.101540
+version 4.101550
 
 =head1 DESCRIPTION
 

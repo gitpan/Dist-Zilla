@@ -32,7 +32,7 @@ my %WriteMakefileArgs = (
     'Archive::Tar' => '0',
     'CPAN::Meta::Converter' => '2.101460',
     'CPAN::Meta::Prereqs' => '2.101390',
-    'CPAN::Uploader' => '0.100660',
+    'CPAN::Uploader' => '0.101550',
     'Carp' => '0',
     'Config' => '0',
     'Config::MVP' => '2',
@@ -46,7 +46,6 @@ my %WriteMakefileArgs = (
     'Data::Dumper' => '0',
     'Data::Section' => '0.004',
     'DateTime' => '0.44',
-    'Dist::Zilla::Config' => '0',
     'ExtUtils::MakeMaker' => '0',
     'ExtUtils::Manifest' => '1.54',
     'File::Copy::Recursive' => '0',
@@ -96,7 +95,7 @@ my %WriteMakefileArgs = (
     'namespace::autoclean' => '0',
     'version' => '0'
   },
-  'VERSION' => '4.101540',
+  'VERSION' => '4.101550',
   'test' => {
     'TESTS' => 't/*.t t/plugins/*.t'
   }
