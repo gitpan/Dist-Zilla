@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::BeforeArchive;
 BEGIN {
-  $Dist::Zilla::Role::BeforeArchive::VERSION = '4.101570';
+  $Dist::Zilla::Role::BeforeArchive::VERSION = '4.101580';
 }
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
@@ -20,7 +20,7 @@ Dist::Zilla::Role::BeforeArchive - something that runs before the archive file i
 
 =head1 VERSION
 
-version 4.101570
+version 4.101580
 
 =head1 DESCRIPTION
 
