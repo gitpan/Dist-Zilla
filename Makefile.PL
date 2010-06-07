@@ -14,6 +14,7 @@ my %WriteMakefileArgs = (
   'ABSTRACT' => 'distribution builder; installer not included!',
   'AUTHOR' => 'Ricardo SIGNES <rjbs@cpan.org>',
   'BUILD_REQUIRES' => {
+    'Test::Deep' => '0',
     'Test::More' => '0.90'
   },
   'CONFIGURE_REQUIRES' => {
@@ -96,7 +97,7 @@ my %WriteMakefileArgs = (
     'namespace::autoclean' => '0',
     'version' => '0'
   },
-  'VERSION' => '4.101581',
+  'VERSION' => '4.101582',
   'test' => {
     'TESTS' => 't/*.t t/plugins/*.t'
   }

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::UploadToCPAN;
 BEGIN {
-  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '4.101581';
+  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '4.101582';
 }
 # ABSTRACT: upload the dist to CPAN
 use Moose;
@@ -140,7 +140,7 @@ Dist::Zilla::Plugin::UploadToCPAN - upload the dist to CPAN
 
 =head1 VERSION
 
-version 4.101581
+version 4.101582
 
 =head1 SYNOPSIS
 
