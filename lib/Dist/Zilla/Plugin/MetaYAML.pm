@@ -1,13 +1,14 @@
 package Dist::Zilla::Plugin::MetaYAML;
 BEGIN {
-  $Dist::Zilla::Plugin::MetaYAML::VERSION = '4.101550';
+  $Dist::Zilla::Plugin::MetaYAML::VERSION = '4.101570';
 }
 # ABSTRACT: produce a META.yml
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
 
-use CPAN::Meta::Converter 2.101460; # lax url schema validation
+use CPAN::Meta::Converter 2.101550; # improved downconversion
+use CPAN::Meta::Validator 2.101550; # improved downconversion
 use Hash::Merge::Simple ();
 
 
@@ -36,6 +37,15 @@ sub gather_files {
     name => $self->filename,
     code => sub {
       my $distmeta  = $zilla->distmeta;
+
+      my $validator = CPAN::Meta::Validator->new($distmeta);
+
+      unless ($validator->is_valid) {
+        my $msg = "Invalid META structure.  Errors found:\n";
+        $msg .= join( "\n", $validator->errors );
+        $self->log_fatal($msg);
+      }
+
       my $converter = CPAN::Meta::Converter->new($distmeta);
       my $output    = $converter->convert(version => $self->version);
 
@@ -60,7 +70,7 @@ Dist::Zilla::Plugin::MetaYAML - produce a META.yml
 
 =head1 VERSION
 
-version 4.101550
+version 4.101570
 
 =head1 DESCRIPTION
 

@@ -1,10 +1,11 @@
 package Dist::Zilla::MVP::RootSection;
 BEGIN {
-  $Dist::Zilla::MVP::RootSection::VERSION = '4.101550';
+  $Dist::Zilla::MVP::RootSection::VERSION = '4.101570';
 }
 use Moose;
 extends 'Config::MVP::Section';
 # ABSTRACT: a standard section in Dist::Zilla's configuration sequence
+
 
 use MooseX::LazyRequire;
 use MooseX::SetOnce;
@@ -45,7 +46,32 @@ Dist::Zilla::MVP::RootSection - a standard section in Dist::Zilla's configuratio
 
 =head1 VERSION
 
-version 4.101550
+version 4.101570
+
+=head1 DESCRIPTION
+
+This is a subclass of L<Config::MVP::Section>, used as the starting section by
+L<Dist::Zilla::MVP::Assembler::Zilla>.  It has a number of useful defaults, as
+well as a C<zilla> attribute which will, after section finalization, contain a
+Dist::Zilla object with which subsequent plugin sections may register.
+
+Those useful defaults are:
+
+=over 4
+
+=item *
+
+name defaults to _
+
+=item *
+
+aliases defaults to { author => 'authors' }
+
+=item *
+
+multivalue_args defaults to [ 'authors' ]
+
+=back
 
 =head1 AUTHOR
 

@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::install;
 BEGIN {
-  $Dist::Zilla::App::Command::install::VERSION = '4.101550';
+  $Dist::Zilla::App::Command::install::VERSION = '4.101570';
 }
 # ABSTRACT: install your dist
 use Dist::Zilla::App -command;
@@ -36,7 +36,7 @@ Dist::Zilla::App::Command::install - install your dist
 
 =head1 VERSION
 
-version 4.101550
+version 4.101570
 
 =head1 SYNOPSIS
 
@@ -57,9 +57,12 @@ This defines what command to run after building the dist in the dist dir.
 
 Any value that works with L<C<system>|perlfunc/system> is accepted.
 
-If not specified, calls
+If not specified, calls (roughly):
 
     perl -MCPAN -einstall "."
+
+For more information, look at the L<install|Dist::Zilla/install> method in
+Dist::Zilla.
 
 =head1 AUTHOR
 

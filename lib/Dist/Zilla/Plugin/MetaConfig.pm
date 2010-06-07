@@ -1,10 +1,11 @@
 package Dist::Zilla::Plugin::MetaConfig;
 BEGIN {
-  $Dist::Zilla::Plugin::MetaConfig::VERSION = '4.101550';
+  $Dist::Zilla::Plugin::MetaConfig::VERSION = '4.101570';
 }
 # ABSTRACT: summarize Dist::Zilla configuration into distmeta
 use Moose;
 with 'Dist::Zilla::Role::MetaProvider';
+
 
 sub metadata {
   my ($self) = @_;
@@ -48,7 +49,16 @@ Dist::Zilla::Plugin::MetaConfig - summarize Dist::Zilla configuration into distm
 
 =head1 VERSION
 
-version 4.101550
+version 4.101570
+
+=head1 DESCRIPTION
+
+This plugin adds a top-level C<x_Dist_Zilla> key to the
+L<distmeta|Dist::Zilla/distmeta> for the distribution.  It describe the
+Dist::Zilla version used as well as all the plugins used.  Each plugin's name,
+package, and version will be included.  Plugins may augment their
+implementation of the L<Dist::Zilla::Role::ConfigDumper> role methods to add
+more data to this dump.
 
 =head1 AUTHOR
 

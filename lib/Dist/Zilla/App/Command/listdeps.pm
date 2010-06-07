@@ -2,10 +2,11 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::listdeps;
 BEGIN {
-  $Dist::Zilla::App::Command::listdeps::VERSION = '4.101550';
+  $Dist::Zilla::App::Command::listdeps::VERSION = '4.101570';
 }
 use Dist::Zilla::App -command;
 # ABSTRACT: print your distribution's prerequisites
+
 
 use Moose::Autobox;
 use Version::Requirements;
@@ -41,7 +42,6 @@ sub execute {
 
 1;
 
-
 __END__
 =pod
 
@@ -51,7 +51,7 @@ Dist::Zilla::App::Command::listdeps - print your distribution's prerequisites
 
 =head1 VERSION
 
-version 4.101550
+version 4.101570
 
 =head1 SYNOPSIS
 

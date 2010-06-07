@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::clean;
 BEGIN {
-  $Dist::Zilla::App::Command::clean::VERSION = '4.101550';
+  $Dist::Zilla::App::Command::clean::VERSION = '4.101570';
 }
 # ABSTRACT: clean up after build, test, or install
 use Dist::Zilla::App -command;
@@ -29,24 +29,16 @@ Dist::Zilla::App::Command::clean - clean up after build, test, or install
 
 =head1 VERSION
 
-version 4.101550
+version 4.101570
 
 =head1 SYNOPSIS
 
-Removes some files that are created during build, test, and install.
+  dzil clean
 
-    dzil clean
-
-=head1 REMOVED FILES
-
-    ^.build
-    ^<distribution-name>-*
-
-ie:
-
-    removing .build
-    removing Foo-Bar-1.09010
-    removing Foo-Bar-1.09010.tar.gz
+This command removes some files that are created during build, test, and
+install.  It's a very thin layer over the C<L<clean|Dist::Zilla/clean>> method
+on the Dist::Zilla object.  The documentation for that method gives more
+information about the files that will be removed.
 
 =head1 AUTHOR
 

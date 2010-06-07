@@ -1,6 +1,6 @@
 package Dist::Zilla::File::InMemory;
 BEGIN {
-  $Dist::Zilla::File::InMemory::VERSION = '4.101550';
+  $Dist::Zilla::File::InMemory::VERSION = '4.101570';
 }
 # ABSTRACT: a file that you build entirely in memory
 use Moose;
@@ -26,12 +26,13 @@ Dist::Zilla::File::InMemory - a file that you build entirely in memory
 
 =head1 VERSION
 
-version 4.101550
+version 4.101570
 
 =head1 DESCRIPTION
 
 This represents a file created in memory -- it's not much more than a glorified
-string.
+string.  It has a read/write C<content> attribute that holds the octets that
+will be written to disk.
 
 =head1 AUTHOR
 

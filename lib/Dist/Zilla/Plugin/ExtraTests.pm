@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ExtraTests;
 BEGIN {
-  $Dist::Zilla::Plugin::ExtraTests::VERSION = '4.101550';
+  $Dist::Zilla::Plugin::ExtraTests::VERSION = '4.101570';
 }
 # ABSTRACT: rewrite ./xt tests to ./t tests with skips
 use Moose;
@@ -51,7 +51,7 @@ BEGIN {
 }
 |;
 
-  $file->content(join "\n", @lines);
+  $file->content(join "\n", @lines, '');
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -67,7 +67,7 @@ Dist::Zilla::Plugin::ExtraTests - rewrite ./xt tests to ./t tests with skips
 
 =head1 VERSION
 
-version 4.101550
+version 4.101570
 
 =head1 DESCRIPTION
 

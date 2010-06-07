@@ -1,11 +1,11 @@
 use strict;
 use warnings;
-
 package Dist::Zilla::App::Command::run;
 BEGIN {
-  $Dist::Zilla::App::Command::run::VERSION = '4.101550';
+  $Dist::Zilla::App::Command::run::VERSION = '4.101570';
 }
 # ABSTRACT: run stuff in a dir where your dist is built
+
 
 use Dist::Zilla::App -command;
 use Moose::Autobox;
@@ -20,7 +20,7 @@ sub execute {
 
 1;
 
-
+__END__
 =pod
 
 =head1 NAME
@@ -29,7 +29,7 @@ Dist::Zilla::App::Command::run - run stuff in a dir where your dist is built
 
 =head1 VERSION
 
-version 4.101550
+version 4.101570
 
 =head1 SYNOPSIS
 
@@ -40,8 +40,8 @@ version 4.101550
 =head1 DESCRIPTION
 
 This command will build your dist with Dist::Zilla, then build the
-distribution and then run a command in the build directory. It's like
-doing this:
+distribution and then run a command in the build directory.  It's something
+like doing this:
 
   dzil build
   rsync -avp My-Project-version/ .build/
@@ -52,12 +52,11 @@ doing this:
   <your command as defined by rest of params>
 
 Except for the fact it's built directly in a subdir of .build (like
-F<.build/asdf123>).
+F<.build/69105y2>).
 
-A command returning with an non-zero error code will left the build
-directory behind for analysis, and dzil will exit with a non-zero status.
-Otherwise, the build directory will be removed and dzil will exit
-with status zero.
+A command returning with an non-zero error code will left the build directory
+behind for analysis, and C<dzil> will exit with a non-zero status.  Otherwise,
+the build directory will be removed and dzil will exit with status zero.
 
 =head1 AUTHOR
 
@@ -71,7 +70,4 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
 

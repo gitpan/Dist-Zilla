@@ -1,6 +1,6 @@
 package Dist::Zilla::File::FromCode;
 BEGIN {
-  $Dist::Zilla::File::FromCode::VERSION = '4.101550';
+  $Dist::Zilla::File::FromCode::VERSION = '4.101570';
 }
 # ABSTRACT: a file whose content is (re-)built on demand
 use Moose;
@@ -35,12 +35,17 @@ Dist::Zilla::File::FromCode - a file whose content is (re-)built on demand
 
 =head1 VERSION
 
-version 4.101550
+version 4.101570
 
 =head1 DESCRIPTION
 
 This represents a file whose contents will be generated on demand from a
 callback or method name.
+
+It has one attribute, C<code>, which may be a method name (string) or a
+coderef.  When the file's C<content> method is called, the code is used to
+generate the content.  This content is I<not> cached.  It is recomputed every
+time the content is requested.
 
 =head1 AUTHOR
 

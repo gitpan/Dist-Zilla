@@ -1,6 +1,6 @@
 package Dist::Zilla;
 BEGIN {
-  $Dist::Zilla::VERSION = '4.101550';
+  $Dist::Zilla::VERSION = '4.101570';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -191,7 +191,12 @@ sub _build_license {
       $self->main_module->content
     );
 
-    $self->log_fatal("couldn't make a good guess at license") if @guess != 1;
+    if (@guess != 1) {
+      $self->log_fatal(
+        "no license data in config, no %Rights stash,",
+        "couldn't make a good guess at license from Pod; giving up"
+      );
+    }
 
     my $filename = $self->main_module->name;
     $license_class = $guess[0];
@@ -1020,7 +1025,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 4.101550
+version 4.101570
 
 =head1 DESCRIPTION
 
@@ -1234,6 +1239,11 @@ The actual effects of this method (as with most of the methods) is determined
 by the loaded plugins.
 
 =head2 clean
+
+This method removes temporary files and directories suspected to have been
+produced by the Dist::Zilla build process.  Specifically, it deletes the
+F<.build> directory and any entity that starts with the dist name and a hyphen,
+like matching the glob C<Your-Dist-*>.
 
 =head2 install
 
