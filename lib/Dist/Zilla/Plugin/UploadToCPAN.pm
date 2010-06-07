@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::UploadToCPAN;
 BEGIN {
-  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '4.101580';
+  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '4.101581';
 }
 # ABSTRACT: upload the dist to CPAN
 use Moose;
@@ -35,7 +35,7 @@ has credentials_stash => (
 
 has _credentials_stash_obj => (
   is   => 'ro',
-  isa  => maybe_type( role_type('Dist::Zilla::Stash::PAUSE') ),
+  isa  => maybe_type( class_type('Dist::Zilla::Stash::PAUSE') ),
   lazy => 1,
   init_arg => undef,
   default  => sub { $_[0]->zilla->stash_named( $_[0]->credentials_stash ) },
@@ -140,7 +140,7 @@ Dist::Zilla::Plugin::UploadToCPAN - upload the dist to CPAN
 
 =head1 VERSION
 
-version 4.101580
+version 4.101581
 
 =head1 SYNOPSIS
 

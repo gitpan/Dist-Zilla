@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::MVPReader;
 BEGIN {
-  $Dist::Zilla::Role::MVPReader::VERSION = '4.101580';
+  $Dist::Zilla::Role::MVPReader::VERSION = '4.101581';
 }
 use Moose::Role;
 # ABSTRACT: stored configuration loader role
@@ -39,7 +39,7 @@ Dist::Zilla::Role::MVPReader - stored configuration loader role
 
 =head1 VERSION
 
-version 4.101580
+version 4.101581
 
 =head1 DESCRIPTION
 

@@ -8,7 +8,7 @@ configure_requires:
   ExtUtils::MakeMaker: 6.31
   File::ShareDir::Install: 0.03
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.101580, CPAN::Meta::Converter version 2.101550'
+generated_by: 'Dist::Zilla version 4.101581, CPAN::Meta::Converter version 2.101550'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -92,7 +92,7 @@ resources:
   X_mailing_list: http://www.listbox.com/subscribe/?list_id=139292
   homepage: http://dzil.org/
   repository: http://github.com/rjbs/dist-zilla.git
-version: 4.101580
+version: 4.101581
 x_Dist_Zilla:
   plugins:
     -
@@ -230,7 +230,7 @@ x_Dist_Zilla:
     -
       class: inc::Dist::Zilla::Plugin::VersionBootstrap
       name: VersionBootstrap
-      version: 4.101580
+      version: 4.101581
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':InstallModules'
@@ -251,4 +251,4 @@ x_Dist_Zilla:
     class: Dist::Zilla
     config:
       is_trial: 0
-    version: 4.101580
+    version: 4.101581
