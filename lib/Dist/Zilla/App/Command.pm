@@ -1,9 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command;
-BEGIN {
-  $Dist::Zilla::App::Command::VERSION = '4.101582';
-}
+BEGIN { $Dist::Zilla::App::Command::VERSION = '4.101610'; }
 # ABSTRACT: base class for dzil commands
 use App::Cmd::Setup -command;
 use Moose::Autobox;
@@ -29,7 +27,7 @@ Dist::Zilla::App::Command - base class for dzil commands
 
 =head1 VERSION
 
-version 4.101582
+version 4.101610
 
 =head1 METHODS
 

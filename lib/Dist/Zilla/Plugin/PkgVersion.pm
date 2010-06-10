@@ -1,7 +1,5 @@
 package Dist::Zilla::Plugin::PkgVersion;
-BEGIN {
-  $Dist::Zilla::Plugin::PkgVersion::VERSION = '4.101582';
-}
+BEGIN { $Dist::Zilla::Plugin::PkgVersion::VERSION = '4.101610'; }
 # ABSTRACT: add a $VERSION to your packages
 use Moose;
 with(
@@ -75,7 +73,7 @@ sub munge_perl {
     # the \x20 hack is here so that when we scan *this* document we don't find
     # an assignment to version; it shouldn't be needed, but it's been annoying
     # enough in the past that I'm keeping it here until tests are better
-    my $perl = "BEGIN {\n  \$$package\::VERSION\x20=\x20'$version';\n}\n";
+    my $perl = "BEGIN { \$$package\::VERSION\x20=\x20'$version'; }\n";
 
     my $version_doc = PPI::Document->new(\$perl);
     my @children = $version_doc->schildren;
@@ -107,7 +105,7 @@ Dist::Zilla::Plugin::PkgVersion - add a $VERSION to your packages
 
 =head1 VERSION
 
-version 4.101582
+version 4.101610
 
 =head1 DESCRIPTION
 

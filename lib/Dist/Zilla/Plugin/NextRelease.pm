@@ -1,7 +1,5 @@
 package Dist::Zilla::Plugin::NextRelease;
-BEGIN {
-  $Dist::Zilla::Plugin::NextRelease::VERSION = '4.101582';
-}
+BEGIN { $Dist::Zilla::Plugin::NextRelease::VERSION = '4.101610'; }
 # ABSTRACT: update the next release number in your changelog
 
 use Moose;
@@ -86,6 +84,9 @@ sub after_release {
     local $/;
     open my $in_fh, '<', $filename
       or Carp::croak("can't open $filename for reading: $!");
+
+    # Win32
+    binmode $in_fh, ':raw';
     <$in_fh>
   };
 
@@ -101,6 +102,9 @@ sub after_release {
   # and finally rewrite the changelog on disk
   open my $out_fh, '>', $update_fn
     or Carp::croak("can't open $update_fn for writing: $!");
+
+  # Win32.
+  binmode $out_fh, ':raw';
   print $out_fh $content or Carp::croak("error writing to $update_fn: $!");
   close $out_fh or Carp::croak("error closing $update_fn: $!");
 }
@@ -118,7 +122,7 @@ Dist::Zilla::Plugin::NextRelease - update the next release number in your change
 
 =head1 VERSION
 
-version 4.101582
+version 4.101610
 
 =head1 SYNOPSIS
 

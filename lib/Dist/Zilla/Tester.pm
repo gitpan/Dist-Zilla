@@ -1,7 +1,5 @@
 package Dist::Zilla::Tester;
-BEGIN {
-  $Dist::Zilla::Tester::VERSION = '4.101582';
-}
+BEGIN { $Dist::Zilla::Tester::VERSION = '4.101610'; }
 use Moose;
 extends 'Dist::Zilla';
 # ABSTRACT: a testing-enabling stand-in for  Dist::Zilla
@@ -48,6 +46,10 @@ around from_config => sub {
       my $fn = $tempdir->file($name);
       $fn->dir->mkpath;
       open my $fh, '>', $fn;
+
+      # Win32 fix for crlf translation.
+      #   maybe :raw:utf8? -- Kentnl - 2010-06-10
+      binmode $fh, ':raw';
       print { $fh } $content;
       close $fh;
     }
@@ -118,6 +120,9 @@ sub slurp_file {
   return scalar do {
     local $/;
     open my $fh, '<', $self->tempdir->file($filename);
+
+    # Win32.
+    binmode $fh, ':raw';
     <$fh>;
   };
 }
@@ -133,7 +138,7 @@ Dist::Zilla::Tester - a testing-enabling stand-in for  Dist::Zilla
 
 =head1 VERSION
 
-version 4.101582
+version 4.101610
 
 =head1 AUTHOR
 

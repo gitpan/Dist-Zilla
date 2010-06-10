@@ -1,7 +1,5 @@
 package Dist::Zilla::Plugin::TemplateModule;
-BEGIN {
-  $Dist::Zilla::Plugin::TemplateModule::VERSION = '4.101582';
-}
+BEGIN { $Dist::Zilla::Plugin::TemplateModule::VERSION = '4.101610'; }
 # ABSTRACT: a simple module-from-template plugin
 use Moose;
 with qw(Dist::Zilla::Role::ModuleMaker Dist::Zilla::Role::TextTemplate);
@@ -25,6 +23,9 @@ sub make_module {
 
   if ($self->has_template) {
     open my $fh, '<', $self->template;
+
+    # Win32
+    binmode $fh, ':raw';
     $template = do { local $/; <$fh> };
   } else {
     $template = ${ $self->section_data('Module.pm') };
@@ -60,7 +61,7 @@ Dist::Zilla::Plugin::TemplateModule - a simple module-from-template plugin
 
 =head1 VERSION
 
-version 4.101582
+version 4.101610
 
 =head1 DESCRIPTION
 

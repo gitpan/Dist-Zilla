@@ -133,6 +133,7 @@ share/profiles/default/profile.ini
 t/compile.t
 t/lib/Dist/Zilla/Stash/Heap.pm
 t/lib/Test/DZil.pm
+t/noeol.t
 t/plugins/autoprereq.t
 t/plugins/autoversion.t
 t/plugins/confirmrelease.t

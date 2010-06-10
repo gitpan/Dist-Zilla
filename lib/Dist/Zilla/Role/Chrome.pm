@@ -1,7 +1,5 @@
 package Dist::Zilla::Role::Chrome;
-BEGIN {
-  $Dist::Zilla::Role::Chrome::VERSION = '4.101582';
-}
+BEGIN { $Dist::Zilla::Role::Chrome::VERSION = '4.101610'; }
 use Moose::Role;
 # ABSTRACT: something that provides a user interface for Dist::Zilla
 
@@ -18,7 +16,7 @@ Dist::Zilla::Role::Chrome - something that provides a user interface for Dist::Z
 
 =head1 VERSION
 
-version 4.101582
+version 4.101610
 
 =head1 AUTHOR
 
