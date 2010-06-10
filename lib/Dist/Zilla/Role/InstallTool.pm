@@ -1,6 +1,7 @@
 package Dist::Zilla::Role::InstallTool;
-BEGIN { $Dist::Zilla::Role::InstallTool::VERSION = '4.101611'; } $Dist::Zilla::Role::InstallTool::VERSION = $Dist::Zilla::Role::InstallTool::VERSION;
-
+BEGIN {
+  $Dist::Zilla::Role::InstallTool::VERSION = '4.101612';
+}
 # ABSTRACT: something that creates an install program for a dist
 use Moose::Role;
 use Moose::Autobox;
@@ -22,7 +23,7 @@ Dist::Zilla::Role::InstallTool - something that creates an install program for a
 
 =head1 VERSION
 
-version 4.101611
+version 4.101612
 
 =head1 DESCRIPTION
 

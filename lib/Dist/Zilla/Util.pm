@@ -1,8 +1,9 @@
 use strict;
 use warnings;
 package Dist::Zilla::Util;
-BEGIN { $Dist::Zilla::Util::VERSION = '4.101611'; } $Dist::Zilla::Util::VERSION = $Dist::Zilla::Util::VERSION;
-
+BEGIN {
+  $Dist::Zilla::Util::VERSION = '4.101612';
+}
 # ABSTRACT: random snippets of code that Dist::Zilla wants
 
 use String::RewritePrefix 0.002; # better string context behavior
@@ -80,7 +81,7 @@ Dist::Zilla::Util - random snippets of code that Dist::Zilla wants
 
 =head1 VERSION
 
-version 4.101611
+version 4.101612
 
 =head1 METHODS
 

@@ -1,8 +1,9 @@
 use strict;
 use warnings;
 package Dist::Zilla::App;
-BEGIN { $Dist::Zilla::App::VERSION = '4.101611'; } $Dist::Zilla::App::VERSION = $Dist::Zilla::App::VERSION;
-
+BEGIN {
+  $Dist::Zilla::App::VERSION = '4.101612';
+}
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup 0.307 -app; # need ->app in Result of Tester, GLD vers
 
@@ -132,7 +133,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 4.101611
+version 4.101612
 
 =head1 METHODS
 
