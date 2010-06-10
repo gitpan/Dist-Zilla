@@ -1,5 +1,6 @@
 package Dist::Zilla::Role::VersionProvider;
-BEGIN { $Dist::Zilla::Role::VersionProvider::VERSION = '4.101610'; }
+BEGIN { $Dist::Zilla::Role::VersionProvider::VERSION = '4.101611'; } $Dist::Zilla::Role::VersionProvider::VERSION = $Dist::Zilla::Role::VersionProvider::VERSION;
+
 # ABSTRACT: something that provides a version number for the dist
 use Moose::Role;
 
@@ -19,7 +20,7 @@ Dist::Zilla::Role::VersionProvider - something that provides a version number fo
 
 =head1 VERSION
 
-version 4.101610
+version 4.101611
 
 =head1 DESCRIPTION
 

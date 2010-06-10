@@ -1,5 +1,6 @@
 package Dist::Zilla::Plugin::TemplateModule;
-BEGIN { $Dist::Zilla::Plugin::TemplateModule::VERSION = '4.101610'; }
+BEGIN { $Dist::Zilla::Plugin::TemplateModule::VERSION = '4.101611'; } $Dist::Zilla::Plugin::TemplateModule::VERSION = $Dist::Zilla::Plugin::TemplateModule::VERSION;
+
 # ABSTRACT: a simple module-from-template plugin
 use Moose;
 with qw(Dist::Zilla::Role::ModuleMaker Dist::Zilla::Role::TextTemplate);
@@ -61,7 +62,7 @@ Dist::Zilla::Plugin::TemplateModule - a simple module-from-template plugin
 
 =head1 VERSION
 
-version 4.101610
+version 4.101611
 
 =head1 DESCRIPTION
 
