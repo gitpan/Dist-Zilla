@@ -1,17 +1,16 @@
 package Dist::Zilla::Role::ShareDir;
 BEGIN {
-  $Dist::Zilla::Role::ShareDir::VERSION = '4.101612';
+  $Dist::Zilla::Role::ShareDir::VERSION = '4.101740';
 }
+# ABSTRACT: something that picks a directory to install as shared files
 use Moose::Role;
 with 'Dist::Zilla::Role::FileFinder';
-# ABSTRACT: something that picks a directory to install as shared files
 
-sub find_files {
-  my ($self) = @_;
-
-  my $dir = $self->dir;
-  my $files = $self->zilla->files->grep(sub { index($_->name, "$dir/") == 0 });
-}
+# Must return a hashref with any of the keys 'dist' and 'module'.  The 'dist'
+# must be a scalar with a directory to include and 'module' must be a hashref
+# mapping module names to directories to include.  If there are no directories
+# to include, it must return undef.
+requires 'share_dir_map';
 
 1;
 
@@ -24,11 +23,11 @@ Dist::Zilla::Role::ShareDir - something that picks a directory to install as sha
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

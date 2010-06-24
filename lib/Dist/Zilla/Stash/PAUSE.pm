@@ -1,12 +1,16 @@
 package Dist::Zilla::Stash::PAUSE;
 BEGIN {
-  $Dist::Zilla::Stash::PAUSE::VERSION = '4.101612';
+  $Dist::Zilla::Stash::PAUSE::VERSION = '4.101740';
 }
 use Moose;
-with 'Dist::Zilla::Role::Stash';
 # ABSTRACT: a stash of your PAUSE credentials
 
-has user => (
+
+sub mvp_aliases {
+  return { user => 'username' };
+}
+
+has username => (
   is  => 'ro',
   isa => 'Str',
   required => 1,
@@ -18,6 +22,7 @@ has password => (
   required => 1,
 );
 
+with 'Dist::Zilla::Role::Stash::Login';
 1;
 
 __END__
@@ -29,11 +34,16 @@ Dist::Zilla::Stash::PAUSE - a stash of your PAUSE credentials
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
+
+=head1 OVERVIEW
+
+The PAUSE stash is a L<Login|Dist::Zilla::Role::Stash::Login> stash generally
+used for uploading to PAUSE.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

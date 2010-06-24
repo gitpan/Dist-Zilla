@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ShareDir;
 BEGIN {
-  $Dist::Zilla::Plugin::ShareDir::VERSION = '4.101612';
+  $Dist::Zilla::Plugin::ShareDir::VERSION = '4.101740';
 }
 # ABSTRACT: install a directory's contents as "ShareDir" content
 use Moose;
@@ -13,6 +13,21 @@ has dir => (
   isa  => 'Str',
   default => 'share',
 );
+
+sub find_files {
+  my ($self) = @_;
+
+  my $dir = $self->dir;
+  my $files = $self->zilla->files->grep(sub { index($_->name, "$dir/") == 0 });
+}
+
+sub share_dir_map {
+  my ($self) = @_;
+  my $files = $self->find_files;
+  return unless @$files;
+
+  return { dist => $self->dir };
+}
 
 with 'Dist::Zilla::Role::ShareDir';
 __PACKAGE__->meta->make_immutable;
@@ -28,7 +43,7 @@ Dist::Zilla::Plugin::ShareDir - install a directory's contents as "ShareDir" con
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 SYNOPSIS
 
@@ -38,7 +53,7 @@ In your F<dist.ini>:
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

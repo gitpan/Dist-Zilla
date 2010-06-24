@@ -1,12 +1,12 @@
 package Dist::Zilla::Role::Releaser;
 BEGIN {
-  $Dist::Zilla::Role::Releaser::VERSION = '4.101612';
+  $Dist::Zilla::Role::Releaser::VERSION = '4.101740';
 }
 # ABSTRACT: something that makes a release of the dist
 use Moose::Role;
-
-
 with 'Dist::Zilla::Role::Plugin';
+
+
 requires 'release';
 
 no Moose::Role;
@@ -21,7 +21,7 @@ Dist::Zilla::Role::Releaser - something that makes a release of the dist
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 DESCRIPTION
 
@@ -30,7 +30,7 @@ releasing.  It's passed the distribution tarball to be released.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

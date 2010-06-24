@@ -1,14 +1,15 @@
 package Dist::Zilla::Role::FileGatherer;
 BEGIN {
-  $Dist::Zilla::Role::FileGatherer::VERSION = '4.101612';
+  $Dist::Zilla::Role::FileGatherer::VERSION = '4.101740';
 }
-use Moose::Autobox;
 # ABSTRACT: something that gathers files into the distribution
 use Moose::Role;
-
-
 with 'Dist::Zilla::Role::Plugin';
 with 'Dist::Zilla::Role::FileInjector';
+
+use Moose::Autobox;
+
+
 requires 'gather_files';
 
 no Moose::Role;
@@ -23,7 +24,7 @@ Dist::Zilla::Role::FileGatherer - something that gathers files into the distribu
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 DESCRIPTION
 
@@ -32,9 +33,12 @@ L<FileInjector|Dist::Zilla::Role::FileInjector> that runs early in the build
 cycle, finding files to include in the distribution.  It is expected to call
 its C<add_file> method to add one or more files to inclusion.
 
+Plugins implementing FileGatherer must provide a C<gather_files> method, which
+will be called during the build process.
+
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

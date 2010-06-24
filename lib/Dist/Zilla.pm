@@ -1,6 +1,6 @@
 package Dist::Zilla;
 BEGIN {
-  $Dist::Zilla::VERSION = '4.101612';
+  $Dist::Zilla::VERSION = '4.101740';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -18,7 +18,6 @@ use Dist::Zilla::Types qw(License);
 use Archive::Tar;
 use File::Find::Rule;
 use File::pushd ();
-use File::ShareDir ();
 use Hash::Merge::Simple ();
 use List::MoreUtils qw(uniq);
 use List::Util qw(first);
@@ -27,6 +26,7 @@ use Params::Util qw(_HASHLIKE);
 use Path::Class;
 use Software::License 0.101370; # meta2_name
 use String::RewritePrefix;
+use Try::Tiny;
 
 use Dist::Zilla::Prereqs;
 use Dist::Zilla::File::OnDisk;
@@ -269,7 +269,21 @@ has authors => (
   isa  => ArrayRef[Str],
   lazy => 1,
   required => 1,
-  default  => sub { [ $_[0]->copyright_holder ] },
+  default  => sub {
+    my ($self) = @_;
+
+    if (my $stash  = $self->stash_named('%User')) {
+      return $stash->authors;
+    }
+
+    my $author = try { $self->copyright_holder };
+    return [ $author ] if defined $author and length $author;
+
+    $self->log_fatal(
+      "No %User stash and no copyright holder;",
+      "can't determine dist author; configure author or a %User section",
+    );
+  },
 );
 
 
@@ -453,10 +467,21 @@ sub _setup_default_builder_plugins {
       zilla       => $self,
       style       => 'list',
       code        => sub {
-        return [] unless my $dir = $self->zilla->_share_dir;
-        return $self->zilla->files->grep(sub {
-          local $_ = $_->name; m{\A\Q$dir\E/}
-        });
+        my $map = $self->zilla->_share_dir_map;
+        my @files;
+        if ( $map->{dist} ) {
+          push @files, $self->zilla->files->grep(sub {
+            local $_ = $_->name; m{\A\Q$map->{dist}\E/}
+          });
+        }
+        if ( my $mod_map = $map->{module} ) {
+          for my $mod ( keys %$mod_map ) {
+            push @files, $self->zilla->files->grep(sub {
+              local $_ = $_->name; m{\A\Q$mod_map->{$mod}\E/}
+            });
+          }
+        }
+        return \@files;
       },
     });
 
@@ -537,20 +562,38 @@ sub find_files {
   $plugin->find_files;
 }
 
-sub _share_dir {
+has _share_dir_map => (
+  is   => 'ro',
+  isa  => 'HashRef',
+  init_arg  => undef,
+  lazy      => 1,
+  builder   => '_build_share_dir_map',
+);
+
+sub _build_share_dir_map {
   my ($self) = @_;
 
-  my @share_dirs =
-    uniq $self->plugins_with(-ShareDir)->map(sub { $_->dir })->flatten;
+  my $share_dir_map = {};
 
-  $self->log_fatal("can't install more than one ShareDir") if @share_dirs > 1;
+  for my $plugin ( $self->plugins_with(-ShareDir)->flatten ) {
+    next unless my $sub_map = $plugin->share_dir_map;
 
-  return unless defined(my $share_dir = $share_dirs[0]);
+    if ( $sub_map->{dist} ) {
+      $self->log_fatal("can't install more than one distribution ShareDir")
+        if $share_dir_map->{dist};
+      $share_dir_map->{dist} = $sub_map->{dist};
+    }
 
-  return unless grep { $_->name =~ m{\A\Q$share_dir\E/} }
-                $self->files->flatten;
+    if ( my $mod_map = $sub_map->{module} ) {
+      for my $mod ( keys %$mod_map ) {
+        $self->log_fatal("can't install more than one ShareDir for $mod")
+          if $share_dir_map->{module}{$mod};
+        $share_dir_map->{module}{$mod} = $mod_map->{$mod};
+      }
+    }
+  }
 
-  return $share_dirs[0];
+  return $share_dir_map;
 }
 
 
@@ -908,7 +951,7 @@ sub stash_named {
 #####################################
 
 sub _new_from_profile {
-  my ($class, $profile_name, $arg) = @_;
+  my ($class, $profile_data, $arg) = @_;
   $arg ||= {};
 
   my $config_class =
@@ -936,20 +979,18 @@ sub _new_from_profile {
       if $arg->{_global_stashes};
   }
 
-  my $profile_dir = dir( File::HomeDir->my_home )->subdir(qw(.dzil profiles));
-
-  my $seq;
-
-  if ($profile_name eq 'default' and ! -e $profile_dir->subdir('default')) {
-    $profile_dir = dir( File::ShareDir::dist_dir('Dist-Zilla') )
-                 ->subdir('profiles');
-  }
-
-  $assembler->sequence->section_named('_')->add_value(
-    root => $profile_dir->subdir($profile_name)
+  my $module = String::RewritePrefix->rewrite(
+    { '' => 'Dist::Zilla::MintingProfile::', '=', => '' },
+    $profile_data->[0],
   );
-  $seq = $config_class->read_config(
-    $profile_dir->subdir($profile_name)->file('profile'),
+  Class::MOP::load_class($module);
+
+  my $profile_dir = $module->profile_dir($profile_data->[1]);
+
+  $assembler->sequence->section_named('_')->add_value(root => $profile_dir);
+
+  my $seq = $config_class->read_config(
+    $profile_dir->file('profile'),
     {
       assembler => $assembler
     },
@@ -1037,7 +1078,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 DESCRIPTION
 
@@ -1050,7 +1091,7 @@ published, released code, it can do much more than those tools, and is free to
 make much more ludicrous demands in terms of prerequisites.
 
 If you have access to the web, you can learn more and find an interactive
-tutorial at L<dzil.org|http://dzil.org/>.  If not, try
+tutorial at B<L<dzil.org|http://dzil.org/>>.  If not, try
 L<Dist::Zilla::Tutorial>.
 
 =head1 ATTRIBUTES
@@ -1312,13 +1353,16 @@ stash (from the user's global configuration).
 There are usually people on C<irc.perl.org> in C<#distzilla>, even if they're
 idling.
 
+The L<Dist::Zilla website|http://dzil.org/> has several valuable resources for
+learning to use Dist::Zilla.
+
 There is a mailing list to discuss Dist::Zilla.  You can L<join the
 list|http://www.listbox.com/subscribe/?list_id=139292> or L<browse the
 archives|http://listbox.com/member/archive/139292>.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -1,12 +1,12 @@
 package Dist::Zilla::Role::VersionProvider;
 BEGIN {
-  $Dist::Zilla::Role::VersionProvider::VERSION = '4.101612';
+  $Dist::Zilla::Role::VersionProvider::VERSION = '4.101740';
 }
 # ABSTRACT: something that provides a version number for the dist
 use Moose::Role;
-
-
 with 'Dist::Zilla::Role::Plugin';
+
+
 requires 'provide_version';
 
 no Moose::Role;
@@ -21,7 +21,7 @@ Dist::Zilla::Role::VersionProvider - something that provides a version number fo
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 DESCRIPTION
 
@@ -30,11 +30,11 @@ will be called when setting the dist's version.
 
 If a VersionProvider offers a version but one has already been set, an
 exception will be raised.  If C<provides_version> returns undef, it will be
-ignored. 
+ignored.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

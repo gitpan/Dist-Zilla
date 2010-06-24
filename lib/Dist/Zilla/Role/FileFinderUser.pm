@@ -1,9 +1,9 @@
 package Dist::Zilla::Role::FileFinderUser;
 BEGIN {
-  $Dist::Zilla::Role::FileFinderUser::VERSION = '4.101612';
+  $Dist::Zilla::Role::FileFinderUser::VERSION = '4.101740';
 }
-use MooseX::Role::Parameterized;
 # ABSTRACT: something that uses FileFinder plugins
+use MooseX::Role::Parameterized;
 
 parameter finder_arg_names => (
   isa => 'ArrayRef',
@@ -78,11 +78,11 @@ Dist::Zilla::Role::FileFinderUser - something that uses FileFinder plugins
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

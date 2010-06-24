@@ -1,12 +1,12 @@
 package Dist::Zilla::Role::AfterBuild;
 BEGIN {
-  $Dist::Zilla::Role::AfterBuild::VERSION = '4.101612';
+  $Dist::Zilla::Role::AfterBuild::VERSION = '4.101740';
 }
 # ABSTRACT: something that runs after building is mostly complete
 use Moose::Role;
-
-
 with 'Dist::Zilla::Role::Plugin';
+
+
 requires 'after_build';
 
 no Moose::Role;
@@ -21,7 +21,7 @@ Dist::Zilla::Role::AfterBuild - something that runs after building is mostly com
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 DESCRIPTION
 
@@ -33,7 +33,7 @@ data:
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::File;
 BEGIN {
-  $Dist::Zilla::Role::File::VERSION = '4.101612';
+  $Dist::Zilla::Role::File::VERSION = '4.101740';
 }
 # ABSTRACT: something that can act like a file
 use Moose::Role;
@@ -8,8 +8,6 @@ use Moose::Role;
 use Moose::Util::TypeConstraints;
 
 use namespace::autoclean;
-
-requires 'content';
 
 
 has name => (
@@ -36,6 +34,8 @@ has mode => (
   default => 0644,
 );
 
+requires 'content';
+
 no Moose::Role;
 1;
 
@@ -48,7 +48,7 @@ Dist::Zilla::Role::File - something that can act like a file
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 DESCRIPTION
 
@@ -73,7 +73,7 @@ with the usual C<chmod> semantics.  It defaults to 0644.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoPrereq;
 BEGIN {
-  $Dist::Zilla::Plugin::AutoPrereq::VERSION = '4.101612';
+  $Dist::Zilla::Plugin::AutoPrereq::VERSION = '4.101740';
 }
 use Moose;
 with(
@@ -106,7 +106,7 @@ Dist::Zilla::Plugin::AutoPrereq - automatically extract prereqs from your module
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 SYNOPSIS
 
@@ -138,7 +138,7 @@ This plugin was originally contributed by Jerome Quelin.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

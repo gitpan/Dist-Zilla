@@ -1,13 +1,14 @@
 package Dist::Zilla::Role::FileFinder;
 BEGIN {
-  $Dist::Zilla::Role::FileFinder::VERSION = '4.101612';
+  $Dist::Zilla::Role::FileFinder::VERSION = '4.101740';
 }
-use Moose::Autobox;
 # ABSTRACT: something that finds files within the distribution
 use Moose::Role;
-
-
 with 'Dist::Zilla::Role::Plugin';
+
+use Moose::Autobox;
+
+
 requires 'find_files';
 
 no Moose::Role;
@@ -22,7 +23,7 @@ Dist::Zilla::Role::FileFinder - something that finds files within the distributi
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 DESCRIPTION
 
@@ -56,7 +57,7 @@ C<find_files> as the files in the distribution may have changed.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ModuleBuild;
 BEGIN {
-  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '4.101612';
+  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '4.101740';
 }
 # ABSTRACT: build a Build.PL that uses Module::Build
 use List::MoreUtils qw(any uniq);
@@ -103,7 +103,7 @@ sub setup_installer {
     dist_version  => $self->zilla->version,
     dist_author   => [ $self->zilla->authors->flatten ],
     script_files  => \@exe_files,
-    ($self->zilla->_share_dir ? (share_dir => $self->zilla->_share_dir) : ()),
+    ( keys %{$self->zilla->_share_dir_map} ? (share_dir => $self->zilla->_share_dir_map) : ()),
 
     (map {; $_ => $prereqs{$_}->as_string_hash } keys %prereqs),
     recursive_test_files => 1,
@@ -172,7 +172,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 DESCRIPTION
 
@@ -195,7 +195,7 @@ is also added to the Build.PL file.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -2,20 +2,18 @@
 use strict;
 use warnings;
 
- BEGIN { require v5.8.5; } 
+BEGIN { require v5.8.5; }
 
 use ExtUtils::MakeMaker 6.31;
 
 use File::ShareDir::Install;
-install_share "share";
+install_share module => "Dist::Zilla::MintingProfile::Default", "profiles";
 
 
 my %WriteMakefileArgs = (
   'ABSTRACT' => 'distribution builder; installer not included!',
   'AUTHOR' => 'Ricardo SIGNES <rjbs@cpan.org>',
   'BUILD_REQUIRES' => {
-    'File::Find' => '0',
-    'FindBin' => '0',
     'Test::Deep' => '0',
     'Test::More' => '0.90'
   },
@@ -39,7 +37,6 @@ my %WriteMakefileArgs = (
     'CPAN::Uploader' => '0.101550',
     'Carp' => '0',
     'Config' => '0',
-    'Config::MVP' => '2',
     'Config::MVP::Assembler' => '0',
     'Config::MVP::Assembler::WithBundles' => '0',
     'Config::MVP::Reader' => '2.101540',
@@ -99,7 +96,7 @@ my %WriteMakefileArgs = (
     'namespace::autoclean' => '0',
     'version' => '0'
   },
-  'VERSION' => '4.101612',
+  'VERSION' => '4.101740',
   'test' => {
     'TESTS' => 't/*.t t/plugins/*.t'
   }

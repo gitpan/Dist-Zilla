@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::build;
 BEGIN {
-  $Dist::Zilla::App::Command::build::VERSION = '4.101612';
+  $Dist::Zilla::App::Command::build::VERSION = '4.101740';
 }
 # ABSTRACT: build your dist
 use Dist::Zilla::App -command;
@@ -42,7 +42,7 @@ Dist::Zilla::App::Command::build - build your dist
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 SYNOPSIS
 
@@ -81,7 +81,7 @@ necessary, the directory will be created.  An archive will not be created.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

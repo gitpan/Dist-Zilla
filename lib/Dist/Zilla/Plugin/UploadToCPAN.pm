@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::UploadToCPAN;
 BEGIN {
-  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '4.101612';
+  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '4.101740';
 }
 # ABSTRACT: upload the dist to CPAN
 use Moose;
@@ -48,14 +48,18 @@ sub _credential {
   return $stash->$name;
 }
 
-has user => (
+sub mvp_aliases {
+  return { user => 'username' };
+}
+
+has username => (
   is   => 'ro',
   isa  => 'Str',
   lazy => 1,
   required => 1,
   default  => sub {
     my ($self) = @_;
-    return $self->_credential('user') || $self->pause_cfg->{user};
+    return $self->_credential('username') || $self->pause_cfg->{user};
   },
 );
 
@@ -106,12 +110,9 @@ has uploader => (
   default => sub {
     my ($self) = @_;
 
-    my $user     = $self->user;
-    my $password = $self->password;
-
     my $uploader = Dist::Zilla::Plugin::UploadToCPAN::_Uploader->new({
-      user     => $user,
-      password => $password,
+      user     => $self->username,
+      password => $self->password,
     });
 
     $uploader->{'Dist::Zilla'}{plugin} = $self;
@@ -140,7 +141,7 @@ Dist::Zilla::Plugin::UploadToCPAN - upload the dist to CPAN
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 SYNOPSIS
 
@@ -152,7 +153,7 @@ This plugin looks for configuration in your C<dist.ini> or (more
 likely) C<~/.dzil/config.ini>:
 
   [%PAUSE]
-  user     = YOUR-PAUSE-ID
+  username = YOUR-PAUSE-ID
   password = YOUR-PAUSE-PASSWORD
 
 If this configuration does not exist, it can read the configuration from
@@ -163,7 +164,7 @@ C<~/.pause>, in the same format that L<cpan-upload> requires:
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

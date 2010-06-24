@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PodVersion;
 BEGIN {
-  $Dist::Zilla::Plugin::PodVersion::VERSION = '4.101612';
+  $Dist::Zilla::Plugin::PodVersion::VERSION = '4.101740';
 }
 # ABSTRACT: add a VERSION head1 to each Perl document
 use Moose;
@@ -28,7 +28,7 @@ sub munge_pod {
   my ($self, $file) = @_;
 
   my @content = split /\n/, $file->content;
-  
+
   require List::MoreUtils;
   if (List::MoreUtils::any(sub { $_ =~ /^=head1 VERSION\b/ }, @content)) {
     $self->log($file->name . ' already has a VERSION section in POD');
@@ -75,7 +75,7 @@ Dist::Zilla::Plugin::PodVersion - add a VERSION head1 to each Perl document
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 DESCRIPTION
 
@@ -86,7 +86,7 @@ will not be added.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

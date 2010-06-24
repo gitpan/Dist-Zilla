@@ -1,13 +1,13 @@
 package Dist::Zilla::Role::FileMunger;
 BEGIN {
-  $Dist::Zilla::Role::FileMunger::VERSION = '4.101612';
+  $Dist::Zilla::Role::FileMunger::VERSION = '4.101740';
 }
 # ABSTRACT: something that alters a file's destination or content
 use Moose::Role;
+with 'Dist::Zilla::Role::Plugin';
+
 use Moose::Autobox;
 
-
-with 'Dist::Zilla::Role::Plugin';
 
 sub munge_files {
   my ($self) = @_;
@@ -30,7 +30,7 @@ Dist::Zilla::Role::FileMunger - something that alters a file's destination or co
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 DESCRIPTION
 
@@ -44,7 +44,7 @@ written out to the built distribution.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

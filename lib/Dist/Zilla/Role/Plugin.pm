@@ -1,10 +1,9 @@
 package Dist::Zilla::Role::Plugin;
 BEGIN {
-  $Dist::Zilla::Role::Plugin::VERSION = '4.101612';
+  $Dist::Zilla::Role::Plugin::VERSION = '4.101740';
 }
 # ABSTRACT: something that gets plugged in to Dist::Zilla
 use Moose::Role;
-
 with 'Dist::Zilla::Role::ConfigDumper';
 
 use Params::Util qw(_HASHLIKE);
@@ -82,7 +81,7 @@ Dist::Zilla::Role::Plugin - something that gets plugged in to Dist::Zilla
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 DESCRIPTION
 
@@ -109,7 +108,7 @@ L<Dist::Zilla/log> method after including a bit of argument-munging.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::MVP::Assembler::Zilla;
 BEGIN {
-  $Dist::Zilla::MVP::Assembler::Zilla::VERSION = '4.101612';
+  $Dist::Zilla::MVP::Assembler::Zilla::VERSION = '4.101740';
 }
 use Moose;
 extends 'Dist::Zilla::MVP::Assembler';
@@ -33,9 +33,9 @@ sub zilla {
 sub register_stash {
   my ($self, $name, $object) = @_;
   $self->log_fatal("tried to register $name stash entry twice")
-    if $self->zilla->_local_stash->{ $name };
+    if $self->zilla->_local_stashes->{ $name };
 
-  $self->zilla->_local_stash->{ $name } = $object;
+  $self->zilla->_local_stashes->{ $name } = $object;
   return;
 }
 
@@ -51,12 +51,12 @@ Dist::Zilla::MVP::Assembler::Zilla - Dist::Zilla::MVP::Assembler for the Dist::Z
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 OVERVIEW
 
 This is a subclass of L<Dist::Zilla::MVP::Assembler> used when assembling the
-Dist::Zilla object.  
+Dist::Zilla object.
 
 It has a C<zilla_class> attribute, which is used to determine what class of
 Dist::Zilla object to create.  (This isn't very useful now, but will be in the
@@ -82,7 +82,7 @@ is already taken, in which case an exception is raised.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

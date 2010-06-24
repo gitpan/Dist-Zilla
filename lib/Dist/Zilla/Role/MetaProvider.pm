@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::MetaProvider;
 BEGIN {
-  $Dist::Zilla::Role::MetaProvider::VERSION = '4.101612';
+  $Dist::Zilla::Role::MetaProvider::VERSION = '4.101740';
 }
 # ABSTRACT: something that provides metadata (for META.yml/json)
 use Moose::Role;
@@ -21,7 +21,7 @@ Dist::Zilla::Role::MetaProvider - something that provides metadata (for META.yml
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 DESCRIPTION
 
@@ -31,12 +31,13 @@ This role provides data to merge into the distribution metadata.
 
 =head2 metadata
 
-This method returns a hashref of data to be (deeply) merged together with
-pre-existing metadata.
+This method (which must be provided by classes implementing this role)
+returns a hashref of data to be (deeply) merged together with pre-existing
+metadata.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

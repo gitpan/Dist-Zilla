@@ -1,9 +1,9 @@
 package Dist::Zilla::Role::Chrome;
 BEGIN {
-  $Dist::Zilla::Role::Chrome::VERSION = '4.101612';
+  $Dist::Zilla::Role::Chrome::VERSION = '4.101740';
 }
-use Moose::Role;
 # ABSTRACT: something that provides a user interface for Dist::Zilla
+use Moose::Role;
 
 requires 'logger';
 
@@ -18,11 +18,11 @@ Dist::Zilla::Role::Chrome - something that provides a user interface for Dist::Z
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

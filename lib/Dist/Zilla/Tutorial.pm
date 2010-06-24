@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Tutorial;
 BEGIN {
-  $Dist::Zilla::Tutorial::VERSION = '4.101612';
+  $Dist::Zilla::Tutorial::VERSION = '4.101740';
 }
 # ABSTRACT: how to use this "Dist::Zilla" thing
 use Carp ();
@@ -18,7 +18,7 @@ Dist::Zilla::Tutorial - how to use this "Dist::Zilla" thing
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 SYNOPSIS
 
@@ -123,7 +123,7 @@ F<Makefile.PL>.  All the
 L<InstallTool|Dist::Zilla::Role::InstallTool>-performing plugins are used to
 do whatever is needed to make the dist installable.
 
-Everything is just about done.  The files are all written out to disk and the 
+Everything is just about done.  The files are all written out to disk and the
 L<AfterBuild|Dist::Zilla::Role::AfterBuild> plugins do their thing.
 
 =head1 THE GLORIOUS FUTURE
@@ -138,7 +138,7 @@ what your next version number will be before releasing.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

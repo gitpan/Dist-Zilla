@@ -1,6 +1,6 @@
 package Dist::Zilla::PluginBundle::Filter;
 BEGIN {
-  $Dist::Zilla::PluginBundle::Filter::VERSION = '4.101612';
+  $Dist::Zilla::PluginBundle::Filter::VERSION = '4.101740';
 }
 # ABSTRACT: use another bundle, with some plugins removed
 use Moose;
@@ -20,12 +20,12 @@ sub bundle_config {
 
   my $has_filter_args = $section->{payload}->keys->grep(sub { /^-/ })->length;
   for my $key ($section->{payload}->keys->flatten) {
-      my $val = $section->{payload}->{$key};
-      my $target = $has_filter_args && ($key !~ /^-/)
-        ? 'bundle'
-        : 'filter';
-      $key =~ s/^-// if $target eq 'filter';
-      $config->{$target}->{$key} = $val;
+    my $val = $section->{payload}->{$key};
+    my $target = $has_filter_args && ($key !~ /^-/)
+      ? 'bundle'
+      : 'filter';
+    $key =~ s/^-// if $target eq 'filter';
+    $config->{$target}->{$key} = $val;
   }
 
   Carp::croak("no bundle given for bundle filter")
@@ -66,7 +66,7 @@ Dist::Zilla::PluginBundle::Filter - use another bundle, with some plugins remove
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 SYNOPSIS
 
@@ -88,7 +88,7 @@ Options not prefixed with C<-> will be passed to the bundle to be filtered.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

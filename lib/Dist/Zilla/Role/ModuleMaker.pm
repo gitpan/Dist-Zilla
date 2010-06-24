@@ -1,12 +1,15 @@
 package Dist::Zilla::Role::ModuleMaker;
 BEGIN {
-  $Dist::Zilla::Role::ModuleMaker::VERSION = '4.101612';
+  $Dist::Zilla::Role::ModuleMaker::VERSION = '4.101740';
 }
 # ABSTRACT: something that injects module files into the dist
 use Moose::Role;
+with qw(
+  Dist::Zilla::Role::Plugin
+  Dist::Zilla::Role::FileInjector
+);
 
 
-with qw(Dist::Zilla::Role::Plugin Dist::Zilla::Role::FileInjector);
 requires 'make_module';
 
 no Moose::Role;
@@ -21,7 +24,7 @@ Dist::Zilla::Role::ModuleMaker - something that injects module files into the di
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 DESCRIPTION
 
@@ -37,7 +40,7 @@ file for the module being created.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

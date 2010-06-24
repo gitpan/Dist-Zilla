@@ -1,9 +1,9 @@
 package Dist::Zilla::Role::Stash;
 BEGIN {
-  $Dist::Zilla::Role::Stash::VERSION = '4.101612';
+  $Dist::Zilla::Role::Stash::VERSION = '4.101740';
 }
-use Moose::Role;
 # ABSTRACT: something that stores options or data for later reference
+use Moose::Role;
 
 sub register_component {
   my ($class, $name, $arg, $section) = @_;
@@ -34,11 +34,11 @@ Dist::Zilla::Role::Stash - something that stores options or data for later refer
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

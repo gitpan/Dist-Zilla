@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::Prereq;
 BEGIN {
-  $Dist::Zilla::Plugin::Prereq::VERSION = '4.101612';
+  $Dist::Zilla::Plugin::Prereq::VERSION = '4.101740';
 }
 # ABSTRACT: list simple prerequisites
 use Moose;
@@ -15,8 +15,8 @@ sub __from_name {
   # relationship such as C<requires>, C<prefers>, or C<recommends>.  The
 
   my ($phase, $type) = $name =~ /\A
-    (Build|Test|Runtime|Configure)
-    (Requires|Prefers|Recommends)
+    (Build|Test|Runtime|Configure|Develop)
+    (Requires|Recommends|Suggests|Conflicts)
   \z/x;
 
   return ($phase, $type);
@@ -121,7 +121,7 @@ Dist::Zilla::Plugin::Prereq - list simple prerequisites
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 SYNOPSIS
 
@@ -132,15 +132,81 @@ In your F<dist.ini>:
   MRO::Compat = 10
   Sub::Exporter = 0
 
+Which is equivalent to specifying prerequisites for the C<Runtime>
+phase:
+
+  [Prereq / RuntimeRequires]
+  Foo::Bar = 1.002
+  MRO::Compat = 10
+  Sub::Exporter = 0
+
+See L</Phases> for the full list of supported phases.
+
 =head1 DESCRIPTION
 
 This module adds "fixed" prerequisites to your distribution.  These are prereqs
 with a known, fixed minimum version that doens't change based on platform or
 other conditions.
 
+You can specify prerequisites for different phases and kinds of relationships.
+In C<RuntimeRequires>, the phase is Runtime and the relationship is Requires.
+These are described in more detail in the L<CPAN::Meta
+specification|CPAN::Meta::Spec/PREREQUISITES>.
+
+The phases are:
+
+=over 4
+
+=item *
+
+configure
+
+=item *
+
+build
+
+=item *
+
+test
+
+=item *
+
+runtime
+
+=item *
+
+develop
+
+=back
+
+The relationship types are:
+
+=over 4
+
+=item *
+
+requires
+
+=item *
+
+recommends
+
+=item *
+
+suggests
+
+=item *
+
+conflicts
+
+=back
+
+Not all of these phases are useful for all tools, especially tools that only
+understand version 1.x CPAN::Meta files.
+
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

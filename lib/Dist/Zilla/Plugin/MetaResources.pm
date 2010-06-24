@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaResources;
 BEGIN {
-  $Dist::Zilla::Plugin::MetaResources::VERSION = '4.101612';
+  $Dist::Zilla::Plugin::MetaResources::VERSION = '4.101740';
 }
 
 # ABSTRACT: provide arbitrary "resources" for distribution metadata
@@ -64,7 +64,7 @@ Dist::Zilla::Plugin::MetaResources - provide arbitrary "resources" for distribut
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 DESCRIPTION
 
@@ -80,7 +80,7 @@ This plugin adds resources entries to the distribution's metadata.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

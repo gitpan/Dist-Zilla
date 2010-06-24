@@ -1,6 +1,6 @@
 package Dist::Zilla::File::InMemory;
 BEGIN {
-  $Dist::Zilla::File::InMemory::VERSION = '4.101612';
+  $Dist::Zilla::File::InMemory::VERSION = '4.101740';
 }
 # ABSTRACT: a file that you build entirely in memory
 use Moose;
@@ -26,7 +26,7 @@ Dist::Zilla::File::InMemory - a file that you build entirely in memory
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 DESCRIPTION
 
@@ -36,7 +36,7 @@ will be written to disk.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

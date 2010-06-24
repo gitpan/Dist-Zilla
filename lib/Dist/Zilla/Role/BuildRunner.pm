@@ -1,16 +1,16 @@
 package Dist::Zilla::Role::BuildRunner;
 BEGIN {
-  $Dist::Zilla::Role::BuildRunner::VERSION = '4.101612';
+  $Dist::Zilla::Role::BuildRunner::VERSION = '4.101740';
 }
+# ABSTRACT: something used as a delegating agent during 'dzil run'
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
-# ABSTRACT: something used as a delegating agent during 'dzil run'
+
 
 requires 'build';
 
 no Moose::Role;
 1;
-
 
 __END__
 =pod
@@ -21,7 +21,7 @@ Dist::Zilla::Role::BuildRunner - something used as a delegating agent during 'dz
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 DESCRIPTION
 
@@ -36,7 +36,7 @@ This method will throw an exception on failure.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

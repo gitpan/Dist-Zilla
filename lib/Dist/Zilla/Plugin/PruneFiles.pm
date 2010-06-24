@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PruneFiles;
 BEGIN {
-  $Dist::Zilla::Plugin::PruneFiles::VERSION = '4.101612';
+  $Dist::Zilla::Plugin::PruneFiles::VERSION = '4.101740';
 }
 # ABSTRACT: prune arbirary files from the dist
 use Moose;
@@ -47,7 +47,7 @@ Dist::Zilla::Plugin::PruneFiles - prune arbirary files from the dist
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 SYNOPSIS
 
@@ -68,7 +68,7 @@ This is an arrayref of filenames to be pruned from the distribution.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

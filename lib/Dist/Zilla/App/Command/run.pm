@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::run;
 BEGIN {
-  $Dist::Zilla::App::Command::run::VERSION = '4.101612';
+  $Dist::Zilla::App::Command::run::VERSION = '4.101740';
 }
 # ABSTRACT: run stuff in a dir where your dist is built
 
@@ -29,7 +29,7 @@ Dist::Zilla::App::Command::run - run stuff in a dir where your dist is built
 
 =head1 VERSION
 
-version 4.101612
+version 4.101740
 
 =head1 SYNOPSIS
 
@@ -47,7 +47,7 @@ like doing this:
   rsync -avp My-Project-version/ .build/
   cd .build
   perl Makefile.PL            # or perl Build.PL
-  make                        # or ./Build        
+  make                        # or ./Build
   export PERL5LIB=$PWD/blib/lib:$PWD/blib/arch
   <your command as defined by rest of params>
 
@@ -60,7 +60,7 @@ the build directory will be removed and dzil will exit with status zero.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
