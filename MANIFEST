@@ -32,6 +32,7 @@ lib/Dist/Zilla/App/Command/new.pm
 lib/Dist/Zilla/App/Command/nop.pm
 lib/Dist/Zilla/App/Command/release.pm
 lib/Dist/Zilla/App/Command/run.pm
+lib/Dist/Zilla/App/Command/setup.pm
 lib/Dist/Zilla/App/Command/smoke.pm
 lib/Dist/Zilla/App/Command/test.pm
 lib/Dist/Zilla/App/Tester.pm
@@ -136,6 +137,7 @@ lib/Dist/Zilla/Util.pm
 misc/dzil-bash_completion
 misc/dzil_bootstrap
 misc/lib/Dist/Zilla/App/Command/gconf.pm
+misc/lib/Dist/Zilla/App/Command/input.pm
 profiles/default/profile.ini
 t/compile.t
 t/lib/Dist/Zilla/Stash/Heap.pm

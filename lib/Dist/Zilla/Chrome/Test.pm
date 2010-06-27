@@ -1,10 +1,11 @@
 package Dist::Zilla::Chrome::Test;
 BEGIN {
-  $Dist::Zilla::Chrome::Test::VERSION = '4.101740';
+  $Dist::Zilla::Chrome::Test::VERSION = '4.101780';
 }
 use Moose;
 # ABSTRACT: the chrome used by Dist::Zilla::Tester
 
+use Dist::Zilla::Types qw(OneZero);
 use Log::Dispatchouli;
 
 has logger => (
@@ -18,6 +19,30 @@ has logger => (
   }
 );
 
+sub prompt_str {
+  my ($self, $prompt, $arg) = @_;
+  $arg ||= {};
+  my $default = $arg->{default};
+
+  $self->logger->log_fatal("no default response for test prompt_yn")
+    unless defined $default;
+
+  return $default;
+}
+
+sub prompt_yn {
+  my ($self, $prompt, $arg) = @_;
+  $arg ||= {};
+  my $default = $arg->{default};
+
+  $self->logger->log_fatal("no default response for test prompt_yn")
+    unless defined $default;
+
+  return OneZero->coerce($default);
+}
+
+sub prompt_any_key { return }
+
 with 'Dist::Zilla::Role::Chrome';
 1;
 
@@ -30,7 +55,7 @@ Dist::Zilla::Chrome::Test - the chrome used by Dist::Zilla::Tester
 
 =head1 VERSION
 
-version 4.101740
+version 4.101780
 
 =head1 AUTHOR
 

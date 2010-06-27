@@ -1,5 +1,15 @@
 Revision history for Dist-Zilla
 
+4.101780  2010-06-27 14:30:55 America/New_York
+          the Chrome role now requires three input methods: prompt_any_key,
+          prompt_yn, and prompt_str
+
+          Term and Test chrome now implement the required input methods
+
+          ConfirmRelease now uses Chrome to prompt for input
+
+          `dzil setup` added to create a starting config.ini
+
 4.101740  2010-06-23 22:56:51 America/New_York
           fix assembly of local stashes (Jesse Luehrs)
 

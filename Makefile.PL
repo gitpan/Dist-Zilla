@@ -87,6 +87,9 @@ my %WriteMakefileArgs = (
     'String::RewritePrefix' => '0.005',
     'Sub::Exporter' => '0',
     'Sub::Exporter::Util' => '0',
+    'Term::ReadKey' => '0',
+    'Term::ReadLine' => '0',
+    'Term::UI' => '0',
     'Text::Template' => '0',
     'Try::Tiny' => '0',
     'Version::Requirements' => '0.100630',
@@ -96,7 +99,7 @@ my %WriteMakefileArgs = (
     'namespace::autoclean' => '0',
     'version' => '0'
   },
-  'VERSION' => '4.101740',
+  'VERSION' => '4.101780',
   'test' => {
     'TESTS' => 't/*.t t/plugins/*.t'
   }

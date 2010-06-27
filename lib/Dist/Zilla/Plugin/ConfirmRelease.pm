@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ConfirmRelease;
 BEGIN {
-  $Dist::Zilla::Plugin::ConfirmRelease::VERSION = '4.101740';
+  $Dist::Zilla::Plugin::ConfirmRelease::VERSION = '4.101780';
 }
 # ABSTRACT: prompt for confirmation before releasing
 
@@ -12,18 +12,19 @@ with 'Dist::Zilla::Role::BeforeRelease';
 sub before_release {
   my ($self, $tgz) = @_;
 
-  my $prompt =  "\n*** Preparing to upload $tgz to CPAN ***\n\n" .
-                "Do you want to continue the release process? (yes/no)";
+  my $prompt = "*** Preparing to upload $tgz to CPAN ***\n"
+             . "Do you want to continue the release process?";
 
   my $default = exists $ENV{DZIL_CONFIRMRELEASE_DEFAULT}
               ? $ENV{DZIL_CONFIRMRELEASE_DEFAULT}
-              : "no" ;
+              : 0;
 
-  my $answer = ExtUtils::MakeMaker::prompt($prompt, $default);
+  my $confirmed = $self->zilla->chrome->prompt_yn(
+    $prompt,
+    { default => $default }
+  );
 
-  if ($answer !~ /\A(?:y|ye|yes)\z/i) {
-    $self->log_fatal("Aborting release");
-  }
+  $self->log_fatal("Aborting release") unless $confirmed;
 }
 
 no Moose;
@@ -40,7 +41,7 @@ Dist::Zilla::Plugin::ConfirmRelease - prompt for confirmation before releasing
 
 =head1 VERSION
 
-version 4.101740
+version 4.101780
 
 =head1 DESCRIPTION
 
