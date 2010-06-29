@@ -7,16 +7,16 @@ use lib 't/lib';
 use Test::DZil;
 
 {
-  my $tzil = Dist::Zilla::Tester->from_config(
+  my $tzil = Builder->from_config(
     { dist_root => 'corpus/DZT' },
     {
       add_files => {
         'source/dist.ini' => simple_ini(
           'GatherDir',
           'MakeMaker',
-          [ Prereq => { 'Foo::Bar' => '1.20' } ],
-          [ Prereq => BuildRequires => { 'Builder::Bob' => '9.901' } ],
-          [ Prereq => TestRequires  => { 'Test::Deet'   => '7'     } ],
+          [ Prereqs => { 'Foo::Bar' => '1.20' } ],
+          [ Prereqs => BuildRequires => { 'Builder::Bob' => '9.901' } ],
+          [ Prereqs => TestRequires  => { 'Test::Deet'   => '7'     } ],
         ),
       },
     },

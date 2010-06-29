@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ModuleBuild;
 BEGIN {
-  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '4.101780';
+  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '4.101800';
 }
 # ABSTRACT: build a Build.PL that uses Module::Build
 use List::MoreUtils qw(any uniq);
@@ -69,13 +69,8 @@ sub register_prereqs {
   );
 }
 
-sub setup_installer {
-  my ($self, $arg) = @_;
-
-  $self->log_fatal("can't build Build.PL; license has no known META.yml value")
-    unless $self->zilla->license->meta_yml_name;
-
-  (my $name = $self->zilla->name) =~ s/-/::/g;
+sub module_build_args {
+  my ($self) = @_;
 
   my @exe_files =
     $self->zilla->find_files(':ExecFiles')->map(sub { $_->name })->flatten;
@@ -95,7 +90,9 @@ sub setup_installer {
     $prereqs->requirements_for(qw(test requires))
   );
 
-  my %module_build_args = (
+  (my $name = $self->zilla->name) =~ s/-/::/g;
+
+  return {
     module_name   => $name,
     license       => $self->zilla->license->meta_yml_name,
     dist_abstract => $self->zilla->abstract,
@@ -107,12 +104,21 @@ sub setup_installer {
 
     (map {; $_ => $prereqs{$_}->as_string_hash } keys %prereqs),
     recursive_test_files => 1,
-  );
+  };
+}
 
-  $self->__module_build_args(\%module_build_args);
+sub setup_installer {
+  my ($self, $arg) = @_;
+
+  $self->log_fatal("can't build Build.PL; license has no known META.yml value")
+    unless $self->zilla->license->meta_yml_name;
+
+  my $module_build_args = $self->module_build_args;
+
+  $self->__module_build_args($module_build_args);
 
   my $module_build_dumper = Data::Dumper->new(
-    [ \%module_build_args ],
+    [ $module_build_args ],
     [ '*module_build_args' ],
   );
   $module_build_dumper->Sortkeys( 1 );
@@ -172,7 +178,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 4.101780
+version 4.101800
 
 =head1 DESCRIPTION
 

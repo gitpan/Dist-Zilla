@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::new;
 BEGIN {
-  $Dist::Zilla::App::Command::new::VERSION = '4.101780';
+  $Dist::Zilla::App::Command::new::VERSION = '4.101800';
 }
 # ABSTRACT: mint a new dist
 use Dist::Zilla::App -command;
@@ -46,8 +46,8 @@ sub execute {
 
   my $dist = $arg->[0];
 
-  require Dist::Zilla;
-  my $minter = Dist::Zilla->_new_from_profile(
+  require Dist::Zilla::Dist::Minter;
+  my $minter = Dist::Zilla::Dist::Minter->_new_from_profile(
     [ $opt->provider, $opt->profile ],
     {
       chrome  => $self->app->chrome,
@@ -72,7 +72,7 @@ Dist::Zilla::App::Command::new - mint a new dist
 
 =head1 VERSION
 
-version 4.101780
+version 4.101800
 
 =head1 SYNOPSIS
 

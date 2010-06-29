@@ -1,6 +1,6 @@
 package Dist::Zilla;
 BEGIN {
-  $Dist::Zilla::VERSION = '4.101780';
+  $Dist::Zilla::VERSION = '4.101800';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -15,15 +15,10 @@ use Moose::Util::TypeConstraints;
 
 use Dist::Zilla::Types qw(License);
 
-use Archive::Tar;
-use File::Find::Rule;
-use File::pushd ();
 use Hash::Merge::Simple ();
-use List::MoreUtils qw(uniq);
-use List::Util qw(first);
 use Log::Dispatchouli 1.100712; # proxy_loggers, quiet_fatal
-use Params::Util qw(_HASHLIKE);
 use Path::Class;
+use List::Util qw(first);
 use Software::License 0.101370; # meta2_name
 use String::RewritePrefix;
 use Try::Tiny;
@@ -295,6 +290,19 @@ has files => (
   default  => sub { [] },
 );
 
+sub prune_file {
+  my ($self, $file) = @_;
+  my @files = @{ $self->files };
+
+  for my $i (0 .. $#files) {
+    next unless $file == $files[ $i ];
+    splice @{ $self->files }, $i, 1;
+    return;
+  }
+
+  return;
+}
+
 
 has root => (
   is   => 'ro',
@@ -316,13 +324,6 @@ has plugins => (
   isa  => 'ArrayRef[Dist::Zilla::Role::Plugin]',
   init_arg => undef,
   default  => sub { [ ] },
-);
-
-
-has built_in => (
-  is   => 'rw',
-  isa  => Dir,
-  init_arg  => undef,
 );
 
 
@@ -354,7 +355,7 @@ sub _build_distmeta {
                     : 'stable',
 
     dynamic_config => 0, # problematic, I bet -- rjbs, 2010-06-04
-    generated_by   => (ref $self)
+    generated_by   => $self->_metadata_generator_id
                     . ' version '
                     . (defined $self->VERSION ? $self->VERSION : '(undef)')
   };
@@ -365,6 +366,8 @@ sub _build_distmeta {
   return $meta;
 }
 
+sub _metadata_generator_id { 'Dist::Zilla' }
+
 
 has prereqs => (
   is   => 'ro',
@@ -373,162 +376,6 @@ has prereqs => (
   default  => sub { Dist::Zilla::Prereqs->new },
   handles  => [ qw(register_prereqs) ],
 );
-
-
-sub from_config {
-  my ($class, $arg) = @_;
-  $arg ||= {};
-
-  my $root = dir($arg->{dist_root} || '.');
-
-  my $sequence = $class->_load_config({
-    root   => $root,
-    chrome => $arg->{chrome},
-    config_class    => $arg->{config_class},
-    _global_stashes => $arg->{_global_stashes},
-  });
-
-  my $self = $sequence->section_named('_')->zilla;
-
-  $self->_setup_default_plugins;
-
-  return $self;
-}
-
-sub _setup_default_plugins {
-  my ($self) = @_;
-
-  my $infix  = $self->__is_minter ? 'minter' : 'builder';
-  my $method = "_setup_default_$infix\_plugins";
-  $self->$method;
-}
-
-sub _setup_default_minter_plugins {
-  my ($self) = @_;
-
-  unless ($self->plugin_named(':DefaultModuleMaker')) {
-    require Dist::Zilla::Plugin::TemplateModule;
-    my $plugin = Dist::Zilla::Plugin::TemplateModule->new({
-      plugin_name => ':DefaultModuleMaker',
-      zilla       => $self,
-    });
-
-    $self->plugins->push($plugin);
-  }
-}
-
-sub _setup_default_builder_plugins {
-  my ($self) = @_;
-  unless ($self->plugin_named(':InstallModules')) {
-    require Dist::Zilla::Plugin::FinderCode;
-    my $plugin = Dist::Zilla::Plugin::FinderCode->new({
-      plugin_name => ':InstallModules',
-      zilla       => $self,
-      style       => 'grep',
-      code        => sub { local $_ = $_->name; m{\Alib/} and m{\.(pm|pod)$} },
-    });
-
-    $self->plugins->push($plugin);
-  }
-
-  unless ($self->plugin_named(':TestFiles')) {
-    require Dist::Zilla::Plugin::FinderCode;
-    my $plugin = Dist::Zilla::Plugin::FinderCode->new({
-      plugin_name => ':TestFiles',
-      zilla       => $self,
-      style       => 'grep',
-      code        => sub { local $_ = $_->name; m{\At/} },
-    });
-
-    $self->plugins->push($plugin);
-  }
-
-  unless ($self->plugin_named(':ExecFiles')) {
-    require Dist::Zilla::Plugin::FinderCode;
-    my $plugin = Dist::Zilla::Plugin::FinderCode->new({
-      plugin_name => ':ExecFiles',
-      zilla       => $self,
-      style       => 'list',
-      code        => sub {
-        my $plugins = $_[0]->zilla->plugins_with(-ExecFiles);
-        my @files = map {; @{ $_->find_files } } @$plugins;
-
-        return \@files;
-      },
-    });
-
-    $self->plugins->push($plugin);
-  }
-
-  unless ($self->plugin_named(':ShareFiles')) {
-    require Dist::Zilla::Plugin::FinderCode;
-    my $plugin = Dist::Zilla::Plugin::FinderCode->new({
-      plugin_name => ':ShareFiles',
-      zilla       => $self,
-      style       => 'list',
-      code        => sub {
-        my $map = $self->zilla->_share_dir_map;
-        my @files;
-        if ( $map->{dist} ) {
-          push @files, $self->zilla->files->grep(sub {
-            local $_ = $_->name; m{\A\Q$map->{dist}\E/}
-          });
-        }
-        if ( my $mod_map = $map->{module} ) {
-          for my $mod ( keys %$mod_map ) {
-            push @files, $self->zilla->files->grep(sub {
-              local $_ = $_->name; m{\A\Q$mod_map->{$mod}\E/}
-            });
-          }
-        }
-        return \@files;
-      },
-    });
-
-    $self->plugins->push($plugin);
-  }
-}
-
-sub _load_config {
-  my ($class, $arg) = @_;
-  $arg ||= {};
-
-  my $config_class =
-    $arg->{config_class} ||= 'Dist::Zilla::MVP::Reader::Finder';
-
-  Class::MOP::load_class($config_class);
-
-  $arg->{chrome}->logger->log_debug(
-    { prefix => '[DZ] ' },
-    "reading configuration using $config_class"
-  );
-
-  my $root = $arg->{root};
-
-  require Dist::Zilla::MVP::Assembler::Zilla;
-  require Dist::Zilla::MVP::Section;
-  my $assembler = Dist::Zilla::MVP::Assembler::Zilla->new({
-    chrome        => $arg->{chrome},
-    zilla_class   => $class,
-    section_class => 'Dist::Zilla::MVP::Section', # make this DZMA default
-  });
-
-  for ($assembler->sequence->section_named('_')) {
-    $_->add_value(chrome => $arg->{chrome});
-    $_->add_value(root   => $arg->{root});
-    $_->add_value(_global_stashes => $arg->{_global_stashes})
-      if $arg->{_global_stashes};
-  }
-
-  my $seq = $config_class->read_config(
-    $root->file('dist'),
-    {
-      assembler => $assembler
-    },
-  );
-
-  return $seq;
-}
 
 
 sub plugin_named {
@@ -562,138 +409,6 @@ sub find_files {
   $plugin->find_files;
 }
 
-has _share_dir_map => (
-  is   => 'ro',
-  isa  => 'HashRef',
-  init_arg  => undef,
-  lazy      => 1,
-  builder   => '_build_share_dir_map',
-);
-
-sub _build_share_dir_map {
-  my ($self) = @_;
-
-  my $share_dir_map = {};
-
-  for my $plugin ( $self->plugins_with(-ShareDir)->flatten ) {
-    next unless my $sub_map = $plugin->share_dir_map;
-
-    if ( $sub_map->{dist} ) {
-      $self->log_fatal("can't install more than one distribution ShareDir")
-        if $share_dir_map->{dist};
-      $share_dir_map->{dist} = $sub_map->{dist};
-    }
-
-    if ( my $mod_map = $sub_map->{module} ) {
-      for my $mod ( keys %$mod_map ) {
-        $self->log_fatal("can't install more than one ShareDir for $mod")
-          if $share_dir_map->{module}{$mod};
-        $share_dir_map->{module}{$mod} = $mod_map->{$mod};
-      }
-    }
-  }
-
-  return $share_dir_map;
-}
-
-
-sub build { $_[0]->build_in }
-
-sub build_in {
-  my ($self, $root) = @_;
-
-  $self->log_fatal("tried to build with a minter") if $self->__is_minter;
-
-  $self->log_fatal("attempted to build " . $self->name . " a second time")
-    if $self->built_in;
-
-  $_->before_build for $self->plugins_with(-BeforeBuild)->flatten;
-
-  $self->log("beginning to build " . $self->name);
-
-  $_->gather_files     for $self->plugins_with(-FileGatherer)->flatten;
-  $_->prune_files      for $self->plugins_with(-FilePruner)->flatten;
-  $_->munge_files      for $self->plugins_with(-FileMunger)->flatten;
-
-  $_->register_prereqs for $self->plugins_with(-PrereqSource)->flatten;
-
-  $self->prereqs->finalize;
-
-  # Barf if someone has already set up a prereqs entry? -- rjbs, 2010-04-13
-  $self->distmeta->{prereqs} = $self->prereqs->as_string_hash;
-
-  $_->setup_installer for $self->plugins_with(-InstallTool)->flatten;
-
-  $self->_check_dupe_files;
-
-  my $build_root = $self->_prep_build_root($root);
-
-  $self->log("writing " . $self->name . " in $build_root");
-
-  for my $file ($self->files->flatten) {
-    $self->_write_out_file($file, $build_root);
-  }
-
-  $_->after_build({ build_root => $build_root })
-    for $self->plugins_with(-AfterBuild)->flatten;
-
-  $self->built_in($build_root);
-}
-
-
-sub ensure_built {
-  $_[0]->ensure_built_in;
-}
-
-sub ensure_built_in {
-  my ($self, $root) = @_;
-
-  # $root ||= $self->name . q{-} . $self->version;
-  return $self->built_in if $self->built_in and
-    (!$root or ($self->built_in eq $root));
-
-  Carp::croak("dist is already built, but not in $root") if $self->built_in;
-  $self->build_in($root);
-}
-
-
-sub build_archive {
-  my ($self, $file) = @_;
-
-  my $built_in = $self->ensure_built;
-
-  my $archive = Archive::Tar->new;
-
-  $_->before_archive for $self->plugins_with(-BeforeArchive)->flatten;
-
-  my %seen_dir;
-  for my $distfile ($self->files->flatten) {
-    my $in = file($distfile->name)->dir;
-    $archive->add_files( $built_in->subdir($in) ) unless $seen_dir{ $in }++;
-    $archive->add_files( $built_in->file( $distfile->name ) );
-  }
-
-  ## no critic
-  $file ||= file(join(q{},
-    $self->name,
-    '-',
-    $self->version,
-    ($self->is_trial ? '-TRIAL' : ''),
-    '.tar.gz',
-  ));
-
-  # Fix up the CHMOD on the archived files, to inhibit 'withoutworldwritables'
-  # behaviour on win32.
-  for my $f ( $archive->get_files ) {
-    $f->mode( $f->mode & ~022 );
-  }
-
-  $self->log("writing archive to $file");
-  $archive->write("$file", 9);
-
-  return $file;
-}
-
 sub _check_dupe_files {
   my ($self) = @_;
 
@@ -712,21 +427,6 @@ sub _check_dupe_files {
   }
 
   Carp::croak("aborting; duplicate files would be produced");
-}
-
-sub _prep_build_root {
-  my ($self, $build_root) = @_;
-
-  my $default_name = $self->name . q{-} . $self->version;
-  $build_root = dir($build_root || $default_name);
-
-  $build_root->mkpath unless -d $build_root;
-
-  my $dist_root = $self->root;
-
-  $build_root->rmtree if -d $build_root;
-
-  return $build_root;
 }
 
 sub _write_out_file {
@@ -754,156 +454,6 @@ sub _write_out_file {
   print { $out_fh } $file->content;
   close $out_fh or die "error closing $to: $!";
   chmod $file->mode, "$to" or die "couldn't chmod $to: $!";
-}
-
-
-sub release {
-  my $self = shift;
-
-  Carp::croak("you can't release without any Releaser plugins")
-    unless my @releasers = $self->plugins_with(-Releaser)->flatten;
-
-  my $tgz = $self->build_archive;
-
-  # call all plugins implementing BeforeRelease role
-  $_->before_release($tgz) for $self->plugins_with(-BeforeRelease)->flatten;
-
-  # do the actual release
-  $_->release($tgz) for @releasers;
-
-  # call all plugins implementing AfterRelease role
-  $_->after_release($tgz) for $self->plugins_with(-AfterRelease)->flatten;
-}
-
-
-sub clean {
-  my ($self) = @_;
-
-  require File::Path;
-  for my $x (grep { -e } '.build', glob($self->name . '-*')) {
-    $self->log("clean: removing $x");
-    File::Path::rmtree($x);
-  };
-}
-
-
-sub install {
-  my ($self, $arg) = @_;
-  $arg ||= {};
-
-  require File::Temp;
-
-  my $build_root = dir('.build');
-  $build_root->mkpath unless -d $build_root;
-
-  my $target = dir( File::Temp::tempdir(DIR => $build_root) );
-  $self->log("building distribution under $target for installation");
-  $self->ensure_built_in($target);
-
-  eval {
-    ## no critic Punctuation
-    my $wd = File::pushd::pushd($target);
-    my @cmd = $arg->{install_command}
-            ? @{ $arg->{install_command} }
-            : ($^X => '-MCPAN' =>
-                $^O eq 'MSWin32' ? q{-e"install '.'"} : '-einstall "."');
-
-    $self->log_debug([ 'installing via %s', \@cmd ]);
-    system(@cmd) && $self->log_fatal([ "error running %s", \@cmd ]);
-  };
-
-  if ($@) {
-    $self->log($@);
-    $self->log("left failed dist in place at $target");
-  } else {
-    $self->log("all's well; removing $target");
-    $target->rmtree;
-  }
-
-  return;
-}
-
-
-sub test {
-  my ($self) = @_;
-
-  Carp::croak("you can't test without any TestRunner plugins")
-    unless my @testers = $self->plugins_with(-TestRunner)->flatten;
-
-  require File::Temp;
-
-  my $build_root = dir('.build');
-  $build_root->mkpath unless -d $build_root;
-
-  my $target = dir( File::Temp::tempdir(DIR => $build_root) );
-  $self->log("building test distribution under $target");
-
-  local $ENV{AUTHOR_TESTING} = 1;
-  local $ENV{RELEASE_TESTING} = 1;
-
-  $self->ensure_built_in($target);
-
-  my $error = $self->run_tests_in($target);
-
-  $self->log("all's well; removing $target");
-  $target->rmtree;
-}
-
-
-sub run_tests_in {
-  my ($self, $target) = @_;
-
-  Carp::croak("you can't test without any TestRunner plugins")
-    unless my @testers = $self->plugins_with(-TestRunner)->flatten;
-
-  for my $tester (@testers) {
-    my $wd = File::pushd::pushd($target);
-    $tester->test( $target );
-  }
-}
-
-
-sub run_in_build {
-  my ($self, $cmd) = @_;
-
-  # The sort below is a cheap hack to get ModuleBuild ahead of
-  # ExtUtils::MakeMaker. -- rjbs, 2010-01-05
-  $self->log_fatal("you can't build without any BuildRunner plugins")
-    unless my @builders =
-    $self->plugins_with(-BuildRunner)->sort->reverse->flatten;
-
-  require "Config.pm"; # skip autoprereq
-  require File::Temp;
-
-  # dzil-build the dist
-  my $build_root = dir('.build');
-  $build_root->mkpath unless -d $build_root;
-
-  my $target    = dir( File::Temp::tempdir(DIR => $build_root) );
-  my $abstarget = $target->absolute;
-  $self->log("building test distribution under $target");
-
-  $self->ensure_built_in($target);
-
-  # building the dist for real
-  my $ok = eval {
-    my $wd = File::pushd::pushd($target);
-    $builders[0]->build;
-    local $ENV{PERL5LIB} =
-      join $Config::Config{path_sep},
-      map { $abstarget->subdir('blib', $_) } qw{ arch lib };
-    system(@$cmd) and die "error while running: @$cmd";
-    1;
-  };
-
-  if ($ok) {
-    $self->log("all's well; removing $target");
-    $target->rmtree;
-  } else {
-    my $error = $@ || '(unknown error)';
-    $self->log($error);
-    $self->log_fatal("left failed dist in place at $target");
-  }
 }
 
 
@@ -946,126 +496,6 @@ sub stash_named {
   return $self->_global_stashes->{ $name };
 }
 
-#####################################
-## BEGIN DIST MINTING CODE
-#####################################
-
-sub _new_from_profile {
-  my ($class, $profile_data, $arg) = @_;
-  $arg ||= {};
-
-  my $config_class =
-    $arg->{config_class} ||= 'Dist::Zilla::MVP::Reader::Finder';
-  Class::MOP::load_class($config_class);
-
-  $arg->{chrome}->logger->log_debug(
-    { prefix => '[DZ] ' },
-    "reading configuration using $config_class"
-  );
-
-  require Dist::Zilla::MVP::Assembler::Zilla;
-  require Dist::Zilla::MVP::Section;
-  my $assembler = Dist::Zilla::MVP::Assembler::Zilla->new({
-    chrome        => $arg->{chrome},
-    zilla_class   => $class,
-    section_class => 'Dist::Zilla::MVP::Section', # make this DZMA default
-  });
-
-  for ($assembler->sequence->section_named('_')) {
-    $_->add_value(name   => $arg->{name});
-    $_->add_value(chrome => $arg->{chrome});
-    $_->add_value(__is_minter => 1);
-    $_->add_value(_global_stashes => $arg->{_global_stashes})
-      if $arg->{_global_stashes};
-  }
-
-  my $module = String::RewritePrefix->rewrite(
-    { '' => 'Dist::Zilla::MintingProfile::', '=', => '' },
-    $profile_data->[0],
-  );
-  Class::MOP::load_class($module);
-
-  my $profile_dir = $module->profile_dir($profile_data->[1]);
-
-  $assembler->sequence->section_named('_')->add_value(root => $profile_dir);
-
-  my $seq = $config_class->read_config(
-    $profile_dir->file('profile'),
-    {
-      assembler => $assembler
-    },
-  );
-
-  my $self = $seq->section_named('_')->zilla;
-
-  $self->_setup_default_plugins;
-
-  return $self;
-}
-
-# XXX: This is here only because we have not yet broken Zilla into a abstract
-# base class with Minter and Builder subclasses. -- rjbs, 2010-05-03
-has __is_minter => (
-  is  => 'ro',
-  isa => Bool,
-  default => 0,
-);
-
-sub mint_dist {
-  my ($self, $arg) = @_;
-
-  $self->log_fatal("tried to mint with a builder") unless $self->__is_minter;
-
-  my $name = $self->name;
-  my $dir  = dir($name);
-  $self->log_fatal("./$name already exists") if -e $dir;
-
-  $dir = $dir->absolute;
-
-  # XXX: We should have a way to get more than one module name in, and to
-  # supply plugin names for the minter to use. -- rjbs, 2010-05-03
-  my @modules = do {
-    (my $module_name = $name) =~ s/-/::/g;
-    ({ name => $module_name });
-  };
-
-  $self->log("making directory ./$name");
-  $dir->mkpath;
-
-  my $wd = File::pushd::pushd($self->root);
-
-  $_->before_mint  for $self->plugins_with(-BeforeMint)->flatten;
-  $_->gather_files for $self->plugins_with(-FileGatherer)->flatten;
-
-  for my $module (@modules) {
-    my $minter = $self->plugin_named(
-      $module->{minter_name} || ':DefaultModuleMaker'
-    );
-
-    $minter->make_module({ name => $module->{name} })
-  }
-
-  $_->prune_files  for $self->plugins_with(-FilePruner)->flatten;
-  $_->munge_files  for $self->plugins_with(-FileMunger)->flatten;
-
-  $self->_check_dupe_files;
-
-  $self->log("writing files to $dir");
-
-  for my $file ($self->files->flatten) {
-    $self->_write_out_file($file, $dir);
-  }
-
-  $_->after_mint({ mint_root => $dir })
-    for $self->plugins_with(-AfterMint)->flatten;
-
-  $self->log("dist minted in ./$name");
-}
-
-#####################################
-## END DIST MINTING CODE
-#####################################
-
 __PACKAGE__->meta->make_immutable;
 1;
 
@@ -1078,7 +508,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 4.101780
+version 4.101800
 
 =head1 DESCRIPTION
 
@@ -1154,7 +584,7 @@ will, if left in this arrayref, be built into the dist.
 
 Non-core code should avoid altering this arrayref, but sometimes there is not
 other way to change the list of files.  In the future, the representation used
-for storing files will be changed.
+for storing files B<will be changed>.
 
 =head2 root
 
@@ -1170,11 +600,8 @@ This attribute tells us whether or not the dist will be a trial release.
 This is an arrayref of plugins that have been plugged into this Dist::Zilla
 object.
 
-Non-core code should not alter this arrayref.
-
-=head2 built_in
-
-This is the L<Path::Class::Dir>, if any, in which the dist has been built.
+Non-core code B<must not> alter this arrayref.  Public access to this attribute
+B<may go away> in the future.
 
 =head2 distmeta
 
@@ -1213,21 +640,6 @@ log_fatal
 
 =head1 METHODS
 
-=head2 from_config
-
-  my $zilla = Dist::Zilla->from_config(\%arg);
-
-This routine returns a new Zilla from the configuration in the current working
-directory.
-
-This method should not be relied upon, yet.  Its semantics are likely to
-change.
-
-Valid arguments are:
-
-  config_class - the class to use to read the config
-                 default: Dist::Zilla::MVP::Reader::Finder
-
 =head2 plugin_named
 
   my $plugin = $zilla->plugin_named( $plugin_name );
@@ -1248,97 +660,6 @@ This method will look for a
 L<FileFinder|Dist::Zilla::Role::FileFinder>-performing plugin with the given
 name and return the result of calling C<find_files> on it.  If no plugin can be
 found, an exception will be raised.
-
-=head2 build_in
-
-  $zilla->build_in($root);
-
-This method builds the distribution in the given directory.  If no directory
-name is given, it defaults to DistName-Version.  If the distribution has
-already been built, an exception will be thrown.
-
-=head2 build
-
-This method just calls C<build_in> with no arguments.  It gets you the default
-behavior without the weird-looking formulation of C<build_in> with no object
-for the preposition!
-
-=head2 ensure_built_in
-
-  $zilla->ensure_built_in($root);
-
-This method behaves like C<L</build_in>>, but if the dist is already built in
-C<$root> (or the default root, if no root is given), no exception is raised.
-
-=head2 ensure_built_in
-
-This method just calls C<ensure_built_in> with no arguments.  It gets you the
-default behavior without the weird-looking formulation of C<ensure_built_in>
-with no object for the preposition!
-
-=head2 build_archive
-
-  $zilla->build_archive;
-
-This method will ensure that the dist has been built, and will then build a
-tarball of the build directory in the current directory.
-
-=head2 release
-
-  $zilla->release;
-
-This method releases the distribution, probably by uploading it to the CPAN.
-The actual effects of this method (as with most of the methods) is determined
-by the loaded plugins.
-
-=head2 clean
-
-This method removes temporary files and directories suspected to have been
-produced by the Dist::Zilla build process.  Specifically, it deletes the
-F<.build> directory and any entity that starts with the dist name and a hyphen,
-like matching the glob C<Your-Dist-*>.
-
-=head2 install
-
-  $zilla->install( \%arg );
-
-This method installs the distribution locally.  The distribution will be built
-in a temporary subdirectory, then the process will change directory to that
-subdir and an installer will be run.
-
-Valid arguments are:
-
-  install_command - the command to run in the subdir to install the dist
-                    default (roughly): $^X -MCPAN -einstall .
-
-                    this argument should be an arrayref
-
-=head2 test
-
-  $zilla->test;
-
-This method builds a new copy of the distribution and tests it using
-C<L</run_tests_in>>.
-
-=head2 run_tests_in
-
-  my $error = $zilla->run_tests_in($directory);
-
-This method runs the tests in $directory (a Path::Class::Dir), which
-must contain an already-built copy of the distribution.  It will throw an
-exception if there are test failures.
-
-It does I<not> set any of the C<*_TESTING> environment variables, nor
-does it clean up C<$directory> afterwards.
-
-=head2 run_in_build
-
-  $zilla->run_in_build( \@cmd );
-
-This method makes a temporary directory, builds the distribution there,
-executes the dist's first L<BuildRunner|Dist::Zilla::Role::BuildRunner>, and
-then runs the given command in the build directory.  If the command exits
-non-zero, the directory will be left in place.
 
 =head2 stash_named
 

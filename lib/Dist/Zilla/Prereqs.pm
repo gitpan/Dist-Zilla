@@ -1,6 +1,6 @@
 package Dist::Zilla::Prereqs;
 BEGIN {
-  $Dist::Zilla::Prereqs::VERSION = '4.101780';
+  $Dist::Zilla::Prereqs::VERSION = '4.101800';
 }
 # ABSTRACT: the prerequisites of a Dist::Zilla distribution
 use Moose;
@@ -58,7 +58,7 @@ Dist::Zilla::Prereqs - the prerequisites of a Dist::Zilla distribution
 
 =head1 VERSION
 
-version 4.101780
+version 4.101800
 
 =head1 DESCRIPTION
 

@@ -11,7 +11,7 @@ use YAML::Tiny;
 
 {
   # 2.0
-  my $tzil = Dist::Zilla::Tester->from_config(
+  my $tzil = Builder->from_config(
     { dist_root => 'corpus/DZT' },
     {
       add_files => {
@@ -19,10 +19,10 @@ use YAML::Tiny;
           'GatherDir',
           [ MetaResources => HomePage => {homepage => 'http://bana.na/phone'}],
           [ MetaResources => License  => {license  => 'http://b.sd/license' }],
-          [ Prereq   => { 'Foo::Bar' => '1.234' } ],
-          [ Prereq   => RuntimeRecommends => { 'Foo::Bar::Opt' => '1.234' } ],
-          [ Prereq   => BuildRequires     => { 'Test::Foo' => '2.34' } ],
-          [ Prereq   => ConfigureRequires => { 'Build::Foo' => '0.12' } ],
+          [ Prereqs   => { 'Foo::Bar' => '1.234' } ],
+          [ Prereqs   => RuntimeRecommends => { 'Foo::Bar::Opt' => '1.234' } ],
+          [ Prereqs   => BuildRequires     => { 'Test::Foo' => '2.34' } ],
+          [ Prereqs   => ConfigureRequires => { 'Build::Foo' => '0.12' } ],
           'MetaJSON',
           [ MetaYAML => { version => 2 } ],
           'MetaConfig',
@@ -82,7 +82,7 @@ use YAML::Tiny;
 
 {
   # 1.4
-  my $tzil = Dist::Zilla::Tester->from_config(
+  my $tzil = Builder->from_config(
     { dist_root => 'corpus/DZT' },
     {
       add_files => {
@@ -90,10 +90,10 @@ use YAML::Tiny;
           'GatherDir',
           [ MetaResources => HomePage => {homepage => 'http://bana.na/phone'}],
           [ MetaResources => License  => {license  => 'http://b.sd/license' }],
-          [ Prereq   => { 'Foo::Bar' => '1.234' } ],
-          [ Prereq   => RuntimeRecommends => { 'Foo::Bar::Opt' => '1.234' } ],
-          [ Prereq   => BuildRequires     => { 'Test::Foo' => '2.34' } ],
-          [ Prereq   => ConfigureRequires => { 'Build::Foo' => '0.12' } ],
+          [ Prereqs   => { 'Foo::Bar' => '1.234' } ],
+          [ Prereqs   => RuntimeRecommends => { 'Foo::Bar::Opt' => '1.234' } ],
+          [ Prereqs   => BuildRequires     => { 'Test::Foo' => '2.34' } ],
+          [ Prereqs   => ConfigureRequires => { 'Build::Foo' => '0.12' } ],
           [ MetaJSON => { version => 1.4 } ],
           'MetaYAML',
           'MetaConfig',
