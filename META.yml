@@ -97,7 +97,7 @@ resources:
   X_mailing_list: http://www.listbox.com/subscribe/?list_id=139292
   homepage: http://dzil.org/
   repository: http://github.com/rjbs/dist-zilla.git
-version: 4.101801
+version: 4.101810
 x_Dist_Zilla:
   plugins:
     -
@@ -255,7 +255,7 @@ x_Dist_Zilla:
     -
       class: inc::Dist::Zilla::Plugin::VersionBootstrap
       name: VersionBootstrap
-      version: 4.101801
+      version: 4.101810
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':InstallModules'

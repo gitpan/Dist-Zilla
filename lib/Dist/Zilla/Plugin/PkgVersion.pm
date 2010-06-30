@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PkgVersion;
 BEGIN {
-  $Dist::Zilla::Plugin::PkgVersion::VERSION = '4.101801';
+  $Dist::Zilla::Plugin::PkgVersion::VERSION = '4.101810';
 }
 # ABSTRACT: add a $VERSION to your packages
 use Moose;
@@ -107,7 +107,7 @@ Dist::Zilla::Plugin::PkgVersion - add a $VERSION to your packages
 
 =head1 VERSION
 
-version 4.101801
+version 4.101810
 
 =head1 DESCRIPTION
 

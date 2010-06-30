@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::Stash;
 BEGIN {
-  $Dist::Zilla::Role::Stash::VERSION = '4.101801';
+  $Dist::Zilla::Role::Stash::VERSION = '4.101810';
 }
 # ABSTRACT: something that stores options or data for later reference
 use Moose::Role;
@@ -34,7 +34,7 @@ Dist::Zilla::Role::Stash - something that stores options or data for later refer
 
 =head1 VERSION
 
-version 4.101801
+version 4.101810
 
 =head1 AUTHOR
 

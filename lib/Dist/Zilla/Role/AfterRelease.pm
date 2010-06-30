@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::AfterRelease;
 BEGIN {
-  $Dist::Zilla::Role::AfterRelease::VERSION = '4.101801';
+  $Dist::Zilla::Role::AfterRelease::VERSION = '4.101810';
 }
 # ABSTRACT: something that runs after release is mostly complete
 use Moose::Role;
@@ -21,7 +21,7 @@ Dist::Zilla::Role::AfterRelease - something that runs after release is mostly co
 
 =head1 VERSION
 
-version 4.101801
+version 4.101810
 
 =head1 DESCRIPTION
 

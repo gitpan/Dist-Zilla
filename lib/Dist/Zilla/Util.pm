@@ -2,10 +2,12 @@ use strict;
 use warnings;
 package Dist::Zilla::Util;
 BEGIN {
-  $Dist::Zilla::Util::VERSION = '4.101801';
+  $Dist::Zilla::Util::VERSION = '4.101810';
 }
 # ABSTRACT: random snippets of code that Dist::Zilla wants
 
+use File::HomeDir ();
+use Path::Class;
 use String::RewritePrefix 0.002; # better string context behavior
 
 {
@@ -70,6 +72,15 @@ sub expand_config_package_name {
   return $str;
 }
 
+sub _global_config_root {
+  return dir($ENV{DZIL_GLOBAL_CONFIG_ROOT}) if $ENV{DZIL_GLOBAL_CONFIG_ROOT};
+
+  my $homedir = File::HomeDir->my_home
+    or Carp::croak("couldn't determine home directory");
+
+  return dir($homedir)->subdir('.dzil');
+}
+
 1;
 
 __END__
@@ -81,7 +92,7 @@ Dist::Zilla::Util - random snippets of code that Dist::Zilla wants
 
 =head1 VERSION
 
-version 4.101801
+version 4.101810
 
 =head1 METHODS
 
