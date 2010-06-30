@@ -97,7 +97,7 @@ resources:
   X_mailing_list: http://www.listbox.com/subscribe/?list_id=139292
   homepage: http://dzil.org/
   repository: http://github.com/rjbs/dist-zilla.git
-version: 4.101800
+version: 4.101801
 x_Dist_Zilla:
   plugins:
     -
@@ -245,17 +245,17 @@ x_Dist_Zilla:
       name: Prereqs
       version: 4.101800
     -
-      class: Dist::Zilla::Plugin::ClearPrereqs
+      class: Dist::Zilla::Plugin::RemovePrereqs
       config:
-        Dist::Zilla::Plugin::ClearPrereqs:
-          modules_to_clear:
+        Dist::Zilla::Plugin::RemovePrereqs:
+          modules_to_remove:
             - Dist::Zilla::Tester::_Role
-      name: ClearPrereqs
+      name: RemovePrereqs
       version: 4.101800
     -
       class: inc::Dist::Zilla::Plugin::VersionBootstrap
       name: VersionBootstrap
-      version: 4.101800
+      version: 4.101801
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':InstallModules'
@@ -275,5 +275,5 @@ x_Dist_Zilla:
   zilla:
     class: Dist::Zilla::Dist::Builder
     config:
-      is_trial: 1
+      is_trial: 0
     version: 4.101800
