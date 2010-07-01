@@ -1,6 +1,6 @@
 package Dist::Zilla::Tester;
 BEGIN {
-  $Dist::Zilla::Tester::VERSION = '4.101811';
+  $Dist::Zilla::Tester::VERSION = '4.101812';
 }
 use Moose;
 extends 'Dist::Zilla::Dist::Builder';
@@ -34,7 +34,7 @@ sub minter { 'Dist::Zilla::Tester::_Minter' }
 {
   package Dist::Zilla::Tester::_Role;
 BEGIN {
-  $Dist::Zilla::Tester::_Role::VERSION = '4.101811';
+  $Dist::Zilla::Tester::_Role::VERSION = '4.101812';
 }
   use Moose::Role;
 
@@ -80,7 +80,7 @@ BEGIN {
 {
   package Dist::Zilla::Tester::_Builder;
 BEGIN {
-  $Dist::Zilla::Tester::_Builder::VERSION = '4.101811';
+  $Dist::Zilla::Tester::_Builder::VERSION = '4.101812';
 }
   use Moose;
   extends 'Dist::Zilla::Dist::Builder';
@@ -176,7 +176,7 @@ BEGIN {
 {
   package Dist::Zilla::Tester::_Minter;
 BEGIN {
-  $Dist::Zilla::Tester::_Minter::VERSION = '4.101811';
+  $Dist::Zilla::Tester::_Minter::VERSION = '4.101812';
 }
   use Moose;
   extends 'Dist::Zilla::Dist::Minter';
@@ -237,6 +237,8 @@ BEGIN {
 
     local @INC = map {; ref($_) ? $_ : File::Spec->rel2abs($_) } @INC;
 
+    local $ENV{DZIL_GLOBAL_CONFIG_ROOT} = $tester_arg->{global_config_root};
+
     my $global_stashes = $self->_setup_global_config(
       $tester_arg->{global_config_root},
       { chrome => $arg->{chrome} },
@@ -263,7 +265,7 @@ Dist::Zilla::Tester - a testing-enabling stand-in for Dist::Zilla
 
 =head1 VERSION
 
-version 4.101811
+version 4.101812
 
 =head1 AUTHOR
 

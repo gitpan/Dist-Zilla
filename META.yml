@@ -97,7 +97,7 @@ resources:
   X_mailing_list: http://www.listbox.com/subscribe/?list_id=139292
   homepage: http://dzil.org/
   repository: http://github.com/rjbs/dist-zilla.git
-version: 4.101811
+version: 4.101812
 x_Dist_Zilla:
   plugins:
     -
@@ -195,19 +195,19 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Git::Check
       name: '@RJBS/@Git/Check'
-      version: 1.101680
+      version: 1.101801
     -
       class: Dist::Zilla::Plugin::Git::Commit
       name: '@RJBS/@Git/Commit'
-      version: 1.101680
+      version: 1.101801
     -
       class: Dist::Zilla::Plugin::Git::Tag
       name: '@RJBS/@Git/Tag'
-      version: 1.101680
+      version: 1.101801
     -
       class: Dist::Zilla::Plugin::Git::Push
       name: '@RJBS/@Git/Push'
-      version: 1.101680
+      version: 1.101801
     -
       class: Dist::Zilla::Plugin::ModuleShareDirs
       name: ModuleShareDirs
@@ -255,7 +255,7 @@ x_Dist_Zilla:
     -
       class: inc::Dist::Zilla::Plugin::VersionBootstrap
       name: VersionBootstrap
-      version: 4.101811
+      version: 4.101812
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':InstallModules'
