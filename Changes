@@ -1,5 +1,9 @@
 Revision history for Dist-Zilla
 
+4.101831  2010-07-02 18:33:58 America/New_York
+          correctly apply another patch from LA.pm that had been misapplied
+          earlier
+
 4.101830  2010-07-02 10:27:24 America/New_York
           remove the internal-only VersionBootstrap plugin; no longer needed
 
