@@ -121,7 +121,7 @@
       },
       "x_mailing_list" : "http://www.listbox.com/subscribe/?list_id=139292"
    },
-   "version" : "4.101812",
+   "version" : "4.101830",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
@@ -318,11 +318,6 @@
             },
             "name" : "RemovePrereqs",
             "version" : "4.101810"
-         },
-         {
-            "class" : "inc::Dist::Zilla::Plugin::VersionBootstrap",
-            "name" : "VersionBootstrap",
-            "version" : "4.101812"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",

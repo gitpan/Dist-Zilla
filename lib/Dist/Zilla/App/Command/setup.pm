@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::setup;
 BEGIN {
-  $Dist::Zilla::App::Command::setup::VERSION = '4.101812';
+  $Dist::Zilla::App::Command::setup::VERSION = '4.101830';
 }
 # ABSTRACT: set up a basic global config file
 use Dist::Zilla::App -command;
@@ -30,7 +30,7 @@ sub execute {
     my @files = grep { -f and $_->basename =~ /\Aconfig\./ }
     $config_root->children
   ) {
-    $chrome->log_fatal([
+    $chrome->logger->log_fatal([
       "per-user configuration files already exist in %s: %s",
       "$config_root",
       join(q{, }, @files),
@@ -137,7 +137,7 @@ Dist::Zilla::App::Command::setup - set up a basic global config file
 
 =head1 VERSION
 
-version 4.101812
+version 4.101830
 
 =head1 SYNOPSIS
 

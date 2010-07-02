@@ -97,7 +97,7 @@ resources:
   X_mailing_list: http://www.listbox.com/subscribe/?list_id=139292
   homepage: http://dzil.org/
   repository: http://github.com/rjbs/dist-zilla.git
-version: 4.101812
+version: 4.101830
 x_Dist_Zilla:
   plugins:
     -
@@ -252,10 +252,6 @@ x_Dist_Zilla:
             - Dist::Zilla::Tester::_Role
       name: RemovePrereqs
       version: 4.101810
-    -
-      class: inc::Dist::Zilla::Plugin::VersionBootstrap
-      name: VersionBootstrap
-      version: 4.101812
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':InstallModules'

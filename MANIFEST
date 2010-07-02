@@ -21,7 +21,6 @@ corpus/extra/subdir/index.html
 corpus/extra/vader.txt
 corpus/global/config.ini
 dist.ini
-inc/Dist/Zilla/Plugin/VersionBootstrap.pm
 lib/Dist/Zilla.pm
 lib/Dist/Zilla/App.pm
 lib/Dist/Zilla/App/Command.pm
