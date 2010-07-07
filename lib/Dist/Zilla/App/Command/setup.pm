@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::setup;
 BEGIN {
-  $Dist::Zilla::App::Command::setup::VERSION = '4.101831';
+  $Dist::Zilla::App::Command::setup::VERSION = '4.101880';
 }
 # ABSTRACT: set up a basic global config file
 use Dist::Zilla::App -command;
@@ -27,6 +27,8 @@ sub execute {
   my $config_root = Dist::Zilla::Util->_global_config_root;
 
   if (
+    -d $config_root
+    and
     my @files = grep { -f and $_->basename =~ /\Aconfig\./ }
     $config_root->children
   ) {
@@ -137,7 +139,7 @@ Dist::Zilla::App::Command::setup - set up a basic global config file
 
 =head1 VERSION
 
-version 4.101831
+version 4.101880
 
 =head1 SYNOPSIS
 
