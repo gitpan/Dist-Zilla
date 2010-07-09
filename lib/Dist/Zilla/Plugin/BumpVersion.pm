@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::BumpVersion;
 BEGIN {
-  $Dist::Zilla::Plugin::BumpVersion::VERSION = '4.101880';
+  $Dist::Zilla::Plugin::BumpVersion::VERSION = '4.101900';
 }
 # ABSTRACT: bump the configured version number by one before building
 use Moose;
@@ -44,7 +44,7 @@ Dist::Zilla::Plugin::BumpVersion - bump the configured version number by one bef
 
 =head1 VERSION
 
-version 4.101880
+version 4.101900
 
 =head1 SYNOPSIS
 

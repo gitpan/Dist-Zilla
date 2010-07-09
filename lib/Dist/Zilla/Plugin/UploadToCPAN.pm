@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::UploadToCPAN;
 BEGIN {
-  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '4.101880';
+  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '4.101900';
 }
 # ABSTRACT: upload the dist to CPAN
 use Moose;
@@ -103,6 +103,12 @@ has pause_cfg => (
   },
 );
 
+has subdir => (
+    is        => 'ro',
+    isa       => 'Str',
+    predicate => 'has_subdir',
+);
+
 has uploader => (
   is   => 'ro',
   isa  => 'CPAN::Uploader',
@@ -113,6 +119,8 @@ has uploader => (
     my $uploader = Dist::Zilla::Plugin::UploadToCPAN::_Uploader->new({
       user     => $self->username,
       password => $self->password,
+      ($self->has_subdir
+           ? (subdir => $self->subdir) : ()),
     });
 
     $uploader->{'Dist::Zilla'}{plugin} = $self;
@@ -141,7 +149,7 @@ Dist::Zilla::Plugin::UploadToCPAN - upload the dist to CPAN
 
 =head1 VERSION
 
-version 4.101880
+version 4.101900
 
 =head1 SYNOPSIS
 
