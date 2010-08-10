@@ -1,12 +1,12 @@
 package Dist::Zilla::Chrome::Test;
 BEGIN {
-  $Dist::Zilla::Chrome::Test::VERSION = '4.102220';
+  $Dist::Zilla::Chrome::Test::VERSION = '4.102221';
 }
 use Moose;
 # ABSTRACT: the chrome used by Dist::Zilla::Tester
 
 use Dist::Zilla::Types qw(OneZero);
-use Log::Dispatchouli;
+use Log::Dispatchouli 1.102220;
 
 has logger => (
   is => 'ro',
@@ -55,7 +55,7 @@ Dist::Zilla::Chrome::Test - the chrome used by Dist::Zilla::Tester
 
 =head1 VERSION
 
-version 4.102220
+version 4.102221
 
 =head1 AUTHOR
 

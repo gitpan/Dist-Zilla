@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::TextTemplate;
 BEGIN {
-  $Dist::Zilla::Role::TextTemplate::VERSION = '4.102220';
+  $Dist::Zilla::Role::TextTemplate::VERSION = '4.102221';
 }
 # ABSTRACT: something that renders a Text::Template template string
 use Moose::Role;
@@ -26,6 +26,7 @@ sub fill_in_string {
     $string,
     HASH       => $stash,
     DELIMITERS => $self->delim,
+    BROKEN => sub { my %hash = @_; die $hash{error}; },
     %$arg,
   );
 }
@@ -42,7 +43,7 @@ Dist::Zilla::Role::TextTemplate - something that renders a Text::Template templa
 
 =head1 VERSION
 
-version 4.102220
+version 4.102221
 
 =head1 DESCRIPTION
 

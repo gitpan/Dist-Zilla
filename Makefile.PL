@@ -62,7 +62,7 @@ my %WriteMakefileArgs = (
     'JSON' => '2',
     'List::MoreUtils' => '0',
     'List::Util' => '0',
-    'Log::Dispatchouli' => '1.100712',
+    'Log::Dispatchouli' => '1.102220',
     'Moose' => '0.92',
     'Moose::Autobox' => '0.09',
     'Moose::Role' => '0',
@@ -99,7 +99,7 @@ my %WriteMakefileArgs = (
     'namespace::autoclean' => '0',
     'version' => '0'
   },
-  'VERSION' => '4.102220',
+  'VERSION' => '4.102221',
   'test' => {
     'TESTS' => 't/*.t t/plugins/*.t'
   }

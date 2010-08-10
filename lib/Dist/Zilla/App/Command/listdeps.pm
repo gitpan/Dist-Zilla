@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::listdeps;
 BEGIN {
-  $Dist::Zilla::App::Command::listdeps::VERSION = '4.102220';
+  $Dist::Zilla::App::Command::listdeps::VERSION = '4.102221';
 }
 use Dist::Zilla::App -command;
 # ABSTRACT: print your distribution's prerequisites
@@ -16,11 +16,7 @@ sub abstract { "print your distribution's prerequisites" }
 sub execute {
   my ($self, $opt, $arg) = @_;
 
-  # ...more proof that we need a ->mute setting for Log::Dispatchouli.
-  # -- rjbs, 2010-04-29
-  $self->app->chrome->_set_logger(
-    Log::Dispatchouli->new({ ident => 'Dist::Zilla' }),
-  );
+  $self->app->chrome->logger->mute;
 
   $_->before_build for $self->zilla->plugins_with(-BeforeBuild)->flatten;
   $_->gather_files for $self->zilla->plugins_with(-FileGatherer)->flatten;
@@ -51,7 +47,7 @@ Dist::Zilla::App::Command::listdeps - print your distribution's prerequisites
 
 =head1 VERSION
 
-version 4.102220
+version 4.102221
 
 =head1 SYNOPSIS
 
