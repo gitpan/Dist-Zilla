@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::Releaser;
 BEGIN {
-  $Dist::Zilla::Role::Releaser::VERSION = '4.101900';
+  $Dist::Zilla::Role::Releaser::VERSION = '4.102220';
 }
 # ABSTRACT: something that makes a release of the dist
 use Moose::Role;
@@ -21,7 +21,7 @@ Dist::Zilla::Role::Releaser - something that makes a release of the dist
 
 =head1 VERSION
 
-version 4.101900
+version 4.102220
 
 =head1 DESCRIPTION
 
