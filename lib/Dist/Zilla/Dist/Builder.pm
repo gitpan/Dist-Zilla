@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 BEGIN {
-  $Dist::Zilla::Dist::Builder::VERSION = '4.102221';
+  $Dist::Zilla::Dist::Builder::VERSION = '4.102340';
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -264,7 +264,7 @@ sub build_archive {
   $_->before_archive for $self->plugins_with(-BeforeArchive)->flatten;
 
   my %seen_dir;
-  for my $distfile ($self->files->flatten) {
+  for my $distfile (sort { length($a->name) <=> length($b->name) } $self->files->flatten) {
     my $in = file($distfile->name)->dir;
     $archive->add_files( $built_in->subdir($in) ) unless $seen_dir{ $in }++;
     $archive->add_files( $built_in->file( $distfile->name ) );
@@ -441,7 +441,7 @@ sub run_in_build {
     $builders[0]->build;
     local $ENV{PERL5LIB} =
       join $Config::Config{path_sep},
-      map { $abstarget->subdir('blib', $_) } qw{ arch lib };
+      (map { $abstarget->subdir('blib', $_) } qw(arch lib)), $ENV{PERL5LIB};
     system(@$cmd) and die "error while running: @$cmd";
     1;
   };
@@ -468,7 +468,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 4.102221
+version 4.102340
 
 =head1 ATTRIBUTES
 

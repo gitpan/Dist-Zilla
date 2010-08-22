@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PkgDist;
 BEGIN {
-  $Dist::Zilla::Plugin::PkgDist::VERSION = '4.102221';
+  $Dist::Zilla::Plugin::PkgDist::VERSION = '4.102340';
 }
 # ABSTRACT: add a $DIST to your packages
 use Moose;
@@ -106,7 +106,7 @@ Dist::Zilla::Plugin::PkgDist - add a $DIST to your packages
 
 =head1 VERSION
 
-version 4.102221
+version 4.102340
 
 =head1 DESCRIPTION
 
