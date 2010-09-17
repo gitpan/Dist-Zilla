@@ -1,8 +1,8 @@
 package Dist::Zilla::Plugin::BumpVersion;
 BEGIN {
-  $Dist::Zilla::Plugin::BumpVersion::VERSION = '4.102340';
+  $Dist::Zilla::Plugin::BumpVersion::VERSION = '4.102341';
 }
-# ABSTRACT: bump the configured version number by one before building
+# ABSTRACT: (DEPRECATED) bump the version number by one before building
 use Moose;
 with 'Dist::Zilla::Role::BeforeBuild';
 
@@ -28,6 +28,9 @@ sub before_build {
 }
 
 before register_component => sub {
+  die "Dist::Zilla::Plugin::BumpVersion is incompatible with Dist::Zilla >= v5"
+    if Dist::Zilla->VERSION >= 5;
+
   warn "!!! $_[0] will be removed in Dist::Zilla v5; remove it from your config\n";
 };
 
@@ -40,16 +43,16 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Plugin::BumpVersion - bump the configured version number by one before building
+Dist::Zilla::Plugin::BumpVersion - (DEPRECATED) bump the version number by one before building
 
 =head1 VERSION
 
-version 4.102340
+version 4.102341
 
 =head1 SYNOPSIS
 
 B<WARNING>  This plugin is deprecated and will be removed.  It is generally
-useless.
+useless.  It does not do what you think it does.
 
 If loaded, this plugin will ensure that the distribution's version number is
 bumped up by one (in the smallest already-defined version units) before

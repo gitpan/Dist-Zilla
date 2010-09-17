@@ -37,6 +37,7 @@ my %WriteMakefileArgs = (
     'CPAN::Uploader' => '0.101550',
     'Carp' => '0',
     'Config' => '0',
+    'Config::INI::Reader' => '0',
     'Config::MVP::Assembler' => '0',
     'Config::MVP::Assembler::WithBundles' => '0',
     'Config::MVP::Reader' => '2.101540',
@@ -99,7 +100,7 @@ my %WriteMakefileArgs = (
     'namespace::autoclean' => '0',
     'version' => '0'
   },
-  'VERSION' => '4.102340',
+  'VERSION' => '4.102341',
   'test' => {
     'TESTS' => 't/*.t t/plugins/*.t'
   }
