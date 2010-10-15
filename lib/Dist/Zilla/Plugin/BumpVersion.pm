@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::BumpVersion;
 BEGIN {
-  $Dist::Zilla::Plugin::BumpVersion::VERSION = '4.102341';
+  $Dist::Zilla::Plugin::BumpVersion::VERSION = '4.102342';
 }
 # ABSTRACT: (DEPRECATED) bump the version number by one before building
 use Moose;
@@ -28,7 +28,8 @@ sub before_build {
 }
 
 before register_component => sub {
-  die "Dist::Zilla::Plugin::BumpVersion is incompatible with Dist::Zilla >= v5"
+  die "Dist::Zilla::Plugin::BumpVersion is incompatible with Dist::Zilla >=
+  v5\n"
     if Dist::Zilla->VERSION >= 5;
 
   warn "!!! $_[0] will be removed in Dist::Zilla v5; remove it from your config\n";
@@ -47,7 +48,7 @@ Dist::Zilla::Plugin::BumpVersion - (DEPRECATED) bump the version number by one b
 
 =head1 VERSION
 
-version 4.102341
+version 4.102342
 
 =head1 SYNOPSIS
 

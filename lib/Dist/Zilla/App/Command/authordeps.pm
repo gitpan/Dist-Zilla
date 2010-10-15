@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::authordeps;
 BEGIN {
-  $Dist::Zilla::App::Command::authordeps::VERSION = '4.102341';
+  $Dist::Zilla::App::Command::authordeps::VERSION = '4.102342';
 }
 use Dist::Zilla::App -command;
 # ABSTRACT: List your distribution's author dependencies
@@ -20,6 +20,7 @@ sub abstract { "list your distribution's author dependencies" }
 sub opt_spec {
   return (
     [ 'root=s' => 'the root of the dist; defaults to .' ],
+    [ 'missing' => 'list only the missing dependencies' ],
   );
 }
 
@@ -30,6 +31,7 @@ sub execute {
     $self->format_author_deps(
       $self->extract_author_deps(
         dir(defined $opt->root ? $opt->root : '.'),
+        $opt->missing,
       ),
     ),
   );
@@ -43,7 +45,7 @@ sub format_author_deps {
 }
 
 sub extract_author_deps {
-  my ($self, $root) = @_;
+  my ($self, $root, $missing) = @_;
 
   my $ini = $root->file('dist.ini');
 
@@ -57,7 +59,9 @@ sub extract_author_deps {
                       grep { $_ ne '_' }
                       keys %{$config};
 
-  return map {; Dist::Zilla::Util->expand_config_package_name($_) } @sections;
+  return
+    grep { $missing ? (! eval "require $_; 1;") : 1 }
+    map {; Dist::Zilla::Util->expand_config_package_name($_) } @sections;
 }
 
 1;
@@ -71,7 +75,7 @@ Dist::Zilla::App::Command::authordeps - List your distribution's author dependen
 
 =head1 VERSION
 
-version 4.102341
+version 4.102342
 
 =head1 AUTHOR
 

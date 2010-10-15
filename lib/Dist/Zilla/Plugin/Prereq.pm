@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::Prereq;
 BEGIN {
-  $Dist::Zilla::Plugin::Prereq::VERSION = '4.102341';
+  $Dist::Zilla::Plugin::Prereq::VERSION = '4.102342';
 }
 # ABSTRACT: (DEPRECATED) the old name of the Prereqs plugin
 use Moose;
@@ -8,6 +8,9 @@ extends 'Dist::Zilla::Plugin::Prereqs';
 
 
 before register_component => sub {
+  die "[Prereq] is incompatible with Dist::Zilla >= v5; replace it with [Prereqs] (note the
+  's')"
+    if Dist::Zilla->VERSION >= 5;
   warn "!!! [Prereq] will be removed in Dist::Zilla v5; replace it with [Prereqs] (note the 's')\n";
 };
 
@@ -24,7 +27,7 @@ Dist::Zilla::Plugin::Prereq - (DEPRECATED) the old name of the Prereqs plugin
 
 =head1 VERSION
 
-version 4.102341
+version 4.102342
 
 =head1 SYNOPSIS
 

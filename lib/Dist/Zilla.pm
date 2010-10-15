@@ -1,6 +1,6 @@
 package Dist::Zilla;
 BEGIN {
-  $Dist::Zilla::VERSION = '4.102341';
+  $Dist::Zilla::VERSION = '4.102342';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -126,6 +126,7 @@ has main_module => (
 
     my $file;
     my $guessing = q{};
+    my $guess;
 
     if ( $self->_has_main_module_override ) {
        $file = first { $_->name eq $self->_main_module_override }
@@ -133,7 +134,7 @@ has main_module => (
     } else {
        $guessing = 'guessing '; # We're having to guess
 
-       (my $guess = $self->name) =~ s{-}{/}g;
+       ($guess = $self->name) =~ s{-}{/}g;
        $guess = "lib/$guess.pm";
 
        $file = (first { $_->name eq $guess } $self->files->flatten)
@@ -143,8 +144,23 @@ has main_module => (
              ->head;
     }
 
-    $self->log_fatal("Unable to find main_module in dist") unless $file;
+    if ( not $file ){
+        my @errorlines;
 
+        push @errorlines, "Unable to find main_module in the distribution";
+        if ( $self->_has_main_module_override ) {
+            push @errorlines, "'main_module' was specified in dist.ini but the file '" . $self->_main_module_override . "' is not to be found in our dist. ( Did you add it? )";
+        } else {
+            push @errorlines,"We tried to guess '$guess' but no file like that existed";
+        }
+        if ( not $self->files->flatten ) {
+            push @errorlines, "Upon further inspection we didn't find any files in your dist, did you add any?";
+        } elsif ( not $self->files->grep(sub{ $_->name =~ m{\.pm\z} })->head ){
+            push @errorlines, "We didn't find any .pm files in your dist, this is probably a problem.";
+        }
+        push @errorlines,"Cannot continue without a main_module";
+        $self->log_fatal( join qq{\n}, @errorlines );
+    }
     $self->log("${guessing}dist's main_module is " . $file->name);
 
     return $file;
@@ -508,7 +524,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 4.102341
+version 4.102342
 
 =head1 DESCRIPTION
 
