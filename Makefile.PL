@@ -15,7 +15,8 @@ my %WriteMakefileArgs = (
   'AUTHOR' => 'Ricardo SIGNES <rjbs@cpan.org>',
   'BUILD_REQUIRES' => {
     'Test::Deep' => '0',
-    'Test::More' => '0.90'
+    'Test::Fatal' => '0',
+    'Test::More' => '0.96'
   },
   'CONFIGURE_REQUIRES' => {
     'ExtUtils::MakeMaker' => '6.31',
@@ -100,7 +101,7 @@ my %WriteMakefileArgs = (
     'namespace::autoclean' => '0',
     'version' => '0'
   },
-  'VERSION' => '4.102342',
+  'VERSION' => '4.102343',
   'test' => {
     'TESTS' => 't/*.t t/diagnostics/*.t t/plugins/*.t'
   }

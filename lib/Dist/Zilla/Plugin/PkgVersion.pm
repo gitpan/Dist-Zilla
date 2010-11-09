@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PkgVersion;
 BEGIN {
-  $Dist::Zilla::Plugin::PkgVersion::VERSION = '4.102342';
+  $Dist::Zilla::Plugin::PkgVersion::VERSION = '4.102343';
 }
 # ABSTRACT: add a $VERSION to your packages
 use Moose;
@@ -12,6 +12,9 @@ with(
 );
 
 use PPI;
+use MooseX::Types::Perl qw(LaxVersionStr);
+
+use namespace::autoclean;
 
 
 sub munge_files {
@@ -36,7 +39,9 @@ sub munge_perl {
   my ($self, $file) = @_;
 
   my $version = $self->zilla->version;
-  Carp::croak("invalid characters in version") if $version !~ /\A[.0-9_]+\z/;
+
+  Carp::croak("invalid characters in version")
+    unless LaxVersionStr->check($version);
 
   my $content = $file->content;
 
@@ -67,7 +72,7 @@ sub munge_perl {
       next;
     }
 
-    if ($stmt->content =~ /package\s*\n\s*\Q$package/) {
+    if ($stmt->content =~ /package\s*(?:#.*)?\n\s*\Q$package/) {
       $self->log([ 'skipping private package %s', $package ]);
       next;
     }
@@ -107,7 +112,7 @@ Dist::Zilla::Plugin::PkgVersion - add a $VERSION to your packages
 
 =head1 VERSION
 
-version 4.102342
+version 4.102343
 
 =head1 DESCRIPTION
 

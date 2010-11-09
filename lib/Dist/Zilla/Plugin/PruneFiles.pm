@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PruneFiles;
 BEGIN {
-  $Dist::Zilla::Plugin::PruneFiles::VERSION = '4.102342';
+  $Dist::Zilla::Plugin::PruneFiles::VERSION = '4.102343';
 }
 # ABSTRACT: prune arbirary files from the dist
 use Moose;
@@ -8,29 +8,40 @@ use Moose::Autobox;
 with 'Dist::Zilla::Role::FilePruner';
 
 
-sub mvp_multivalue_args { qw(filenames) }
-sub mvp_aliases { return { filename => 'filenames' } }
+sub mvp_multivalue_args { qw(filenames matches) }
+sub mvp_aliases { return { filename => 'filenames', match => 'matches' } }
 
 
 has filenames => (
   is   => 'ro',
   isa  => 'ArrayRef',
-  required => 1,
+  default => sub { [] },
+);
+
+
+has matches => (
+  is   => 'ro',
+  isa  => 'ArrayRef',
+  default => sub { [] },
 );
 
 sub prune_files {
   my ($self) = @_;
 
-  my %file = map {; $_->name => $_ } $self->zilla->files->flatten;
+  # never match (at least the filename characters)
+  my $matches_regex = qr/\000/;
 
-  for my $exclude ($self->filenames->flatten) {
-    for my $name (keys %file) {
-      next unless $name eq $exclude || $name =~ m{\A\Q$exclude\E/};
+  $matches_regex = qr/$matches_regex|$_/ for ($self->matches->flatten);
 
-      $self->log_debug([ 'pruning %s', $name ]);
+  # \A\Q$_\E should also handle the `eq` check
+  $matches_regex = qr/$matches_regex|\A\Q$_\E/ for ($self->filenames->flatten);
 
-      $self->zilla->prune_file($file{$name});
-    }
+  for my $file ($self->zilla->files->flatten) {
+    next unless $file->name =~ $matches_regex;
+
+    $self->log_debug([ 'pruning %s', $file->name ]);
+
+    $self->zilla->prune_file($file);
   }
 
   return;
@@ -49,12 +60,16 @@ Dist::Zilla::Plugin::PruneFiles - prune arbirary files from the dist
 
 =head1 VERSION
 
-version 4.102342
+version 4.102343
 
 =head1 SYNOPSIS
 
-This plugin allows you to specify filenames to explicitly prune from your
-distribution.  This is useful if another plugin (maybe a FileGatherer) adds a
+This plugin allows you to explicitly prune some files from your
+distribution. You can either specify the exact set of files (with the
+"filenames" parameter) or provide the regular expressions to
+check (using "match").
+
+This is useful if another plugin (maybe a FileGatherer) adds a
 bunch of files, and you only want a subset of them.
 
 In your F<dist.ini>:
@@ -62,11 +77,19 @@ In your F<dist.ini>:
   [PruneFiles]
   filenames = xt/release/pod-coverage.t ; pod coverage tests are for jerks
 
+  match     = ^test_data/*
+  match     = ^test.cvs$
+
 =head1 ATTRIBUTES
 
 =head2 filenames
 
 This is an arrayref of filenames to be pruned from the distribution.
+
+=head2 matches
+
+This is an arrayref of regular expressions and files matching any of them,
+will be pruned from the distribution.
 
 =head1 AUTHOR
 

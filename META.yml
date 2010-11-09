@@ -4,7 +4,8 @@ author:
   - 'Ricardo SIGNES <rjbs@cpan.org>'
 build_requires:
   Test::Deep: 0
-  Test::More: 0.90
+  Test::Fatal: 0
+  Test::More: 0.96
 configure_requires:
   ExtUtils::MakeMaker: 6.31
   File::ShareDir::Install: 0.03
@@ -98,7 +99,7 @@ resources:
   X_mailing_list: http://www.listbox.com/subscribe/?list_id=139292
   homepage: http://dzil.org/
   repository: http://github.com/rjbs/dist-zilla.git
-version: 4.102342
+version: 4.102343
 x_Dist_Zilla:
   plugins:
     -
@@ -189,6 +190,14 @@ x_Dist_Zilla:
       class: Dist::Zilla::Plugin::Repository
       name: '@RJBS/Repository'
       version: 0.14
+    -
+      class: Dist::Zilla::Plugin::Prereqs
+      config:
+        Dist::Zilla::Plugin::Prereqs:
+          phase: test
+          type: requires
+      name: '@RJBS/TestMoreWithSubtests'
+      version: 4.102342
     -
       class: Dist::Zilla::Plugin::PodWeaver
       name: '@RJBS/PodWeaver'

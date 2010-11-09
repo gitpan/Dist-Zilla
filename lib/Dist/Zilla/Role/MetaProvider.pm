@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::MetaProvider;
 BEGIN {
-  $Dist::Zilla::Role::MetaProvider::VERSION = '4.102342';
+  $Dist::Zilla::Role::MetaProvider::VERSION = '4.102343';
 }
 # ABSTRACT: something that provides metadata (for META.yml/json)
 use Moose::Role;
@@ -21,7 +21,7 @@ Dist::Zilla::Role::MetaProvider - something that provides metadata (for META.yml
 
 =head1 VERSION
 
-version 4.102342
+version 4.102343
 
 =head1 DESCRIPTION
 

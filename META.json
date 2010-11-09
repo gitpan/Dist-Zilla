@@ -108,7 +108,8 @@
       "test" : {
          "requires" : {
             "Test::Deep" : 0,
-            "Test::More" : "0.90"
+            "Test::Fatal" : 0,
+            "Test::More" : "0.96"
          }
       }
    },
@@ -122,7 +123,7 @@
       },
       "x_mailing_list" : "http://www.listbox.com/subscribe/?list_id=139292"
    },
-   "version" : "4.102342",
+   "version" : "4.102343",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
@@ -234,6 +235,17 @@
             "class" : "Dist::Zilla::Plugin::Repository",
             "name" : "@RJBS/Repository",
             "version" : "0.14"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Prereqs",
+            "config" : {
+               "Dist::Zilla::Plugin::Prereqs" : {
+                  "phase" : "test",
+                  "type" : "requires"
+               }
+            },
+            "name" : "@RJBS/TestMoreWithSubtests",
+            "version" : "4.102342"
          },
          {
             "class" : "Dist::Zilla::Plugin::PodWeaver",
