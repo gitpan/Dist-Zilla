@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::TemplateModule;
 BEGIN {
-  $Dist::Zilla::Plugin::TemplateModule::VERSION = '4.102343';
+  $Dist::Zilla::Plugin::TemplateModule::VERSION = '4.102344';
 }
 # ABSTRACT: a simple module-from-template plugin
 use Moose;
@@ -64,7 +64,7 @@ Dist::Zilla::Plugin::TemplateModule - a simple module-from-template plugin
 
 =head1 VERSION
 
-version 4.102343
+version 4.102344
 
 =head1 DESCRIPTION
 

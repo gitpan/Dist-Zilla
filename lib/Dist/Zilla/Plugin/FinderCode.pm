@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::FinderCode;
 BEGIN {
-  $Dist::Zilla::Plugin::FinderCode::VERSION = '4.102343';
+  $Dist::Zilla::Plugin::FinderCode::VERSION = '4.102344';
 }
 use Moose;
 with 'Dist::Zilla::Role::FileFinder';
@@ -33,7 +33,8 @@ sub find_files {
 sub _find_via_grep {
   my ($self) = @_;
 
-  $self->zilla->files->grep($self->code);
+  my @files = grep { $self->code->($_, $self) } $self->zilla->files->flatten;
+  return \@files;
 }
 
 sub _find_via_list {
@@ -54,7 +55,7 @@ Dist::Zilla::Plugin::FinderCode - a callback-based FileFinder plugin
 
 =head1 VERSION
 
-version 4.102343
+version 4.102344
 
 =head1 AUTHOR
 

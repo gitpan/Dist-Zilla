@@ -1,5 +1,14 @@
 Revision history for Dist-Zilla
 
+4.102344  2010-11-19 19:34:21 America/New_York
+          PruneCruft now prunes XS-related and build files:
+          blib, pm_to_blib, .o, .bs, and .c files generated from .xs files
+
+          PkgVersion now include a "TRIAL" comment for trial dists
+
+          :InstallModules finder will now include main_modules, even if it was
+          not otherwise found as a .pm in ./lib
+
 4.102343  2010-11-09 07:49:50 America/New_York
           private packages in PkgVersion can have comments after 'package'
           before a newline (David Golden)

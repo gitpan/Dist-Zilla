@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::listdeps;
 BEGIN {
-  $Dist::Zilla::App::Command::listdeps::VERSION = '4.102343';
+  $Dist::Zilla::App::Command::listdeps::VERSION = '4.102344';
 }
 use Dist::Zilla::App -command;
 # ABSTRACT: print your distribution's prerequisites
@@ -47,7 +47,7 @@ Dist::Zilla::App::Command::listdeps - print your distribution's prerequisites
 
 =head1 VERSION
 
-version 4.102343
+version 4.102344
 
 =head1 SYNOPSIS
 

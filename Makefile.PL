@@ -29,7 +29,7 @@ my %WriteMakefileArgs = (
   'LICENSE' => 'perl',
   'NAME' => 'Dist::Zilla',
   'PREREQ_PM' => {
-    'App::Cmd::Setup' => '0.307',
+    'App::Cmd::Setup' => '0.309',
     'App::Cmd::Tester' => '0.306',
     'Archive::Tar' => '0',
     'CPAN::Meta::Converter' => '2.101550',
@@ -66,7 +66,7 @@ my %WriteMakefileArgs = (
     'List::Util' => '0',
     'Log::Dispatchouli' => '1.102220',
     'Moose' => '0.92',
-    'Moose::Autobox' => '0.09',
+    'Moose::Autobox' => '0.10',
     'Moose::Role' => '0',
     'Moose::Util::TypeConstraints' => '0',
     'MooseX::LazyRequire' => '0',
@@ -101,7 +101,7 @@ my %WriteMakefileArgs = (
     'namespace::autoclean' => '0',
     'version' => '0'
   },
-  'VERSION' => '4.102343',
+  'VERSION' => '4.102344',
   'test' => {
     'TESTS' => 't/*.t t/diagnostics/*.t t/plugins/*.t'
   }

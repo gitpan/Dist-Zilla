@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 BEGIN {
-  $Dist::Zilla::Dist::Builder::VERSION = '4.102343';
+  $Dist::Zilla::Dist::Builder::VERSION = '4.102344';
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -46,7 +46,13 @@ sub _setup_default_plugins {
       plugin_name => ':InstallModules',
       zilla       => $self,
       style       => 'grep',
-      code        => sub { local $_ = $_->name; m{\Alib/} and m{\.(pm|pod)$} },
+      code        => sub {
+        my ($file, $self) = @_;
+        local $_ = $file->name;
+        return 1 if m{\Alib/} and m{\.(pm|pod)$};
+        return 1 if $_ eq $self->zilla->main_module;
+        return;
+      },
     });
 
     $self->plugins->push($plugin);
@@ -490,7 +496,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 4.102343
+version 4.102344
 
 =head1 ATTRIBUTES
 

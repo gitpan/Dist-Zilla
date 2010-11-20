@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PruneCruft;
 BEGIN {
-  $Dist::Zilla::Plugin::PruneCruft::VERSION = '4.102343';
+  $Dist::Zilla::Plugin::PruneCruft::VERSION = '4.102344';
 }
 # ABSTRACT: prune stuff that you probably don't mean to include
 use Moose;
@@ -36,7 +36,17 @@ sub exclude_file {
   return 1 if index($file->name, $self->zilla->name . '-') == 0;
   return 1 if $file->name =~ /\A\./;
   return 1 if $file->name =~ /\A(?:Build|Makefile)\z/;
+  return 1 if $file->name =~ /\Ablib/;
+  return 1 if $file->name =~ /\.(?:o|bs)$/;
   return 1 if $file->name eq 'MYMETA.yml';
+  return 1 if $file->name eq 'pm_to_blib';
+
+  if ((my $file = $file->name) =~ s/\.c$//) {
+      for my $other ($self->zilla->files->flatten) {
+          return 1 if $other->name eq "${file}.xs";
+      }
+  }
+
   return;
 }
 
@@ -67,7 +77,7 @@ Dist::Zilla::Plugin::PruneCruft - prune stuff that you probably don't mean to in
 
 =head1 VERSION
 
-version 4.102343
+version 4.102344
 
 =head1 SYNOPSIS
 

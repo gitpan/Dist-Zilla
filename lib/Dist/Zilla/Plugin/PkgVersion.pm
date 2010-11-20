@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PkgVersion;
 BEGIN {
-  $Dist::Zilla::Plugin::PkgVersion::VERSION = '4.102343';
+  $Dist::Zilla::Plugin::PkgVersion::VERSION = '4.102344';
 }
 # ABSTRACT: add a $VERSION to your packages
 use Moose;
@@ -80,7 +80,8 @@ sub munge_perl {
     # the \x20 hack is here so that when we scan *this* document we don't find
     # an assignment to version; it shouldn't be needed, but it's been annoying
     # enough in the past that I'm keeping it here until tests are better
-    my $perl = "BEGIN {\n  \$$package\::VERSION\x20=\x20'$version';\n}\n";
+    my $trial = $self->zilla->is_trial ? ' # TRIAL' : '';
+    my $perl = "BEGIN {\n  \$$package\::VERSION\x20=\x20'$version';$trial\n}\n";
 
     my $version_doc = PPI::Document->new(\$perl);
     my @children = $version_doc->schildren;
@@ -112,14 +113,26 @@ Dist::Zilla::Plugin::PkgVersion - add a $VERSION to your packages
 
 =head1 VERSION
 
-version 4.102343
+version 4.102344
+
+=head1 SYNOPSIS
+
+in dist.ini
+
+  [PkgVersion]
 
 =head1 DESCRIPTION
 
-This plugin will add a line like the following to each package in each Perl
+This plugin will add lines like the following to each package in each Perl
 module or program (more or less) within the distribution:
 
-  our $VERSION = 0.001; # where 0.001 is the version of the dist
+  BEGIN {
+    $MyModule::VERSION = 0.001;
+  }
+
+...where 0.001 is the version of the dist, and MyModule is the name of the
+package being given a version.  (In other words, it always uses fully-qualified
+names to assign versions.)
 
 It will skip any package declaration that includes a newline between the
 C<package> keyword and the package name, like:

@@ -2,10 +2,10 @@ use strict;
 use warnings;
 package Dist::Zilla::App;
 BEGIN {
-  $Dist::Zilla::App::VERSION = '4.102343';
+  $Dist::Zilla::App::VERSION = '4.102344';
 }
 # ABSTRACT: Dist::Zilla's App::Cmd
-use App::Cmd::Setup 0.307 -app; # need ->app in Result of Tester, GLD vers
+use App::Cmd::Setup 0.309 -app; # better compilation error detection
 
 use Carp ();
 use Dist::Zilla::MVP::Reader::Finder;
@@ -140,7 +140,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 4.102343
+version 4.102344
 
 =head1 METHODS
 
