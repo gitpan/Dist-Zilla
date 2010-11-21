@@ -101,6 +101,7 @@
             "autobox" : "2.53",
             "autodie" : 0,
             "namespace::autoclean" : 0,
+            "parent" : 0,
             "perl" : "v5.8.5",
             "version" : 0
          }
@@ -123,7 +124,7 @@
       },
       "x_mailing_list" : "http://www.listbox.com/subscribe/?list_id=139292"
    },
-   "version" : "4.102344",
+   "version" : "4.102345",
    "x_Dist_Zilla" : {
       "plugins" : [
          {

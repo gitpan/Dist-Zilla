@@ -99,9 +99,10 @@ my %WriteMakefileArgs = (
     'autobox' => '2.53',
     'autodie' => '0',
     'namespace::autoclean' => '0',
+    'parent' => '0',
     'version' => '0'
   },
-  'VERSION' => '4.102344',
+  'VERSION' => '4.102345',
   'test' => {
     'TESTS' => 't/*.t t/diagnostics/*.t t/plugins/*.t'
   }

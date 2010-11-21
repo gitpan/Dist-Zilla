@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoPrereqs;
 BEGIN {
-  $Dist::Zilla::Plugin::AutoPrereqs::VERSION = '4.102344';
+  $Dist::Zilla::Plugin::AutoPrereqs::VERSION = '4.102345';
 }
 use Moose;
 with(
@@ -106,7 +106,7 @@ Dist::Zilla::Plugin::AutoPrereqs - automatically extract prereqs from your modul
 
 =head1 VERSION
 
-version 4.102344
+version 4.102345
 
 =head1 SYNOPSIS
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::AfterBuild;
 BEGIN {
-  $Dist::Zilla::Role::AfterBuild::VERSION = '4.102344';
+  $Dist::Zilla::Role::AfterBuild::VERSION = '4.102345';
 }
 # ABSTRACT: something that runs after building is mostly complete
 use Moose::Role;
@@ -21,7 +21,7 @@ Dist::Zilla::Role::AfterBuild - something that runs after building is mostly com
 
 =head1 VERSION
 
-version 4.102344
+version 4.102345
 
 =head1 DESCRIPTION
 

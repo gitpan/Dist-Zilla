@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Util;
 BEGIN {
-  $Dist::Zilla::Util::VERSION = '4.102344';
+  $Dist::Zilla::Util::VERSION = '4.102345';
 }
 # ABSTRACT: random snippets of code that Dist::Zilla wants
 
@@ -92,7 +92,7 @@ Dist::Zilla::Util - random snippets of code that Dist::Zilla wants
 
 =head1 VERSION
 
-version 4.102344
+version 4.102345
 
 =head1 METHODS
 
