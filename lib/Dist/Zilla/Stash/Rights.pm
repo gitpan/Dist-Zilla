@@ -1,6 +1,6 @@
 package Dist::Zilla::Stash::Rights;
 BEGIN {
-  $Dist::Zilla::Stash::Rights::VERSION = '4.102345';
+  $Dist::Zilla::Stash::Rights::VERSION = '4.102346';
 }
 use Moose;
 with 'Dist::Zilla::Role::Stash';
@@ -34,7 +34,7 @@ Dist::Zilla::Stash::Rights - a stash of your default licensing terms
 
 =head1 VERSION
 
-version 4.102345
+version 4.102346
 
 =head1 AUTHOR
 

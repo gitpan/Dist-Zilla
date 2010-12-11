@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App;
 BEGIN {
-  $Dist::Zilla::App::VERSION = '4.102345';
+  $Dist::Zilla::App::VERSION = '4.102346';
 }
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup 0.309 -app; # better compilation error detection
@@ -140,7 +140,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 4.102345
+version 4.102346
 
 =head1 METHODS
 

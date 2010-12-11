@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::TextTemplate;
 BEGIN {
-  $Dist::Zilla::Role::TextTemplate::VERSION = '4.102345';
+  $Dist::Zilla::Role::TextTemplate::VERSION = '4.102346';
 }
 # ABSTRACT: something that renders a Text::Template template string
 use Moose::Role;
@@ -22,13 +22,26 @@ has delim => (
 sub fill_in_string {
   my ($self, $string, $stash, $arg) = @_;
 
-  return Text::Template->fill_this_in(
-    $string,
-    HASH       => $stash,
+  $self->log_fatal("Cannot use undef as a template string")
+    unless defined $string;
+
+  my $tmpl = Text::Template->new(
+    TYPE       => 'STRING',
+    SOURCE     => $string,
     DELIMITERS => $self->delim,
-    BROKEN => sub { my %hash = @_; die $hash{error}; },
+    BROKEN     => sub { my %hash = @_; die $hash{error}; },
     %$arg,
   );
+
+  $self->log_fatal("Could not create a Text::Template object from:\n$string")
+    unless $tmpl;
+
+  my $content = $tmpl->fill_in(HASH => $stash);
+
+  $self->log_fatal("Filling in the template returned undef for:\n$string")
+    unless defined $content;
+
+  return $content;
 }
 
 no Moose::Role;
@@ -43,7 +56,7 @@ Dist::Zilla::Role::TextTemplate - something that renders a Text::Template templa
 
 =head1 VERSION
 
-version 4.102345
+version 4.102346
 
 =head1 DESCRIPTION
 

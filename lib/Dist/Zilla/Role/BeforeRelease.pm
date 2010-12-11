@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::BeforeRelease;
 BEGIN {
-  $Dist::Zilla::Role::BeforeRelease::VERSION = '4.102345';
+  $Dist::Zilla::Role::BeforeRelease::VERSION = '4.102346';
 }
 # ABSTRACT: something that runs before release really begins
 use Moose::Role;
@@ -21,7 +21,7 @@ Dist::Zilla::Role::BeforeRelease - something that runs before release really beg
 
 =head1 VERSION
 
-version 4.102345
+version 4.102346
 
 =head1 DESCRIPTION
 
