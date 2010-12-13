@@ -100,7 +100,7 @@ resources:
   X_mailing_list: http://www.listbox.com/subscribe/?list_id=139292
   homepage: http://dzil.org/
   repository: http://github.com/rjbs/dist-zilla.git
-version: 4.102346
+version: 4.200000
 x_Dist_Zilla:
   plugins:
     -
