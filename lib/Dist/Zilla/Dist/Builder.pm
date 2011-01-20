@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 BEGIN {
-  $Dist::Zilla::Dist::Builder::VERSION = '4.200000';
+  $Dist::Zilla::Dist::Builder::VERSION = '4.200001';
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -193,8 +193,12 @@ sub _load_config {
   }
   catch {
     if ( /couldn't load package (\S+)/i ) {
-    die <<"END_DIE";
-Couldn't load plugin $1
+        my $mod = $1;
+        my $reason = /Can't locate.*in \@INC/
+            ? "Module $mod isn't installed."
+            : $_;
+        die <<"END_DIE";
+Couldn't load plugin $mod because: $reason
 
 Run 'dzil authordeps' to see a list of all required plugins.
 You can pipe the list to your CPAN client to install or update them:
@@ -338,6 +342,8 @@ sub release {
 
   Carp::croak("you can't release without any Releaser plugins")
     unless my @releasers = $self->plugins_with(-Releaser)->flatten;
+
+  $ENV{DZIL_RELEASING} = 1;
 
   my $tgz = $self->build_archive;
 
@@ -496,7 +502,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 4.200000
+version 4.200001
 
 =head1 ATTRIBUTES
 
@@ -618,7 +624,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Ricardo SIGNES.
+This software is copyright (c) 2011 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

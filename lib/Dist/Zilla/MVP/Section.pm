@@ -1,6 +1,6 @@
 package Dist::Zilla::MVP::Section;
 BEGIN {
-  $Dist::Zilla::MVP::Section::VERSION = '4.200000';
+  $Dist::Zilla::MVP::Section::VERSION = '4.200001';
 }
 use Moose;
 extends 'Config::MVP::Section';
@@ -57,7 +57,7 @@ Dist::Zilla::MVP::Section - a standard section in Dist::Zilla's configuration se
 
 =head1 VERSION
 
-version 4.200000
+version 4.200001
 
 =head1 AUTHOR
 
@@ -65,7 +65,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Ricardo SIGNES.
+This software is copyright (c) 2011 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

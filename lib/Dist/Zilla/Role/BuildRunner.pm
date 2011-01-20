@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::BuildRunner;
 BEGIN {
-  $Dist::Zilla::Role::BuildRunner::VERSION = '4.200000';
+  $Dist::Zilla::Role::BuildRunner::VERSION = '4.200001';
 }
 # ABSTRACT: something used as a delegating agent during 'dzil run'
 use Moose::Role;
@@ -21,7 +21,7 @@ Dist::Zilla::Role::BuildRunner - something used as a delegating agent during 'dz
 
 =head1 VERSION
 
-version 4.200000
+version 4.200001
 
 =head1 DESCRIPTION
 
@@ -40,7 +40,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Ricardo SIGNES.
+This software is copyright (c) 2011 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

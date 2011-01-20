@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PkgDist;
 BEGIN {
-  $Dist::Zilla::Plugin::PkgDist::VERSION = '4.200000';
+  $Dist::Zilla::Plugin::PkgDist::VERSION = '4.200001';
 }
 # ABSTRACT: add a $DIST to your packages
 use Moose;
@@ -106,7 +106,7 @@ Dist::Zilla::Plugin::PkgDist - add a $DIST to your packages
 
 =head1 VERSION
 
-version 4.200000
+version 4.200001
 
 =head1 DESCRIPTION
 
@@ -130,7 +130,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Ricardo SIGNES.
+This software is copyright (c) 2011 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

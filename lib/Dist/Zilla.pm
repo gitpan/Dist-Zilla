@@ -1,6 +1,6 @@
 package Dist::Zilla;
 BEGIN {
-  $Dist::Zilla::VERSION = '4.200000';
+  $Dist::Zilla::VERSION = '4.200001';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -92,11 +92,12 @@ has abstract => (
       die "no abstract given and no main_module found; make sure your main module is in ./lib\n";
     }
 
-    my $filename = $self->main_module->name;
-    $self->log("extracting distribution abstract from $filename");
-    my $abstract = Dist::Zilla::Util->abstract_from_file($filename);
+    my $file = $self->main_module;
+    $self->log("extracting distribution abstract from " . $file->name);
+    my $abstract = Dist::Zilla::Util->abstract_from_file($file);
 
     if (!defined($abstract)) {
+        my $filename = $file->name;
         die "Unable to extract an abstract from $filename. Please add the following comment to the file with your abstract:
     # ABSTRACT: turns baubles into trinkets
 ";
@@ -524,7 +525,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 4.200000
+version 4.200001
 
 =head1 DESCRIPTION
 
@@ -703,7 +704,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Ricardo SIGNES.
+This software is copyright (c) 2011 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

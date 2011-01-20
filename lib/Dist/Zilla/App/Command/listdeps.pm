@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::listdeps;
 BEGIN {
-  $Dist::Zilla::App::Command::listdeps::VERSION = '4.200000';
+  $Dist::Zilla::App::Command::listdeps::VERSION = '4.200001';
 }
 use Dist::Zilla::App -command;
 # ABSTRACT: print your distribution's prerequisites
@@ -12,6 +12,10 @@ use Moose::Autobox;
 use Version::Requirements;
 
 sub abstract { "print your distribution's prerequisites" }
+
+sub opt_spec {
+    [ 'author', 'include author dependencies' ],
+}
 
 sub execute {
   my ($self, $opt, $arg) = @_;
@@ -27,7 +31,10 @@ sub execute {
   my $req = Version::Requirements->new;
   my $prereqs = $self->zilla->prereqs;
 
-  for my $phase (qw(build test configure runtime)) {
+  my @phases = qw(build test configure runtime);
+  push @phases, 'develop' if $opt->author;
+
+  for my $phase (@phases) {
     $req->add_requirements( $prereqs->requirements_for($phase, 'requires') );
   }
 
@@ -47,7 +54,7 @@ Dist::Zilla::App::Command::listdeps - print your distribution's prerequisites
 
 =head1 VERSION
 
-version 4.200000
+version 4.200001
 
 =head1 SYNOPSIS
 
@@ -58,7 +65,8 @@ version 4.200000
 This is a command plugin for L<Dist::Zilla>. It provides the C<listdeps>
 command, which prints your distribution's prerequisites. You could pipe that
 list to a CPAN client like L<cpan> to install all of the dependecies in one
-quick go.
+quick go. This will include author dependencies (those listed under
+C<develop_requires>) if the C<--author> flag is passed.
 
 =head1 ACKNOWLEDGEMENTS
 
@@ -72,7 +80,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Ricardo SIGNES.
+This software is copyright (c) 2011 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

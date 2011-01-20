@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::new;
 BEGIN {
-  $Dist::Zilla::App::Command::new::VERSION = '4.200000';
+  $Dist::Zilla::App::Command::new::VERSION = '4.200001';
 }
 # ABSTRACT: mint a new dist
 use Dist::Zilla::App -command;
@@ -72,7 +72,7 @@ Dist::Zilla::App::Command::new - mint a new dist
 
 =head1 VERSION
 
-version 4.200000
+version 4.200001
 
 =head1 SYNOPSIS
 
@@ -105,7 +105,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Ricardo SIGNES.
+This software is copyright (c) 2011 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

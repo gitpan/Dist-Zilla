@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::ShareDir;
 BEGIN {
-  $Dist::Zilla::Role::ShareDir::VERSION = '4.200000';
+  $Dist::Zilla::Role::ShareDir::VERSION = '4.200001';
 }
 # ABSTRACT: something that picks a directory to install as shared files
 use Moose::Role;
@@ -23,7 +23,7 @@ Dist::Zilla::Role::ShareDir - something that picks a directory to install as sha
 
 =head1 VERSION
 
-version 4.200000
+version 4.200001
 
 =head1 AUTHOR
 
@@ -31,7 +31,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Ricardo SIGNES.
+This software is copyright (c) 2011 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

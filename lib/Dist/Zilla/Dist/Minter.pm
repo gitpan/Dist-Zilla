@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Minter;
 BEGIN {
-  $Dist::Zilla::Dist::Minter::VERSION = '4.200000';
+  $Dist::Zilla::Dist::Minter::VERSION = '4.200001';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -146,7 +146,7 @@ Dist::Zilla::Dist::Minter - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 4.200000
+version 4.200001
 
 =head1 AUTHOR
 
@@ -154,7 +154,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Ricardo SIGNES.
+This software is copyright (c) 2011 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
