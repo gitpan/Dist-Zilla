@@ -14,7 +14,6 @@ my %WriteMakefileArgs = (
   'ABSTRACT' => 'distribution builder; installer not included!',
   'AUTHOR' => 'Ricardo SIGNES <rjbs@cpan.org>',
   'BUILD_REQUIRES' => {
-    'Test::Deep' => '0',
     'Test::Fatal' => '0',
     'Test::More' => '0.96'
   },
@@ -92,6 +91,7 @@ my %WriteMakefileArgs = (
     'Term::ReadKey' => '0',
     'Term::ReadLine' => '0',
     'Term::UI' => '0',
+    'Test::Deep' => '0',
     'Text::Template' => '0',
     'Try::Tiny' => '0',
     'Version::Requirements' => '0.100630',
@@ -102,7 +102,7 @@ my %WriteMakefileArgs = (
     'parent' => '0',
     'version' => '0'
   },
-  'VERSION' => '4.200001',
+  'VERSION' => '4.200002',
   'test' => {
     'TESTS' => 't/*.t t/diagnostics/*.t t/plugins/*.t'
   }

@@ -143,6 +143,7 @@ lib/Dist/Zilla/Tester.pm
 lib/Dist/Zilla/Tutorial.pm
 lib/Dist/Zilla/Types.pm
 lib/Dist/Zilla/Util.pm
+lib/Test/DZil.pm
 misc/dzil-bash_completion
 misc/dzil_bootstrap
 misc/lib/Dist/Zilla/App/Command/gconf.pm
@@ -152,7 +153,6 @@ profiles/default/profile.ini
 t/compile.t
 t/diagnostics/main-module.t
 t/lib/Dist/Zilla/Stash/Heap.pm
-t/lib/Test/DZil.pm
 t/minter.t
 t/plugins/autoprereqs.t
 t/plugins/autoversion.t
