@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::Prereq;
 BEGIN {
-  $Dist::Zilla::Plugin::Prereq::VERSION = '4.200002';
+  $Dist::Zilla::Plugin::Prereq::VERSION = '4.200003';
 }
 # ABSTRACT: (DEPRECATED) the old name of the Prereqs plugin
 use Moose;
@@ -15,7 +15,7 @@ before register_component => sub {
 };
 
 no Moose;
-__PACKAGE__->meta->make_immutable(inline_constructor => 0);
+__PACKAGE__->meta->make_immutable;
 1;
 
 __END__
@@ -27,7 +27,7 @@ Dist::Zilla::Plugin::Prereq - (DEPRECATED) the old name of the Prereqs plugin
 
 =head1 VERSION
 
-version 4.200002
+version 4.200003
 
 =head1 SYNOPSIS
 

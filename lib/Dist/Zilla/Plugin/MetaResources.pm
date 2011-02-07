@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaResources;
 BEGIN {
-  $Dist::Zilla::Plugin::MetaResources::VERSION = '4.200002';
+  $Dist::Zilla::Plugin::MetaResources::VERSION = '4.200003';
 }
 
 # ABSTRACT: provide arbitrary "resources" for distribution metadata
@@ -52,7 +52,7 @@ sub metadata {
 }
 
 no Moose;
-__PACKAGE__->meta->make_immutable(inline_constructor => 0);
+__PACKAGE__->meta->make_immutable;
 1;
 
 __END__
@@ -64,7 +64,7 @@ Dist::Zilla::Plugin::MetaResources - provide arbitrary "resources" for distribut
 
 =head1 VERSION
 
-version 4.200002
+version 4.200003
 
 =head1 DESCRIPTION
 

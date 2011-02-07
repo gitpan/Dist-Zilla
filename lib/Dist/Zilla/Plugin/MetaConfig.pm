@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaConfig;
 BEGIN {
-  $Dist::Zilla::Plugin::MetaConfig::VERSION = '4.200002';
+  $Dist::Zilla::Plugin::MetaConfig::VERSION = '4.200003';
 }
 # ABSTRACT: summarize Dist::Zilla configuration into distmeta
 use Moose;
@@ -37,7 +37,7 @@ sub metadata {
 }
 
 no Moose;
-__PACKAGE__->meta->make_immutable(inline_constructor => 0);
+__PACKAGE__->meta->make_immutable;
 1;
 
 __END__
@@ -49,7 +49,7 @@ Dist::Zilla::Plugin::MetaConfig - summarize Dist::Zilla configuration into distm
 
 =head1 VERSION
 
-version 4.200002
+version 4.200003
 
 =head1 DESCRIPTION
 

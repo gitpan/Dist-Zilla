@@ -124,9 +124,14 @@
       },
       "x_mailing_list" : "http://www.listbox.com/subscribe/?list_id=139292"
    },
-   "version" : "4.200002",
+   "version" : "4.200003",
    "x_Dist_Zilla" : {
       "plugins" : [
+         {
+            "class" : "Dist::Zilla::Plugin::CheckPrereqsIndexed",
+            "name" : "@RJBS/CheckPrereqsIndexed",
+            "version" : "0.002"
+         },
          {
             "class" : "Dist::Zilla::Plugin::GatherDir",
             "name" : "@RJBS/@Basic/GatherDir",

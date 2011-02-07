@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ModuleBuild;
 BEGIN {
-  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '4.200002';
+  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '4.200003';
 }
 # ABSTRACT: build a Build.PL that uses Module::Build
 use List::MoreUtils qw(any uniq);
@@ -160,7 +160,9 @@ sub test {
   my ($self, $target) = @_;
 
   $self->build;
-  system($^X, 'Build', 'test') and die "error running $^X Build test\n";
+  system($^X, 'Build', 'test',
+    ( $self->zilla->logger->get_debug ? 'verbose=1' : () ),
+  ) and die "error running $^X Build test\n";
 
   return;
 }
@@ -178,7 +180,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 4.200002
+version 4.200003
 
 =head1 DESCRIPTION
 
