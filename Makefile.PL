@@ -36,7 +36,6 @@ my %WriteMakefileArgs = (
     'CPAN::Meta::Validator' => '2.101550',
     'CPAN::Uploader' => '0.101550',
     'Carp' => '0',
-    'Config' => '0',
     'Config::INI::Reader' => '0',
     'Config::MVP::Assembler' => '0',
     'Config::MVP::Assembler::WithBundles' => '0',
@@ -44,7 +43,7 @@ my %WriteMakefileArgs = (
     'Config::MVP::Reader::Findable::ByExtension' => '0',
     'Config::MVP::Reader::Finder' => '0',
     'Config::MVP::Reader::INI' => '2',
-    'Config::MVP::Section' => '0',
+    'Config::MVP::Section' => '2.200001',
     'Data::Dumper' => '0',
     'Data::Section' => '0.004',
     'DateTime' => '0.44',
@@ -102,7 +101,7 @@ my %WriteMakefileArgs = (
     'parent' => '0',
     'version' => '0'
   },
-  'VERSION' => '4.200003',
+  'VERSION' => '4.200004',
   'test' => {
     'TESTS' => 't/*.t t/diagnostics/*.t t/plugins/*.t'
   }
