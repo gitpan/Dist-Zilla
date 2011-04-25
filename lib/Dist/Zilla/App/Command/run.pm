@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::run;
 BEGIN {
-  $Dist::Zilla::App::Command::run::VERSION = '4.200004';
+  $Dist::Zilla::App::Command::run::VERSION = '4.200005';
 }
 # ABSTRACT: run stuff in a dir where your dist is built
 
@@ -12,8 +12,14 @@ use Moose::Autobox;
 
 sub abstract { 'run stuff in a dir where your dist is built' }
 
+sub usage_desc {
+  return '%c %o run command [ arg1 arg2 ... ]';
+}
+
 sub execute {
   my ($self, $opts, $args) = @_;
+
+  $self->usage_error("no command to run supplied!") unless @$args;
 
   $self->zilla->run_in_build($args);
 }
@@ -29,7 +35,7 @@ Dist::Zilla::App::Command::run - run stuff in a dir where your dist is built
 
 =head1 VERSION
 
-version 4.200004
+version 4.200005
 
 =head1 SYNOPSIS
 

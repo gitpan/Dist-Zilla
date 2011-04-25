@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 BEGIN {
-  $Dist::Zilla::Dist::Builder::VERSION = '4.200004';
+  $Dist::Zilla::Dist::Builder::VERSION = '4.200005';
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -283,11 +283,18 @@ sub ensure_built_in {
 
 
 sub build_archive {
-  my ($self, $file) = @_;
+  my ($self) = @_;
 
   my $built_in = $self->ensure_built;
 
   my $archive = Archive::Tar->new;
+
+  my $basename = file(join(q{},
+    $self->name,
+    '-',
+    $self->version,
+    ($self->is_trial ? '-TRIAL' : ''),
+  ));
 
   $_->before_archive for $self->plugins_with(-BeforeArchive)->flatten;
 
@@ -298,20 +305,13 @@ sub build_archive {
     $archive->add_files( $built_in->file( $distfile->name ) );
   }
 
-  ## no critic
-  $file ||= file(join(q{},
-    $self->name,
-    '-',
-    $self->version,
-    ($self->is_trial ? '-TRIAL' : ''),
-    '.tar.gz',
-  ));
-
   # Fix up the CHMOD on the archived files, to inhibit 'withoutworldwritables'
   # behaviour on win32.
   for my $f ( $archive->get_files ) {
     $f->mode( $f->mode & ~022 );
   }
+
+  my $file = file("$basename.tar.gz");
 
   $self->log("writing archive to $file");
   $archive->write("$file", 9);
@@ -500,7 +500,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 4.200004
+version 4.200005
 
 =head1 ATTRIBUTES
 

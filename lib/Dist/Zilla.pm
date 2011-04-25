@@ -1,6 +1,6 @@
 package Dist::Zilla;
 BEGIN {
-  $Dist::Zilla::VERSION = '4.200004';
+  $Dist::Zilla::VERSION = '4.200005';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -145,7 +145,7 @@ has main_module => (
              ->head;
     }
 
-    if ( not $file ){
+    if (not $file) {
         my @errorlines;
 
         push @errorlines, "Unable to find main_module in the distribution";
@@ -525,7 +525,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 4.200004
+version 4.200005
 
 =head1 DESCRIPTION
 

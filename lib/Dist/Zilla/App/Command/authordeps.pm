@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::authordeps;
 BEGIN {
-  $Dist::Zilla::App::Command::authordeps::VERSION = '4.200004';
+  $Dist::Zilla::App::Command::authordeps::VERSION = '4.200005';
 }
 use Dist::Zilla::App -command;
 # ABSTRACT: List your distribution's author dependencies
@@ -14,6 +14,7 @@ use List::MoreUtils qw(uniq);
 use Config::INI::Reader;
 
 use namespace::autoclean;
+
 
 sub abstract { "list your distribution's author dependencies" }
 
@@ -55,13 +56,25 @@ sub extract_author_deps {
   my $fh     = $ini->openr;
   my $config = Config::INI::Reader->read_handle($fh);
 
-  my @sections = uniq map  { s/\s.*//; $_ }
-                      grep { $_ ne '_' }
-                      keys %{$config};
+  my @packages =
+    uniq
+    map  {; Dist::Zilla::Util->expand_config_package_name($_) }
+    map  { s/\s.*//; $_ }
+    grep { $_ ne '_' }
+    keys %{$config};
+
+  seek $fh, 0, 0;
+
+  while (<$fh>) {
+    chomp;
+    next unless /\A\s*;\s*authordep\s*(\S+)\s*\z/;
+    push @packages, $1;
+  }
 
   return
+    grep { !/^inc::/ }
     grep { $missing ? (! eval "require $_; 1;") : 1 }
-    map {; Dist::Zilla::Util->expand_config_package_name($_) } @sections;
+    @packages;
 }
 
 1;
@@ -75,7 +88,18 @@ Dist::Zilla::App::Command::authordeps - List your distribution's author dependen
 
 =head1 VERSION
 
-version 4.200004
+version 4.200005
+
+=head1 SYNOPSIS
+
+  $ dzil authordeps
+
+This will scan the F<dist.ini> file and print a list of plugin modules that
+probably need to be installed for the dist to be buildable.  This is a very
+naive scan, but tends to be pretty accurate.  Modules can be added to its
+results by using special comments in the form:
+
+  ; authordep Some::Package
 
 =head1 AUTHOR
 
