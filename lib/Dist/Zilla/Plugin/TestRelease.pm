@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::TestRelease;
 BEGIN {
-  $Dist::Zilla::Plugin::TestRelease::VERSION = '4.200005';
+  $Dist::Zilla::Plugin::TestRelease::VERSION = '4.200006';
 }
 use Moose;
 with 'Dist::Zilla::Role::BeforeRelease';
@@ -35,6 +35,7 @@ sub before_release {
   my $target = $tmpdir->subdir( $self->zilla->built_in->dir_list(-1) );
 
   local $ENV{RELEASE_TESTING} = 1;
+  local $ENV{AUTHOR_TESTING} = 1;
   $self->zilla->run_tests_in($target);
 
   $self->log("all's well; removing $tmpdir");
@@ -54,7 +55,7 @@ Dist::Zilla::Plugin::TestRelease - extract archive and run tests before releasin
 
 =head1 VERSION
 
-version 4.200005
+version 4.200006
 
 =head1 DESCRIPTION
 
@@ -63,6 +64,9 @@ archive into a temporary directory and use the TestRunner plugins to run its
 tests.  If the tests fail, the release is aborted and the temporary directory
 is left in place.  If the tests pass, the temporary directory is cleaned up and
 the release process continues.
+
+This will set the RELEASE_TESTING and AUTHOR_TESTING env vars while running the
+testsuite.
 
 =head1 CREDITS
 

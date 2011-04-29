@@ -1,14 +1,11 @@
 package Dist::Zilla::Plugin::MakeMaker;
 BEGIN {
-  $Dist::Zilla::Plugin::MakeMaker::VERSION = '4.200005';
+  $Dist::Zilla::Plugin::MakeMaker::VERSION = '4.200006';
 }
 
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
 use Moose;
 use Moose::Autobox;
-with 'Dist::Zilla::Role::PrereqSource';
-with 'Dist::Zilla::Role::InstallTool';
-with 'Dist::Zilla::Role::TextTemplate';
 
 
 use Config;
@@ -33,8 +30,7 @@ has '_runner' => (
   },
 );
 
-with 'Dist::Zilla::Role::BuildRunner';
-with 'Dist::Zilla::Role::TestRunner';
+with qw/Dist::Zilla::Role::PrereqSource Dist::Zilla::Role::InstallTool Dist::Zilla::Role::TextTemplate Dist::Zilla::Role::BuildRunner Dist::Zilla::Role::TestRunner/;
 
 use Data::Dumper ();
 use List::MoreUtils qw(any uniq);
@@ -208,7 +204,7 @@ has __write_makefile_args => (
 has 'eumm_version' => (
   isa => 'Str',
   is  => 'rw',
-  default => '6.31',
+  default => '6.30',
 );
 
 __PACKAGE__->meta->make_immutable;
@@ -224,7 +220,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 4.200005
+version 4.200006
 
 =head1 DESCRIPTION
 

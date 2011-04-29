@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::Prereqs;
 BEGIN {
-  $Dist::Zilla::Plugin::Prereqs::VERSION = '4.200005';
+  $Dist::Zilla::Plugin::Prereqs::VERSION = '4.200006';
 }
 # ABSTRACT: list simple prerequisites
 use Moose;
@@ -13,9 +13,10 @@ sub __from_name {
 
   # such as C<configure>, C<build>, C<test> and C<runtime>.  Values are
   # relationship such as C<requires>, C<prefers>, or C<recommends>.  The
+  # phase component is optional and will default to Runtime.
 
   my ($phase, $type) = $name =~ /\A
-    (Build|Test|Runtime|Configure|Develop)
+    (Build|Test|Runtime|Configure|Develop)?
     (Requires|Recommends|Suggests|Conflicts)
   \z/x;
 
@@ -121,7 +122,7 @@ Dist::Zilla::Plugin::Prereqs - list simple prerequisites
 
 =head1 VERSION
 
-version 4.200005
+version 4.200006
 
 =head1 SYNOPSIS
 
@@ -200,6 +201,9 @@ suggests
 conflicts
 
 =back
+
+If the phase is omitted, it will default to I<runtime>; thus, specifying
+"Prereqs / Recommends" in your dist.ini is equivalent to I<RuntimeRecommends>.
 
 Not all of these phases are useful for all tools, especially tools that only
 understand version 1.x CPAN::Meta files.

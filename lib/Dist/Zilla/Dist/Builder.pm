@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 BEGIN {
-  $Dist::Zilla::Dist::Builder::VERSION = '4.200005';
+  $Dist::Zilla::Dist::Builder::VERSION = '4.200006';
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -51,6 +51,23 @@ sub _setup_default_plugins {
         local $_ = $file->name;
         return 1 if m{\Alib/} and m{\.(pm|pod)$};
         return 1 if $_ eq $self->zilla->main_module;
+        return;
+      },
+    });
+
+    $self->plugins->push($plugin);
+  }
+
+  unless ($self->plugin_named(':IncModules')) {
+    require Dist::Zilla::Plugin::FinderCode;
+    my $plugin = Dist::Zilla::Plugin::FinderCode->new({
+      plugin_name => ':IncModules',
+      zilla       => $self,
+      style       => 'grep',
+      code        => sub {
+        my ($file, $self) = @_;
+        local $_ = $file->name;
+        return 1 if m{\Ainc/} and m{\.pm$};
         return;
       },
     });
@@ -112,6 +129,23 @@ sub _setup_default_plugins {
       },
     });
 
+    $self->plugins->push($plugin);
+  }
+  
+  unless ($self->plugin_named(':MainModule')) {
+    require Dist::Zilla::Plugin::FinderCode;
+    my $plugin = Dist::Zilla::Plugin::FinderCode->new({
+      plugin_name => ':MainModule',
+      zilla       => $self,
+      style       => 'grep',
+      code        => sub {
+        my ($file, $self) = @_;
+        local $_ = $file->name;
+        return 1 if $_ eq $self->zilla->main_module->name;
+        return;
+      },
+    });
+    
     $self->plugins->push($plugin);
   }
 }
@@ -418,9 +452,6 @@ sub test {
   my $target = dir( File::Temp::tempdir(DIR => $build_root) );
   $self->log("building test distribution under $target");
 
-  local $ENV{AUTHOR_TESTING} = 1;
-  local $ENV{RELEASE_TESTING} = 1;
-
   $self->ensure_built_in($target);
 
   my $error = $self->run_tests_in($target);
@@ -500,7 +531,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 4.200005
+version 4.200006
 
 =head1 ATTRIBUTES
 

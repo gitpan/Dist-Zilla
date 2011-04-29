@@ -1,19 +1,23 @@
 package Dist::Zilla::Role::FileFinderUser;
 BEGIN {
-  $Dist::Zilla::Role::FileFinderUser::VERSION = '4.200005';
+  $Dist::Zilla::Role::FileFinderUser::VERSION = '4.200006';
 }
 # ABSTRACT: something that uses FileFinder plugins
 use MooseX::Role::Parameterized;
+
+
 
 parameter finder_arg_names => (
   isa => 'ArrayRef',
   default => sub { [ 'finder' ] },
 );
 
+
 parameter default_finders => (
   isa => 'ArrayRef',
   required => 1,
 );
+
 
 parameter method => (
   isa     => 'Str',
@@ -78,7 +82,81 @@ Dist::Zilla::Role::FileFinderUser - something that uses FileFinder plugins
 
 =head1 VERSION
 
-version 4.200005
+version 4.200006
+
+=head1 DESCRIPTION
+
+This role enables you to search for files in the dist. This makes it easy to find specific
+files and have the code factored out to common methods.
+
+Here's an example of a finder: ( taken from AutoPrereqs )
+
+  with 'Dist::Zilla::Role::FileFinderUser' => {
+      default_finders  => [ ':InstallModules', ':ExecFiles' ],
+  };
+
+Then you use it in your code like this:
+
+  foreach my $file ( $self->found_files ) {
+    # $file is an object! Look at L<Dist::Zilla::Role::File>
+  }
+
+=head1 ATTRIBUTES
+
+=head2 finder_arg_names
+
+Define the name of the attribute which will hold this finder. Be sure to specify different names
+if you have multiple finders!
+
+This is an ArrayRef.
+
+Default: [ qw( finder ) ]
+
+=head2 default_finders
+
+This attribute is an arrayref of plugin names for the default plugins the
+consuming plugin will use as finder.s
+
+Example: C<< [ qw( :InstallModules :ExecFiles ) ] >>
+
+The default finders are:
+
+=over 4
+
+=item :InstallModules
+
+Searches your lib/ directory for pm/pod files
+
+=item :IncModules
+
+Searches your inc/ directory for pm files
+
+=item :MainModule
+
+Finds the C<main_module> of your dist
+
+=item :TestFiles
+
+Searches your t/ directory and lists the files in it.
+
+=item :ExecFiles
+
+Searches your distribution for executable files.  Hint: Use the
+L<Dist::Zilla::Plugin::ExecDir> plugin to mark those files as executables.
+
+=item :ShareFiles
+
+Searches your ShareDir directory and lists the files in it.
+Hint: Use the L<Dist::Zilla::Plugin::ShareDir> plugin to setup the sharedir.
+
+=back
+
+=head2 method
+
+This will be the name of the subroutine installed in your package for this
+finder.  Be sure to specify different names if you have multiple finders!
+
+Default: found_files
 
 =head1 AUTHOR
 

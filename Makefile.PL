@@ -4,7 +4,7 @@ use warnings;
 
 BEGIN { require v5.8.5; }
 
-use ExtUtils::MakeMaker 6.31;
+use ExtUtils::MakeMaker 6.30;
 
 use File::ShareDir::Install;
 install_share module => "Dist::Zilla::MintingProfile::Default", "profiles";
@@ -18,7 +18,7 @@ my %WriteMakefileArgs = (
     'Test::More' => '0.96'
   },
   'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.31',
+    'ExtUtils::MakeMaker' => '6.30',
     'File::ShareDir::Install' => '0.03'
   },
   'DISTNAME' => 'Dist-Zilla',
@@ -101,7 +101,7 @@ my %WriteMakefileArgs = (
     'parent' => '0',
     'version' => '0'
   },
-  'VERSION' => '4.200005',
+  'VERSION' => '4.200006',
   'test' => {
     'TESTS' => 't/*.t t/diagnostics/*.t t/plugins/*.t'
   }

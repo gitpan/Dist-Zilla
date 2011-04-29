@@ -1,12 +1,11 @@
 package Dist::Zilla::Plugin::GenerateFile;
 BEGIN {
-  $Dist::Zilla::Plugin::GenerateFile::VERSION = '4.200005';
+  $Dist::Zilla::Plugin::GenerateFile::VERSION = '4.200006';
 }
 # ABSTRACT: build a custom file from only the plugin configuration
 use Moose;
 use Moose::Autobox;
-with 'Dist::Zilla::Role::FileGatherer';
-with 'Dist::Zilla::Role::TextTemplate';
+with qw/Dist::Zilla::Role::FileGatherer Dist::Zilla::Role::TextTemplate/;
 
 use Dist::Zilla::File::InMemory;
 
@@ -71,7 +70,7 @@ Dist::Zilla::Plugin::GenerateFile - build a custom file from only the plugin con
 
 =head1 VERSION
 
-version 4.200005
+version 4.200006
 
 =head1 SYNOPSIS
 

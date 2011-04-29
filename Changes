@@ -1,5 +1,24 @@
 Revision history for Dist-Zilla
 
+4.200006  2011-04-28 21:14:04 America/New_York
+
+          MakeMaker-generated Makefile.PL now only has configure_requires of
+          6.30 so dists can be installed on RHEL5
+
+          improve consistency and options of *_TESTING env vars (Apocalypse)
+
+          improve FileFinder-related documentation (thanks, Apocalypse)
+
+          add a default file finder called :IncModules (thanks, Apocalypse)
+
+          add a default file finder called :MainModule (thanks, Mateu X.
+          Hunter)
+
+          phase for named Prereqs defaults to Runtime if omitted (Jonathan Yu)
+
+          extract the *Runner role implementations from ModuleBuild to
+          Role::BuildPL (Leon Timmermans)
+
 4.200005  2011-04-25 12:20:59 America/New_York
 
           provide actual name of releaser(s) in ConfirmRelease
