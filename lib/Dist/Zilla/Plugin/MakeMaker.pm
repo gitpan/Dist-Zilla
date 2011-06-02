@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MakeMaker;
 BEGIN {
-  $Dist::Zilla::Plugin::MakeMaker::VERSION = '4.200006';
+  $Dist::Zilla::Plugin::MakeMaker::VERSION = '4.200007';
 }
 
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
@@ -44,7 +44,7 @@ my $template = q|
 use strict;
 use warnings;
 
-{{ $perl_prereq ? qq[BEGIN { require $perl_prereq; }] : ''; }}
+{{ $perl_prereq ? qq[use $perl_prereq;] : ''; }}
 
 use ExtUtils::MakeMaker {{ $eumm_version }};
 
@@ -111,7 +111,6 @@ sub setup_installer {
 
   my @share_dir_block = (q{}, q{});
 
-
   my $share_dir_map = $self->zilla->_share_dir_map;
   if ( keys %$share_dir_map ) {
     my $preamble = qq{use File::ShareDir::Install;\n};
@@ -137,6 +136,8 @@ sub setup_installer {
   my $prereqs = $self->zilla->prereqs;
   my $perl_prereq = $prereqs->requirements_for(qw(runtime requires))
                   ->as_string_hash->{perl};
+
+  $perl_prereq = version->parse($perl_prereq)->numify if $perl_prereq;
 
   my $prereqs_dump = sub {
     $prereqs->requirements_for(@_)
@@ -220,7 +221,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 4.200006
+version 4.200007
 
 =head1 DESCRIPTION
 

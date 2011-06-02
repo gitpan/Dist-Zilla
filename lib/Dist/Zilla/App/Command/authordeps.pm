@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::authordeps;
 BEGIN {
-  $Dist::Zilla::App::Command::authordeps::VERSION = '4.200006';
+  $Dist::Zilla::App::Command::authordeps::VERSION = '4.200007';
 }
 use Dist::Zilla::App -command;
 # ABSTRACT: List your distribution's author dependencies
@@ -88,7 +88,7 @@ Dist::Zilla::App::Command::authordeps - List your distribution's author dependen
 
 =head1 VERSION
 
-version 4.200006
+version 4.200007
 
 =head1 SYNOPSIS
 

@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Test::DZil;
 BEGIN {
-  $Test::DZil::VERSION = '4.200006';
+  $Test::DZil::VERSION = '4.200007';
 }
 # ABSTRACT: tools for testing Dist::Zilla plugins
 
@@ -95,7 +95,7 @@ sub _build_ini_builder {
                    ? @{ $payload->{ $key } }
                    : $payload->{ $key };
 
-        $config .= "$key = $_\n" for @values;
+        $config .= "$key = $_\n" for grep {defined} @values;
       }
 
       $config .= "\n";
@@ -133,7 +133,7 @@ Test::DZil - tools for testing Dist::Zilla plugins
 
 =head1 VERSION
 
-version 4.200006
+version 4.200007
 
 =head1 DESCRIPTION
 
