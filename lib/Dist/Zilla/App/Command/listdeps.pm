@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::listdeps;
 BEGIN {
-  $Dist::Zilla::App::Command::listdeps::VERSION = '4.200007';
+  $Dist::Zilla::App::Command::listdeps::VERSION = '4.200008';
 }
 use Dist::Zilla::App -command;
 # ABSTRACT: print your distribution's prerequisites
@@ -33,6 +33,7 @@ sub extract_dependencies {
 
   for my $phase (@$phases) {
     $req->add_requirements( $prereqs->requirements_for($phase, 'requires') );
+    $req->add_requirements( $prereqs->requirements_for($phase, 'recommends') );
   }
 
   my @required = grep { $_ ne 'perl' } $req->required_modules;
@@ -68,7 +69,7 @@ Dist::Zilla::App::Command::listdeps - print your distribution's prerequisites
 
 =head1 VERSION
 
-version 4.200007
+version 4.200008
 
 =head1 SYNOPSIS
 

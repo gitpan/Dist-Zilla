@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-BEGIN { require v5.8.5; }
+use 5.008005;
 
 use ExtUtils::MakeMaker 6.30;
 
@@ -101,7 +101,7 @@ my %WriteMakefileArgs = (
     'parent' => '0',
     'version' => '0'
   },
-  'VERSION' => '4.200007',
+  'VERSION' => '4.200008',
   'test' => {
     'TESTS' => 't/*.t t/diagnostics/*.t t/plugins/*.t'
   }
