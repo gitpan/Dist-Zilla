@@ -1,5 +1,18 @@
 Revision history for Dist-Zilla
 
+4.200009  2011-07-06 23:26:09 America/New_York
+          the "skip" argument to AutoPrereqs can now be given multiple times
+
+          authordeps now makes a rough attempt to deal with [@Filter]
+
+          catch and simplify "no dist.ini" errors from MVP
+
+          UploadToCPAN now takes a "upload_uri" option
+
+          UploadToCPAN will now prompt for credentials if needed
+
+          add follow_symlinks to GatherDir (thanks, Luc St-Louis)
+
 4.200008  2011-06-23 11:53:56 America/New_York
           PodVersion no longer drops the file's last newline
 

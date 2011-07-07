@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::UploadToCPAN;
 BEGIN {
-  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '4.200008';
+  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '4.200009';
 }
 # ABSTRACT: upload the dist to CPAN
 use Moose;
@@ -52,6 +52,7 @@ sub mvp_aliases {
   return { user => 'username' };
 }
 
+
 has username => (
   is   => 'ro',
   isa  => 'Str',
@@ -59,9 +60,12 @@ has username => (
   required => 1,
   default  => sub {
     my ($self) = @_;
-    return $self->_credential('username') || $self->pause_cfg->{user};
+    return $self->_credential('username')
+        || $self->pause_cfg->{user}
+        || $self->zilla->chrome->prompt_str("PAUSE username: ");
   },
 );
+
 
 has password => (
   is   => 'ro',
@@ -70,7 +74,9 @@ has password => (
   required => 1,
   default  => sub {
     my ($self) = @_;
-    return $self->_credential('password') || $self->pause_cfg->{password};
+    return $self->_credential('password')
+        || $self->pause_cfg->{password}
+        || $self->zilla->chrome->prompt_str("PAUSE password (will echo): ");
   },
 );
 
@@ -82,6 +88,7 @@ has pause_cfg_file => (
     File::Spec->catfile(File::HomeDir->my_home, '.pause');
   },
 );
+
 
 has pause_cfg => (
   is      => 'ro',
@@ -103,10 +110,18 @@ has pause_cfg => (
   },
 );
 
+
 has subdir => (
     is        => 'ro',
     isa       => 'Str',
     predicate => 'has_subdir',
+);
+
+
+has upload_uri => (
+  is => 'ro',
+  isa => 'Str',
+  predicate => 'has_upload_uri',
 );
 
 has uploader => (
@@ -121,6 +136,8 @@ has uploader => (
       password => $self->password,
       ($self->has_subdir
            ? (subdir => $self->subdir) : ()),
+      ($self->has_upload_uri
+           ? (upload_uri => $self->upload_uri) : ()),
     });
 
     $uploader->{'Dist::Zilla'}{plugin} = $self;
@@ -149,7 +166,7 @@ Dist::Zilla::Plugin::UploadToCPAN - upload the dist to CPAN
 
 =head1 VERSION
 
-version 4.200008
+version 4.200009
 
 =head1 SYNOPSIS
 
@@ -169,6 +186,35 @@ C<~/.pause>, in the same format that L<cpan-upload> requires:
 
   user YOUR-PAUSE-ID
   password YOUR-PAUSE-PASSWORD
+
+=head1 ATTRIBUTES
+
+=head2 username
+
+This option supplies the user's PAUSE username.  If not supplied, it will be
+looked for in the user's PAUSE configuration.
+
+=head2 password
+
+This option supplies the user's PAUSE password.  If not supplied, it will be
+looked for in the user's PAUSE configuration.
+
+=head2 pause_cfg
+
+This is a hashref of defaults loaded from F<~/.pause> -- this attribute is
+subject to removal in future versions, as the config-loading behavior in
+CPAN::Uploader is improved.
+
+=head2 subdir
+
+If given, this specifies a subdirectory under the user's home directory to
+which to upload.  Using this option is not recommended.
+
+=head2 upload_uri
+
+If given, this specifies an alternate URI for the PAUSE upload form.  By
+default, the default supplied by L<CPAN::Uploader> is used.  Using this option
+is not recommended in most cases.
 
 =head1 AUTHOR
 

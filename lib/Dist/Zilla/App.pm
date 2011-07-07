@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App;
 BEGIN {
-  $Dist::Zilla::App::VERSION = '4.200008';
+  $Dist::Zilla::App::VERSION = '4.200009';
 }
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup 0.309 -app; # better compilation error detection
@@ -108,10 +108,17 @@ sub zilla {
 
     my $core_debug = grep { m/\A[-_]\z/ } @v_plugins;
 
-    my $zilla = Dist::Zilla::Dist::Builder->from_config({
-      chrome => $self->chrome,
-      _global_stashes => $self->_build_global_stashes,
-    });
+    my $zilla;
+    try {
+      $zilla = Dist::Zilla::Dist::Builder->from_config({
+        chrome => $self->chrome,
+        _global_stashes => $self->_build_global_stashes,
+      });
+    } catch {
+      die $_ unless try { $_->isa('Config::MVP::Error') }
+                 && $_->ident =~ /no viable config/;
+      $self->chrome->logger->log_fatal("no configuration (e.g, dist.ini) found");
+    };
 
     $zilla->logger->set_debug($verbose ? 1 : 0);
 
@@ -140,7 +147,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 4.200008
+version 4.200009
 
 =head1 METHODS
 

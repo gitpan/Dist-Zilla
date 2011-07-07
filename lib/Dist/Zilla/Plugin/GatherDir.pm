@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::GatherDir;
 BEGIN {
-  $Dist::Zilla::Plugin::GatherDir::VERSION = '4.200008';
+  $Dist::Zilla::Plugin::GatherDir::VERSION = '4.200009';
 }
 # ABSTRACT: gather all the files in a directory
 use Moose;
@@ -40,6 +40,13 @@ has include_dotfiles => (
   default => 0,
 );
 
+
+has follow_symlinks => (
+  is  => 'ro',
+  isa => 'Bool',
+  default => 0,
+);
+
 sub gather_files {
   my ($self) = @_;
 
@@ -48,7 +55,9 @@ sub gather_files {
   $root = Path::Class::dir($root);
 
   my @files;
-  FILE: for my $filename (File::Find::Rule->file->in($root)) {
+  my $rule = File::Find::Rule->new();
+  $rule->extras({follow => $self->follow_symlinks});
+  FILE: for my $filename ($rule->file->in($root)) {
     unless ($self->include_dotfiles) {
       my $file = file($filename)->relative($root);
       next FILE if $file->basename =~ qr/^\./;
@@ -92,7 +101,7 @@ Dist::Zilla::Plugin::GatherDir - gather all the files in a directory
 
 =head1 VERSION
 
-version 4.200008
+version 4.200009
 
 =head1 DESCRIPTION
 
@@ -138,6 +147,12 @@ By default, files will not be included if they begin with a dot.  This goes
 both for files and for directories relative to the C<root>.
 
 In almost all cases, the default value (false) is correct.
+
+=head2 follow_symlinks
+
+By default, directories that are symlinks will not be followed. Note on the
+other hand that in all followed directories, files which are symlinks are
+always gathered.
 
 =head1 AUTHOR
 
