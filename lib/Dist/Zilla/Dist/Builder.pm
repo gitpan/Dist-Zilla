@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 BEGIN {
-  $Dist::Zilla::Dist::Builder::VERSION = '4.200010';
+  $Dist::Zilla::Dist::Builder::VERSION = '4.200011';
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -347,21 +347,17 @@ sub build_archive {
       )
     }
 
+    my $filename = $built_in->file( $distfile->name );
     $archive->add_data(
       $basedir->file( $distfile->name ),
       do {
         use autodie;
         local $/;
-        open my $fh, '<', $built_in->file( $distfile->name );
+        open my $fh, '<', $filename;
         <$fh>;
       },
+      { mode => (stat $filename)[2] & ~022 },
     );
-  }
-
-  # Fix up the CHMOD on the archived files, to inhibit 'withoutworldwritables'
-  # behaviour on win32.
-  for my $f ( $archive->get_files ) {
-    $f->mode( $f->mode & ~022 );
   }
 
   my $file = file("$basename.tar.gz");
@@ -550,7 +546,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 4.200010
+version 4.200011
 
 =head1 ATTRIBUTES
 

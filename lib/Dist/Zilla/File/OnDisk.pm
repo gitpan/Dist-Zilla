@@ -1,6 +1,6 @@
 package Dist::Zilla::File::OnDisk;
 BEGIN {
-  $Dist::Zilla::File::OnDisk::VERSION = '4.200010';
+  $Dist::Zilla::File::OnDisk::VERSION = '4.200011';
 }
 # ABSTRACT: a file that comes from your filesystem
 use Moose;
@@ -53,7 +53,7 @@ Dist::Zilla::File::OnDisk - a file that comes from your filesystem
 
 =head1 VERSION
 
-version 4.200010
+version 4.200011
 
 =head1 DESCRIPTION
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MakeMaker::Runner;
 BEGIN {
-  $Dist::Zilla::Plugin::MakeMaker::Runner::VERSION = '4.200010';
+  $Dist::Zilla::Plugin::MakeMaker::Runner::VERSION = '4.200011';
 }
 # ABSTRACT: Test and build dists with a Makefile.PL
 
@@ -48,7 +48,7 @@ Dist::Zilla::Plugin::MakeMaker::Runner - Test and build dists with a Makefile.PL
 
 =head1 VERSION
 
-version 4.200010
+version 4.200011
 
 =head1 AUTHOR
 
