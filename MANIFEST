@@ -191,6 +191,7 @@ t/plugins/prunes.t
 t/plugins/readme.t
 t/release-pod-syntax.t
 t/tester-demo.t
+t/tester.t
 todo/CHECKLIST-testing.mkdn
 todo/command-plugins.mkdn
 todo/config-arg-prefix.mkdn

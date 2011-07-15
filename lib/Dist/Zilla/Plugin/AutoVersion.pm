@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoVersion;
 BEGIN {
-  $Dist::Zilla::Plugin::AutoVersion::VERSION = '4.200009';
+  $Dist::Zilla::Plugin::AutoVersion::VERSION = '4.200010';
 }
 # ABSTRACT: take care of numbering versions so you don't have to
 use Moose;
@@ -68,7 +68,7 @@ Dist::Zilla::Plugin::AutoVersion - take care of numbering versions so you don't 
 
 =head1 VERSION
 
-version 4.200009
+version 4.200010
 
 =head1 DESCRIPTION
 
