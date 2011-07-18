@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Util;
 BEGIN {
-  $Dist::Zilla::Util::VERSION = '4.200011';
+  $Dist::Zilla::Util::VERSION = '4.200012';
 }
 # ABSTRACT: random snippets of code that Dist::Zilla wants
 
@@ -40,7 +40,7 @@ use String::RewritePrefix 0.002; # better string context behavior
 
     if (
       $event->{type} eq 'text'
-      and $event->{content} =~ /^\S+\s+-+\s+(.+)$/
+      and $event->{content} =~ /^(?:\S+\s+)+?-+\s+(.+)\n$/s
     ) {
       $self->{abstract} = $1;
     }
@@ -92,7 +92,7 @@ Dist::Zilla::Util - random snippets of code that Dist::Zilla wants
 
 =head1 VERSION
 
-version 4.200011
+version 4.200012
 
 =head1 METHODS
 
