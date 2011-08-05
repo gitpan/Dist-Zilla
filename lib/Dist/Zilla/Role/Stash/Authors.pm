@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::Stash::Authors;
-BEGIN {
-  $Dist::Zilla::Role::Stash::Authors::VERSION = '4.200012';
+{
+  $Dist::Zilla::Role::Stash::Authors::VERSION = '4.200013';
 }
 use Moose::Role;
 with 'Dist::Zilla::Role::Stash';
@@ -20,7 +20,7 @@ Dist::Zilla::Role::Stash::Authors - a stash that provides a list of author strin
 
 =head1 VERSION
 
-version 4.200012
+version 4.200013
 
 =head1 OVERVIEW
 

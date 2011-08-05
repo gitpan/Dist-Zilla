@@ -1,6 +1,6 @@
 package Dist::Zilla::Tester;
-BEGIN {
-  $Dist::Zilla::Tester::VERSION = '4.200012';
+{
+  $Dist::Zilla::Tester::VERSION = '4.200013';
 }
 use Moose;
 extends 'Dist::Zilla::Dist::Builder';
@@ -33,8 +33,8 @@ sub minter { 'Dist::Zilla::Tester::_Minter' }
 
 {
   package Dist::Zilla::Tester::_Role;
-BEGIN {
-  $Dist::Zilla::Tester::_Role::VERSION = '4.200012';
+{
+  $Dist::Zilla::Tester::_Role::VERSION = '4.200013';
 }
   use Moose::Role;
 
@@ -79,8 +79,8 @@ BEGIN {
 
 {
   package Dist::Zilla::Tester::_Builder;
-BEGIN {
-  $Dist::Zilla::Tester::_Builder::VERSION = '4.200012';
+{
+  $Dist::Zilla::Tester::_Builder::VERSION = '4.200013';
 }
   use Moose;
   extends 'Dist::Zilla::Dist::Builder';
@@ -175,8 +175,8 @@ BEGIN {
 
 {
   package Dist::Zilla::Tester::_Minter;
-BEGIN {
-  $Dist::Zilla::Tester::_Minter::VERSION = '4.200012';
+{
+  $Dist::Zilla::Tester::_Minter::VERSION = '4.200013';
 }
   use Moose;
   extends 'Dist::Zilla::Dist::Minter';
@@ -265,7 +265,7 @@ Dist::Zilla::Tester - a testing-enabling stand-in for Dist::Zilla
 
 =head1 VERSION
 
-version 4.200012
+version 4.200013
 
 =head1 AUTHOR
 
