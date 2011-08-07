@@ -1,6 +1,6 @@
 package Dist::Zilla::MVP::Reader::Perl;
 {
-  $Dist::Zilla::MVP::Reader::Perl::VERSION = '4.200013';
+  $Dist::Zilla::MVP::Reader::Perl::VERSION = '4.200014';
 }
 use Moose;
 extends 'Config::MVP::Reader';
@@ -56,7 +56,7 @@ Dist::Zilla::MVP::Reader::Perl - the reader for dist.pl files
 
 =head1 VERSION
 
-version 4.200013
+version 4.200014
 
 =head1 DESCRIPTION
 

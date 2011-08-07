@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::TemplateModule;
 {
-  $Dist::Zilla::Plugin::TemplateModule::VERSION = '4.200013';
+  $Dist::Zilla::Plugin::TemplateModule::VERSION = '4.200014';
 }
 # ABSTRACT: a simple module-from-template plugin
 use Moose;
@@ -64,7 +64,7 @@ Dist::Zilla::Plugin::TemplateModule - a simple module-from-template plugin
 
 =head1 VERSION
 
-version 4.200013
+version 4.200014
 
 =head1 DESCRIPTION
 
@@ -88,7 +88,26 @@ By default, the template looks something like this:
 =head2 template
 
 The C<template> parameter may be given to the plugin to provide a different
-filename, absolute or relative to the build root.
+filename, absolute or relative to the build/profile directory.
+
+If this parameter is not specified, this module will use the boilerplate module
+template included in this module.
+
+=head1 MINTING CONFIGURATION
+
+This module is part of the standard configuration of the default L<Dist::Zilla>
+Minting Profile, and all profiles that don't set a custom ':DefaultModuleMaker'
+so you don't need to normally do anything to configure it.
+
+  dzil new Some::Module
+  # creates ./Some-Module/*
+  # creates ./Some-Module/lib/Some/Module.pm
+
+However, for those who wish to configure this ( or any subclasses ) this is
+presently required:
+
+  [TemplateModule / :DefaultModuleMaker]
+  ; template  = SomeFile.pm
 
 =head1 AUTHOR
 
