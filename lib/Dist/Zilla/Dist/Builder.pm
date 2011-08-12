@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 {
-  $Dist::Zilla::Dist::Builder::VERSION = '4.200014';
+  $Dist::Zilla::Dist::Builder::VERSION = '4.200015';
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -327,7 +327,6 @@ sub build_archive {
     $self->name,
     '-',
     $self->version,
-    ($self->is_trial ? '-TRIAL' : ''),
   );
 
   $_->before_archive for $self->plugins_with(-BeforeArchive)->flatten;
@@ -360,7 +359,11 @@ sub build_archive {
     );
   }
 
-  my $file = file("$basename.tar.gz");
+  my $file = file(
+    sprintf '%s%s.tar.gz',
+    $basename,
+    ($self->is_trial ? '-TRIAL' : ''),
+  );
 
   $self->log("writing archive to $file");
   $archive->write("$file", 9);
@@ -546,7 +549,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 4.200014
+version 4.200015
 
 =head1 ATTRIBUTES
 

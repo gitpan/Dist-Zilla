@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::release;
 {
-  $Dist::Zilla::App::Command::release::VERSION = '4.200014';
+  $Dist::Zilla::App::Command::release::VERSION = '4.200015';
 }
 # ABSTRACT: release your dist to the CPAN
 use Dist::Zilla::App -command;
@@ -35,7 +35,7 @@ Dist::Zilla::App::Command::release - release your dist to the CPAN
 
 =head1 VERSION
 
-version 4.200014
+version 4.200015
 
 =head1 SYNOPSIS
 
