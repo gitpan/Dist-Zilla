@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::GatherDir;
 {
-  $Dist::Zilla::Plugin::GatherDir::VERSION = '4.200015';
+  $Dist::Zilla::Plugin::GatherDir::VERSION = '4.200016';
 }
 # ABSTRACT: gather all the files in a directory
 use Moose;
@@ -47,6 +47,22 @@ has follow_symlinks => (
   default => 0,
 );
 
+sub mvp_multivalue_args { qw(exclude_filename exclude_match) }
+
+
+has exclude_filename => (
+  is   => 'ro',
+  isa  => 'ArrayRef',
+  default => sub { [] },
+);
+
+
+has exclude_match => (
+  is   => 'ro',
+  isa  => 'ArrayRef',
+  default => sub { [] },
+);
+
 sub gather_files {
   my ($self) = @_;
 
@@ -58,11 +74,20 @@ sub gather_files {
   my $rule = File::Find::Rule->new();
   $rule->extras({follow => $self->follow_symlinks});
   FILE: for my $filename ($rule->file->in($root)) {
+    my $file = file($filename)->relative($root);
+
     unless ($self->include_dotfiles) {
-      my $file = file($filename)->relative($root);
       next FILE if $file->basename =~ qr/^\./;
       next FILE if grep { /^\.[^.]/ } $file->dir->dir_list;
     }
+
+    my $exclude_regex = qr/\000/;
+    $exclude_regex = qr/$exclude_regex|$_/
+      for ($self->exclude_match->flatten);
+    # \b\Q$_\E\b should also handle the `eq` check
+    $exclude_regex = qr/$exclude_regex|\b\Q$_\E\b/
+      for ($self->exclude_filename->flatten);
+    next if $file =~ $exclude_regex;
 
     push @files, $self->_file_from_filename($filename);
   }
@@ -101,7 +126,7 @@ Dist::Zilla::Plugin::GatherDir - gather all the files in a directory
 
 =head1 VERSION
 
-version 4.200015
+version 4.200016
 
 =head1 DESCRIPTION
 
@@ -153,6 +178,17 @@ In almost all cases, the default value (false) is correct.
 By default, directories that are symlinks will not be followed. Note on the
 other hand that in all followed directories, files which are symlinks are
 always gathered.
+
+=head2 exclude_filename
+
+To exclude certain files from being gathered, use the C<exclude_filename>
+option. This may be used multiple times to specify multiple files to exclude.
+
+=head2 exclude_match
+
+This is just like C<exclude_filename> but provides a regular expression
+pattern.  Files matching the pattern are not gathered.  This may be used
+multiple times to specify multiple patterns to exclude.
 
 =head1 AUTHOR
 

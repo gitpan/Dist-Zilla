@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::DistINI;
 {
-  $Dist::Zilla::Plugin::DistINI::VERSION = '4.200015';
+  $Dist::Zilla::Plugin::DistINI::VERSION = '4.200016';
 }
 # ABSTRACT: a plugin to add a dist.ini to newly-minted dists
 use Moose;
@@ -81,7 +81,7 @@ Dist::Zilla::Plugin::DistINI - a plugin to add a dist.ini to newly-minted dists
 
 =head1 VERSION
 
-version 4.200015
+version 4.200016
 
 =head1 DESCRIPTION
 

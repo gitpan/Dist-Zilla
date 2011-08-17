@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::install;
 {
-  $Dist::Zilla::App::Command::install::VERSION = '4.200015';
+  $Dist::Zilla::App::Command::install::VERSION = '4.200016';
 }
 # ABSTRACT: install your dist
 use Dist::Zilla::App -command;
@@ -36,7 +36,7 @@ Dist::Zilla::App::Command::install - install your dist
 
 =head1 VERSION
 
-version 4.200015
+version 4.200016
 
 =head1 SYNOPSIS
 

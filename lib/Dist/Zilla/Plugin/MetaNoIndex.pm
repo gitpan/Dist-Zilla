@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaNoIndex;
 {
-  $Dist::Zilla::Plugin::MetaNoIndex::VERSION = '4.200015';
+  $Dist::Zilla::Plugin::MetaNoIndex::VERSION = '4.200016';
 }
 # ABSTRACT: Stop CPAN from indexing stuff
 
@@ -63,7 +63,7 @@ Dist::Zilla::Plugin::MetaNoIndex - Stop CPAN from indexing stuff
 
 =head1 VERSION
 
-version 4.200015
+version 4.200016
 
 =head1 SYNOPSIS
 

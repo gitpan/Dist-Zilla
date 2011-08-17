@@ -1,5 +1,8 @@
 Revision history for Dist-Zilla
 
+4.200016  2011-08-17 18:07:21 America/New_York
+          add options to exclude files from GatherDir (David Golden)
+
 4.200015  2011-08-12 13:45:42 America/New_York
           don't build the dist in a directory with -TRIAL in the name; this
           should fix bugs in "dzil release --trial" and probably other related
