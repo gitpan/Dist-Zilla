@@ -77,7 +77,7 @@ my %WriteMakefileArgs = (
     'PPI' => '0',
     'Params::Util' => '0',
     'Path::Class' => '0',
-    'Perl::PrereqScanner' => '0.100830',
+    'Perl::PrereqScanner' => '0.105',
     'Perl::Version' => '0',
     'Pod::Eventual' => '0.091480',
     'Scalar::Util' => '0',
@@ -97,11 +97,14 @@ my %WriteMakefileArgs = (
     'YAML::Tiny' => '0',
     'autobox' => '2.53',
     'autodie' => '0',
+    'base' => '0',
     'namespace::autoclean' => '0',
     'parent' => '0',
-    'version' => '0'
+    'strict' => '0',
+    'version' => '0',
+    'warnings' => '0'
   },
-  'VERSION' => '4.200016',
+  'VERSION' => '4.200017',
   'test' => {
     'TESTS' => 't/*.t t/diagnostics/*.t t/plugins/*.t'
   }

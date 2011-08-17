@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoPrereqs;
 {
-  $Dist::Zilla::Plugin::AutoPrereqs::VERSION = '4.200016';
+  $Dist::Zilla::Plugin::AutoPrereqs::VERSION = '4.200017';
 }
 use Moose;
 with(
@@ -18,7 +18,7 @@ with(
 # ABSTRACT: automatically extract prereqs from your modules
 
 use Moose::Autobox;
-use Perl::PrereqScanner 0.100830; # bugfixes
+use Perl::PrereqScanner 0.105; # do not prune common libs
 use PPI;
 use Version::Requirements 0.100630;  # merge with 0-min bug
 use version;
@@ -111,7 +111,7 @@ Dist::Zilla::Plugin::AutoPrereqs - automatically extract prereqs from your modul
 
 =head1 VERSION
 
-version 4.200016
+version 4.200017
 
 =head1 SYNOPSIS
 

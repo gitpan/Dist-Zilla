@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::BeforeBuild;
 {
-  $Dist::Zilla::Role::BeforeBuild::VERSION = '4.200016';
+  $Dist::Zilla::Role::BeforeBuild::VERSION = '4.200017';
 }
 # ABSTRACT: something that runs before building really begins
 use Moose::Role;
@@ -21,7 +21,7 @@ Dist::Zilla::Role::BeforeBuild - something that runs before building really begi
 
 =head1 VERSION
 
-version 4.200016
+version 4.200017
 
 =head1 DESCRIPTION
 

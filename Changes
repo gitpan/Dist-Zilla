@@ -1,5 +1,9 @@
 Revision history for Dist-Zilla
 
+4.200017  2011-08-17 18:54:07 America/New_York
+          require and adapt to the new Perl::PrereqScanner, which does not
+          prune out prereqs just because they're core and common
+
 4.200016  2011-08-17 18:07:21 America/New_York
           add options to exclude files from GatherDir (David Golden)
 
