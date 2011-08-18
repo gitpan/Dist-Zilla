@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::BuildRunner;
 {
-  $Dist::Zilla::Role::BuildRunner::VERSION = '4.200017';
+  $Dist::Zilla::Role::BuildRunner::VERSION = '4.200018';
 }
 # ABSTRACT: something used as a delegating agent during 'dzil run'
 use Moose::Role;
@@ -21,7 +21,7 @@ Dist::Zilla::Role::BuildRunner - something used as a delegating agent during 'dz
 
 =head1 VERSION
 
-version 4.200017
+version 4.200018
 
 =head1 DESCRIPTION
 
