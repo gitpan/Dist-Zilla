@@ -1,10 +1,12 @@
 package Dist::Zilla::Role::Stash::Login;
 {
-  $Dist::Zilla::Role::Stash::Login::VERSION = '4.200018';
+  $Dist::Zilla::Role::Stash::Login::VERSION = '4.300000';
 }
 use Moose::Role;
 with 'Dist::Zilla::Role::Stash';
 # ABSTRACT: a stash with username/password credentials
+
+use namespace::autoclean;
 
 
 requires 'username';
@@ -21,7 +23,7 @@ Dist::Zilla::Role::Stash::Login - a stash with username/password credentials
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 OVERVIEW
 

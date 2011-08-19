@@ -1,12 +1,14 @@
 package Dist::Zilla::Plugin::GatherDir;
 {
-  $Dist::Zilla::Plugin::GatherDir::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::GatherDir::VERSION = '4.300000';
 }
 # ABSTRACT: gather all the files in a directory
 use Moose;
 use Moose::Autobox;
 use MooseX::Types::Path::Class qw(Dir File);
 with 'Dist::Zilla::Role::FileGatherer';
+
+use namespace::autoclean;
 
 
 use File::Find::Rule;
@@ -114,7 +116,6 @@ sub _file_from_filename {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -126,7 +127,7 @@ Dist::Zilla::Plugin::GatherDir - gather all the files in a directory
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

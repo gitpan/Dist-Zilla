@@ -1,10 +1,12 @@
 package Dist::Zilla::Plugin::BumpVersion;
 {
-  $Dist::Zilla::Plugin::BumpVersion::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::BumpVersion::VERSION = '4.300000';
 }
 # ABSTRACT: (DEPRECATED) bump the version number by one before building
 use Moose;
 with 'Dist::Zilla::Role::BeforeBuild';
+
+use namespace::autoclean;
 
 
 sub before_build {
@@ -36,7 +38,6 @@ before register_component => sub {
 };
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -48,7 +49,7 @@ Dist::Zilla::Plugin::BumpVersion - (DEPRECATED) bump the version number by one b
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 SYNOPSIS
 

@@ -1,9 +1,11 @@
 package Dist::Zilla::File::InMemory;
 {
-  $Dist::Zilla::File::InMemory::VERSION = '4.200018';
+  $Dist::Zilla::File::InMemory::VERSION = '4.300000';
 }
 # ABSTRACT: a file that you build entirely in memory
 use Moose;
+
+use namespace::autoclean;
 
 
 has content => (
@@ -14,7 +16,6 @@ has content => (
 
 with 'Dist::Zilla::Role::File';
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -26,7 +27,7 @@ Dist::Zilla::File::InMemory - a file that you build entirely in memory
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

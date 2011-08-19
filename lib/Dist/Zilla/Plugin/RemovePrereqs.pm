@@ -1,10 +1,12 @@
 package Dist::Zilla::Plugin::RemovePrereqs;
 {
-  $Dist::Zilla::Plugin::RemovePrereqs::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::RemovePrereqs::VERSION = '4.300000';
 }
 # ABSTRACT: a plugin to remove gathered prereqs
 use Moose;
 with 'Dist::Zilla::Role::PrereqSource';
+
+use namespace::autoclean;
 
 use Moose::Autobox;
 
@@ -54,7 +56,6 @@ sub register_prereqs {
   }
 }
 
-no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
 
@@ -67,7 +68,7 @@ Dist::Zilla::Plugin::RemovePrereqs - a plugin to remove gathered prereqs
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 SYNOPSIS
 

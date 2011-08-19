@@ -1,10 +1,12 @@
 package Dist::Zilla::MVP::Assembler::Zilla;
 {
-  $Dist::Zilla::MVP::Assembler::Zilla::VERSION = '4.200018';
+  $Dist::Zilla::MVP::Assembler::Zilla::VERSION = '4.300000';
 }
 use Moose;
 extends 'Dist::Zilla::MVP::Assembler';
 # ABSTRACT: Dist::Zilla::MVP::Assembler for the Dist::Zilla object
+
+use namespace::autoclean;
 
 
 use MooseX::Types::Perl qw(PackageName);
@@ -39,7 +41,7 @@ sub register_stash {
   return;
 }
 
-no Moose;
+__PACKAGE__->meta->make_immutable;
 1;
 
 __END__
@@ -51,7 +53,7 @@ Dist::Zilla::MVP::Assembler::Zilla - Dist::Zilla::MVP::Assembler for the Dist::Z
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 OVERVIEW
 

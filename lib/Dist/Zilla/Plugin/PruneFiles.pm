@@ -1,11 +1,13 @@
 package Dist::Zilla::Plugin::PruneFiles;
 {
-  $Dist::Zilla::Plugin::PruneFiles::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::PruneFiles::VERSION = '4.300000';
 }
 # ABSTRACT: prune arbirary files from the dist
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FilePruner';
+
+use namespace::autoclean;
 
 
 sub mvp_multivalue_args { qw(filenames matches) }
@@ -48,7 +50,6 @@ sub prune_files {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -60,7 +61,7 @@ Dist::Zilla::Plugin::PruneFiles - prune arbirary files from the dist
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 SYNOPSIS
 

@@ -1,10 +1,12 @@
 package Dist::Zilla::Plugin::TestRelease;
 {
-  $Dist::Zilla::Plugin::TestRelease::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::TestRelease::VERSION = '4.300000';
 }
 use Moose;
 with 'Dist::Zilla::Role::BeforeRelease';
 # ABSTRACT: extract archive and run tests before releasing the dist
+
+use namespace::autoclean;
 
 
 use Archive::Tar;
@@ -42,7 +44,6 @@ sub before_release {
   $tmpdir->rmtree;
 }
 
-no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
 
@@ -55,7 +56,7 @@ Dist::Zilla::Plugin::TestRelease - extract archive and run tests before releasin
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

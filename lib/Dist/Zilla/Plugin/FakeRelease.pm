@@ -1,11 +1,13 @@
 package Dist::Zilla::Plugin::FakeRelease;
 {
-  $Dist::Zilla::Plugin::FakeRelease::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::FakeRelease::VERSION = '4.300000';
 }
 # ABSTRACT: fake plugin to test release
 
 use Moose;
 with 'Dist::Zilla::Role::Releaser';
+
+use namespace::autoclean;
 
 has user => (
   is   => 'ro',
@@ -27,7 +29,6 @@ sub release {
   $self->log('Fake release happening (nothing was really done)');
 }
 
-no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
 
@@ -41,7 +42,7 @@ Dist::Zilla::Plugin::FakeRelease - fake plugin to test release
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 SYNOPSIS
 

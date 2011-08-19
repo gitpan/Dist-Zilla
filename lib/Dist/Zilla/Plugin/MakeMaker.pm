@@ -1,11 +1,13 @@
 package Dist::Zilla::Plugin::MakeMaker;
 {
-  $Dist::Zilla::Plugin::MakeMaker::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::MakeMaker::VERSION = '4.300000';
 }
 
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
 use Moose;
 use Moose::Autobox;
+
+use namespace::autoclean;
 
 
 use Config;
@@ -176,6 +178,7 @@ sub setup_installer {
   );
   $makefile_args_dumper->Sortkeys( 1 );
   $makefile_args_dumper->Indent( 1 );
+  $makefile_args_dumper->Useqq( 1 );
 
   my $content = $self->fill_in_string(
     $template,
@@ -209,7 +212,6 @@ has 'eumm_version' => (
 );
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -221,7 +223,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

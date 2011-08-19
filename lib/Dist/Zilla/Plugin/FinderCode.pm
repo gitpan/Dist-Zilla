@@ -1,14 +1,15 @@
 package Dist::Zilla::Plugin::FinderCode;
 {
-  $Dist::Zilla::Plugin::FinderCode::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::FinderCode::VERSION = '4.300000';
 }
 use Moose;
 with 'Dist::Zilla::Role::FileFinder';
 # ABSTRACT: a callback-based FileFinder plugin
 
+use namespace::autoclean;
+
 use Moose::Autobox;
 use Moose::Util::TypeConstraints;
-use namespace::autoclean;
 
 has code => (
   is  => 'ro',
@@ -44,6 +45,7 @@ sub _find_via_list {
   $self->$code;
 }
 
+__PACKAGE__->meta->make_immutable;
 1;
 
 __END__
@@ -55,7 +57,7 @@ Dist::Zilla::Plugin::FinderCode - a callback-based FileFinder plugin
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 AUTHOR
 

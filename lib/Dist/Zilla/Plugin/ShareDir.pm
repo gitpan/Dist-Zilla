@@ -1,9 +1,11 @@
 package Dist::Zilla::Plugin::ShareDir;
 {
-  $Dist::Zilla::Plugin::ShareDir::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::ShareDir::VERSION = '4.300000';
 }
 # ABSTRACT: install a directory's contents as "ShareDir" content
 use Moose;
+
+use namespace::autoclean;
 
 use Moose::Autobox;
 
@@ -31,7 +33,6 @@ sub share_dir_map {
 
 with 'Dist::Zilla::Role::ShareDir';
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -43,7 +44,7 @@ Dist::Zilla::Plugin::ShareDir - install a directory's contents as "ShareDir" con
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 SYNOPSIS
 

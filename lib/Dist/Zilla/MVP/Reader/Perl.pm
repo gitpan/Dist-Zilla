@@ -1,11 +1,13 @@
 package Dist::Zilla::MVP::Reader::Perl;
 {
-  $Dist::Zilla::MVP::Reader::Perl::VERSION = '4.200018';
+  $Dist::Zilla::MVP::Reader::Perl::VERSION = '4.300000';
 }
 use Moose;
 extends 'Config::MVP::Reader';
 with qw(Config::MVP::Reader::Findable::ByExtension);
 # ABSTRACT: the reader for dist.pl files
+
+use namespace::autoclean;
 
 
 sub default_extension { 'pl' }
@@ -43,7 +45,6 @@ sub read_into_assembler {
   return $self->assembler->sequence;
 }
 
-no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
 
@@ -56,7 +57,7 @@ Dist::Zilla::MVP::Reader::Perl - the reader for dist.pl files
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

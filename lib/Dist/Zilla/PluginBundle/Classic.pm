@@ -1,10 +1,12 @@
 package Dist::Zilla::PluginBundle::Classic;
 {
-  $Dist::Zilla::PluginBundle::Classic::VERSION = '4.200018';
+  $Dist::Zilla::PluginBundle::Classic::VERSION = '4.300000';
 }
 # ABSTRACT: the classic (old) default configuration for Dist::Zilla
 use Moose;
 with 'Dist::Zilla::Role::PluginBundle::Easy';
+
+use namespace::autoclean;
 
 sub configure {
   my ($self) = @_;
@@ -33,7 +35,6 @@ sub configure {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 
@@ -45,7 +46,7 @@ Dist::Zilla::PluginBundle::Classic - the classic (old) default configuration for
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

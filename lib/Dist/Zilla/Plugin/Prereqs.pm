@@ -1,10 +1,12 @@
 package Dist::Zilla::Plugin::Prereqs;
 {
-  $Dist::Zilla::Plugin::Prereqs::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::Prereqs::VERSION = '4.300000';
 }
 # ABSTRACT: list simple prerequisites
 use Moose;
 with 'Dist::Zilla::Role::PrereqSource';
+
+use namespace::autoclean;
 
 
 sub __from_name {
@@ -109,7 +111,6 @@ sub register_prereqs {
   );
 }
 
-no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
 
@@ -122,7 +123,7 @@ Dist::Zilla::Plugin::Prereqs - list simple prerequisites
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 SYNOPSIS
 

@@ -1,9 +1,11 @@
 package Dist::Zilla::Role::FileInjector;
 {
-  $Dist::Zilla::Role::FileInjector::VERSION = '4.200018';
+  $Dist::Zilla::Role::FileInjector::VERSION = '4.300000';
 }
 # ABSTRACT: something that can add files to the distribution
 use Moose::Role;
+
+use namespace::autoclean;
 
 use Moose::Autobox;
 
@@ -21,7 +23,6 @@ sub add_file {
   $self->zilla->files->push($file);
 }
 
-no Moose::Role;
 1;
 
 __END__
@@ -33,7 +34,7 @@ Dist::Zilla::Role::FileInjector - something that can add files to the distributi
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

@@ -1,10 +1,12 @@
 package Dist::Zilla::Role::FileMunger;
 {
-  $Dist::Zilla::Role::FileMunger::VERSION = '4.200018';
+  $Dist::Zilla::Role::FileMunger::VERSION = '4.300000';
 }
 # ABSTRACT: something that alters a file's destination or content
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
+
+use namespace::autoclean;
 
 use Moose::Autobox;
 
@@ -18,7 +20,6 @@ sub munge_files {
   $self->munge_file($_) for $self->zilla->files->flatten;
 }
 
-no Moose::Role;
 1;
 
 __END__
@@ -30,7 +31,7 @@ Dist::Zilla::Role::FileMunger - something that alters a file's destination or co
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

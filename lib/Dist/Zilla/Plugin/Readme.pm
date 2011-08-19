@@ -1,11 +1,13 @@
 package Dist::Zilla::Plugin::Readme;
 {
-  $Dist::Zilla::Plugin::Readme::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::Readme::VERSION = '4.300000';
 }
 # ABSTRACT: build a README file
 use Moose;
 use Moose::Autobox;
 with qw/Dist::Zilla::Role::FileGatherer Dist::Zilla::Role::TextTemplate/;
+
+use namespace::autoclean;
 
 
 sub gather_files {
@@ -39,7 +41,6 @@ version {{ $dist->version }}:
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -51,7 +52,7 @@ Dist::Zilla::Plugin::Readme - build a README file
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

@@ -1,10 +1,12 @@
 package Dist::Zilla::PluginBundle::Basic;
 {
-  $Dist::Zilla::PluginBundle::Basic::VERSION = '4.200018';
+  $Dist::Zilla::PluginBundle::Basic::VERSION = '4.300000';
 }
 # ABSTRACT: the basic plugins to maintain and release CPAN dists
 use Moose;
 with 'Dist::Zilla::Role::PluginBundle::Easy';
+
+use namespace::autoclean;
 
 sub configure {
   my ($self) = @_;
@@ -30,7 +32,6 @@ sub configure {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 
@@ -42,7 +43,7 @@ Dist::Zilla::PluginBundle::Basic - the basic plugins to maintain and release CPA
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

@@ -1,11 +1,13 @@
 package Dist::Zilla::Plugin::MetaJSON;
 {
-  $Dist::Zilla::Plugin::MetaJSON::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::MetaJSON::VERSION = '4.300000';
 }
 # ABSTRACT: produce a META.json
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
+
+use namespace::autoclean;
 
 use CPAN::Meta::Converter 2.101550; # improved downconversion
 use CPAN::Meta::Validator 2.101550; # improved downconversion
@@ -57,7 +59,6 @@ sub gather_files {
   return;
 }
 
-no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
 
@@ -70,7 +71,7 @@ Dist::Zilla::Plugin::MetaJSON - produce a META.json
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

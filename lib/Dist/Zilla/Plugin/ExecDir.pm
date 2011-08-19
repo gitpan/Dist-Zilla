@@ -1,9 +1,11 @@
 package Dist::Zilla::Plugin::ExecDir;
 {
-  $Dist::Zilla::Plugin::ExecDir::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::ExecDir::VERSION = '4.300000';
 }
 # ABSTRACT: install a directory's contents as executables
 use Moose;
+
+use namespace::autoclean;
 
 use Moose::Autobox;
 
@@ -23,7 +25,6 @@ sub find_files {
 
 with 'Dist::Zilla::Role::ExecFiles';
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -35,7 +36,7 @@ Dist::Zilla::Plugin::ExecDir - install a directory's contents as executables
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 SYNOPSIS
 

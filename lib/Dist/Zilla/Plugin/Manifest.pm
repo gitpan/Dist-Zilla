@@ -1,11 +1,13 @@
 package Dist::Zilla::Plugin::Manifest;
 {
-  $Dist::Zilla::Plugin::Manifest::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::Manifest::VERSION = '4.300000';
 }
 # ABSTRACT: build a MANIFEST file
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
+
+use namespace::autoclean;
 
 use Dist::Zilla::File::FromCode;
 
@@ -36,7 +38,6 @@ sub gather_files {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -48,7 +49,7 @@ Dist::Zilla::Plugin::Manifest - build a MANIFEST file
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

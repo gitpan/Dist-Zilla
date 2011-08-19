@@ -1,11 +1,13 @@
 package Dist::Zilla::PluginBundle::Filter;
 {
-  $Dist::Zilla::PluginBundle::Filter::VERSION = '4.200018';
+  $Dist::Zilla::PluginBundle::Filter::VERSION = '4.300000';
 }
 # ABSTRACT: use another bundle, with some plugins removed
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::PluginBundle';
+
+use namespace::autoclean;
 
 use Dist::Zilla::Util;
 
@@ -54,7 +56,6 @@ sub bundle_config {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -66,7 +67,7 @@ Dist::Zilla::PluginBundle::Filter - use another bundle, with some plugins remove
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 SYNOPSIS
 

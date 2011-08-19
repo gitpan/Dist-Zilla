@@ -1,9 +1,11 @@
 package Dist::Zilla::Stash::PAUSE;
 {
-  $Dist::Zilla::Stash::PAUSE::VERSION = '4.200018';
+  $Dist::Zilla::Stash::PAUSE::VERSION = '4.300000';
 }
 use Moose;
 # ABSTRACT: a stash of your PAUSE credentials
+
+use namespace::autoclean;
 
 
 sub mvp_aliases {
@@ -23,6 +25,7 @@ has password => (
 );
 
 with 'Dist::Zilla::Role::Stash::Login';
+__PACKAGE__->meta->make_immutable;
 1;
 
 __END__
@@ -34,7 +37,7 @@ Dist::Zilla::Stash::PAUSE - a stash of your PAUSE credentials
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 OVERVIEW
 

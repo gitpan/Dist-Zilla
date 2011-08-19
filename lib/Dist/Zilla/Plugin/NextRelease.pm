@@ -1,11 +1,17 @@
 package Dist::Zilla::Plugin::NextRelease;
 {
-  $Dist::Zilla::Plugin::NextRelease::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::NextRelease::VERSION = '4.300000';
 }
 # ABSTRACT: update the next release number in your changelog
 
+use namespace::autoclean;
+
 use Moose;
-with qw/Dist::Zilla::Role::FileMunger Dist::Zilla::Role::TextTemplate Dist::Zilla::Role::AfterRelease/;
+with (
+  'Dist::Zilla::Role::FileMunger',
+  'Dist::Zilla::Role::TextTemplate',
+  'Dist::Zilla::Role::AfterRelease',
+);
 
 use DateTime 0.44; # CLDR fixes
 use String::Formatter 0.100680 stringf => {
@@ -110,7 +116,6 @@ sub after_release {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 
@@ -122,7 +127,7 @@ Dist::Zilla::Plugin::NextRelease - update the next release number in your change
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 SYNOPSIS
 

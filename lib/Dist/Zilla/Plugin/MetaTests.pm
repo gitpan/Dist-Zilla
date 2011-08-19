@@ -1,14 +1,15 @@
 package Dist::Zilla::Plugin::MetaTests;
 {
-  $Dist::Zilla::Plugin::MetaTests::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::MetaTests::VERSION = '4.300000';
 }
 # ABSTRACT: common extra tests for META.yml
 use Moose;
 extends 'Dist::Zilla::Plugin::InlineFiles';
 
+use namespace::autoclean;
+
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 
@@ -21,7 +22,7 @@ Dist::Zilla::Plugin::MetaTests - common extra tests for META.yml
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

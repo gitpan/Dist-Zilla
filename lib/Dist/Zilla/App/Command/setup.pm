@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::setup;
 {
-  $Dist::Zilla::App::Command::setup::VERSION = '4.200018';
+  $Dist::Zilla::App::Command::setup::VERSION = '4.300000';
 }
 # ABSTRACT: set up a basic global config file
 use Dist::Zilla::App -command;
@@ -104,7 +104,10 @@ sub execute {
   }
 
   $config_root->mkpath unless -d $config_root;
-  open my $fh, '>', $config_root->file('config.ini');
+
+  my $umask = umask;
+  umask( $umask | 077 ); # this file might contain PAUSE pw; make it go-r
+  open my $fh, '>:encoding(UTF-8)', $config_root->file('config.ini');
 
   $fh->print("[%User]\n");
   $fh->print("name  = $realname\n");
@@ -125,6 +128,8 @@ sub execute {
 
   close $fh;
 
+  umask $umask;
+
   $self->log("config.ini file created!");
 }
 
@@ -139,7 +144,7 @@ Dist::Zilla::App::Command::setup - set up a basic global config file
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 SYNOPSIS
 

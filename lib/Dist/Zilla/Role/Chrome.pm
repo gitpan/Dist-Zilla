@@ -1,16 +1,17 @@
 package Dist::Zilla::Role::Chrome;
 {
-  $Dist::Zilla::Role::Chrome::VERSION = '4.200018';
+  $Dist::Zilla::Role::Chrome::VERSION = '4.300000';
 }
 # ABSTRACT: something that provides a user interface for Dist::Zilla
 use Moose::Role;
+
+use namespace::autoclean;
 
 requires 'logger';
 
 requires 'prompt_str';
 requires 'prompt_yn';
 requires 'prompt_any_key';
-
 
 1;
 
@@ -23,7 +24,7 @@ Dist::Zilla::Role::Chrome - something that provides a user interface for Dist::Z
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 AUTHOR
 

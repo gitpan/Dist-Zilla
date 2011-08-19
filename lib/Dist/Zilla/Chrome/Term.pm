@@ -1,16 +1,19 @@
 package Dist::Zilla::Chrome::Term;
 {
-  $Dist::Zilla::Chrome::Term::VERSION = '4.200018';
+  $Dist::Zilla::Chrome::Term::VERSION = '4.300000';
 }
 use Moose;
 # ABSTRACT: chrome used for terminal-based interaction
 
 
 use Dist::Zilla::Types qw(OneZero);
+use Encode qw(decode_utf8);
 use Log::Dispatchouli 1.102220;
 use Term::ReadLine;
 use Term::ReadKey;
 use Term::UI;
+
+use namespace::autoclean;
 
 has logger => (
   is  => 'ro',
@@ -41,12 +44,13 @@ sub prompt_str {
   my $default = $arg->{default};
   my $check   = $arg->{check};
 
-  my $input = $self->term_ui->get_reply(
+  my $input_bytes = $self->term_ui->get_reply(
     prompt => $prompt,
     allow  => $check || sub { defined $_[0] and length $_[0] },
     (defined $default ? (default => $default) : ()),
   );
 
+  my $input = decode_utf8( $input_bytes );
   chomp $input;
 
   return $input;
@@ -82,6 +86,8 @@ sub prompt_any_key {
 }
 
 with 'Dist::Zilla::Role::Chrome';
+
+__PACKAGE__->meta->make_immutable;
 1;
 
 __END__
@@ -93,7 +99,7 @@ Dist::Zilla::Chrome::Term - chrome used for terminal-based interaction
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 OVERVIEW
 

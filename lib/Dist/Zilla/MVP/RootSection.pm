@@ -1,10 +1,12 @@
 package Dist::Zilla::MVP::RootSection;
 {
-  $Dist::Zilla::MVP::RootSection::VERSION = '4.200018';
+  $Dist::Zilla::MVP::RootSection::VERSION = '4.300000';
 }
 use Moose;
 extends 'Config::MVP::Section';
 # ABSTRACT: a standard section in Dist::Zilla's configuration sequence
+
+use namespace::autoclean;
 
 
 use MooseX::LazyRequire;
@@ -35,6 +37,7 @@ after finalize => sub {
   $self->set_zilla($zilla);
 };
 
+__PACKAGE__->meta->make_immutable;
 1;
 
 __END__
@@ -46,7 +49,7 @@ Dist::Zilla::MVP::RootSection - a standard section in Dist::Zilla's configuratio
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

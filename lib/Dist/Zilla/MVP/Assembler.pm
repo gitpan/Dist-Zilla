@@ -1,11 +1,13 @@
 package Dist::Zilla::MVP::Assembler;
 {
-  $Dist::Zilla::MVP::Assembler::VERSION = '4.200018';
+  $Dist::Zilla::MVP::Assembler::VERSION = '4.300000';
 }
 use Moose;
 extends 'Config::MVP::Assembler';
 with 'Config::MVP::Assembler::WithBundles';
 # ABSTRACT: Dist::Zilla-specific subclass of Config::MVP::Assembler
+
+use namespace::autoclean;
 
 use Dist::Zilla::Util;
 
@@ -48,7 +50,7 @@ before add_value => sub {
   );
 };
 
-no Moose;
+__PACKAGE__->meta->make_immutable;
 1;
 
 __END__
@@ -60,7 +62,7 @@ Dist::Zilla::MVP::Assembler - Dist::Zilla-specific subclass of Config::MVP::Asse
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

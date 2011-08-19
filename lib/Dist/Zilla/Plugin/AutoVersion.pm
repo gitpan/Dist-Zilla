@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoVersion;
 {
-  $Dist::Zilla::Plugin::AutoVersion::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::AutoVersion::VERSION = '4.300000';
 }
 # ABSTRACT: take care of numbering versions so you don't have to
 use Moose;
@@ -8,6 +8,8 @@ with(
   'Dist::Zilla::Role::VersionProvider',
   'Dist::Zilla::Role::TextTemplate',
 );
+
+use namespace::autoclean;
 
 use DateTime 0.44 (); # CLDR fixes
 
@@ -56,7 +58,6 @@ sub provide_version {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -68,7 +69,7 @@ Dist::Zilla::Plugin::AutoVersion - take care of numbering versions so you don't 
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

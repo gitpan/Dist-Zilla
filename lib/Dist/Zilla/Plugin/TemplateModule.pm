@@ -1,14 +1,19 @@
 package Dist::Zilla::Plugin::TemplateModule;
 {
-  $Dist::Zilla::Plugin::TemplateModule::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::TemplateModule::VERSION = '4.300000';
 }
 # ABSTRACT: a simple module-from-template plugin
 use Moose;
 with qw(Dist::Zilla::Role::ModuleMaker Dist::Zilla::Role::TextTemplate);
 
+use namespace::autoclean;
+
 use autodie;
 
-use Data::Section 0.004 -setup; # fixed header_re
+use Sub::Exporter::ForMethods;
+use Data::Section 0.004 # fixed header_re
+  { installer => Sub::Exporter::ForMethods::method_installer },
+  '-setup';
 use Dist::Zilla::File::InMemory;
 
 
@@ -52,7 +57,6 @@ sub make_module {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 
@@ -64,7 +68,7 @@ Dist::Zilla::Plugin::TemplateModule - a simple module-from-template plugin
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

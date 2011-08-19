@@ -1,10 +1,12 @@
 package Dist::Zilla::Stash::Rights;
 {
-  $Dist::Zilla::Stash::Rights::VERSION = '4.200018';
+  $Dist::Zilla::Stash::Rights::VERSION = '4.300000';
 }
 use Moose;
 with 'Dist::Zilla::Role::Stash';
 # ABSTRACT: a stash of your default licensing terms
+
+use namespace::autoclean;
 
 has license_class => (
   is  => 'ro',
@@ -23,6 +25,7 @@ has copyright_year => (
   isa => 'Int',
 );
 
+__PACKAGE__->meta->make_immutable;
 1;
 
 __END__
@@ -34,7 +37,7 @@ Dist::Zilla::Stash::Rights - a stash of your default licensing terms
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 AUTHOR
 

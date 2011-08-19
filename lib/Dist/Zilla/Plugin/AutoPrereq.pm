@@ -1,10 +1,12 @@
 package Dist::Zilla::Plugin::AutoPrereq;
 {
-  $Dist::Zilla::Plugin::AutoPrereq::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::AutoPrereq::VERSION = '4.300000';
 }
 use Moose;
 extends 'Dist::Zilla::Plugin::AutoPrereqs';
 # ABSTRACT: (DEPRECATED) the old name for Dist::Zilla::Plugin::AutoPrereqs
+
+use namespace::autoclean;
 
 before register_component => sub {
   die "[AutoPrereq] will be removed in Dist::Zilla v5; replace it with [AutoPrereqs] (note the 's')\n"
@@ -13,7 +15,6 @@ before register_component => sub {
   warn "!!! [AutoPrereq] will be removed in Dist::Zilla v5; replace it with [AutoPrereqs] (note the 's')\n";
 };
 
-no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
 
@@ -26,7 +27,7 @@ Dist::Zilla::Plugin::AutoPrereq - (DEPRECATED) the old name for Dist::Zilla::Plu
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 AUTHOR
 

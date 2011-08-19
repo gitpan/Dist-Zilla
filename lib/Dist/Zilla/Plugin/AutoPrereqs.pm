@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoPrereqs;
 {
-  $Dist::Zilla::Plugin::AutoPrereqs::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::AutoPrereqs::VERSION = '4.300000';
 }
 use Moose;
 with(
@@ -14,6 +14,8 @@ with(
     default_finders  => [ ':TestFiles' ],
   },
 );
+
+use namespace::autoclean;
 
 # ABSTRACT: automatically extract prereqs from your modules
 
@@ -97,10 +99,8 @@ sub register_prereqs {
   }
 }
 
-no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
-
 
 __END__
 =pod
@@ -111,7 +111,7 @@ Dist::Zilla::Plugin::AutoPrereqs - automatically extract prereqs from your modul
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 SYNOPSIS
 

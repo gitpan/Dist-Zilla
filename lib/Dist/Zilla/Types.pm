@@ -1,8 +1,10 @@
 package Dist::Zilla::Types;
 {
-  $Dist::Zilla::Types::VERSION = '4.200018';
+  $Dist::Zilla::Types::VERSION = '4.300000';
 }
 # ABSTRACT: dzil-specific type library
+
+use namespace::autoclean;
 
 
 use MooseX::Types -declare => [qw(License OneZero YesNoStr)];
@@ -27,7 +29,7 @@ Dist::Zilla::Types - dzil-specific type library
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 OVERVIEW
 

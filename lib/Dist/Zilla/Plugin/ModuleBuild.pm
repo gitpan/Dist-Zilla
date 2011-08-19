@@ -1,16 +1,18 @@
 package Dist::Zilla::Plugin::ModuleBuild;
 {
-  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '4.300000';
 }
 # ABSTRACT: build a Build.PL that uses Module::Build
 use List::MoreUtils qw(any uniq);
 use Moose;
 use Moose::Autobox;
-with qw(
-  Dist::Zilla::Role::BuildPL
-  Dist::Zilla::Role::PrereqSource
-  Dist::Zilla::Role::TextTemplate
+with (
+  'Dist::Zilla::Role::BuildPL',
+  'Dist::Zilla::Role::PrereqSource',
+  'Dist::Zilla::Role::TextTemplate',
 );
+
+use namespace::autoclean;
 
 use Dist::Zilla::File::InMemory;
 use List::MoreUtils qw(any uniq);
@@ -123,6 +125,7 @@ sub setup_installer {
   );
   $module_build_dumper->Sortkeys( 1 );
   $module_build_dumper->Indent( 1 );
+  $module_build_dumper->Useqq( 1 );
 
   my $content = $self->fill_in_string(
     $template,
@@ -148,7 +151,6 @@ has __module_build_args => (
 );
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -160,7 +162,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

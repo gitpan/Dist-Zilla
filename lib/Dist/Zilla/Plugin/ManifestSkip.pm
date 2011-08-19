@@ -1,10 +1,12 @@
 package Dist::Zilla::Plugin::ManifestSkip;
 {
-  $Dist::Zilla::Plugin::ManifestSkip::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::ManifestSkip::VERSION = '4.300000';
 }
 # ABSTRACT: decline to build files that appear in a MANIFEST.SKIP-like file
 use Moose;
 with 'Dist::Zilla::Role::FilePruner';
+
+use namespace::autoclean;
 
 use ExtUtils::Manifest 1.54; # public maniskip routine
 use Moose::Autobox;
@@ -31,7 +33,6 @@ sub prune_files {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -43,7 +44,7 @@ Dist::Zilla::Plugin::ManifestSkip - decline to build files that appear in a MANI
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

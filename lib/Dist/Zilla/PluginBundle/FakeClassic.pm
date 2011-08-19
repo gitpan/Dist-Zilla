@@ -1,10 +1,13 @@
 package Dist::Zilla::PluginBundle::FakeClassic;
 {
-  $Dist::Zilla::PluginBundle::FakeClassic::VERSION = '4.200018';
+  $Dist::Zilla::PluginBundle::FakeClassic::VERSION = '4.300000';
 }
 # ABSTRACT: build something more or less like a "classic" CPAN dist
 use Moose;
 extends 'Dist::Zilla::PluginBundle::Classic';
+
+use namespace::autoclean;
+
 use Moose::Autobox;
 
 around bundle_config => sub {
@@ -27,7 +30,6 @@ around bundle_config => sub {
 };
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -39,7 +41,7 @@ Dist::Zilla::PluginBundle::FakeClassic - build something more or less like a "cl
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 AUTHOR
 

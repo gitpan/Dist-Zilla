@@ -1,15 +1,15 @@
 package Dist::Zilla::MintingProfile::Default;
 {
-  $Dist::Zilla::MintingProfile::Default::VERSION = '4.200018';
+  $Dist::Zilla::MintingProfile::Default::VERSION = '4.300000';
 }
 # ABSTRACT: Default minting profile provider
 use Moose;
 with 'Dist::Zilla::Role::MintingProfile::ShareDir';
 
+use namespace::autoclean;
+
 use Dist::Zilla::Util;
 use Path::Class;
-
-use namespace::autoclean;
 
 
 around profile_dir => sub {
@@ -25,6 +25,7 @@ around profile_dir => sub {
   return $self->$orig($profile_name);
 };
 
+__PACKAGE__->meta->make_immutable;
 1;
 
 __END__
@@ -36,7 +37,7 @@ Dist::Zilla::MintingProfile::Default - Default minting profile provider
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

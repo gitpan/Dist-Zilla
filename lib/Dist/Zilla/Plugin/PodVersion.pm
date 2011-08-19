@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PodVersion;
 {
-  $Dist::Zilla::Plugin::PodVersion::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::PodVersion::VERSION = '4.300000';
 }
 # ABSTRACT: add a VERSION head1 to each Perl document
 use Moose;
@@ -10,6 +10,8 @@ with(
     default_finders => [ ':InstallModules', ':ExecFiles' ],
   },
 );
+
+use namespace::autoclean;
 
 
 sub munge_files {
@@ -66,7 +68,6 @@ sub munge_pod {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -78,7 +79,7 @@ Dist::Zilla::Plugin::PodVersion - add a VERSION head1 to each Perl document
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

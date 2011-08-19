@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PkgDist;
 {
-  $Dist::Zilla::Plugin::PkgDist::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::PkgDist::VERSION = '4.300000';
 }
 # ABSTRACT: add a $DIST to your packages
 use Moose;
@@ -10,6 +10,8 @@ with(
     default_finders => [ ':InstallModules', ':ExecFiles' ],
   },
 );
+
+use namespace::autoclean;
 
 use PPI;
 
@@ -94,7 +96,6 @@ sub munge_perl {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -106,7 +107,7 @@ Dist::Zilla::Plugin::PkgDist - add a $DIST to your packages
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

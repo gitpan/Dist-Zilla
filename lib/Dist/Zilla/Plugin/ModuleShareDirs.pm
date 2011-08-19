@@ -1,9 +1,11 @@
 package Dist::Zilla::Plugin::ModuleShareDirs;
 {
-  $Dist::Zilla::Plugin::ModuleShareDirs::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::ModuleShareDirs::VERSION = '4.300000';
 }
 # ABSTRACT: install a directory's contents as module-based "ShareDir" content
 use Moose;
+
+use namespace::autoclean;
 
 use Moose::Autobox;
 
@@ -54,7 +56,6 @@ sub BUILDARGS {
 
 with 'Dist::Zilla::Role::ShareDir';
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -66,7 +67,7 @@ Dist::Zilla::Plugin::ModuleShareDirs - install a directory's contents as module-
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 SYNOPSIS
 

@@ -1,14 +1,19 @@
 package Dist::Zilla::Plugin::InlineFiles;
 {
-  $Dist::Zilla::Plugin::InlineFiles::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::InlineFiles::VERSION = '4.300000';
 }
 # ABSTRACT: files in a data section
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
 
+use namespace::autoclean;
 
-use Data::Section 0.004 -setup; # fixed header_re
+
+use Sub::Exporter::ForMethods;
+use Data::Section 0.004 # fixed header_re
+  { installer => Sub::Exporter::ForMethods::method_installer },
+  '-setup';
 use Dist::Zilla::File::InMemory;
 
 sub gather_files {
@@ -30,7 +35,6 @@ sub gather_files {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -42,7 +46,7 @@ Dist::Zilla::Plugin::InlineFiles - files in a data section
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

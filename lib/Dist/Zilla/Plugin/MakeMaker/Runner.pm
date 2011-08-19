@@ -1,11 +1,16 @@
 package Dist::Zilla::Plugin::MakeMaker::Runner;
 {
-  $Dist::Zilla::Plugin::MakeMaker::Runner::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::MakeMaker::Runner::VERSION = '4.300000';
 }
 # ABSTRACT: Test and build dists with a Makefile.PL
 
 use Moose;
-with qw/Dist::Zilla::Role::BuildRunner Dist::Zilla::Role::TestRunner/;
+with(
+  'Dist::Zilla::Role::BuildRunner',
+  'Dist::Zilla::Role::TestRunner',
+);
+
+use namespace::autoclean;
 
 use Config;
 
@@ -37,6 +42,7 @@ sub test {
   return;
 }
 
+__PACKAGE__->meta->make_immutable;
 1;
 
 __END__
@@ -48,7 +54,7 @@ Dist::Zilla::Plugin::MakeMaker::Runner - Test and build dists with a Makefile.PL
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 AUTHOR
 

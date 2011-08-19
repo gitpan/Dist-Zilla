@@ -1,8 +1,7 @@
 package Dist::Zilla::Role::BuildPL;
 {
-  $Dist::Zilla::Role::BuildPL::VERSION = '4.200018';
+  $Dist::Zilla::Role::BuildPL::VERSION = '4.300000';
 }
-
 use Moose::Role;
 
 with qw(
@@ -10,6 +9,8 @@ with qw(
   Dist::Zilla::Role::BuildRunner
   Dist::Zilla::Role::TestRunner
 );
+
+use namespace::autoclean;
 
 sub build {
   my $self = shift;
@@ -45,7 +46,7 @@ Dist::Zilla::Role::BuildPL - Common ground for Build.PL based builders
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

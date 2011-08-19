@@ -1,10 +1,12 @@
 package Dist::Zilla::Role::MintingProfile::ShareDir;
 {
-  $Dist::Zilla::Role::MintingProfile::ShareDir::VERSION = '4.200018';
+  $Dist::Zilla::Role::MintingProfile::ShareDir::VERSION = '4.300000';
 }
 # ABSTRACT: something that keeps its minting profile in a sharedir
 use Moose::Role;
 with 'Dist::Zilla::Role::MintingProfile';
+
+use namespace::autoclean;
 
 use File::ShareDir;
 use Path::Class;
@@ -21,7 +23,6 @@ sub profile_dir {
   confess "Can't find profile $profile_name via $self";
 }
 
-no Moose::Role;
 1;
 
 __END__
@@ -33,7 +34,7 @@ Dist::Zilla::Role::MintingProfile::ShareDir - something that keeps its minting p
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

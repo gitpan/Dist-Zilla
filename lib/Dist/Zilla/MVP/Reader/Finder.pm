@@ -1,11 +1,13 @@
 package Dist::Zilla::MVP::Reader::Finder;
 {
-  $Dist::Zilla::MVP::Reader::Finder::VERSION = '4.200018';
+  $Dist::Zilla::MVP::Reader::Finder::VERSION = '4.300000';
 }
 use Moose;
 use Config::MVP::Reader 2.101540; # if_none
 extends 'Config::MVP::Reader::Finder';
 # ABSTRACT: the reader for dist.ini files
+
+use namespace::autoclean;
 
 use Dist::Zilla::MVP::Assembler;
 
@@ -13,7 +15,6 @@ sub default_search_path {
   return qw(Dist::Zilla::MVP::Reader Config::MVP::Reader);
 }
 
-no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
 
@@ -26,7 +27,7 @@ Dist::Zilla::MVP::Reader::Finder - the reader for dist.ini files
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 AUTHOR
 

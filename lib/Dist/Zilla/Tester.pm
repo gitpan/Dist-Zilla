@@ -1,10 +1,14 @@
 package Dist::Zilla::Tester;
 {
-  $Dist::Zilla::Tester::VERSION = '4.200018';
+  $Dist::Zilla::Tester::VERSION = '4.300000';
 }
 use Moose;
 extends 'Dist::Zilla::Dist::Builder';
 # ABSTRACT: a testing-enabling stand-in for Dist::Zilla
+
+# XXX: Adding this autoclean causes problem.  "Builder" and "Minter" do not
+# show in in tests.  I'm really not sure why. -- rjbs, 2011-08-19
+# use namespace::autoclean;
 
 use autodie;
 use Dist::Zilla::Chrome::Test;
@@ -34,7 +38,7 @@ sub minter { 'Dist::Zilla::Tester::_Minter' }
 {
   package Dist::Zilla::Tester::_Role;
 {
-  $Dist::Zilla::Tester::_Role::VERSION = '4.200018';
+  $Dist::Zilla::Tester::_Role::VERSION = '4.300000';
 }
   use Moose::Role;
 
@@ -80,7 +84,7 @@ sub minter { 'Dist::Zilla::Tester::_Minter' }
 {
   package Dist::Zilla::Tester::_Builder;
 {
-  $Dist::Zilla::Tester::_Builder::VERSION = '4.200018';
+  $Dist::Zilla::Tester::_Builder::VERSION = '4.300000';
 }
   use Moose;
   extends 'Dist::Zilla::Dist::Builder';
@@ -176,7 +180,7 @@ sub minter { 'Dist::Zilla::Tester::_Minter' }
 {
   package Dist::Zilla::Tester::_Minter;
 {
-  $Dist::Zilla::Tester::_Minter::VERSION = '4.200018';
+  $Dist::Zilla::Tester::_Minter::VERSION = '4.300000';
 }
   use Moose;
   extends 'Dist::Zilla::Dist::Minter';
@@ -254,6 +258,8 @@ sub minter { 'Dist::Zilla::Tester::_Minter' }
   };
 }
 
+no Moose; # XXX: namespace::autoclean caused problems -- rjbs, 2011-08-19
+__PACKAGE__->meta->make_immutable;
 1;
 
 __END__
@@ -265,7 +271,7 @@ Dist::Zilla::Tester - a testing-enabling stand-in for Dist::Zilla
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 AUTHOR
 

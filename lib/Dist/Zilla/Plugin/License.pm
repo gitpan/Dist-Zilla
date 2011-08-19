@@ -1,10 +1,12 @@
 package Dist::Zilla::Plugin::License;
 {
-  $Dist::Zilla::Plugin::License::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::License::VERSION = '4.300000';
 }
 # ABSTRACT: output a LICENSE file
 use Moose;
 with 'Dist::Zilla::Role::FileGatherer';
+
+use namespace::autoclean;
 
 
 use Dist::Zilla::File::InMemory;
@@ -22,7 +24,6 @@ sub gather_files {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -34,7 +35,7 @@ Dist::Zilla::Plugin::License - output a LICENSE file
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

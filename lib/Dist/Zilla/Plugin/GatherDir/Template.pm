@@ -1,16 +1,17 @@
 package Dist::Zilla::Plugin::GatherDir::Template;
 {
-  $Dist::Zilla::Plugin::GatherDir::Template::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::GatherDir::Template::VERSION = '4.300000';
 }
 # ABSTRACT: gather all the files in a directory and use them as templates
 use Moose;
 extends 'Dist::Zilla::Plugin::GatherDir';
 with 'Dist::Zilla::Role::TextTemplate';
 
+use namespace::autoclean;
+
 use autodie;
 use Moose::Autobox;
 use Dist::Zilla::File::FromCode;
-use namespace::autoclean;
 
 
 sub _file_from_filename {
@@ -39,7 +40,6 @@ sub _file_from_filename {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -51,7 +51,7 @@ Dist::Zilla::Plugin::GatherDir::Template - gather all the files in a directory a
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Chrome::Test;
 {
-  $Dist::Zilla::Chrome::Test::VERSION = '4.200018';
+  $Dist::Zilla::Chrome::Test::VERSION = '4.300000';
 }
 use Moose;
 # ABSTRACT: the chrome used by Dist::Zilla::Tester
@@ -56,6 +56,7 @@ sub prompt_yn {
 sub prompt_any_key { return }
 
 with 'Dist::Zilla::Role::Chrome';
+__PACKAGE__->meta->make_immutable;
 1;
 
 __END__
@@ -67,7 +68,7 @@ Dist::Zilla::Chrome::Test - the chrome used by Dist::Zilla::Tester
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 ATTRIBUTES
 

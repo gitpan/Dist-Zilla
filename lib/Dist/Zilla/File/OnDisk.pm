@@ -1,9 +1,11 @@
 package Dist::Zilla::File::OnDisk;
 {
-  $Dist::Zilla::File::OnDisk::VERSION = '4.200018';
+  $Dist::Zilla::File::OnDisk::VERSION = '4.300000';
 }
 # ABSTRACT: a file that comes from your filesystem
 use Moose;
+
+use namespace::autoclean;
 
 
 has content => (
@@ -41,7 +43,6 @@ sub _read_file {
 with 'Dist::Zilla::Role::File';
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 __END__
@@ -53,7 +54,7 @@ Dist::Zilla::File::OnDisk - a file that comes from your filesystem
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

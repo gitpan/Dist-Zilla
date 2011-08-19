@@ -1,6 +1,6 @@
 package Dist::Zilla::Prereqs;
 {
-  $Dist::Zilla::Prereqs::VERSION = '4.200018';
+  $Dist::Zilla::Prereqs::VERSION = '4.300000';
 }
 # ABSTRACT: the prerequisites of a Dist::Zilla distribution
 use Moose;
@@ -47,6 +47,7 @@ sub register_prereqs {
   return;
 }
 
+__PACKAGE__->meta->make_immutable;
 1;
 
 __END__
@@ -58,7 +59,7 @@ Dist::Zilla::Prereqs - the prerequisites of a Dist::Zilla distribution
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 

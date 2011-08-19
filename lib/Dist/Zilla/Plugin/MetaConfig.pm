@@ -1,10 +1,12 @@
 package Dist::Zilla::Plugin::MetaConfig;
 {
-  $Dist::Zilla::Plugin::MetaConfig::VERSION = '4.200018';
+  $Dist::Zilla::Plugin::MetaConfig::VERSION = '4.300000';
 }
 # ABSTRACT: summarize Dist::Zilla configuration into distmeta
 use Moose;
 with 'Dist::Zilla::Role::MetaProvider';
+
+use namespace::autoclean;
 
 
 sub metadata {
@@ -36,7 +38,6 @@ sub metadata {
   return { x_Dist_Zilla => $dump };
 }
 
-no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
 
@@ -49,7 +50,7 @@ Dist::Zilla::Plugin::MetaConfig - summarize Dist::Zilla configuration into distm
 
 =head1 VERSION
 
-version 4.200018
+version 4.300000
 
 =head1 DESCRIPTION
 
