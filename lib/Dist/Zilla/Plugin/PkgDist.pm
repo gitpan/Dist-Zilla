@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PkgDist;
 {
-  $Dist::Zilla::Plugin::PkgDist::VERSION = '4.300000';
+  $Dist::Zilla::Plugin::PkgDist::VERSION = '4.300001';
 }
 # ABSTRACT: add a $DIST to your packages
 use Moose;
@@ -9,6 +9,7 @@ with(
   'Dist::Zilla::Role::FileFinderUser' => {
     default_finders => [ ':InstallModules', ':ExecFiles' ],
   },
+  'Dist::Zilla::Role::PPI',
 );
 
 use namespace::autoclean;
@@ -39,21 +40,11 @@ sub munge_perl {
 
   my $dist_name = $self->zilla->name;
 
-  my $content = $file->content;
+  my $document = $self->ppi_document_for_file($file);
 
-  my $document = PPI::Document->new(\$content)
-    or Carp::croak( PPI::Document->errstr );
-
-  {
-    # This is sort of stupid.  We want to see if we assign to $DIST already.
-    # I'm sure there's got to be a better way to do this, but what the heck --
-    # this should work and isn't too slow for me. -- rjbs, 2009-11-29
-    my $code_only = $document->clone;
-    $code_only->prune("PPI::Token::$_") for qw(Comment Pod Quote Regexp);
-    if ($code_only->serialize =~ /\$DIST\s*=/sm) {
-      $self->log([ 'skipping %s: assigns to $DIST', $file->name ]);
-      return;
-    }
+  if ($self->document_assigns_to_variable($document, '$DIST')) {
+    $self->log([ 'skipping %s: assigns to $DIST', $file->name ]);
+    return;
   }
 
   return unless my $package_stmts = $document->find('PPI::Statement::Package');
@@ -92,7 +83,7 @@ sub munge_perl {
       and    $stmt->insert_after( PPI::Token::Whitespace->new("\n") );
   }
 
-  $file->content($document->serialize);
+  $self->save_ppi_document_to_file($document, $file);
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -107,7 +98,7 @@ Dist::Zilla::Plugin::PkgDist - add a $DIST to your packages
 
 =head1 VERSION
 
-version 4.300000
+version 4.300001
 
 =head1 DESCRIPTION
 

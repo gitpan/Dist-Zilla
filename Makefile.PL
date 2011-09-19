@@ -47,6 +47,7 @@ my %WriteMakefileArgs = (
     "Data::Dumper" => 0,
     "Data::Section" => "0.004",
     "DateTime" => "0.44",
+    "Digest::MD5" => 0,
     "Encode" => 0,
     "ExtUtils::MakeMaker" => 0,
     "ExtUtils::Manifest" => "1.54",
@@ -106,7 +107,7 @@ my %WriteMakefileArgs = (
     "version" => 0,
     "warnings" => 0
   },
-  "VERSION" => "4.300000",
+  "VERSION" => "4.300001",
   "test" => {
     "TESTS" => "t/*.t t/diagnostics/*.t t/plugins/*.t"
   }

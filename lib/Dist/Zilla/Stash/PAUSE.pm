@@ -1,6 +1,6 @@
 package Dist::Zilla::Stash::PAUSE;
 {
-  $Dist::Zilla::Stash::PAUSE::VERSION = '4.300000';
+  $Dist::Zilla::Stash::PAUSE::VERSION = '4.300001';
 }
 use Moose;
 # ABSTRACT: a stash of your PAUSE credentials
@@ -37,7 +37,7 @@ Dist::Zilla::Stash::PAUSE - a stash of your PAUSE credentials
 
 =head1 VERSION
 
-version 4.300000
+version 4.300001
 
 =head1 OVERVIEW
 

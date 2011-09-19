@@ -1,10 +1,21 @@
 Revision history for Dist-Zilla
 
+4.300001  2011-09-19 15:46:18 America/New_York
+          Several improvements to how PPI is used should speed up the
+          performance of Perl file munging and scanning.  The PPI role was
+          added.  (Thanks, Dave Rolsky!)
+
+          We now use Archive::Tar::Wrapper if available, to speed up archive
+          building.  (Thanks, Dave Rolsky!)
+
 4.300000  2011-08-19 10:12:36 America/New_York
           turn on Useqq option for Dumper, to get unicode string literals set
           properly in Makefile.PL and Build.PL without using utf8.pm
 
           decode user input from Chrome::Term as UTF-8
+
+          during `dzil setup`, the config.ini file is now created with an added
+          umask of 077 to avoid other users reading your PAUSE credentials
 
           update almost all Moose code to use make_immutable and
           namespace::autoclean
@@ -595,7 +606,9 @@ Revision history for Dist-Zilla
           huge update to logging system; uses Log::Dispatchouli::Proxy
 
           UploadToCPAN, FakeRelease now log via the standard logger
-          App::Cmd layer'Zilla is shared between commands
+          App::Cmd layer
+
+          Zilla is shared between commands
 
           bump up some prereqs to avoid bugs fixed upstream
 

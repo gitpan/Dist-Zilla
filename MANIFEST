@@ -129,6 +129,7 @@ lib/Dist/Zilla/Role/MetaProvider.pm
 lib/Dist/Zilla/Role/MintingProfile.pm
 lib/Dist/Zilla/Role/MintingProfile/ShareDir.pm
 lib/Dist/Zilla/Role/ModuleMaker.pm
+lib/Dist/Zilla/Role/PPI.pm
 lib/Dist/Zilla/Role/Plugin.pm
 lib/Dist/Zilla/Role/PluginBundle.pm
 lib/Dist/Zilla/Role/PluginBundle/Easy.pm

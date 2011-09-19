@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoPrereqs;
 {
-  $Dist::Zilla::Plugin::AutoPrereqs::VERSION = '4.300000';
+  $Dist::Zilla::Plugin::AutoPrereqs::VERSION = '4.300001';
 }
 use Moose;
 with(
@@ -111,7 +111,7 @@ Dist::Zilla::Plugin::AutoPrereqs - automatically extract prereqs from your modul
 
 =head1 VERSION
 
-version 4.300000
+version 4.300001
 
 =head1 SYNOPSIS
 
@@ -135,7 +135,7 @@ This plugin will skip the modules shipped within your dist.
 =head2 skips
 
 This is an arrayref of regular expressions.  Any module names matching
-any of theseregex will not be registered as prerequisites.
+any of these regex will not be registered as prerequisites.
 
 =head1 CREDITS
 
