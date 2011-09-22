@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Minter;
 {
-  $Dist::Zilla::Dist::Minter::VERSION = '4.300001';
+  $Dist::Zilla::Dist::Minter::VERSION = '4.300002';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -146,7 +146,7 @@ Dist::Zilla::Dist::Minter - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 4.300001
+version 4.300002
 
 =head1 AUTHOR
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 {
-  $Dist::Zilla::Dist::Builder::VERSION = '4.300001';
+  $Dist::Zilla::Dist::Builder::VERSION = '4.300002';
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -370,14 +370,15 @@ sub _build_archive {
     }
 
     my $filename = $built_in->file( $distfile->name );
+    my $content = do {
+      use autodie;
+      local $/;
+      open my $fh, '<', $filename;
+      <$fh>;
+    };
     $archive->add_data(
       $basedir->file( $distfile->name ),
-      do {
-        use autodie;
-        local $/;
-        open my $fh, '<', $filename;
-        <$fh>;
-      },
+      $content,
       { mode => (stat $filename)[2] & ~022 },
     );
   }
@@ -586,7 +587,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 4.300001
+version 4.300002
 
 =head1 ATTRIBUTES
 
