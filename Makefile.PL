@@ -94,6 +94,7 @@ my %WriteMakefileArgs = (
     "Term::ReadLine" => 0,
     "Term::UI" => 0,
     "Test::Deep" => 0,
+    "Text::Glob" => "0.08",
     "Text::Template" => 0,
     "Try::Tiny" => 0,
     "Version::Requirements" => "0.100630",
@@ -107,7 +108,7 @@ my %WriteMakefileArgs = (
     "version" => 0,
     "warnings" => 0
   },
-  "VERSION" => "4.300002",
+  "VERSION" => "4.300003",
   "test" => {
     "TESTS" => "t/*.t t/diagnostics/*.t t/plugins/*.t"
   }

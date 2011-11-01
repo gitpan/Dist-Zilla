@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoPrereqs;
 {
-  $Dist::Zilla::Plugin::AutoPrereqs::VERSION = '4.300002';
+  $Dist::Zilla::Plugin::AutoPrereqs::VERSION = '4.300003';
 }
 use Moose;
 with(
@@ -26,15 +26,25 @@ use Version::Requirements 0.100630;  # merge with 0-min bug
 use version;
 
 
-sub mvp_multivalue_args { qw(skips) }
-sub mvp_aliases { return { skip => 'skips' } }
+sub mvp_multivalue_args { qw(extra_scanners scanners skips) }
+sub mvp_aliases { return { extra_scanner => 'extra_scanners',
+                           scanner => 'scanners', skip => 'skips' } }
+
+has extra_scanners => (
+  is  => 'ro',
+  isa => 'ArrayRef[Str]',
+  default => sub { [] },
+);
+
+has scanners => (
+  is  => 'ro',
+  isa => 'ArrayRef[Str]',
+  predicate => 'has_scanners',
+);
 
 has skips => (
   is  => 'ro',
   isa => 'ArrayRef[Str]',
-  handles => {
-     has_skips => 'count',
-  },
 );
 
 sub register_prereqs {
@@ -42,6 +52,11 @@ sub register_prereqs {
 
   my $req = Version::Requirements->new;
   my @modules;
+
+  my $scanner = Perl::PrereqScanner->new(
+    ($self->has_scanners ? (scanners => $self->scanners) : ()),
+    extra_scanners => $self->extra_scanners,
+  );
 
   my @sets = (
     [ runtime => 'found_files'      ],
@@ -68,7 +83,7 @@ sub register_prereqs {
       push @modules, $module;
 
       # parse a file, and merge with existing prereqs
-      my $file_req = Perl::PrereqScanner->new->scan_string($file->content);
+      my $file_req = $scanner->scan_string($file->content);
 
       $req->add_requirements($file_req);
     }
@@ -111,7 +126,7 @@ Dist::Zilla::Plugin::AutoPrereqs - automatically extract prereqs from your modul
 
 =head1 VERSION
 
-version 4.300002
+version 4.300003
 
 =head1 SYNOPSIS
 
@@ -131,6 +146,18 @@ L<Dist::Zilla::Plugin::Prereqs> plugin.
 This plugin will skip the modules shipped within your dist.
 
 =head1 ATTRIBUTES
+
+=head2 extra_scanners
+
+This is an arrayref of scanner names (as expected by Perl::PrereqScanner).
+It will be passed as the C<extra_scanners> parameter to Perl::PrereqScanner.
+
+=head2 scanners
+
+This is an arrayref of scanner names (as expected by Perl::PrereqScanner).
+If present, it will be passed as the C<scanners> parameter to
+Perl::PrereqScanner, which means that it will replace the default list
+of scanners.
 
 =head2 skips
 

@@ -1,16 +1,17 @@
 package Dist::Zilla::Plugin::UploadToCPAN;
 {
-  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '4.300002';
+  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '4.300003';
 }
 # ABSTRACT: upload the dist to CPAN
 use Moose;
-with 'Dist::Zilla::Role::Releaser';
+with qw(Dist::Zilla::Role::BeforeRelease Dist::Zilla::Role::Releaser);
 
 use CPAN::Uploader 0.101550; # ua string
 use File::HomeDir;
 use File::Spec;
 use Moose::Util::TypeConstraints;
 use Scalar::Util qw(weaken);
+use Try::Tiny;
 
 use namespace::autoclean;
 
@@ -19,6 +20,7 @@ use namespace::autoclean;
   package
     Dist::Zilla::Plugin::UploadToCPAN::_Uploader;
   use base 'CPAN::Uploader';
+  # Report CPAN::Uploader's version, not ours:
   sub _ua_string { CPAN::Uploader->_ua_string }
 
   sub log {
@@ -147,6 +149,21 @@ has uploader => (
   }
 );
 
+sub before_release {
+  my $self = shift;
+
+  my $problem;
+  try {
+    for my $attr (qw(username password)) {
+      $problem = $attr;
+      die unless length $self->$attr;
+    }
+    undef $problem;
+  };
+
+  $self->log_fatal(['You need to supply a %s', $problem]) if $problem;
+}
+
 sub release {
   my ($self, $archive) = @_;
 
@@ -165,7 +182,7 @@ Dist::Zilla::Plugin::UploadToCPAN - upload the dist to CPAN
 
 =head1 VERSION
 
-version 4.300002
+version 4.300003
 
 =head1 SYNOPSIS
 
@@ -185,6 +202,10 @@ C<~/.pause>, in the same format that L<cpan-upload> requires:
 
   user YOUR-PAUSE-ID
   password YOUR-PAUSE-PASSWORD
+
+If neither configuration exists, it will prompt you to enter your
+username and password during the BeforeRelease phase.  Entering a
+blank username or password will abort the release.
 
 =head1 ATTRIBUTES
 
