@@ -1,17 +1,13 @@
 package Dist::Zilla::Chrome::Term;
 {
-  $Dist::Zilla::Chrome::Term::VERSION = '4.300003';
+  $Dist::Zilla::Chrome::Term::VERSION = '4.300004';
 }
 use Moose;
 # ABSTRACT: chrome used for terminal-based interaction
 
 
 use Dist::Zilla::Types qw(OneZero);
-use Encode qw(decode_utf8);
 use Log::Dispatchouli 1.102220;
-use Term::ReadLine;
-use Term::ReadKey;
-use Term::UI;
 
 use namespace::autoclean;
 
@@ -35,8 +31,21 @@ has term_ui => (
   is   => 'ro',
   isa  => 'Object',
   lazy => 1,
-  default => sub { Term::ReadLine->new('dzil') },
+  default => sub {
+    require Term::ReadLine;
+    require Term::UI;
+    Term::ReadLine->new('dzil')
+  },
 );
+
+sub decode_utf8 ($;$)
+{
+    require Encode;
+    no warnings 'redefine';
+    *decode_utf8 = \&Encode::decode_utf8;
+    goto \&decode_utf8;
+}
+
 
 sub prompt_str {
   my ($self, $prompt, $arg) = @_;
@@ -78,9 +87,11 @@ sub prompt_any_key {
   if ($isa_tty) {
     local $| = 1;
     print $prompt;
-    Term::ReadKey::ReadMode 'cbreak';
+
+    require Term::ReadKey;
+    Term::ReadKey::ReadMode('cbreak');
     Term::ReadKey::ReadKey(0);
-    Term::ReadKey::ReadMode 'normal';
+    Term::ReadKey::ReadMode('normal');
     print "\n";
   }
 }
@@ -99,7 +110,7 @@ Dist::Zilla::Chrome::Term - chrome used for terminal-based interaction
 
 =head1 VERSION
 
-version 4.300003
+version 4.300004
 
 =head1 OVERVIEW
 

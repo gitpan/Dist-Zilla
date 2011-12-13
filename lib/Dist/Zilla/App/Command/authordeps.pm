@@ -2,18 +2,10 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::authordeps;
 {
-  $Dist::Zilla::App::Command::authordeps::VERSION = '4.300003';
+  $Dist::Zilla::App::Command::authordeps::VERSION = '4.300004';
 }
 use Dist::Zilla::App -command;
 # ABSTRACT: List your distribution's author dependencies
-
-use Dist::Zilla::Util ();
-use Moose;
-use Path::Class qw(dir);
-use List::MoreUtils qw(uniq);
-use Config::INI::Reader;
-
-use namespace::autoclean;
 
 
 sub abstract { "list your distribution's author dependencies" }
@@ -28,10 +20,13 @@ sub opt_spec {
 sub execute {
   my ($self, $opt, $arg) = @_;
 
+  require Path::Class;
+  require Dist::Zilla::Util;
+
   $self->log(
     $self->format_author_deps(
       $self->extract_author_deps(
-        dir(defined $opt->root ? $opt->root : '.'),
+        Path::Class::dir(defined $opt->root ? $opt->root : '.'),
         $opt->missing,
       ),
     ),
@@ -53,23 +48,16 @@ sub extract_author_deps {
   die "dzil authordeps only works on dist.ini files, and you don't have one\n"
     unless -e $ini;
 
-  my $fh     = $ini->openr;
+  my $fh = $ini->openr;
+
+  require Config::INI::Reader;
   my $config = Config::INI::Reader->read_handle($fh);
 
   my @packages =
-    uniq
     map  {; Dist::Zilla::Util->expand_config_package_name($_) }
     map  { s/\s.*//; $_ }
     grep { $_ ne '_' }
     keys %$config;
-
-  seek $fh, 0, 0;
-
-  while (<$fh>) {
-    chomp;
-    next unless /\A\s*;\s*authordep\s*(\S+)\s*\z/;
-    push @packages, $1;
-  }
 
   seek $fh, 0, 0;
 
@@ -83,9 +71,35 @@ sub extract_author_deps {
     push @packages, Dist::Zilla::Util->expand_config_package_name($1);
   }
 
+  seek $fh, 0, 0;
+  my @manual;
+
+  while (<$fh>) {
+    chomp;
+    next unless /\A\s*;\s*authordep\s*(\S+)\s*\z/;
+    push @manual, $1;
+  }
+
+  # Any "; authordep " is inserted at the beginning of the list
+  # in the file order so the user can control the order of at least a part of
+  # the plugin list
+  splice(@packages, 0, 0, @manual);
+
+  # Move inc:: first in list as they may impact the loading of other
+  # plugins (in particular local ones).
+  # Also order inc:: so that thoses that want to hack @INC with inc:: plugins
+  # can have a consistant playground.
+  # We don't sort the others packages to preserve the same (random) ordering
+  # for the common case (no inc::, no '; authordep') as in previous dzil
+  # releases.
+  @packages = ((sort grep /^inc::/, @packages), (grep !/^inc::/, @packages));
+
+  require List::MoreUtils;
+
   return
     grep { !/^inc::/ }
     grep { $missing ? (! eval "require $_; 1;") : 1 }
+    List::MoreUtils::uniq
     @packages;
 }
 
@@ -100,7 +114,7 @@ Dist::Zilla::App::Command::authordeps - List your distribution's author dependen
 
 =head1 VERSION
 
-version 4.300003
+version 4.300004
 
 =head1 SYNOPSIS
 

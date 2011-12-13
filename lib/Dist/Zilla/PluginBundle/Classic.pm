@@ -1,6 +1,6 @@
 package Dist::Zilla::PluginBundle::Classic;
 {
-  $Dist::Zilla::PluginBundle::Classic::VERSION = '4.300003';
+  $Dist::Zilla::PluginBundle::Classic::VERSION = '4.300004';
 }
 # ABSTRACT: the classic (old) default configuration for Dist::Zilla
 use Moose;
@@ -46,7 +46,7 @@ Dist::Zilla::PluginBundle::Classic - the classic (old) default configuration for
 
 =head1 VERSION
 
-version 4.300003
+version 4.300004
 
 =head1 DESCRIPTION
 

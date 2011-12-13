@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ShareDir;
 {
-  $Dist::Zilla::Plugin::ShareDir::VERSION = '4.300003';
+  $Dist::Zilla::Plugin::ShareDir::VERSION = '4.300004';
 }
 # ABSTRACT: install a directory's contents as "ShareDir" content
 use Moose;
@@ -44,13 +44,16 @@ Dist::Zilla::Plugin::ShareDir - install a directory's contents as "ShareDir" con
 
 =head1 VERSION
 
-version 4.300003
+version 4.300004
 
 =head1 SYNOPSIS
 
 In your F<dist.ini>:
 
   [ShareDir]
+  dir = share
+
+  If no C<dir> is provided, the default is F<share>.
 
 =head1 AUTHOR
 

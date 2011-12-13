@@ -36,6 +36,7 @@ my %WriteMakefileArgs = (
     "CPAN::Meta::Validator" => "2.101550",
     "CPAN::Uploader" => "0.101550",
     "Carp" => 0,
+    "Class::Load" => 0,
     "Config::INI::Reader" => 0,
     "Config::MVP::Assembler" => 0,
     "Config::MVP::Assembler::WithBundles" => 0,
@@ -108,7 +109,7 @@ my %WriteMakefileArgs = (
     "version" => 0,
     "warnings" => 0
   },
-  "VERSION" => "4.300003",
+  "VERSION" => "4.300004",
   "test" => {
     "TESTS" => "t/*.t t/diagnostics/*.t t/plugins/*.t"
   }

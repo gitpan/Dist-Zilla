@@ -2,15 +2,11 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::new;
 {
-  $Dist::Zilla::App::Command::new::VERSION = '4.300003';
+  $Dist::Zilla::App::Command::new::VERSION = '4.300004';
 }
 # ABSTRACT: mint a new dist
 use Dist::Zilla::App -command;
 
-
-use MooseX::Types::Perl qw(DistName ModuleName);
-use Moose::Autobox;
-use Path::Class;
 
 sub abstract { 'mint a new dist' }
 
@@ -29,14 +25,17 @@ sub opt_spec {
 sub validate_args {
   my ($self, $opt, $args) = @_;
 
+  require MooseX::Types::Perl;
+
   $self->usage_error('dzil new takes exactly one argument') if @$args != 1;
 
   my $name = $args->[0];
 
-  $name =~ s/::/-/g if is_ModuleName($name) and not is_DistName($name);
+  $name =~ s/::/-/g if MooseX::Types::Perl::is_ModuleName($name)
+               and not MooseX::Types::Perl::is_DistName($name);
 
   $self->usage_error("$name is not a valid distribution name")
-    unless is_DistName($name);
+    unless MooseX::Types::Perl::is_DistName($name);
 
   $args->[0] = $name;
 }
@@ -72,7 +71,7 @@ Dist::Zilla::App::Command::new - mint a new dist
 
 =head1 VERSION
 
-version 4.300003
+version 4.300004
 
 =head1 SYNOPSIS
 

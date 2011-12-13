@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App;
 {
-  $Dist::Zilla::App::VERSION = '4.300003';
+  $Dist::Zilla::App::VERSION = '4.300004';
 }
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup 0.309 -app; # better compilation error detection
@@ -11,7 +11,6 @@ use Carp ();
 use Dist::Zilla::MVP::Reader::Finder;
 use Dist::Zilla::Util;
 use Moose::Autobox;
-use Path::Class;
 use Try::Tiny;
 
 sub global_opt_spec {
@@ -147,7 +146,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 4.300003
+version 4.300004
 
 =head1 METHODS
 

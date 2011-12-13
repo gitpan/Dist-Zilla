@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::Prereqs;
 {
-  $Dist::Zilla::Plugin::Prereqs::VERSION = '4.300003';
+  $Dist::Zilla::Plugin::Prereqs::VERSION = '4.300004';
 }
 # ABSTRACT: list simple prerequisites
 use Moose;
@@ -123,7 +123,7 @@ Dist::Zilla::Plugin::Prereqs - list simple prerequisites
 
 =head1 VERSION
 
-version 4.300003
+version 4.300004
 
 =head1 SYNOPSIS
 
@@ -134,15 +134,37 @@ In your F<dist.ini>:
   MRO::Compat = 10
   Sub::Exporter = 0
 
-Which is equivalent to specifying prerequisites for the C<Runtime>
-phase:
+You can specify requirements for different phases and relationships with:
 
-  [Prereqs / RuntimeRequires]
-  Foo::Bar = 1.002
-  MRO::Compat = 10
-  Sub::Exporter = 0
+  [Prereqs]
+  -phase = test
+  -relationship = recommends
 
-See L</Phases> for the full list of supported phases.
+  Fitz::Fotz    = 1.23
+  Text::SoundEx = 3
+
+Remember that if you load two Prereqs plugins, each will needs its own name,
+added like this:
+
+  [Prereqs / PluginName]
+  -phase = test
+  -relationship = recommends
+
+  Fitz::Fotz    = 1.23
+  Text::SoundEx = 3
+
+If the name is the CamelCase concatenation of a phase and relationship, it will
+set those parameters implicitly.  Doing this is convenient, unless you make a
+typo which causes the name to have no meaning and your prereqs to be confused.
+Because of that, you should consider always giving the phase and type
+explicitly.
+
+The example below is equivalent to the example above, except for the name of
+the resulting plugin:
+
+  [Prereqs / TestRecommends]
+  Fitz::Fotz    = 1.23
+  Text::SoundEx = 3
 
 =head1 DESCRIPTION
 
