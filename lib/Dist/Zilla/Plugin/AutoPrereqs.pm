@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoPrereqs;
 {
-  $Dist::Zilla::Plugin::AutoPrereqs::VERSION = '4.300005';
+  $Dist::Zilla::Plugin::AutoPrereqs::VERSION = '4.300006';
 }
 use Moose;
 with(
@@ -28,7 +28,7 @@ use namespace::autoclean;
 use Moose::Autobox;
 use Perl::PrereqScanner 1.005; # do not prune common libs
 use PPI;
-use Version::Requirements 0.100630;  # merge with 0-min bug
+use CPAN::Meta::Requirements;
 use version;
 
 
@@ -74,7 +74,7 @@ sub register_prereqs {
   for my $fileset (@sets) {
     my ($phase, $method) = @$fileset;
 
-    my $req   = Version::Requirements->new;
+    my $req   = CPAN::Meta::Requirements->new;
     my $files = $self->$method;
 
     foreach my $file (@$files) {
@@ -133,7 +133,7 @@ Dist::Zilla::Plugin::AutoPrereqs - automatically extract prereqs from your modul
 
 =head1 VERSION
 
-version 4.300005
+version 4.300006
 
 =head1 SYNOPSIS
 

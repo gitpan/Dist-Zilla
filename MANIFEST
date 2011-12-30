@@ -193,6 +193,7 @@ t/plugins/podversion.t
 t/plugins/prereqs.t
 t/plugins/prunes.t
 t/plugins/readme.t
+t/plugins/testrelease.t
 t/plugins/uploadtocpan.t
 t/release-pod-syntax.t
 t/tester-demo.t

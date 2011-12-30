@@ -1,6 +1,6 @@
 package Dist::Zilla::MVP::Section;
 {
-  $Dist::Zilla::MVP::Section::VERSION = '4.300005';
+  $Dist::Zilla::MVP::Section::VERSION = '4.300006';
 }
 use Moose;
 extends 'Config::MVP::Section';
@@ -27,8 +27,8 @@ after finalize => sub {
   $dzil{$_} = delete $payload{":$_"} for grep { s/\A:// } keys %payload;
 
   if (defined $dzil{version}) {
-    require Version::Requirements;
-    my $req = Version::Requirements->from_string_hash({
+    require CPAN::Meta::Requirements;
+    my $req = CPAN::Meta::Requirements->from_string_hash({
       $plugin_class => $dzil{version}
     });
 
@@ -62,7 +62,7 @@ Dist::Zilla::MVP::Section - a standard section in Dist::Zilla's configuration se
 
 =head1 VERSION
 
-version 4.300005
+version 4.300006
 
 =head1 AUTHOR
 

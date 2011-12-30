@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::UploadToCPAN;
 {
-  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '4.300005';
+  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '4.300006';
 }
 # ABSTRACT: upload the dist to CPAN
 use Moose;
@@ -78,7 +78,7 @@ has password => (
     my ($self) = @_;
     return $self->_credential('password')
         || $self->pause_cfg->{password}
-        || $self->zilla->chrome->prompt_str("PAUSE password (will echo): ");
+        || $self->zilla->chrome->prompt_str('PAUSE password: ', { noecho => 1 });
   },
 );
 
@@ -182,7 +182,7 @@ Dist::Zilla::Plugin::UploadToCPAN - upload the dist to CPAN
 
 =head1 VERSION
 
-version 4.300005
+version 4.300006
 
 =head1 SYNOPSIS
 

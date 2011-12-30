@@ -33,6 +33,7 @@ my %WriteMakefileArgs = (
     "Archive::Tar" => 0,
     "CPAN::Meta::Converter" => "2.101550",
     "CPAN::Meta::Prereqs" => "2.101390",
+    "CPAN::Meta::Requirements" => 0,
     "CPAN::Meta::Validator" => "2.101550",
     "CPAN::Uploader" => "0.101550",
     "Carp" => 0,
@@ -98,7 +99,6 @@ my %WriteMakefileArgs = (
     "Text::Glob" => "0.08",
     "Text::Template" => 0,
     "Try::Tiny" => 0,
-    "Version::Requirements" => "0.100630",
     "YAML::Tiny" => 0,
     "autobox" => "2.53",
     "autodie" => 0,
@@ -109,7 +109,7 @@ my %WriteMakefileArgs = (
     "version" => 0,
     "warnings" => 0
   },
-  "VERSION" => "4.300005",
+  "VERSION" => "4.300006",
   "test" => {
     "TESTS" => "t/*.t t/diagnostics/*.t t/plugins/*.t"
   }

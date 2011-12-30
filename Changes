@@ -1,5 +1,16 @@
 Revision history for Dist-Zilla
 
+4.300006  2011-12-30 15:28:34 America/New_York
+          New methods dist_basename & archive_filename allow plugins
+          to reliably get that information.  This makes TestRelease
+          testable. (Thanks, Kent Fredric & Christopher J. Madsen!)
+
+          Your PAUSE password will now no be echoed if entered at the
+          prompt, on most operating systems (Thanks, Mike Doherty!)
+
+          replace use of Version::Requirements with CPAN::Meta::Requirements,
+          its replacement
+
 4.300005  2011-12-13 08:49:19 America/New_York
           Prereqs now actually understands -relationship as documented
           in 4.300004.  Also, it throws an error if you give it a

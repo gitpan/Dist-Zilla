@@ -1,6 +1,6 @@
 package Dist::Zilla::Stash::User;
 {
-  $Dist::Zilla::Stash::User::VERSION = '4.300005';
+  $Dist::Zilla::Stash::User::VERSION = '4.300006';
 }
 use Moose;
 # ABSTRACT: a stash of user name and email
@@ -37,7 +37,7 @@ Dist::Zilla::Stash::User - a stash of user name and email
 
 =head1 VERSION
 
-version 4.300005
+version 4.300006
 
 =head1 AUTHOR
 

@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::listdeps;
 {
-  $Dist::Zilla::App::Command::listdeps::VERSION = '4.300005';
+  $Dist::Zilla::App::Command::listdeps::VERSION = '4.300006';
 }
 use Dist::Zilla::App -command;
 # ABSTRACT: print your distribution's prerequisites
@@ -26,8 +26,8 @@ sub extract_dependencies {
   $_->munge_files  for @{ $zilla->plugins_with(-FileMunger) };
   $_->register_prereqs for @{ $zilla->plugins_with(-PrereqSource) };
 
-  require Version::Requirements;
-  my $req = Version::Requirements->new;
+  require CPAN::Meta::Requirements;
+  my $req = CPAN::Meta::Requirements->new;
   my $prereqs = $zilla->prereqs;
 
   for my $phase (@$phases) {
@@ -80,7 +80,7 @@ Dist::Zilla::App::Command::listdeps - print your distribution's prerequisites
 
 =head1 VERSION
 
-version 4.300005
+version 4.300006
 
 =head1 SYNOPSIS
 

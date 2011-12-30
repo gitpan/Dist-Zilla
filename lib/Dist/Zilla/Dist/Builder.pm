@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 {
-  $Dist::Zilla::Dist::Builder::VERSION = '4.300005';
+  $Dist::Zilla::Dist::Builder::VERSION = '4.300006';
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -131,7 +131,7 @@ sub _setup_default_plugins {
 
     $self->plugins->push($plugin);
   }
-  
+
   unless ($self->plugin_named(':MainModule')) {
     require Dist::Zilla::Plugin::FinderCode;
     my $plugin = Dist::Zilla::Plugin::FinderCode->new({
@@ -145,7 +145,7 @@ sub _setup_default_plugins {
         return;
       },
     });
-    
+
     $self->plugins->push($plugin);
   }
 }
@@ -316,17 +316,32 @@ sub ensure_built_in {
 }
 
 
+sub dist_basename {
+  my ($self) = @_;
+  return join(q{},
+    $self->name,
+    '-',
+    $self->version,
+  );
+}
+
+
+sub archive_filename {
+  my ($self) = @_;
+  return join(q{},
+    $self->dist_basename,
+    ( $self->is_trial ? '-TRIAL' : '' ),
+    '.tar.gz'
+  );
+}
+
+
 sub build_archive {
   my ($self) = @_;
 
   my $built_in = $self->ensure_built;
 
-  my $basename = join(q{},
-    $self->name,
-    '-',
-    $self->version,
-  );
-
+  my $basename = $self->dist_basename;
   my $basedir = dir($basename);
 
   $_->before_archive for $self->plugins_with(-BeforeArchive)->flatten;
@@ -337,11 +352,7 @@ sub build_archive {
 
   my $archive = $self->$method($built_in, $basename, $basedir);
 
-  my $file = file(
-    sprintf '%s%s.tar.gz',
-    $basename,
-    ($self->is_trial ? '-TRIAL' : ''),
-  );
+  my $file = file($self->archive_filename);
 
   $self->log("writing archive to $file");
   $archive->write("$file", 9);
@@ -412,8 +423,7 @@ sub _build_archive_with_wrapper {
 sub _prep_build_root {
   my ($self, $build_root) = @_;
 
-  my $default_name = $self->name . q{-} . $self->version;
-  $build_root = dir($build_root || $default_name);
+  $build_root = dir($build_root || $self->dist_basename);
 
   $build_root->mkpath unless -d $build_root;
 
@@ -587,7 +597,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 4.300005
+version 4.300006
 
 =head1 ATTRIBUTES
 
@@ -638,6 +648,22 @@ C<$root> (or the default root, if no root is given), no exception is raised.
 This method just calls C<ensure_built_in> with no arguments.  It gets you the
 default behavior without the weird-looking formulation of C<ensure_built_in>
 with no object for the preposition!
+
+=head2 dist_basename
+
+  my $basename = $zilla->dist_basename;
+
+This method will return the dist's basename (e.g. C<Dist-Name-1.01>.
+The basename is used as the top-level directory in the tarball.  It
+does not include C<-TRIAL>, even if building a trial dist.
+
+=head2 archive_filename
+
+  my $tarball = $zilla->archive_filename;
+
+This method will return the filename (e.g. C<Dist-Name-1.01.tar.gz>)
+of the tarball of this dist.  It will include C<-TRIAL> if building a
+trial dist.  The tarball might not exist.
 
 =head2 build_archive
 

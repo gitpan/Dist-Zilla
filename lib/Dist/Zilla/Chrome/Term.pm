@@ -1,6 +1,6 @@
 package Dist::Zilla::Chrome::Term;
 {
-  $Dist::Zilla::Chrome::Term::VERSION = '4.300005';
+  $Dist::Zilla::Chrome::Term::VERSION = '4.300006';
 }
 use Moose;
 # ABSTRACT: chrome used for terminal-based interaction
@@ -53,11 +53,21 @@ sub prompt_str {
   my $default = $arg->{default};
   my $check   = $arg->{check};
 
+  if ($arg->{noecho}) {
+    require Term::ReadKey;
+    Term::ReadKey::ReadMode('noecho');
+  }
   my $input_bytes = $self->term_ui->get_reply(
     prompt => $prompt,
     allow  => $check || sub { defined $_[0] and length $_[0] },
     (defined $default ? (default => $default) : ()),
   );
+  if ($arg->{noecho}) {
+    Term::ReadKey::ReadMode('normal');
+    # The \n ending user input disappears under noecho; this ensures
+    # the next output ends up on the next line.
+    print "\n";
+  }
 
   my $input = decode_utf8( $input_bytes );
   chomp $input;
@@ -110,7 +120,7 @@ Dist::Zilla::Chrome::Term - chrome used for terminal-based interaction
 
 =head1 VERSION
 
-version 4.300005
+version 4.300006
 
 =head1 OVERVIEW
 
