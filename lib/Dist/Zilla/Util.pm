@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Util;
 {
-  $Dist::Zilla::Util::VERSION = '4.300006';
+  $Dist::Zilla::Util::VERSION = '4.300007';
 }
 # ABSTRACT: random snippets of code that Dist::Zilla wants
 
@@ -99,7 +99,7 @@ Dist::Zilla::Util - random snippets of code that Dist::Zilla wants
 
 =head1 VERSION
 
-version 4.300006
+version 4.300007
 
 =head1 METHODS
 
@@ -123,7 +123,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Ricardo SIGNES.
+This software is copyright (c) 2012 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

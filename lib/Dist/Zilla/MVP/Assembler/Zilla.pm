@@ -1,6 +1,6 @@
 package Dist::Zilla::MVP::Assembler::Zilla;
 {
-  $Dist::Zilla::MVP::Assembler::Zilla::VERSION = '4.300006';
+  $Dist::Zilla::MVP::Assembler::Zilla::VERSION = '4.300007';
 }
 use Moose;
 extends 'Dist::Zilla::MVP::Assembler';
@@ -53,7 +53,7 @@ Dist::Zilla::MVP::Assembler::Zilla - Dist::Zilla::MVP::Assembler for the Dist::Z
 
 =head1 VERSION
 
-version 4.300006
+version 4.300007
 
 =head1 OVERVIEW
 
@@ -88,7 +88,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Ricardo SIGNES.
+This software is copyright (c) 2012 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

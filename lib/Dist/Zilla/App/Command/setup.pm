@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::setup;
 {
-  $Dist::Zilla::App::Command::setup::VERSION = '4.300006';
+  $Dist::Zilla::App::Command::setup::VERSION = '4.300007';
 }
 # ABSTRACT: set up a basic global config file
 use Dist::Zilla::App -command;
@@ -143,7 +143,7 @@ Dist::Zilla::App::Command::setup - set up a basic global config file
 
 =head1 VERSION
 
-version 4.300006
+version 4.300007
 
 =head1 SYNOPSIS
 
@@ -161,7 +161,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Ricardo SIGNES.
+This software is copyright (c) 2012 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

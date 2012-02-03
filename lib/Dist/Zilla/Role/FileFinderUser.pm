@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::FileFinderUser;
 {
-  $Dist::Zilla::Role::FileFinderUser::VERSION = '4.300006';
+  $Dist::Zilla::Role::FileFinderUser::VERSION = '4.300007';
 }
 # ABSTRACT: something that uses FileFinder plugins
 use MooseX::Role::Parameterized;
@@ -84,7 +84,7 @@ Dist::Zilla::Role::FileFinderUser - something that uses FileFinder plugins
 
 =head1 VERSION
 
-version 4.300006
+version 4.300007
 
 =head1 DESCRIPTION
 
@@ -166,7 +166,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Ricardo SIGNES.
+This software is copyright (c) 2012 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

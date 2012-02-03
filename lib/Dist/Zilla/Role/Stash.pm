@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::Stash;
 {
-  $Dist::Zilla::Role::Stash::VERSION = '4.300006';
+  $Dist::Zilla::Role::Stash::VERSION = '4.300007';
 }
 # ABSTRACT: something that stores options or data for later reference
 use Moose::Role;
@@ -36,7 +36,7 @@ Dist::Zilla::Role::Stash - something that stores options or data for later refer
 
 =head1 VERSION
 
-version 4.300006
+version 4.300007
 
 =head1 AUTHOR
 
@@ -44,7 +44,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Ricardo SIGNES.
+This software is copyright (c) 2012 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
