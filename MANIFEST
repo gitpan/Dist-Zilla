@@ -199,9 +199,6 @@ t/release-pod-syntax.t
 t/tester-demo.t
 t/tester.t
 t/util.t
-tmp/6zhP6mLWwd/source/dist.ini
-tmp/6zhP6mLWwd/source/lib/DZT/Sample.pm
-tmp/6zhP6mLWwd/source/t/basic.t
 todo/CHECKLIST-testing.mkdn
 todo/command-plugins.mkdn
 todo/config-arg-prefix.mkdn

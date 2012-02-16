@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MakeMaker;
 {
-  $Dist::Zilla::Plugin::MakeMaker::VERSION = '4.300007';
+  $Dist::Zilla::Plugin::MakeMaker::VERSION = '4.300008';
 }
 
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
@@ -9,8 +9,21 @@ use Moose::Autobox;
 
 use namespace::autoclean;
 
-
 use Config;
+use Data::Dumper ();
+use List::MoreUtils qw(any uniq);
+
+use Dist::Zilla::File::InMemory;
+use Dist::Zilla::Plugin::MakeMaker::Runner;
+
+
+
+has eumm_version => (
+  isa => 'Str',
+  is  => 'rw',
+  default => '6.30',
+);
+
 
 has 'make_path' => (
   isa => 'Str',
@@ -32,15 +45,17 @@ has '_runner' => (
   },
 );
 
-with qw/Dist::Zilla::Role::PrereqSource Dist::Zilla::Role::InstallTool Dist::Zilla::Role::TextTemplate Dist::Zilla::Role::BuildRunner Dist::Zilla::Role::TestRunner/;
-
-use Data::Dumper ();
-use List::MoreUtils qw(any uniq);
-
-use namespace::autoclean;
-
-use Dist::Zilla::File::InMemory;
-use Dist::Zilla::Plugin::MakeMaker::Runner;
+# This is here, rather than at the top, so that the "build" and "test" methods
+# will exist, as they are required by BuildRunner and TestRunner respectively.
+# I had originally fixed this with stub methods, but stub methods to not behave
+# properly with this use case until Moose 2.0300. -- rjbs, 2012-02-08
+with qw(
+  Dist::Zilla::Role::BuildRunner
+  Dist::Zilla::Role::InstallTool
+  Dist::Zilla::Role::PrereqSource
+  Dist::Zilla::Role::TestRunner
+  Dist::Zilla::Role::TextTemplate
+);
 
 my $template = q|
 use strict;
@@ -131,7 +146,7 @@ sub setup_installer {
 
     @share_dir_block = (
       $preamble,
-      qq{package\nMY;\nuse File::ShareDir::Install qw(postamble);\n},
+      qq{\{\npackage\nMY;\nuse File::ShareDir::Install qw(postamble);\n\}\n},
     );
   }
 
@@ -208,12 +223,6 @@ has __write_makefile_args => (
   isa  => 'HashRef',
 );
 
-has 'eumm_version' => (
-  isa => 'Str',
-  is  => 'rw',
-  default => '6.30',
-);
-
 __PACKAGE__->meta->make_immutable;
 1;
 
@@ -226,13 +235,30 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 4.300007
+version 4.300008
 
 =head1 DESCRIPTION
 
 This plugin will produce an L<ExtUtils::MakeMaker>-powered F<Makefile.PL> for
 the distribution.  If loaded, the L<Manifest|Dist::Zilla::Plugin::Manifest>
 plugin should also be loaded.
+
+=head1 ATTRIBUTES
+
+=head2 eumm_version
+
+This option declares the version of ExtUtils::MakeMaker required to configure
+and build the distribution.  It defaults to 6.30, which ensures a working
+C<INSTALL_BASE>.  It can be safely set to earlier versions, although I<no
+testing has been done to determine the minimum version actually required>.
+
+=head2 make_path
+
+This option sets the path to F<make>, used to build your dist and run tests.
+It defaults to the value for C<make> in L<Config>, or to C<make> if that isn't
+set.
+
+You probably won't need to set this option.
 
 =head1 AUTHOR
 
