@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MakeMaker;
 {
-  $Dist::Zilla::Plugin::MakeMaker::VERSION = '4.300008';
+  $Dist::Zilla::Plugin::MakeMaker::VERSION = '4.300009';
 }
 
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
@@ -57,7 +57,7 @@ with qw(
   Dist::Zilla::Role::TextTemplate
 );
 
-my $template = q|
+my $template = q!
 use strict;
 use warnings;
 
@@ -65,7 +65,7 @@ use warnings;
 
 use ExtUtils::MakeMaker {{ $eumm_version }};
 
-{{ $share_dir_block[0] }}
+{{ $share_dir_code{preamble} || '' }}
 
 my {{ $WriteMakefileArgs }}
 
@@ -87,9 +87,9 @@ delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
 
 WriteMakefile(%WriteMakefileArgs);
 
-{{ $share_dir_block[1] }}
+{{ $share_dir_code{postamble} || '' }}
 
-|;
+!;
 
 sub register_prereqs {
   my ($self) = @_;
@@ -107,26 +107,10 @@ sub register_prereqs {
   );
 }
 
-sub setup_installer {
-  my ($self, $arg) = @_;
+sub share_dir_code {
+  my ($self) = @_;
 
-  (my $name = $self->zilla->name) =~ s/-/::/g;
-
-  my @exe_files =
-    $self->zilla->find_files(':ExecFiles')->map(sub { $_->name })->flatten;
-
-  $self->log_fatal("can't install files with whitespace in their names")
-    if grep { /\s/ } @exe_files;
-
-  my %test_dirs;
-  for my $file ($self->zilla->files->flatten) {
-    next unless $file->name =~ m{\At/.+\.t\z};
-    (my $dir = $file->name) =~ s{/[^/]+\.t\z}{/*.t}g;
-
-    $test_dirs{ $dir } = 1;
-  }
-
-  my @share_dir_block = (q{}, q{});
+  my $share_dir_code = {};
 
   my $share_dir_map = $self->zilla->_share_dir_map;
   if ( keys %$share_dir_map ) {
@@ -144,10 +128,31 @@ sub setup_installer {
       }
     }
 
-    @share_dir_block = (
-      $preamble,
-      qq{\{\npackage\nMY;\nuse File::ShareDir::Install qw(postamble);\n\}\n},
-    );
+    $share_dir_code->{preamble} = $preamble;
+    $share_dir_code->{postamble}
+      = qq{\{\npackage\nMY;\nuse File::ShareDir::Install qw(postamble);\n\}\n};
+  }
+
+  return $share_dir_code;
+}
+
+sub write_makefile_args {
+  my ($self) = @_;
+
+  (my $name = $self->zilla->name) =~ s/-/::/g;
+
+  my @exe_files =
+    $self->zilla->find_files(':ExecFiles')->map(sub { $_->name })->flatten;
+
+  $self->log_fatal("can't install files with whitespace in their names")
+    if grep { /\s/ } @exe_files;
+
+  my %test_dirs;
+  for my $file ($self->zilla->files->flatten) {
+    next unless $file->name =~ m{\At/.+\.t\z};
+    (my $dir = $file->name) =~ s{/[^/]+\.t\z}{/*.t}g;
+
+    $test_dirs{ $dir } = 1;
   }
 
   my $prereqs = $self->zilla->prereqs;
@@ -188,10 +193,22 @@ sub setup_installer {
     test => { TESTS => join q{ }, sort keys %test_dirs },
   );
 
-  $self->__write_makefile_args(\%write_makefile_args);
+  $write_makefile_args{MIN_PERL_VERSION} = $perl_prereq if $perl_prereq;
+
+  return \%write_makefile_args;
+}
+
+sub setup_installer {
+  my ($self, $arg) = @_;
+
+  my $write_makefile_args = $self->write_makefile_args;
+
+  $self->__write_makefile_args($write_makefile_args); # save for testing
+
+  my $perl_prereq = delete $write_makefile_args->{MIN_PERL_VERSION};
 
   my $makefile_args_dumper = Data::Dumper->new(
-    [ \%write_makefile_args ],
+    [ $write_makefile_args ],
     [ '*WriteMakefileArgs' ],
   );
   $makefile_args_dumper->Sortkeys( 1 );
@@ -203,7 +220,7 @@ sub setup_installer {
     {
       eumm_version      => \($self->eumm_version),
       perl_prereq       => \$perl_prereq,
-      share_dir_block   => \@share_dir_block,
+      share_dir_code    => $self->share_dir_code,
       WriteMakefileArgs => \($makefile_args_dumper->Dump),
     },
   );
@@ -235,7 +252,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 4.300008
+version 4.300009
 
 =head1 DESCRIPTION
 
