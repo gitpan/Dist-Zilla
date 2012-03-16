@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::listdeps;
 {
-  $Dist::Zilla::App::Command::listdeps::VERSION = '4.300009';
+  $Dist::Zilla::App::Command::listdeps::VERSION = '4.300010';
 }
 use Dist::Zilla::App -command;
 # ABSTRACT: print your distribution's prerequisites
@@ -15,6 +15,7 @@ sub abstract { "print your distribution's prerequisites" }
 sub opt_spec {
   [ 'author', 'include author dependencies' ],
   [ 'missing', 'list only the missing dependencies' ],
+  [ 'versions', 'include required version numbers in listing' ]
 }
 
 sub extract_dependencies {
@@ -54,7 +55,8 @@ sub extract_dependencies {
     @required = grep { $is_required->($_) } @required;
   }
 
-  return sort { lc $a cmp lc $b } @required;
+  my $versions = $req->as_string_hash;
+  return map { $_ => $versions->{$_} } @required;
 }
 
 sub execute {
@@ -65,8 +67,15 @@ sub execute {
   my @phases = qw(build test configure runtime);
   push @phases, 'develop' if $opt->author;
 
-  print "$_\n"
-    for $self->extract_dependencies($self->zilla, \@phases, $opt->missing);
+  my %modules = $self->extract_dependencies($self->zilla, \@phases, $opt->missing);
+
+  if($opt->versions) {
+    for(sort { lc $a cmp $b } keys %modules) {
+      print "$_ = ".$modules{$_}."\n";
+    }
+  } else {
+      print "$_\n" for sort { lc $a cmp lc $b } keys(%modules);
+  }
 }
 
 1;
@@ -80,7 +89,7 @@ Dist::Zilla::App::Command::listdeps - print your distribution's prerequisites
 
 =head1 VERSION
 
-version 4.300009
+version 4.300010
 
 =head1 SYNOPSIS
 

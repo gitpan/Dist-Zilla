@@ -32,12 +32,12 @@ my %WriteMakefileArgs = (
     "App::Cmd::Tester" => "0.306",
     "Archive::Tar" => 0,
     "CPAN::Meta::Converter" => "2.101550",
-    "CPAN::Meta::Prereqs" => "2.101390",
+    "CPAN::Meta::Prereqs" => "2.120630",
     "CPAN::Meta::Requirements" => 0,
     "CPAN::Meta::Validator" => "2.101550",
     "CPAN::Uploader" => "0.101550",
     "Carp" => 0,
-    "Class::Load" => 0,
+    "Class::Load" => "0.17",
     "Config::INI::Reader" => 0,
     "Config::MVP::Assembler" => 0,
     "Config::MVP::Assembler::WithBundles" => 0,
@@ -45,7 +45,7 @@ my %WriteMakefileArgs = (
     "Config::MVP::Reader::Findable::ByExtension" => 0,
     "Config::MVP::Reader::Finder" => 0,
     "Config::MVP::Reader::INI" => 2,
-    "Config::MVP::Section" => "2.200001",
+    "Config::MVP::Section" => "2.200002",
     "Data::Dumper" => 0,
     "Data::Section" => "0.004",
     "DateTime" => "0.44",
@@ -109,7 +109,7 @@ my %WriteMakefileArgs = (
     "version" => 0,
     "warnings" => 0
   },
-  "VERSION" => "4.300009",
+  "VERSION" => "4.300010",
   "test" => {
     "TESTS" => "t/*.t t/diagnostics/*.t t/plugins/*.t"
   }
@@ -134,8 +134,10 @@ delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
 
 WriteMakefile(%WriteMakefileArgs);
 
+{
 package
 MY;
 use File::ShareDir::Install qw(postamble);
+}
 
 

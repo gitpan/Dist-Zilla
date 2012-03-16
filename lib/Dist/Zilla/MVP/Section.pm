@@ -1,6 +1,6 @@
 package Dist::Zilla::MVP::Section;
 {
-  $Dist::Zilla::MVP::Section::VERSION = '4.300009';
+  $Dist::Zilla::MVP::Section::VERSION = '4.300010';
 }
 use Moose;
 extends 'Config::MVP::Section';
@@ -8,7 +8,7 @@ extends 'Config::MVP::Section';
 
 use namespace::autoclean;
 
-use Config::MVP::Section 2.200001; # for not-installed error
+use Config::MVP::Section 2.200002; # for not-installed error
 
 use Moose::Autobox;
 
@@ -62,7 +62,7 @@ Dist::Zilla::MVP::Section - a standard section in Dist::Zilla's configuration se
 
 =head1 VERSION
 
-version 4.300009
+version 4.300010
 
 =head1 AUTHOR
 

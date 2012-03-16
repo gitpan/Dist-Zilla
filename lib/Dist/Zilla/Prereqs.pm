@@ -1,13 +1,13 @@
 package Dist::Zilla::Prereqs;
 {
-  $Dist::Zilla::Prereqs::VERSION = '4.300009';
+  $Dist::Zilla::Prereqs::VERSION = '4.300010';
 }
 # ABSTRACT: the prerequisites of a Dist::Zilla distribution
 use Moose;
 use Moose::Autobox;
 use MooseX::Types::Moose qw(Bool HashRef);
 
-use CPAN::Meta::Prereqs 2.101390;
+use CPAN::Meta::Prereqs 2.120630; # add_string_requirement
 use Hash::Merge::Simple ();
 use Path::Class ();
 use String::RewritePrefix;
@@ -41,7 +41,7 @@ sub register_prereqs {
   my $req = $self->requirements_for($phase, $type);
 
   while (my ($package, $version) = each %prereq) {
-    $req->add_minimum($package, $version);
+    $req->add_string_requirement($package, $version);
   }
 
   return;
@@ -59,7 +59,7 @@ Dist::Zilla::Prereqs - the prerequisites of a Dist::Zilla distribution
 
 =head1 VERSION
 
-version 4.300009
+version 4.300010
 
 =head1 DESCRIPTION
 
