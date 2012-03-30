@@ -1,5 +1,8 @@
 Revision history for Dist-Zilla
 
+4.300012  2012-03-30 14:31:56 Europe/Paris
+          add 0 and never <undef> to the prereqs (thanks, David Golden)
+
 4.300011  2012-03-30 11:42:44 Europe/Paris
           do not claim that a dep is missing in "listdeps" when it is present
           with an undef $VERSION and we only require version 0 (reported by

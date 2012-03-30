@@ -109,7 +109,7 @@ my %WriteMakefileArgs = (
     "version" => 0,
     "warnings" => 0
   },
-  "VERSION" => "4.300011",
+  "VERSION" => "4.300012",
   "test" => {
     "TESTS" => "t/*.t t/diagnostics/*.t t/plugins/*.t"
   }

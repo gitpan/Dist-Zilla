@@ -1,6 +1,6 @@
 package Dist::Zilla::Prereqs;
 {
-  $Dist::Zilla::Prereqs::VERSION = '4.300011';
+  $Dist::Zilla::Prereqs::VERSION = '4.300012';
 }
 # ABSTRACT: the prerequisites of a Dist::Zilla distribution
 use Moose;
@@ -41,7 +41,7 @@ sub register_prereqs {
   my $req = $self->requirements_for($phase, $type);
 
   while (my ($package, $version) = each %prereq) {
-    $req->add_string_requirement($package, $version);
+    $req->add_string_requirement($package, $version || 0);
   }
 
   return;
@@ -59,7 +59,7 @@ Dist::Zilla::Prereqs - the prerequisites of a Dist::Zilla distribution
 
 =head1 VERSION
 
-version 4.300011
+version 4.300012
 
 =head1 DESCRIPTION
 

@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::authordeps;
 {
-  $Dist::Zilla::App::Command::authordeps::VERSION = '4.300011';
+  $Dist::Zilla::App::Command::authordeps::VERSION = '4.300012';
 }
 use Dist::Zilla::App -command;
 # ABSTRACT: List your distribution's author dependencies
@@ -88,7 +88,9 @@ sub extract_author_deps {
     $in_filter = 0, next if /^\[/ and ! /^\[\s*\@Filter/;
     $in_filter = 1;
 
-    next unless /\A-bundle\s*=\s*([^;]+)/;
+    next unless /\A-bundle\s*=\s*([^;\s]+)/;
+    my $pname = $1;
+    chomp($pname);
     $reqs->add_minimum(Dist::Zilla::Util->expand_config_package_name($1) => 0)
   }
 
@@ -145,7 +147,7 @@ Dist::Zilla::App::Command::authordeps - List your distribution's author dependen
 
 =head1 VERSION
 
-version 4.300011
+version 4.300012
 
 =head1 SYNOPSIS
 

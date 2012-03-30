@@ -4,7 +4,7 @@
       "Ricardo SIGNES <rjbs@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300011, CPAN::Meta::Converter version 2.120630",
+   "generated_by" : "Dist::Zilla version 4.300011, CPAN::Meta::Converter version 2.120900",
    "license" : [
       "perl_5"
    ],
@@ -131,7 +131,7 @@
       },
       "x_mailing_list" : "http://www.listbox.com/subscribe/?list_id=139292"
    },
-   "version" : "4.300011",
+   "version" : "4.300012",
    "x_Dist_Zilla" : {
       "plugins" : [
          {

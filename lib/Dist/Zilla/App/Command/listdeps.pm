@@ -85,7 +85,7 @@ Dist::Zilla::App::Command::listdeps - print your distribution's prerequisites
 
 =head1 VERSION
 
-version 4.300011
+version 4.300012
 
 =head1 SYNOPSIS
 
