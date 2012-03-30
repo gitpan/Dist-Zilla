@@ -1,5 +1,10 @@
 Revision history for Dist-Zilla
 
+4.300011  2012-03-30 11:42:44 Europe/Paris
+          do not claim that a dep is missing in "listdeps" when it is present
+          with an undef $VERSION and we only require version 0 (reported by
+          Matthew Horsfall)
+
 4.300010  2012-03-15 21:38:58 America/New_York
           The GatherDir::Template documentation has been improved
           (Thanks, Christopher J. Madsen!)
