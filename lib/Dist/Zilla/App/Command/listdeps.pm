@@ -1,6 +1,9 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::listdeps;
+{
+  $Dist::Zilla::App::Command::listdeps::VERSION = '4.300013';
+}
 use Dist::Zilla::App -command;
 # ABSTRACT: print your distribution's prerequisites
 
@@ -42,7 +45,7 @@ sub extract_dependencies {
       # it is required if it's not already installed
       return 1 unless Class::Load::try_load_class($mod);
 
-      # guard against $VERSION = -1 and other insanity
+      # guard against libs with -1 in $VERSION and other insanity
       my $version;
       return unless try { $version = $mod->VERSION; 1; };
 
@@ -85,7 +88,7 @@ Dist::Zilla::App::Command::listdeps - print your distribution's prerequisites
 
 =head1 VERSION
 
-version 4.300012
+version 4.300013
 
 =head1 SYNOPSIS
 

@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::nop;
 {
-  $Dist::Zilla::App::Command::nop::VERSION = '4.300012';
+  $Dist::Zilla::App::Command::nop::VERSION = '4.300013';
 }
 # ABSTRACT: initialize dzil, then exit
 use Dist::Zilla::App -command;
@@ -27,11 +27,11 @@ Dist::Zilla::App::Command::nop - initialize dzil, then exit
 
 =head1 VERSION
 
-version 4.300012
+version 4.300013
 
 =head1 SYNOPSIS
 
-This command does nothing.  It initializes Dist::Zill, then exits.  This is
+This command does nothing.  It initializes Dist::Zilla, then exits.  This is
 useful to see the logging output of plugin initialization.
 
   dzil nop -v

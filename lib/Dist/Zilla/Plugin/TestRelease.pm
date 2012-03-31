@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::TestRelease;
 {
-  $Dist::Zilla::Plugin::TestRelease::VERSION = '4.300012';
+  $Dist::Zilla::Plugin::TestRelease::VERSION = '4.300013';
 }
 use Moose;
 with 'Dist::Zilla::Role::BeforeRelease';
@@ -56,7 +56,7 @@ Dist::Zilla::Plugin::TestRelease - extract archive and run tests before releasin
 
 =head1 VERSION
 
-version 4.300012
+version 4.300013
 
 =head1 DESCRIPTION
 
@@ -67,7 +67,7 @@ is left in place.  If the tests pass, the temporary directory is cleaned up and
 the release process continues.
 
 This will set the RELEASE_TESTING and AUTHOR_TESTING env vars while running the
-testsuite.
+test suite.
 
 =head1 CREDITS
 

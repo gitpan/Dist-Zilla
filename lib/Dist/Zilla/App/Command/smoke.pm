@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::smoke;
 {
-  $Dist::Zilla::App::Command::smoke::VERSION = '4.300012';
+  $Dist::Zilla::App::Command::smoke::VERSION = '4.300013';
 }
 # ABSTRACT: smoke your dist
 use Dist::Zilla::App -command;
@@ -38,7 +38,7 @@ Dist::Zilla::App::Command::smoke - smoke your dist
 
 =head1 VERSION
 
-version 4.300012
+version 4.300013
 
 =head1 SYNOPSIS
 
@@ -67,15 +67,15 @@ be removed and F<dzil> will exit with status 0.
 
 =head2 --release
 
-This will run the testsuite with RELEASE_TESTING=1
+This will run the test suite with RELEASE_TESTING=1
 
 =head2 --no-automated
 
-This will run the testsuite without setting AUTOMATED_TESTING
+This will run the test suite without setting AUTOMATED_TESTING
 
 =head2 --author
 
-This will run the testsuite with AUTHOR_TESTING=1
+This will run the test suite with AUTHOR_TESTING=1
 
 =head1 AUTHOR
 
