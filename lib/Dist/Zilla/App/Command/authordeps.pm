@@ -2,13 +2,11 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::authordeps;
 {
-  $Dist::Zilla::App::Command::authordeps::VERSION = '4.300013';
+  $Dist::Zilla::App::Command::authordeps::VERSION = '4.300014';
 }
 use Dist::Zilla::App -command;
 # ABSTRACT: List your distribution's author dependencies
 
-
-use CPAN::Meta::Requirements;
 
 sub abstract { "list your distribution's author dependencies" }
 
@@ -16,7 +14,7 @@ sub opt_spec {
   return (
     [ 'root=s' => 'the root of the dist; defaults to .' ],
     [ 'missing' => 'list only the missing dependencies' ],
-    [ 'versions', 'include required version numbers in listing' ]
+    [ 'versions' => 'include required version numbers in listing' ],
   );
 }
 
@@ -26,14 +24,14 @@ sub execute {
   require Path::Class;
   require Dist::Zilla::Util;
 
-  $self->log(
+  my $deps =
     $self->format_author_deps(
       $self->extract_author_deps(
         Path::Class::dir(defined $opt->root ? $opt->root : '.'),
         $opt->missing,
       ), $opt->versions
-    ),
-  );
+    );
+  $self->log($deps) if $deps;
 
   return;
 }
@@ -63,6 +61,7 @@ sub extract_author_deps {
   require Config::INI::Reader;
   my $config = Config::INI::Reader->read_handle($fh);
 
+  require CPAN::Meta::Requirements;
   my $reqs = CPAN::Meta::Requirements->new;
 
   my @packs =
@@ -147,7 +146,7 @@ Dist::Zilla::App::Command::authordeps - List your distribution's author dependen
 
 =head1 VERSION
 
-version 4.300013
+version 4.300014
 
 =head1 SYNOPSIS
 

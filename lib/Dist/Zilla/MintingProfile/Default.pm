@@ -1,6 +1,6 @@
 package Dist::Zilla::MintingProfile::Default;
 {
-  $Dist::Zilla::MintingProfile::Default::VERSION = '4.300013';
+  $Dist::Zilla::MintingProfile::Default::VERSION = '4.300014';
 }
 # ABSTRACT: Default minting profile provider
 use Moose;
@@ -37,7 +37,7 @@ Dist::Zilla::MintingProfile::Default - Default minting profile provider
 
 =head1 VERSION
 
-version 4.300013
+version 4.300014
 
 =head1 DESCRIPTION
 

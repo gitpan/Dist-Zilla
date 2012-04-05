@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::ShareDir;
 {
-  $Dist::Zilla::Role::ShareDir::VERSION = '4.300013';
+  $Dist::Zilla::Role::ShareDir::VERSION = '4.300014';
 }
 # ABSTRACT: something that picks a directory to install as shared files
 use Moose::Role;
@@ -25,7 +25,7 @@ Dist::Zilla::Role::ShareDir - something that picks a directory to install as sha
 
 =head1 VERSION
 
-version 4.300013
+version 4.300014
 
 =head1 AUTHOR
 
