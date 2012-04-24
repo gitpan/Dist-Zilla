@@ -1,6 +1,6 @@
 package Dist::Zilla::Prereqs;
 {
-  $Dist::Zilla::Prereqs::VERSION = '4.300014';
+  $Dist::Zilla::Prereqs::VERSION = '4.300015';
 }
 # ABSTRACT: the prerequisites of a Dist::Zilla distribution
 use Moose;
@@ -11,7 +11,7 @@ use CPAN::Meta::Prereqs 2.120630; # add_string_requirement
 use Hash::Merge::Simple ();
 use Path::Class ();
 use String::RewritePrefix;
-use CPAN::Meta::Requirements;
+use CPAN::Meta::Requirements 2.121; # requirements_for_module
 
 use namespace::autoclean;
 
@@ -59,7 +59,7 @@ Dist::Zilla::Prereqs - the prerequisites of a Dist::Zilla distribution
 
 =head1 VERSION
 
-version 4.300014
+version 4.300015
 
 =head1 DESCRIPTION
 

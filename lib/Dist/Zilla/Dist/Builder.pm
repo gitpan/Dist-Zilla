@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 {
-  $Dist::Zilla::Dist::Builder::VERSION = '4.300014';
+  $Dist::Zilla::Dist::Builder::VERSION = '4.300015';
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -457,12 +457,16 @@ sub release {
 
 
 sub clean {
-  my ($self) = @_;
+  my ($self, $dry_run) = @_;
 
   require File::Path;
   for my $x (grep { -e } '.build', glob($self->name . '-*')) {
-    $self->log("clean: removing $x");
-    File::Path::rmtree($x);
+    if ($dry_run) {
+      $self->log("clean: would remove $x");
+    } else {
+      $self->log("clean: removing $x");
+      File::Path::rmtree($x);
+    }
   };
 }
 
@@ -597,7 +601,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 4.300014
+version 4.300015
 
 =head1 ATTRIBUTES
 

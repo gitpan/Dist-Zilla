@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoPrereqs;
 {
-  $Dist::Zilla::Plugin::AutoPrereqs::VERSION = '4.300014';
+  $Dist::Zilla::Plugin::AutoPrereqs::VERSION = '4.300015';
 }
 use Moose;
 with(
@@ -133,7 +133,7 @@ Dist::Zilla::Plugin::AutoPrereqs - automatically extract prereqs from your modul
 
 =head1 VERSION
 
-version 4.300014
+version 4.300015
 
 =head1 SYNOPSIS
 
@@ -148,7 +148,7 @@ This plugin will extract loosely your distribution prerequisites from
 your files using L<Perl::PrereqScanner>.
 
 If some prereqs are not found, you can still add them manually with the
-L<Dist::Zilla::Plugin::Prereqs> plugin.
+L<Prereqs|Dist::Zilla::Plugin::Prereqs> plugin.
 
 This plugin will skip the modules shipped within your dist.
 
@@ -188,6 +188,10 @@ of scanners.
 
 This is an arrayref of regular expressions.  Any module names matching
 any of these regex will not be registered as prerequisites.
+
+=head1 SEE ALSO
+
+L<Prereqs|Dist::Zilla::Plugin::Prereqs>, L<Perl::PrereqScanner>.
 
 =head1 CREDITS
 

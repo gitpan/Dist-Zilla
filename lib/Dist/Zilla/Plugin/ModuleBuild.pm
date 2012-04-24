@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ModuleBuild;
 {
-  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '4.300014';
+  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '4.300015';
 }
 # ABSTRACT: build a Build.PL that uses Module::Build
 use List::MoreUtils qw(any uniq);
@@ -153,7 +153,7 @@ has __module_build_args => (
 __PACKAGE__->meta->make_immutable;
 1;
 
-__END__
+
 =pod
 
 =head1 NAME
@@ -162,7 +162,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 4.300014
+version 4.300015
 
 =head1 DESCRIPTION
 
@@ -183,6 +183,17 @@ B<Optional:> Specify the class to use to create the build object.  Defaults
 to C<Module::Build> itself.  If another class is specified, C<use lib 'inc'>
 is also added to the Build.PL file.
 
+=head1 SEE ALSO
+
+Core Dist::Zilla plugins:
+L<@Basic|Dist::Zilla::PluginBundle::Basic>,
+L<@Filter|Dist::Zilla::PluginBundle::Filter>,
+L<MakeMaker|Dist::Zilla::Plugin::MakeMaker>,
+L<Manifest|Dist::Zilla::Plugin::Manifest>.
+
+Dist::Zilla roles:
+L<BuildPL|Dist::Zilla::Role::BuildPL>.
+
 =head1 AUTHOR
 
 Ricardo SIGNES <rjbs@cpan.org>
@@ -195,4 +206,8 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+
 

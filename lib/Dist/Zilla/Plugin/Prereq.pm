@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::Prereq;
 {
-  $Dist::Zilla::Plugin::Prereq::VERSION = '4.300014';
+  $Dist::Zilla::Plugin::Prereq::VERSION = '4.300015';
 }
 # ABSTRACT: (DEPRECATED) the old name of the Prereqs plugin
 use Moose;
@@ -28,12 +28,16 @@ Dist::Zilla::Plugin::Prereq - (DEPRECATED) the old name of the Prereqs plugin
 
 =head1 VERSION
 
-version 4.300014
+version 4.300015
 
 =head1 SYNOPSIS
 
 This plugin extends C<[Prereqs]> and adds nothing.  It is the old name for
 Prereqs, and will be removed in a few versions.
+
+=head1 SEE ALSO
+
+Dist::Zilla plugins: L<Prereqs|Dist::Zilla::Plugin::Prereqs>.
 
 =head1 AUTHOR
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ManifestSkip;
 {
-  $Dist::Zilla::Plugin::ManifestSkip::VERSION = '4.300014';
+  $Dist::Zilla::Plugin::ManifestSkip::VERSION = '4.300015';
 }
 # ABSTRACT: decline to build files that appear in a MANIFEST.SKIP-like file
 use Moose;
@@ -44,7 +44,7 @@ Dist::Zilla::Plugin::ManifestSkip - decline to build files that appear in a MANI
 
 =head1 VERSION
 
-version 4.300014
+version 4.300015
 
 =head1 DESCRIPTION
 
@@ -52,12 +52,24 @@ This plugin reads a MANIFEST.SKIP-like file, as used by L<ExtUtils::MakeMaker>
 and L<ExtUtils::Manifest>, and prunes any files that it declares should be
 skipped.
 
+This plugin is included in the L<@Basic|Dist::Zilla::PluginBundle::Basic>
+bundle.
+
 =head1 ATTRIBUTES
 
 =head2 skipfile
 
 This is the name of the file to read for MANIFEST.SKIP-like content.  It
 defaults, unsurprisingly, to F<MANIFEST.SKIP>.
+
+=head1 SEE ALSO
+
+Dist::Zilla core plugins:
+L<@Basic|Dist::Zilla::PluginBundle::Basic>,
+L<PruneCruft|Dist::Zilla::Plugin::PruneCruft>,
+L<PruneFiles|Dist::Zilla::Plugin::PruneFiles>.
+
+Other modules: L<ExtUtils::Manifest>.
 
 =head1 AUTHOR
 

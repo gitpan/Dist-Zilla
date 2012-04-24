@@ -1,5 +1,20 @@
 Revision history for Dist-Zilla
 
+4.300015  2012-04-23 21:38:21 America/New_York
+          require a CPAN::Meta::Requirements 2.121 to get the
+          requirements_for_module (thanks, Olivier Mengué!)
+
+          'dzil run' with no arguments will now invoke a new shell.  (thanks,
+          Karen Etheridge!)
+
+          dzil clean now has has a "dry run" option.  (thanks, Karen
+          Etheridge!)
+
+          add more links in plugins documentation to help discoverability
+          of other plugins.  (thanks, Olivier Mengué!)
+
+          support :version requirement for bundles (thanks, Randy Stauner!)
+
 4.300014  2012-04-05 12:46:33 America/New_York
           added the CPANFile plugin to create "cpanfile" prereq format
 

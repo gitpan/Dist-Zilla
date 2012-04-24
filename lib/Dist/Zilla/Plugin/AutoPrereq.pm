@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoPrereq;
 {
-  $Dist::Zilla::Plugin::AutoPrereq::VERSION = '4.300014';
+  $Dist::Zilla::Plugin::AutoPrereq::VERSION = '4.300015';
 }
 use Moose;
 extends 'Dist::Zilla::Plugin::AutoPrereqs';
@@ -18,7 +18,7 @@ before register_component => sub {
 __PACKAGE__->meta->make_immutable;
 1;
 
-__END__
+
 =pod
 
 =head1 NAME
@@ -27,7 +27,11 @@ Dist::Zilla::Plugin::AutoPrereq - (DEPRECATED) the old name for Dist::Zilla::Plu
 
 =head1 VERSION
 
-version 4.300014
+version 4.300015
+
+=head1 SEE ALSO
+
+L<AutoPrereqs|Dist::Zilla::Plugin::AutoPrereqs>
 
 =head1 AUTHOR
 
@@ -41,4 +45,7 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
 

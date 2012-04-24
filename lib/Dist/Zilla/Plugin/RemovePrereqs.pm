@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::RemovePrereqs;
 {
-  $Dist::Zilla::Plugin::RemovePrereqs::VERSION = '4.300014';
+  $Dist::Zilla::Plugin::RemovePrereqs::VERSION = '4.300015';
 }
 # ABSTRACT: a plugin to remove gathered prereqs
 use Moose;
@@ -68,7 +68,7 @@ Dist::Zilla::Plugin::RemovePrereqs - a plugin to remove gathered prereqs
 
 =head1 VERSION
 
-version 4.300014
+version 4.300015
 
 =head1 SYNOPSIS
 
@@ -80,6 +80,12 @@ In your F<dist.ini>:
 
 This will remove any prerequisite of any type from any prereq phase.  This is
 useful for eliminating incorrectly detected prereqs.
+
+=head1 SEE ALSO
+
+Dist::Zilla plugins:
+L<Prereqs|Dist::Zilla::Plugin::Prereqs>,
+L<AutoPrereqs|Dist::Zilla::Plugin::AutoPrereqs>.
 
 =head1 AUTHOR
 

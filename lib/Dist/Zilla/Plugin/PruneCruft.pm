@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PruneCruft;
 {
-  $Dist::Zilla::Plugin::PruneCruft::VERSION = '4.300014';
+  $Dist::Zilla::Plugin::PruneCruft::VERSION = '4.300015';
 }
 # ABSTRACT: prune stuff that you probably don't mean to include
 use Moose;
@@ -80,7 +80,7 @@ Dist::Zilla::Plugin::PruneCruft - prune stuff that you probably don't mean to in
 
 =head1 VERSION
 
-version 4.300014
+version 4.300015
 
 =head1 SYNOPSIS
 
@@ -98,6 +98,16 @@ can be specified multiple times):
   [PruneCruft]
   except = \.gitignore
   except = t/.*/\.keep$
+
+This plugin is included in the L<@Basic|Dist::Zilla::PluginBundle::Basic>
+bundle.
+
+=head1 SEE ALSO
+
+Dist::Zilla plugins:
+L<@Basic|Dist::Zilla::PluginBundle::Basic>,
+L<PruneFiles|Dist::Zilla::Plugin::PruneFiles>,
+L<ManifestSkip|Dist::Zilla::Plugin::ManifestSkip>.
 
 =head1 AUTHOR
 
