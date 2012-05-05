@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::FakeRelease;
 {
-  $Dist::Zilla::Plugin::FakeRelease::VERSION = '4.300015';
+  $Dist::Zilla::Plugin::FakeRelease::VERSION = '4.300016';
 }
 # ABSTRACT: fake plugin to test release
 
@@ -42,7 +42,7 @@ Dist::Zilla::Plugin::FakeRelease - fake plugin to test release
 
 =head1 VERSION
 
-version 4.300015
+version 4.300016
 
 =head1 SYNOPSIS
 
@@ -51,9 +51,10 @@ version 4.300015
 
 =head1 DESCRIPTION
 
-This plugin is a C<Releaser> that does nothing. It is directed to plugin
-authors, who may need a dumb release plugin to test their shiny plugin
-implementing C<BeforeRelease> and C<AfterRelease>.
+This plugin is a L<Releaser|Dist::Zilla::Role::Releaser> that does nothing. It
+is directed to plugin authors, who may need a dumb release plugin to test their
+shiny plugin implementing L<BeforeRelease|Dist::Zilla::Role::BeforeRelease>
+and L<AfterRelease|Dist::Zilla::Role::AfterRelease>.
 
 When this plugin does the release, it will just log a message and finish.
 
@@ -63,8 +64,14 @@ authors wanting to test reliably that release failed.
 
 You can optionally provide the 'user' parameter, which defaults to 'AUTHORID',
 which will allow things that depend on this metadata
-( Sometimes provided by L<Dist::Zilla::Plugin::UploadToCPAN> ) to still work.
+( Sometimes provided by L<UploadToCPAN|Dist::Zilla::Plugin::UploadToCPAN> ) to still work.
 ( For example: L<Dist::Zilla::Plugin::Twitter> )
+
+=head1 SEE ALSO
+
+Core Dist::Zilla plugins:
+L<ConfirmRelease|Dist::Zilla::Plugin::ConfirmRelease>,
+L<UploadToCPAN|Dist::Zilla::Plugin::UploadToCPAN>.
 
 =head1 AUTHOR
 

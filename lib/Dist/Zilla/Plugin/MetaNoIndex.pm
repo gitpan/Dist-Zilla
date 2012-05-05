@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaNoIndex;
 {
-  $Dist::Zilla::Plugin::MetaNoIndex::VERSION = '4.300015';
+  $Dist::Zilla::Plugin::MetaNoIndex::VERSION = '4.300016';
 }
 # ABSTRACT: Stop CPAN from indexing stuff
 
@@ -55,7 +55,7 @@ sub metadata {
 __PACKAGE__->meta->make_immutable;
 1;
 
-__END__
+
 =pod
 
 =head1 NAME
@@ -64,7 +64,7 @@ Dist::Zilla::Plugin::MetaNoIndex - Stop CPAN from indexing stuff
 
 =head1 VERSION
 
-version 4.300015
+version 4.300016
 
 =head1 SYNOPSIS
 
@@ -128,6 +128,10 @@ Returns a reference to a hash containing the distribution's no_index metadata.
 
 =for Pod::Coverage mvp_aliases mvp_multivalue_args
 
+=head1 SEE ALSO
+
+Dist::Zilla roles: L<MetaProvider|Dist::Zilla::Role::MetaProvider>.
+
 =head1 AUTHOR
 
 Ricardo SIGNES <rjbs@cpan.org>
@@ -140,4 +144,7 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
 

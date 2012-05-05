@@ -198,7 +198,6 @@ t/plugins/prunes.t
 t/plugins/readme.t
 t/plugins/testrelease.t
 t/plugins/uploadtocpan.t
-t/release-pod-syntax.t
 t/tester-demo.t
 t/tester.t
 t/util.t
@@ -210,3 +209,4 @@ todo/external-core-attr.mkdn
 todo/version-from-prev.mkdn
 todo/vfs-for-files.mkdn
 todo/xs-improvement.mkdn
+xt/release/pod-syntax.t

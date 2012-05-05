@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaTests;
 {
-  $Dist::Zilla::Plugin::MetaTests::VERSION = '4.300015';
+  $Dist::Zilla::Plugin::MetaTests::VERSION = '4.300016';
 }
 # ABSTRACT: common extra tests for META.yml
 use Moose;
@@ -22,7 +22,7 @@ Dist::Zilla::Plugin::MetaTests - common extra tests for META.yml
 
 =head1 VERSION
 
-version 4.300015
+version 4.300016
 
 =head1 DESCRIPTION
 
@@ -32,7 +32,16 @@ following files:
   xt/release/meta-yaml.t - a standard Test::CPAN::Meta test
 
 Note that this test doesn't actually do anything unless you have
-Test::CPAN::Meta installed.
+L<Test::CPAN::Meta> installed.
+
+=head1 SEE ALSO
+
+Core Dist::Zilla plugins:
+L<MetaResources|Dist::Zilla::Plugin::MetaResources>,
+L<MetaNoIndex|Dist::Zilla::Plugin::MetaNoIndex>,
+L<MetaYAML|Dist::Zilla::Plugin::MetaYAML>,
+L<MetaJSON|Dist::Zilla::Plugin::MetaJSON>,
+L<MetaConfig|Dist::Zilla::Plugin::MetaConfig>.
 
 =head1 AUTHOR
 

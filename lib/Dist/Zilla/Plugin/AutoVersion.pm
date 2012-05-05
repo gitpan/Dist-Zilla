@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoVersion;
 {
-  $Dist::Zilla::Plugin::AutoVersion::VERSION = '4.300015';
+  $Dist::Zilla::Plugin::AutoVersion::VERSION = '4.300016';
 }
 # ABSTRACT: take care of numbering versions so you don't have to
 use Moose;
@@ -60,7 +60,7 @@ sub provide_version {
 __PACKAGE__->meta->make_immutable;
 1;
 
-__END__
+
 =pod
 
 =head1 NAME
@@ -69,7 +69,7 @@ Dist::Zilla::Plugin::AutoVersion - take care of numbering versions so you don't 
 
 =head1 VERSION
 
-version 4.300015
+version 4.300016
 
 =head1 DESCRIPTION
 
@@ -99,6 +99,17 @@ The default value is:
   {{ sprintf('%01u', ($ENV{N} || 0)) }}
   {{$ENV{DEV} ? (sprintf '_%03u', $ENV{DEV}) : ''}}
 
+=head1 SEE ALSO
+
+Core Dist::Zilla plugins:
+L<PkgVersion|Dist::Zilla::Plugin::PkgVersion>,
+L<PodVersion|Dist::Zilla::Plugin::PodVersion>,
+L<NextRelease|Dist::Zilla::Plugin::NextRelease>.
+
+Dist::Zilla roles:
+L<VersionProvider|Dist::Zilla::Role::VersionProvider>,
+L<TextTemplate|Dist::Zilla::Role::TextTemplate>.
+
 =head1 AUTHOR
 
 Ricardo SIGNES <rjbs@cpan.org>
@@ -111,4 +122,7 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PodCoverageTests;
 {
-  $Dist::Zilla::Plugin::PodCoverageTests::VERSION = '4.300015';
+  $Dist::Zilla::Plugin::PodCoverageTests::VERSION = '4.300016';
 }
 # ABSTRACT: a release test for Pod coverage
 use Moose;
@@ -22,7 +22,7 @@ Dist::Zilla::Plugin::PodCoverageTests - a release test for Pod coverage
 
 =head1 VERSION
 
-version 4.300015
+version 4.300016
 
 =head1 DESCRIPTION
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoPrereqs;
 {
-  $Dist::Zilla::Plugin::AutoPrereqs::VERSION = '4.300015';
+  $Dist::Zilla::Plugin::AutoPrereqs::VERSION = '4.300016';
 }
 use Moose;
 with(
@@ -79,8 +79,10 @@ sub register_prereqs {
 
     foreach my $file (@$files) {
       # parse only perl files
-      next unless $file->name =~ /\.(?:pm|pl|t)$/i
+      next unless $file->name =~ /\.(?:pm|pl|t|psgi)$/i
                || $file->content =~ /^#!(?:.*)perl(?:$|\s)/;
+      # RT#76305 skip extra tests produced by ExtraTests plugin
+      next if $file->name =~ m{^t/(?:author|release)-[^/]*\.t$};
 
       # store module name, to trim it from require list later on
       my $module = $file->name;
@@ -133,7 +135,7 @@ Dist::Zilla::Plugin::AutoPrereqs - automatically extract prereqs from your modul
 
 =head1 VERSION
 
-version 4.300015
+version 4.300016
 
 =head1 SYNOPSIS
 
@@ -141,6 +143,7 @@ In your F<dist.ini>:
 
   [AutoPrereqs]
   skip = ^Foo|Bar$
+  skip = ^Other::Dist
 
 =head1 DESCRIPTION
 
@@ -186,8 +189,9 @@ of scanners.
 
 =head2 skips
 
-This is an arrayref of regular expressions.  Any module names matching
-any of these regex will not be registered as prerequisites.
+This is an arrayref of regular expressions, derived from all the 'skip' lines
+in the configuration.  Any module names matching any of these regexes will not
+be registered as prerequisites.
 
 =head1 SEE ALSO
 

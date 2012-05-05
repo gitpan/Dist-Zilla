@@ -131,7 +131,7 @@
       },
       "x_mailing_list" : "http://www.listbox.com/subscribe/?list_id=139292"
    },
-   "version" : "4.300015",
+   "version" : "4.300016",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
@@ -143,6 +143,11 @@
             "class" : "Dist::Zilla::Plugin::CheckPrereqsIndexed",
             "name" : "@RJBS/CheckPrereqsIndexed",
             "version" : "0.007"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::CheckExtraTests",
+            "name" : "@RJBS/CheckExtraTests",
+            "version" : "0.005"
          },
          {
             "class" : "Dist::Zilla::Plugin::PruneCruft",
@@ -167,11 +172,6 @@
          {
             "class" : "Dist::Zilla::Plugin::Readme",
             "name" : "@RJBS/@Filter/Readme",
-            "version" : "4.300015"
-         },
-         {
-            "class" : "Dist::Zilla::Plugin::ExtraTests",
-            "name" : "@RJBS/@Filter/ExtraTests",
             "version" : "4.300015"
          },
          {

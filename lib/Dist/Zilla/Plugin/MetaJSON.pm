@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaJSON;
 {
-  $Dist::Zilla::Plugin::MetaJSON::VERSION = '4.300015';
+  $Dist::Zilla::Plugin::MetaJSON::VERSION = '4.300016';
 }
 # ABSTRACT: produce a META.json
 use Moose;
@@ -62,7 +62,7 @@ sub gather_files {
 __PACKAGE__->meta->make_immutable;
 1;
 
-__END__
+
 =pod
 
 =head1 NAME
@@ -71,7 +71,7 @@ Dist::Zilla::Plugin::MetaJSON - produce a META.json
 
 =head1 VERSION
 
-version 4.300015
+version 4.300016
 
 =head1 DESCRIPTION
 
@@ -95,6 +95,19 @@ they are released and adopted.
 
 If you want a fixed version, specify it.
 
+=head1 SEE ALSO
+
+Core Dist::Zilla plugins:
+L<@Basic|Dist::Zilla::PluginBundle::Basic>,
+L<Manifest|Dist::Zilla::Plugin::Manifest>.
+
+Dist::Zilla roles:
+L<FileGatherer|Dist::Zilla::Role::FileGatherer>.
+
+Other modules:
+L<CPAN::Meta>,
+L<CPAN::Meta::Spec>, L<JSON>.
+
 =head1 AUTHOR
 
 Ricardo SIGNES <rjbs@cpan.org>
@@ -107,4 +120,7 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
 

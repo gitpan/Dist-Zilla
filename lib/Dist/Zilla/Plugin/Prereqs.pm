@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::Prereqs;
 {
-  $Dist::Zilla::Plugin::Prereqs::VERSION = '4.300015';
+  $Dist::Zilla::Plugin::Prereqs::VERSION = '4.300016';
 }
 # ABSTRACT: list simple prerequisites
 use Moose;
@@ -107,7 +107,7 @@ sub register_prereqs {
 __PACKAGE__->meta->make_immutable;
 1;
 
-__END__
+
 =pod
 
 =head1 NAME
@@ -116,7 +116,7 @@ Dist::Zilla::Plugin::Prereqs - list simple prerequisites
 
 =head1 VERSION
 
-version 4.300015
+version 4.300016
 
 =head1 SYNOPSIS
 
@@ -225,6 +225,22 @@ If the phase is omitted, it will default to I<runtime>; thus, specifying
 Not all of these phases are useful for all tools, especially tools that only
 understand version 1.x CPAN::Meta files.
 
+=head1 SEE ALSO
+
+=over 4
+
+=item *
+
+Core Dist::Zilla plugins:
+L<@Basic|Dist::Zilla::PluginBundle::Basic>,
+L<AutoPrereqs|Dist::Zilla::Plugin::AutoPrereqs>.
+
+=item *
+
+The CPAN Meta specification: L<CPAN::Meta/PREREQUISITES>.
+
+=back
+
 =head1 AUTHOR
 
 Ricardo SIGNES <rjbs@cpan.org>
@@ -237,4 +253,7 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
 

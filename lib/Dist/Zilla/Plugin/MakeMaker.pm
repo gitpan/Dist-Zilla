@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MakeMaker;
 {
-  $Dist::Zilla::Plugin::MakeMaker::VERSION = '4.300015';
+  $Dist::Zilla::Plugin::MakeMaker::VERSION = '4.300016';
 }
 
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
@@ -252,7 +252,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 4.300015
+version 4.300016
 
 =head1 DESCRIPTION
 
@@ -285,7 +285,10 @@ L<ModuleBuild|Dist::Zilla::Plugin::ModuleBuild>,
 L<Manifest|Dist::Zilla::Plugin::Manifest>.
 
 Dist::Zilla roles:
-L<BuildRunner>, L<InstallTool>, L<PrereqSource>, L<TestRunner>.
+L<BuildRunner|Dist::Zilla::Role::FileGatherer>,
+L<InstallTool|Dist::Zilla::Role::InstallTool>,
+L<PrereqSource|Dist::Zilla::Role::PrereqSource>,
+L<TestRunner|Dist::Zilla::Role::TestRunner>.
 
 =head1 AUTHOR
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::License;
 {
-  $Dist::Zilla::Plugin::License::VERSION = '4.300015';
+  $Dist::Zilla::Plugin::License::VERSION = '4.300016';
 }
 # ABSTRACT: output a LICENSE file
 use Moose;
@@ -26,7 +26,7 @@ sub gather_files {
 __PACKAGE__->meta->make_immutable;
 1;
 
-__END__
+
 =pod
 
 =head1 NAME
@@ -35,13 +35,35 @@ Dist::Zilla::Plugin::License - output a LICENSE file
 
 =head1 VERSION
 
-version 4.300015
+version 4.300016
 
 =head1 DESCRIPTION
 
 This plugin adds a F<LICENSE> file containing the full text of the
 distribution's license, as produced by the C<fulltext> method of the
 dist's L<Software::License> object.
+
+=head1 SEE ALSO
+
+=over 4
+
+=item *
+
+the C<license> attribute of the L<Dist::Zilla> object to select the license
+to use.
+
+=item *
+
+Dist::Zilla roles:
+L<FileGatherer|Dist::Zilla::Role::FileGatherer>.
+
+=item *
+
+Other modules:
+L<Software::License>,
+L<Software::License::Artistic_2_0>.
+
+=back
 
 =head1 AUTHOR
 
@@ -55,4 +77,7 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
 

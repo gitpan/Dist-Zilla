@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaConfig;
 {
-  $Dist::Zilla::Plugin::MetaConfig::VERSION = '4.300015';
+  $Dist::Zilla::Plugin::MetaConfig::VERSION = '4.300016';
 }
 # ABSTRACT: summarize Dist::Zilla configuration into distmeta
 use Moose;
@@ -41,7 +41,7 @@ sub metadata {
 __PACKAGE__->meta->make_immutable;
 1;
 
-__END__
+
 =pod
 
 =head1 NAME
@@ -50,7 +50,7 @@ Dist::Zilla::Plugin::MetaConfig - summarize Dist::Zilla configuration into distm
 
 =head1 VERSION
 
-version 4.300015
+version 4.300016
 
 =head1 DESCRIPTION
 
@@ -60,6 +60,10 @@ Dist::Zilla version used as well as all the plugins used.  Each plugin's name,
 package, and version will be included.  Plugins may augment their
 implementation of the L<Dist::Zilla::Role::ConfigDumper> role methods to add
 more data to this dump.
+
+=head1 SEE ALSO
+
+Dist::Zilla roles: L<MetaProvider|Dist::Zilla::Role::MetaProvider>.
 
 =head1 AUTHOR
 
@@ -73,4 +77,7 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
 

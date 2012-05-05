@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaResources;
 {
-  $Dist::Zilla::Plugin::MetaResources::VERSION = '4.300015';
+  $Dist::Zilla::Plugin::MetaResources::VERSION = '4.300016';
 }
 
 # ABSTRACT: provide arbitrary "resources" for distribution metadata
@@ -56,7 +56,7 @@ sub metadata {
 __PACKAGE__->meta->make_immutable;
 1;
 
-__END__
+
 =pod
 
 =head1 NAME
@@ -65,7 +65,7 @@ Dist::Zilla::Plugin::MetaResources - provide arbitrary "resources" for distribut
 
 =head1 VERSION
 
-version 4.300015
+version 4.300016
 
 =head1 DESCRIPTION
 
@@ -79,6 +79,12 @@ This plugin adds resources entries to the distribution's metadata.
   repository.web    = http://github.com/dude/project
   repository.type   = git
 
+=head1 SEE ALSO
+
+Dist::Zilla roles: L<MetaProvider|Dist::Zilla::Role::MetaProvider>.
+
+Dist::Zilla plugins on the CPAN: L<GithubMeta|Dist::Zilla::Plugin::GithubMeta>.
+
 =head1 AUTHOR
 
 Ricardo SIGNES <rjbs@cpan.org>
@@ -91,4 +97,7 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
 

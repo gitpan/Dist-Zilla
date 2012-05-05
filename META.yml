@@ -107,7 +107,7 @@ resources:
   X_mailing_list: http://www.listbox.com/subscribe/?list_id=139292
   homepage: http://dzil.org/
   repository: http://github.com/rjbs/dist-zilla.git
-version: 4.300015
+version: 4.300016
 x_Dist_Zilla:
   plugins:
     -
@@ -118,6 +118,10 @@ x_Dist_Zilla:
       class: Dist::Zilla::Plugin::CheckPrereqsIndexed
       name: '@RJBS/CheckPrereqsIndexed'
       version: 0.007
+    -
+      class: Dist::Zilla::Plugin::CheckExtraTests
+      name: '@RJBS/CheckExtraTests'
+      version: 0.005
     -
       class: Dist::Zilla::Plugin::PruneCruft
       name: '@RJBS/@Filter/PruneCruft'
@@ -137,10 +141,6 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Readme
       name: '@RJBS/@Filter/Readme'
-      version: 4.300015
-    -
-      class: Dist::Zilla::Plugin::ExtraTests
-      name: '@RJBS/@Filter/ExtraTests'
       version: 4.300015
     -
       class: Dist::Zilla::Plugin::ExecDir

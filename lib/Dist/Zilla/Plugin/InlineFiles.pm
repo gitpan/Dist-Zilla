@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::InlineFiles;
 {
-  $Dist::Zilla::Plugin::InlineFiles::VERSION = '4.300015';
+  $Dist::Zilla::Plugin::InlineFiles::VERSION = '4.300016';
 }
 # ABSTRACT: files in a data section
 use Moose;
@@ -37,7 +37,7 @@ sub gather_files {
 __PACKAGE__->meta->make_immutable;
 1;
 
-__END__
+
 =pod
 
 =head1 NAME
@@ -46,13 +46,20 @@ Dist::Zilla::Plugin::InlineFiles - files in a data section
 
 =head1 VERSION
 
-version 4.300015
+version 4.300016
 
 =head1 DESCRIPTION
 
 This plugin exists only to be extended, and gathers all files contained in its
 data section and those of its ancestors.  For more information, see
 L<Data::Section|Data::Section>.
+
+=head1 SEE ALSO
+
+Core Dist::Zilla plugins inheriting from L<InlineFiles>:
+L<MetaTests|Dist::Zilla::Plugin::MetaTests>,
+L<PodCoverageTests|Dist::Zilla::Plugin::PodCoverageTests>,
+L<PodSyntaxTests|Dist::Zilla::Plugin::PodSyntaxTests>.
 
 =head1 AUTHOR
 
@@ -66,4 +73,7 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
 

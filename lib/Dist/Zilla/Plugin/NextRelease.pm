@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::NextRelease;
 {
-  $Dist::Zilla::Plugin::NextRelease::VERSION = '4.300015';
+  $Dist::Zilla::Plugin::NextRelease::VERSION = '4.300016';
 }
 # ABSTRACT: update the next release number in your changelog
 
@@ -127,7 +127,7 @@ Dist::Zilla::Plugin::NextRelease - update the next release number in your change
 
 =head1 VERSION
 
-version 4.300015
+version 4.300016
 
 =head1 SYNOPSIS
 
@@ -210,6 +210,18 @@ n - a newline
 t - a tab
 
 =back
+
+=head1 SEE ALSO
+
+Core Dist::Zilla plugins:
+L<AutoVersion|Dist::Zilla::Plugin::AutoVersion>,
+L<PkgVersion|Dist::Zilla::Plugin::PkgVersion>,
+L<PodVersion|Dist::Zilla::Plugin::PodVersion>.
+
+Dist::Zilla roles:
+L<AfterRelease|Dist::Zilla::Plugin::AfterRelease>,
+L<FileMunger|Dist::Zilla::Role::FileMunger>,
+L<TextTemplate|Dist::Zilla::Role::TextTemplate>.
 
 =head1 AUTHOR
 
