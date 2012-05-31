@@ -30,6 +30,7 @@ dist.ini
 lib/Dist/Zilla.pm
 lib/Dist/Zilla/App.pm
 lib/Dist/Zilla/App/Command.pm
+lib/Dist/Zilla/App/Command/add.pm
 lib/Dist/Zilla/App/Command/authordeps.pm
 lib/Dist/Zilla/App/Command/build.pm
 lib/Dist/Zilla/App/Command/clean.pm

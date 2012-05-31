@@ -1,10 +1,22 @@
 Revision history for Dist-Zilla
 
+4.300017  2012-05-31 12:17:45 America/New_York
+          also check plugin version requirements in dzil authordeps --missing
+          (Karen Etheridge)
+
+          add 'dzil add' to add new modules to an existing dist (thanks, David
+          Golden!)
+
+          misc. bugfixes (thanks, Karen Etheridge and Olivier Mengué!)
+
 4.300016  2012-05-04 22:09:10 America/New_York
           make AutoPrereqs treat .psgi files as scannable (thanks, Jakob Voss!)
 
           add yet more links in plugins documentation to help discoverability
           of other plugins.  (thanks, Olivier Mengué!)
+
+          AutoPrereqs: skip author and release tests when scanning (RT#76305).
+          (thanks, Olivier Mengué!)
 
 4.300015  2012-04-23 21:38:21 America/New_York
           require a CPAN::Meta::Requirements 2.121 to get the

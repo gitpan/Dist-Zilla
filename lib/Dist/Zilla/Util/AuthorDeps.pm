@@ -2,12 +2,13 @@ use strict;
 use warnings;
 package Dist::Zilla::Util::AuthorDeps;
 {
-  $Dist::Zilla::Util::AuthorDeps::VERSION = '4.300016';
+  $Dist::Zilla::Util::AuthorDeps::VERSION = '4.300017';
 }
 # ABSTRACT: Utils for listing your distribution's author dependencies
 
 use Dist::Zilla::Util;
 use Path::Class;
+use List::MoreUtils ();
 
 
 sub format_author_deps {
@@ -102,7 +103,7 @@ sub extract_author_deps {
 
   my @final =
     map { { $_ => $vermap->{$_} } }
-    grep { $missing ? (! Class::Load::try_load_class($_)) : 1 }
+    grep { $missing ? (! Class::Load::try_load_class($_, ($vermap->{$_} ? {-version => $vermap->{$_}} : ()))) : 1 }
     List::MoreUtils::uniq
     @packages;
 
@@ -120,7 +121,7 @@ Dist::Zilla::Util::AuthorDeps - Utils for listing your distribution's author dep
 
 =head1 VERSION
 
-version 4.300016
+version 4.300017
 
 =head1 AUTHOR
 
