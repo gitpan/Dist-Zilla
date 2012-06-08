@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaJSON;
 {
-  $Dist::Zilla::Plugin::MetaJSON::VERSION = '4.300017';
+  $Dist::Zilla::Plugin::MetaJSON::VERSION = '4.300018';
 }
 # ABSTRACT: produce a META.json
 use Moose;
@@ -63,6 +63,7 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 
+__END__
 =pod
 
 =head1 NAME
@@ -71,7 +72,7 @@ Dist::Zilla::Plugin::MetaJSON - produce a META.json
 
 =head1 VERSION
 
-version 4.300017
+version 4.300018
 
 =head1 DESCRIPTION
 
@@ -120,7 +121,4 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
 

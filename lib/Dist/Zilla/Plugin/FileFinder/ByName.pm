@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::FileFinder::ByName;
 {
-  $Dist::Zilla::Plugin::FileFinder::ByName::VERSION = '4.300017';
+  $Dist::Zilla::Plugin::FileFinder::ByName::VERSION = '4.300018';
 }
 use Moose;
 with 'Dist::Zilla::Role::FileFinder';
@@ -102,7 +102,7 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 
-
+__END__
 =pod
 
 =head1 NAME
@@ -111,7 +111,7 @@ Dist::Zilla::Plugin::FileFinder::ByName - FileFinder matching on pathnames
 
 =head1 VERSION
 
-version 4.300017
+version 4.300018
 
 =head1 SYNOPSIS
 
@@ -192,7 +192,4 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
 

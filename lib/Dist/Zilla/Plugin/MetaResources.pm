@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaResources;
 {
-  $Dist::Zilla::Plugin::MetaResources::VERSION = '4.300017';
+  $Dist::Zilla::Plugin::MetaResources::VERSION = '4.300018';
 }
 
 # ABSTRACT: provide arbitrary "resources" for distribution metadata
@@ -57,6 +57,7 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 
+__END__
 =pod
 
 =head1 NAME
@@ -65,7 +66,7 @@ Dist::Zilla::Plugin::MetaResources - provide arbitrary "resources" for distribut
 
 =head1 VERSION
 
-version 4.300017
+version 4.300018
 
 =head1 DESCRIPTION
 
@@ -97,7 +98,4 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
 

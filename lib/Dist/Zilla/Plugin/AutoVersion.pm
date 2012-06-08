@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoVersion;
 {
-  $Dist::Zilla::Plugin::AutoVersion::VERSION = '4.300017';
+  $Dist::Zilla::Plugin::AutoVersion::VERSION = '4.300018';
 }
 # ABSTRACT: take care of numbering versions so you don't have to
 use Moose;
@@ -61,6 +61,7 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 
+__END__
 =pod
 
 =head1 NAME
@@ -69,7 +70,7 @@ Dist::Zilla::Plugin::AutoVersion - take care of numbering versions so you don't 
 
 =head1 VERSION
 
-version 4.300017
+version 4.300018
 
 =head1 DESCRIPTION
 
@@ -122,7 +123,4 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
 

@@ -1,6 +1,6 @@
 package Dist::Zilla;
 {
-  $Dist::Zilla::VERSION = '4.300017';
+  $Dist::Zilla::VERSION = '4.300018';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -517,6 +517,7 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 
+__END__
 =pod
 
 =head1 NAME
@@ -525,7 +526,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 4.300017
+version 4.300018
 
 =head1 DESCRIPTION
 
@@ -756,7 +757,4 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
 

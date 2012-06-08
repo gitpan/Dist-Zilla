@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PkgVersion;
 {
-  $Dist::Zilla::Plugin::PkgVersion::VERSION = '4.300017';
+  $Dist::Zilla::Plugin::PkgVersion::VERSION = '4.300018';
 }
 # ABSTRACT: add a $VERSION to your packages
 use Moose;
@@ -95,6 +95,7 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 
+__END__
 =pod
 
 =head1 NAME
@@ -103,7 +104,7 @@ Dist::Zilla::Plugin::PkgVersion - add a $VERSION to your packages
 
 =head1 VERSION
 
-version 4.300017
+version 4.300018
 
 =head1 SYNOPSIS
 
@@ -140,6 +141,10 @@ L<PodVersion|Dist::Zilla::Plugin::PodVersion>,
 L<AutoVersion|Dist::Zilla::Plugin::AutoVersion>,
 L<NextRelease|Dist::Zilla::Plugin::NextRelease>.
 
+Other Dist::Zilla plugins:
+L<OurPkgVersion|Dist::Zilla::Plugin::OurPkgVersion> inserts version
+numbers using C<our $VERSION = '...';> and without changing line numbers
+
 =head1 AUTHOR
 
 Ricardo SIGNES <rjbs@cpan.org>
@@ -152,7 +157,4 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
 

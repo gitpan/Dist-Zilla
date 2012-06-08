@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::FilePruner;
 {
-  $Dist::Zilla::Role::FilePruner::VERSION = '4.300017';
+  $Dist::Zilla::Role::FilePruner::VERSION = '4.300018';
 }
 # ABSTRACT: something that removes found files from the distribution
 use Moose::Role;
@@ -22,7 +22,7 @@ Dist::Zilla::Role::FilePruner - something that removes found files from the dist
 
 =head1 VERSION
 
-version 4.300017
+version 4.300018
 
 =head1 DESCRIPTION
 

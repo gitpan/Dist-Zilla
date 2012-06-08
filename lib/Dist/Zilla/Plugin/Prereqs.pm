@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::Prereqs;
 {
-  $Dist::Zilla::Plugin::Prereqs::VERSION = '4.300017';
+  $Dist::Zilla::Plugin::Prereqs::VERSION = '4.300018';
 }
 # ABSTRACT: list simple prerequisites
 use Moose;
@@ -108,6 +108,7 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 
+__END__
 =pod
 
 =head1 NAME
@@ -116,7 +117,7 @@ Dist::Zilla::Plugin::Prereqs - list simple prerequisites
 
 =head1 VERSION
 
-version 4.300017
+version 4.300018
 
 =head1 SYNOPSIS
 
@@ -253,7 +254,4 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
 
