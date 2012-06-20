@@ -15,6 +15,7 @@ my %WriteMakefileArgs = (
   "AUTHOR" => "Ricardo SIGNES <rjbs\@cpan.org>",
   "BUILD_REQUIRES" => {
     "Test::Fatal" => 0,
+    "Test::File::ShareDir" => 0,
     "Test::More" => "0.96"
   },
   "CONFIGURE_REQUIRES" => {
@@ -109,7 +110,7 @@ my %WriteMakefileArgs = (
     "version" => 0,
     "warnings" => 0
   },
-  "VERSION" => "4.300018",
+  "VERSION" => "4.300019",
   "test" => {
     "TESTS" => "t/*.t t/diagnostics/*.t t/plugins/*.t"
   }

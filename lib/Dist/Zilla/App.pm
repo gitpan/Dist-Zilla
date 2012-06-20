@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App;
 {
-  $Dist::Zilla::App::VERSION = '4.300018';
+  $Dist::Zilla::App::VERSION = '4.300019';
 }
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup 0.309 -app; # better compilation error detection
@@ -26,6 +26,9 @@ sub _build_global_stashes {
   my ($self) = @_;
 
   return $self->{__global_stashes__} if $self->{__global_stashes__};
+
+  # tests shouldn't depend on the user's configuration
+  return {} if $ENV{DZIL_TESTING};
 
   my $stash_registry = $self->{__global_stashes__} = {};
 
@@ -146,7 +149,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 4.300018
+version 4.300019
 
 =head1 METHODS
 

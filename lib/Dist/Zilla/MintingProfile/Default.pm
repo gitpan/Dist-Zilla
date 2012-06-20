@@ -1,6 +1,6 @@
 package Dist::Zilla::MintingProfile::Default;
 {
-  $Dist::Zilla::MintingProfile::Default::VERSION = '4.300018';
+  $Dist::Zilla::MintingProfile::Default::VERSION = '4.300019';
 }
 # ABSTRACT: Default minting profile provider
 use Moose;
@@ -17,10 +17,13 @@ around profile_dir => sub {
 
   $profile_name ||= 'default';
 
-  my $profile_dir = Dist::Zilla::Util->_global_config_root
-                  ->subdir('profiles', $profile_name);
+  # shouldn't look in user's config when testing
+  if (!$ENV{DZIL_TESTING}) {
+    my $profile_dir = Dist::Zilla::Util->_global_config_root
+                    ->subdir('profiles', $profile_name);
 
-  return $profile_dir if -d $profile_dir;
+    return $profile_dir if -d $profile_dir;
+  }
 
   return $self->$orig($profile_name);
 };
@@ -37,7 +40,7 @@ Dist::Zilla::MintingProfile::Default - Default minting profile provider
 
 =head1 VERSION
 
-version 4.300018
+version 4.300019
 
 =head1 DESCRIPTION
 

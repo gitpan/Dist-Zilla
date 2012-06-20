@@ -1,6 +1,6 @@
 package Dist::Zilla::Types;
 {
-  $Dist::Zilla::Types::VERSION = '4.300018';
+  $Dist::Zilla::Types::VERSION = '4.300019';
 }
 # ABSTRACT: dzil-specific type library
 
@@ -29,7 +29,7 @@ Dist::Zilla::Types - dzil-specific type library
 
 =head1 VERSION
 
-version 4.300018
+version 4.300019
 
 =head1 OVERVIEW
 

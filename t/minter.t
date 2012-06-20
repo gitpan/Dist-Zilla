@@ -12,6 +12,10 @@ use Test::DZil;
 use Dist::Zilla::App::Tester;
 use YAML::Tiny;
 
+use Test::File::ShareDir -share => {
+  -module => { 'Dist::Zilla::MintingProfile::Default' => 'profiles' },
+};
+
 my $tzil = Minter->_new_from_profile(
   [ Default => 'default' ],
   { name => 'DZT-Minty', },
@@ -38,6 +42,7 @@ like(
 
 {
   my $result = test_dzil( $tzil->tempdir->subdir('mint')->absolute, [qw(add Foo::Bar)] );
+  ok(!$result->{exit_code}) || diag($result->{error});
   my $pm = dir($result->{tempdir})->file('source/lib/Foo/Bar.pm')->slurp;
 
   like(
