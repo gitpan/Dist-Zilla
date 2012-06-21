@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaYAML;
 {
-  $Dist::Zilla::Plugin::MetaYAML::VERSION = '4.300019';
+  $Dist::Zilla::Plugin::MetaYAML::VERSION = '4.300020';
 }
 # ABSTRACT: produce a META.yml
 use Moose;
@@ -72,7 +72,7 @@ Dist::Zilla::Plugin::MetaYAML - produce a META.yml
 
 =head1 VERSION
 
-version 4.300019
+version 4.300020
 
 =head1 DESCRIPTION
 

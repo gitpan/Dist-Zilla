@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::GenerateFile;
 {
-  $Dist::Zilla::Plugin::GenerateFile::VERSION = '4.300019';
+  $Dist::Zilla::Plugin::GenerateFile::VERSION = '4.300020';
 }
 # ABSTRACT: build a custom file from only the plugin configuration
 use Moose;
@@ -74,7 +74,7 @@ Dist::Zilla::Plugin::GenerateFile - build a custom file from only the plugin con
 
 =head1 VERSION
 
-version 4.300019
+version 4.300020
 
 =head1 SYNOPSIS
 
