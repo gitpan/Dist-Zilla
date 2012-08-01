@@ -82,6 +82,7 @@ requires "warnings" => "0";
 recommends "Term::ReadLine::Gnu" => "0";
 
 on 'test' => sub {
+  requires "File::Find" => "0";
   requires "Test::Fatal" => "0";
   requires "Test::File::ShareDir" => "0";
   requires "Test::More" => "0.96";

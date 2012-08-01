@@ -162,6 +162,8 @@ misc/lib/Dist/Zilla/App/Command/gconf.pm
 misc/lib/Dist/Zilla/App/Command/input.pm
 profiles/default/extra-dist.ini
 profiles/default/profile.ini
+t/00-compile.t
+t/000-report-versions-tiny.t
 t/compile.t
 t/diagnostics/main-module.t
 t/diagnostics/plugin-fail.t
@@ -169,6 +171,7 @@ t/lib/Dist/Zilla/Plugin/BrokenPlugin.pm
 t/lib/Dist/Zilla/Plugin/BrokenPlugin2.pm
 t/lib/Dist/Zilla/Plugin/BrokenPlugin3.pm
 t/lib/Dist/Zilla/Plugin/BrokenPlugin4.pm
+t/lib/Dist/Zilla/Plugin/JustForManifestSkipTests.pm
 t/lib/Dist/Zilla/Stash/Heap.pm
 t/minter.t
 t/plugins/autoprereqs.t
@@ -210,4 +213,5 @@ todo/external-core-attr.mkdn
 todo/version-from-prev.mkdn
 todo/vfs-for-files.mkdn
 todo/xs-improvement.mkdn
+xt/release/changes_has_content.t
 xt/release/pod-syntax.t

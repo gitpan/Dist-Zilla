@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::FinderCode;
 {
-  $Dist::Zilla::Plugin::FinderCode::VERSION = '4.300020';
+  $Dist::Zilla::Plugin::FinderCode::VERSION = '4.300021';
 }
 use Moose;
 with 'Dist::Zilla::Role::FileFinder';
@@ -57,7 +57,7 @@ Dist::Zilla::Plugin::FinderCode - a callback-based FileFinder plugin
 
 =head1 VERSION
 
-version 4.300020
+version 4.300021
 
 =head1 AUTHOR
 

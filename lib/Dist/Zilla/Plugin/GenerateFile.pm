@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::GenerateFile;
 {
-  $Dist::Zilla::Plugin::GenerateFile::VERSION = '4.300020';
+  $Dist::Zilla::Plugin::GenerateFile::VERSION = '4.300021';
 }
 # ABSTRACT: build a custom file from only the plugin configuration
 use Moose;
@@ -14,6 +14,8 @@ use namespace::autoclean;
 
 use Dist::Zilla::File::InMemory;
 
+
+sub mvp_aliases { +{ is_template => 'content_is_template' } }
 
 sub mvp_multivalue_args { qw(content) }
 
@@ -31,7 +33,14 @@ has content => (
 );
 
 
-has is_template => (
+has content_is_template => (
+  is  => 'ro',
+  isa => 'Bool',
+  default => 0,
+);
+
+
+has name_is_template => (
   is  => 'ro',
   isa => 'Bool',
   default => 0,
@@ -40,10 +49,22 @@ has is_template => (
 sub gather_files {
   my ($self, $arg) = @_;
 
+  my $file = Dist::Zilla::File::InMemory->new({
+    name    => $self->_filename,
+    content => $self->_content,
+  });
+
+  $self->add_file($file);
+  return;
+}
+
+sub _content {
+  my $self = shift;
+
   my $content = join "\n", $self->content->flatten;
   $content .= qq{\n};
 
-  if ($self->is_template) {
+  if ($self->content_is_template) {
     $content = $self->fill_in_string(
       $content,
       {
@@ -53,13 +74,25 @@ sub gather_files {
     );
   }
 
-  my $file = Dist::Zilla::File::InMemory->new({
-    name    => $self->filename,
-    content => $content,
-  });
+  return $content;
+}
 
-  $self->add_file($file);
-  return;
+sub _filename {
+  my $self = shift;
+
+  my $filename = $self->filename;
+
+  if ($self->name_is_template) {
+    $filename = $self->fill_in_string(
+      $filename,
+      {
+        dist   => \($self->zilla),
+        plugin => \($self),
+      },
+    );
+  }
+
+  return $filename;
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -74,15 +107,16 @@ Dist::Zilla::Plugin::GenerateFile - build a custom file from only the plugin con
 
 =head1 VERSION
 
-version 4.300020
+version 4.300021
 
 =head1 SYNOPSIS
 
 In your F<dist.ini>:
 
   [GenerateFile]
-  filename    = todo/master-plan.txt
-  is_template = 1
+  filename    = todo/{{ $dist->name =~ s/::/-/r }}_master-plan.txt
+  name_is_template = 1
+  content_is_template = 1
   content = # Outlines the plan for world domination by {{$dist->name}}
   content =
   content = Item 1: Think of an idea!
@@ -94,11 +128,17 @@ In your F<dist.ini>:
 This plugin adds a file to the distribution.
 
 You can specify the content, as a sequence of lines, in your configuration.
-The specified content might be literal, or might be a Text::Template template.
+The specified filename and content might be literals or might be Text::Template
+templates.
 
 =head2 Templating of the content
 
-If you provide a C<is_template> parameter of "1", The content will also be run
+If you provide C<content_is_template> (or C<is_template>) parameter of "1", the
+content will be run through Text::Template.  The variables C<$plugin> and
+C<$dist> will be provided, set to the GenerateFile plugin and the Dist::Zilla
+object respectively.
+
+If you provide a C<name_is_template> parameter of "1", the filename will be run
 through Text::Template.  The variables C<$plugin> and C<$dist> will be
 provided, set to the GenerateFile plugin and the Dist::Zilla object
 respectively.
@@ -114,9 +154,14 @@ This attribute names the file you want to generate.  It is required.
 The C<content> attribute is an arrayref of lines that will be joined together
 with newlines to form the file content.
 
-=head2 is_template
+=head2 content_is_template, is_template
 
 This attribute is a bool indicating whether or not the content should be
+treated as a Text::Template template.  By default, it is false.
+
+=head2 name_is_template
+
+This attribute is a bool indicating whether or not the filename should be
 treated as a Text::Template template.  By default, it is false.
 
 =head1 AUTHOR
