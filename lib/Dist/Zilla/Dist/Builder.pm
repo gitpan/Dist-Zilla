@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 {
-  $Dist::Zilla::Dist::Builder::VERSION = '4.300021';
+  $Dist::Zilla::Dist::Builder::VERSION = '4.300022';
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -575,6 +575,10 @@ sub run_in_build {
       (map { $abstarget->subdir('blib', $_) } qw(arch lib)),
       (defined $ENV{PERL5LIB} ? $ENV{PERL5LIB} : ());
 
+    local $ENV{PATH} = join $Config::Config{path_sep},
+      (map { $abstarget->subdir('blib', $_) } qw(bin script)),
+      (defined $ENV{PATH} ? $ENV{PATH} : ());
+
     system(@$cmd) and die "error while running: @$cmd";
     1;
   };
@@ -601,7 +605,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 4.300021
+version 4.300022
 
 =head1 ATTRIBUTES
 

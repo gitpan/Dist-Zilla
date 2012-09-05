@@ -1,5 +1,12 @@
 Revision history for Dist-Zilla
 
+4.300022  2012-09-05 08:35:27 America/New_York
+          do not detect an escaped "\$VERSION =" as an assignment to a variable
+          (this is sort of a half-measure)
+
+          'dzil run' also edits $PATH to include ExecDir directories (Karen
+          Etheridge)
+
 4.300021  2012-07-31 23:20:50 America/New_York
           plugins can now provide a MANIFEST.SKIP that can be processed by
           ManifestSkip. Previously generated content was just ignored.

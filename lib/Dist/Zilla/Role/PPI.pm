@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::PPI;
 {
-  $Dist::Zilla::Role::PPI::VERSION = '4.300021';
+  $Dist::Zilla::Role::PPI::VERSION = '4.300022';
 }
 # ABSTRACT: a role for plugins which use PPI
 use Moose::Role;
@@ -47,7 +47,7 @@ sub document_assigns_to_variable {
 
   my $finder = sub {
     my $node = $_[1];
-    return 1 if $node->isa('PPI::Statement') && $node->content =~ /\Q$variable\E\s*=/sm;
+    return 1 if $node->isa('PPI::Statement') && $node->content =~ /(?<!\\)\Q$variable\E\s*=/sm;
     return 0;
   };
 
@@ -68,7 +68,7 @@ Dist::Zilla::Role::PPI - a role for plugins which use PPI
 
 =head1 VERSION
 
-version 4.300021
+version 4.300022
 
 =head1 DESCRIPTION
 
