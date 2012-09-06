@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::PluginBundle::Easy;
 {
-  $Dist::Zilla::Role::PluginBundle::Easy::VERSION = '4.300022';
+  $Dist::Zilla::Role::PluginBundle::Easy::VERSION = '4.300023';
 }
 # ABSTRACT: something that bundles a bunch of plugins easily
 # This plugin was originally contributed by Christopher J. Madsen
@@ -146,7 +146,7 @@ Dist::Zilla::Role::PluginBundle::Easy - something that bundles a bunch of plugin
 
 =head1 VERSION
 
-version 4.300022
+version 4.300023
 
 =head1 SYNOPSIS
 

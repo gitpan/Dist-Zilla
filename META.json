@@ -133,7 +133,7 @@
       },
       "x_mailing_list" : "http://www.listbox.com/subscribe/?list_id=139292"
    },
-   "version" : "4.300022",
+   "version" : "4.300023",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
