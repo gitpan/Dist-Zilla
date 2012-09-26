@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App;
 {
-  $Dist::Zilla::App::VERSION = '4.300023';
+  $Dist::Zilla::App::VERSION = '4.300024';
 }
 # ABSTRACT: Dist::Zilla's App::Cmd
 use App::Cmd::Setup 0.309 -app; # better compilation error detection
@@ -141,6 +141,7 @@ sub zilla {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -149,7 +150,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 METHODS
 
@@ -170,4 +171,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

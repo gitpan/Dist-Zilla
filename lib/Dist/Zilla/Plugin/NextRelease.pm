@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::NextRelease;
 {
-  $Dist::Zilla::Plugin::NextRelease::VERSION = '4.300023';
+  $Dist::Zilla::Plugin::NextRelease::VERSION = '4.300024';
 }
 # ABSTRACT: update the next release number in your changelog
 
@@ -153,8 +153,8 @@ sub after_release {
 __PACKAGE__->meta->make_immutable;
 1;
 
-
 __END__
+
 =pod
 
 =head1 NAME
@@ -163,7 +163,7 @@ Dist::Zilla::Plugin::NextRelease - update the next release number in your change
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 SYNOPSIS
 
@@ -296,4 +296,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

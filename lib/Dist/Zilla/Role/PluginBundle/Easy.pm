@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::PluginBundle::Easy;
 {
-  $Dist::Zilla::Role::PluginBundle::Easy::VERSION = '4.300023';
+  $Dist::Zilla::Role::PluginBundle::Easy::VERSION = '4.300024';
 }
 # ABSTRACT: something that bundles a bunch of plugins easily
 # This plugin was originally contributed by Christopher J. Madsen
@@ -138,6 +138,7 @@ sub config_slice {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -146,7 +147,7 @@ Dist::Zilla::Role::PluginBundle::Easy - something that bundles a bunch of plugin
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 SYNOPSIS
 
@@ -246,4 +247,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::PluginBundle;
 {
-  $Dist::Zilla::Role::PluginBundle::VERSION = '4.300023';
+  $Dist::Zilla::Role::PluginBundle::VERSION = '4.300024';
 }
 # ABSTRACT: something that bundles a bunch of plugins
 use Moose::Role;
@@ -19,6 +19,7 @@ requires 'bundle_config';
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -27,7 +28,7 @@ Dist::Zilla::Role::PluginBundle - something that bundles a bunch of plugins
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 DESCRIPTION
 
@@ -48,4 +49,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

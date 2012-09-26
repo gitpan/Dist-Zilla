@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::run;
 {
-  $Dist::Zilla::App::Command::run::VERSION = '4.300023';
+  $Dist::Zilla::App::Command::run::VERSION = '4.300024';
 }
 # ABSTRACT: run stuff in a dir where your dist is built
 use Dist::Zilla::App -command;
@@ -32,6 +32,7 @@ sub execute {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -40,7 +41,7 @@ Dist::Zilla::App::Command::run - run stuff in a dir where your dist is built
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 SYNOPSIS
 
@@ -84,4 +85,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

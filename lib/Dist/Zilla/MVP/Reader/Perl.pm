@@ -1,6 +1,6 @@
 package Dist::Zilla::MVP::Reader::Perl;
 {
-  $Dist::Zilla::MVP::Reader::Perl::VERSION = '4.300023';
+  $Dist::Zilla::MVP::Reader::Perl::VERSION = '4.300024';
 }
 use Moose;
 extends 'Config::MVP::Reader';
@@ -49,6 +49,7 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -57,7 +58,7 @@ Dist::Zilla::MVP::Reader::Perl - the reader for dist.pl files
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 DESCRIPTION
 
@@ -75,4 +76,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

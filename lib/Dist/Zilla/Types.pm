@@ -1,6 +1,6 @@
 package Dist::Zilla::Types;
 {
-  $Dist::Zilla::Types::VERSION = '4.300023';
+  $Dist::Zilla::Types::VERSION = '4.300024';
 }
 # ABSTRACT: dzil-specific type library
 
@@ -21,6 +21,7 @@ coerce OneZero, from YesNoStr, via { /\Ay/i ? 1 : 0 };
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -29,7 +30,7 @@ Dist::Zilla::Types - dzil-specific type library
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 OVERVIEW
 
@@ -51,4 +52,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PodSyntaxTests;
 {
-  $Dist::Zilla::Plugin::PodSyntaxTests::VERSION = '4.300023';
+  $Dist::Zilla::Plugin::PodSyntaxTests::VERSION = '4.300024';
 }
 # ABSTRACT: a release test for Pod syntax
 use Moose;
@@ -12,8 +12,6 @@ use namespace::autoclean;
 __PACKAGE__->meta->make_immutable;
 1;
 
-
-
 =pod
 
 =head1 NAME
@@ -22,7 +20,7 @@ Dist::Zilla::Plugin::PodSyntaxTests - a release test for Pod syntax
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 DESCRIPTION
 
@@ -43,7 +41,6 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
 
 __DATA__
 ___[ xt/release/pod-syntax.t ]___

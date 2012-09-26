@@ -1,6 +1,6 @@
 package Dist::Zilla::Chrome::Test;
 {
-  $Dist::Zilla::Chrome::Test::VERSION = '4.300023';
+  $Dist::Zilla::Chrome::Test::VERSION = '4.300024';
 }
 use Moose;
 # ABSTRACT: the chrome used by Dist::Zilla::Tester
@@ -60,6 +60,7 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -68,7 +69,7 @@ Dist::Zilla::Chrome::Test - the chrome used by Dist::Zilla::Tester
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 ATTRIBUTES
 
@@ -101,4 +102,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

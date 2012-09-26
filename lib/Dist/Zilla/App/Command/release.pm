@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::release;
 {
-  $Dist::Zilla::App::Command::release::VERSION = '4.300023';
+  $Dist::Zilla::App::Command::release::VERSION = '4.300024';
 }
 # ABSTRACT: release your dist to the CPAN
 use Dist::Zilla::App -command;
@@ -27,6 +27,7 @@ sub execute {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -35,7 +36,7 @@ Dist::Zilla::App::Command::release - release your dist to the CPAN
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 SYNOPSIS
 
@@ -60,4 +61,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

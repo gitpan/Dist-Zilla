@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::ShareDir;
 {
-  $Dist::Zilla::Role::ShareDir::VERSION = '4.300023';
+  $Dist::Zilla::Role::ShareDir::VERSION = '4.300024';
 }
 # ABSTRACT: something that picks a directory to install as shared files
 use Moose::Role;
@@ -17,6 +17,7 @@ requires 'share_dir_map';
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -25,7 +26,7 @@ Dist::Zilla::Role::ShareDir - something that picks a directory to install as sha
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 AUTHOR
 
@@ -39,4 +40,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

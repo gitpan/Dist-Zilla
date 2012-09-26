@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::TemplateModule;
 {
-  $Dist::Zilla::Plugin::TemplateModule::VERSION = '4.300023';
+  $Dist::Zilla::Plugin::TemplateModule::VERSION = '4.300024';
 }
 # ABSTRACT: a simple module-from-template plugin
 use Moose;
@@ -59,7 +59,6 @@ sub make_module {
 __PACKAGE__->meta->make_immutable;
 1;
 
-
 =pod
 
 =head1 NAME
@@ -68,7 +67,7 @@ Dist::Zilla::Plugin::TemplateModule - a simple module-from-template plugin
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 DESCRIPTION
 
@@ -125,7 +124,6 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
 
 __DATA__
 __[ Module.pm ]__

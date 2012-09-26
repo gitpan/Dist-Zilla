@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::BeforeArchive;
 {
-  $Dist::Zilla::Role::BeforeArchive::VERSION = '4.300023';
+  $Dist::Zilla::Role::BeforeArchive::VERSION = '4.300024';
 }
 # ABSTRACT: something that runs before the archive file is built
 use Moose::Role;
@@ -14,6 +14,7 @@ requires 'before_archive';
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -22,7 +23,7 @@ Dist::Zilla::Role::BeforeArchive - something that runs before the archive file i
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 DESCRIPTION
 
@@ -41,4 +42,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

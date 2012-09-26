@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::listdeps;
 {
-  $Dist::Zilla::App::Command::listdeps::VERSION = '4.300023';
+  $Dist::Zilla::App::Command::listdeps::VERSION = '4.300024';
 }
 use Dist::Zilla::App -command;
 # ABSTRACT: print your distribution's prerequisites
@@ -80,6 +80,7 @@ sub execute {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -88,7 +89,7 @@ Dist::Zilla::App::Command::listdeps - print your distribution's prerequisites
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 SYNOPSIS
 
@@ -121,4 +122,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

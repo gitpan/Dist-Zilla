@@ -1,6 +1,6 @@
 package Dist::Zilla::MVP::Section;
 {
-  $Dist::Zilla::MVP::Section::VERSION = '4.300023';
+  $Dist::Zilla::MVP::Section::VERSION = '4.300024';
 }
 use Moose;
 extends 'Config::MVP::Section';
@@ -54,6 +54,7 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -62,7 +63,7 @@ Dist::Zilla::MVP::Section - a standard section in Dist::Zilla's configuration se
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 AUTHOR
 
@@ -76,4 +77,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::AfterRelease;
 {
-  $Dist::Zilla::Role::AfterRelease::VERSION = '4.300023';
+  $Dist::Zilla::Role::AfterRelease::VERSION = '4.300024';
 }
 # ABSTRACT: something that runs after release is mostly complete
 use Moose::Role;
@@ -14,6 +14,7 @@ requires 'after_release';
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -22,7 +23,7 @@ Dist::Zilla::Role::AfterRelease - something that runs after release is mostly co
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 DESCRIPTION
 
@@ -41,4 +42,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

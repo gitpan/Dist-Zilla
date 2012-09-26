@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::GenerateFile;
 {
-  $Dist::Zilla::Plugin::GenerateFile::VERSION = '4.300023';
+  $Dist::Zilla::Plugin::GenerateFile::VERSION = '4.300024';
 }
 # ABSTRACT: build a custom file from only the plugin configuration
 use Moose;
@@ -99,6 +99,7 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -107,7 +108,7 @@ Dist::Zilla::Plugin::GenerateFile - build a custom file from only the plugin con
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 SYNOPSIS
 
@@ -176,4 +177,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

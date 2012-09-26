@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::FilePruner;
 {
-  $Dist::Zilla::Role::FilePruner::VERSION = '4.300023';
+  $Dist::Zilla::Role::FilePruner::VERSION = '4.300024';
 }
 # ABSTRACT: something that removes found files from the distribution
 use Moose::Role;
@@ -14,6 +14,7 @@ requires 'prune_files';
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -22,7 +23,7 @@ Dist::Zilla::Role::FilePruner - something that removes found files from the dist
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 DESCRIPTION
 
@@ -43,4 +44,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

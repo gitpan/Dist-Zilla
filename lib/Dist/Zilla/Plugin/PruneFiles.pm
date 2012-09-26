@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PruneFiles;
 {
-  $Dist::Zilla::Plugin::PruneFiles::VERSION = '4.300023';
+  $Dist::Zilla::Plugin::PruneFiles::VERSION = '4.300024';
 }
 # ABSTRACT: prune arbirary files from the dist
 use Moose;
@@ -52,8 +52,8 @@ sub prune_files {
 __PACKAGE__->meta->make_immutable;
 1;
 
-
 __END__
+
 =pod
 
 =head1 NAME
@@ -62,7 +62,7 @@ Dist::Zilla::Plugin::PruneFiles - prune arbirary files from the dist
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 SYNOPSIS
 
@@ -113,4 +113,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

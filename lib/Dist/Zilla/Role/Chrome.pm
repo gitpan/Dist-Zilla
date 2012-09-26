@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::Chrome;
 {
-  $Dist::Zilla::Role::Chrome::VERSION = '4.300023';
+  $Dist::Zilla::Role::Chrome::VERSION = '4.300024';
 }
 # ABSTRACT: something that provides a user interface for Dist::Zilla
 use Moose::Role;
@@ -16,6 +16,7 @@ requires 'prompt_any_key';
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -24,7 +25,7 @@ Dist::Zilla::Role::Chrome - something that provides a user interface for Dist::Z
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 AUTHOR
 
@@ -38,4 +39,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

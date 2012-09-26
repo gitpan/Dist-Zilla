@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::BeforeBuild;
 {
-  $Dist::Zilla::Role::BeforeBuild::VERSION = '4.300023';
+  $Dist::Zilla::Role::BeforeBuild::VERSION = '4.300024';
 }
 # ABSTRACT: something that runs before building really begins
 use Moose::Role;
@@ -14,6 +14,7 @@ requires 'before_build';
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -22,7 +23,7 @@ Dist::Zilla::Role::BeforeBuild - something that runs before building really begi
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 DESCRIPTION
 
@@ -41,4 +42,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

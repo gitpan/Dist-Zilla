@@ -1,6 +1,6 @@
 package Dist::Zilla::Stash::PAUSE;
 {
-  $Dist::Zilla::Stash::PAUSE::VERSION = '4.300023';
+  $Dist::Zilla::Stash::PAUSE::VERSION = '4.300024';
 }
 use Moose;
 # ABSTRACT: a stash of your PAUSE credentials
@@ -29,6 +29,7 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -37,7 +38,7 @@ Dist::Zilla::Stash::PAUSE - a stash of your PAUSE credentials
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 OVERVIEW
 
@@ -56,4 +57,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

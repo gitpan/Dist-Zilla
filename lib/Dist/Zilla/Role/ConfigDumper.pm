@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::ConfigDumper;
 {
-  $Dist::Zilla::Role::ConfigDumper::VERSION = '4.300023';
+  $Dist::Zilla::Role::ConfigDumper::VERSION = '4.300024';
 }
 # ABSTRACT: something that can dump its (public, simplified) configuraiton
 use Moose::Role;
@@ -12,6 +12,7 @@ sub dump_config { return {}; }
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -20,7 +21,7 @@ Dist::Zilla::Role::ConfigDumper - something that can dump its (public, simplifie
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 AUTHOR
 
@@ -34,4 +35,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

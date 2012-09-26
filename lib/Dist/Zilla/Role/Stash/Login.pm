@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::Stash::Login;
 {
-  $Dist::Zilla::Role::Stash::Login::VERSION = '4.300023';
+  $Dist::Zilla::Role::Stash::Login::VERSION = '4.300024';
 }
 use Moose::Role;
 with 'Dist::Zilla::Role::Stash';
@@ -15,6 +15,7 @@ requires 'password';
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -23,7 +24,7 @@ Dist::Zilla::Role::Stash::Login - a stash with username/password credentials
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 OVERVIEW
 
@@ -41,4 +42,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

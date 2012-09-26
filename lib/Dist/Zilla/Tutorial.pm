@@ -2,15 +2,15 @@ use strict;
 use warnings;
 package Dist::Zilla::Tutorial;
 {
-  $Dist::Zilla::Tutorial::VERSION = '4.300023';
+  $Dist::Zilla::Tutorial::VERSION = '4.300024';
 }
 # ABSTRACT: how to use this "Dist::Zilla" thing
 use Carp ();
 Carp::confess "you're not meant to use the tutorial, just read it!";
 1;
 
-
 __END__
+
 =pod
 
 =head1 NAME
@@ -19,7 +19,7 @@ Dist::Zilla::Tutorial - how to use this "Dist::Zilla" thing
 
 =head1 VERSION
 
-version 4.300023
+version 4.300024
 
 =head1 SYNOPSIS
 
@@ -160,4 +160,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
