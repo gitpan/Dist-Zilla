@@ -4,6 +4,7 @@ author:
   - 'Ricardo SIGNES <rjbs@cpan.org>'
 build_requires:
   File::Find: 0
+  Software::License::None: 0
   Test::Fatal: 0
   Test::File::ShareDir: 0
   Test::More: 0.96
@@ -11,7 +12,7 @@ configure_requires:
   ExtUtils::MakeMaker: 6.30
   File::ShareDir::Install: 0.03
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300023, CPAN::Meta::Converter version 2.120921'
+generated_by: 'Dist::Zilla version 4.300024, CPAN::Meta::Converter version 2.120921'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -26,6 +27,7 @@ recommends:
 requires:
   App::Cmd::Setup: 0.309
   App::Cmd::Tester: 0.306
+  App::Cmd::Tester::CaptureExternal: 0
   Archive::Tar: 0
   CPAN::Meta::Converter: 2.101550
   CPAN::Meta::Prereqs: 2.120630
@@ -109,8 +111,10 @@ resources:
   X_mailing_list: http://www.listbox.com/subscribe/?list_id=139292
   homepage: http://dzil.org/
   repository: http://github.com/rjbs/dist-zilla.git
-version: 4.300024
+version: 4.300025
 x_Dist_Zilla:
+  perl:
+    version: 5.017004
   plugins:
     -
       class: Dist::Zilla::Plugin::Git::GatherDir
@@ -127,55 +131,55 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::PruneCruft
       name: '@Filter/@Filter/PruneCruft'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::ManifestSkip
       name: '@Filter/@Filter/ManifestSkip'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::MetaYAML
       name: '@Filter/@Filter/MetaYAML'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::License
       name: '@Filter/@Filter/License'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::Readme
       name: '@Filter/@Filter/Readme'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::ExecDir
       name: '@Filter/@Filter/ExecDir'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::ShareDir
       name: '@Filter/@Filter/ShareDir'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::MakeMaker
       name: '@Filter/@Filter/MakeMaker'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::Manifest
       name: '@Filter/@Filter/Manifest'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::TestRelease
       name: '@Filter/@Filter/TestRelease'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::ConfirmRelease
       name: '@Filter/@Filter/ConfirmRelease'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::UploadToCPAN
       name: '@Filter/@Filter/UploadToCPAN'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::AutoPrereqs
       name: '@Filter/AutoPrereqs'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::Git::NextVersion
       name: '@Filter/Git::NextVersion'
@@ -183,19 +187,19 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::PkgVersion
       name: '@Filter/PkgVersion'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::MetaConfig
       name: '@Filter/MetaConfig'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::MetaJSON
       name: '@Filter/MetaJSON'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::NextRelease
       name: '@Filter/NextRelease'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::Test::ChangesHasContent
       name: '@Filter/Test::ChangesHasContent'
@@ -203,7 +207,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::PodSyntaxTests
       name: '@Filter/PodSyntaxTests'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::ReportVersions::Tiny
       name: '@Filter/ReportVersions::Tiny'
@@ -215,7 +219,7 @@ x_Dist_Zilla:
           phase: test
           type: requires
       name: '@Filter/TestMoreWithSubtests'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::PodWeaver
       name: '@Filter/PodWeaver'
@@ -247,15 +251,15 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::ModuleShareDirs
       name: ModuleShareDirs
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::MetaNoIndex
       name: MetaNoIndex
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::MetaResources
       name: MetaResources
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::Prereqs
       config:
@@ -263,7 +267,7 @@ x_Dist_Zilla:
           phase: test
           type: requires
       name: TestRequires
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::Prereqs
       config:
@@ -271,7 +275,7 @@ x_Dist_Zilla:
           phase: runtime
           type: recommends
       name: RuntimeRecommends
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::Prereqs
       config:
@@ -279,7 +283,7 @@ x_Dist_Zilla:
           phase: runtime
           type: requires
       name: Prereqs
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::RemovePrereqs
       config:
@@ -289,37 +293,37 @@ x_Dist_Zilla:
             - Dist::Zilla::Tester::_Role
             - Some::Package::That::Does::Not::Exist::Due::To::A::Typo
       name: RemovePrereqs
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::CPANFile
       name: CPANFile
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':InstallModules'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':IncModules'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':TestFiles'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':ExecFiles'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':ShareFiles'
-      version: 4.300023
+      version: 4.300024
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':MainModule'
-      version: 4.300023
+      version: 4.300024
   zilla:
     class: Dist::Zilla::Dist::Builder
     config:
       is_trial: 0
-    version: 4.300023
+    version: 4.300024

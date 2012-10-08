@@ -15,6 +15,7 @@ my %WriteMakefileArgs = (
   "AUTHOR" => "Ricardo SIGNES <rjbs\@cpan.org>",
   "BUILD_REQUIRES" => {
     "File::Find" => 0,
+    "Software::License::None" => 0,
     "Test::Fatal" => 0,
     "Test::File::ShareDir" => 0,
     "Test::More" => "0.96"
@@ -32,6 +33,7 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "App::Cmd::Setup" => "0.309",
     "App::Cmd::Tester" => "0.306",
+    "App::Cmd::Tester::CaptureExternal" => 0,
     "Archive::Tar" => 0,
     "CPAN::Meta::Converter" => "2.101550",
     "CPAN::Meta::Prereqs" => "2.120630",
@@ -111,7 +113,7 @@ my %WriteMakefileArgs = (
     "version" => 0,
     "warnings" => 0
   },
-  "VERSION" => "4.300024",
+  "VERSION" => "4.300025",
   "test" => {
     "TESTS" => "t/*.t t/diagnostics/*.t t/plugins/*.t"
   }

@@ -1,6 +1,6 @@
 package Dist::Zilla;
 {
-  $Dist::Zilla::VERSION = '4.300024';
+  $Dist::Zilla::VERSION = '4.300025';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -41,7 +41,8 @@ has chrome => (
 has name => (
   is   => 'ro',
   isa  => DistName,
-  lazy_required => 1,
+  lazy => 1,
+  builder => '_build_name',
 );
 
 
@@ -57,9 +58,25 @@ has version => (
   isa  => LaxVersionStr,
   lazy => 1,
   init_arg  => undef,
-  required  => 1,
   builder   => '_build_version',
 );
+
+sub _build_name {
+  my ($self) = @_;
+
+  my $name;
+  for my $plugin ($self->plugins_with(-NameProvider)->flatten) {
+    next unless defined(my $this_name = $plugin->provide_name);
+
+    $self->log_fatal('attempted to set name twice') if defined $name;
+
+    $name = $this_name;
+  }
+
+  $self->log_fatal('no name was ever set') unless defined $name;
+
+  $name;
+}
 
 sub _build_version {
   my ($self) = @_;
@@ -84,7 +101,6 @@ has abstract => (
   is   => 'rw',
   isa  => 'Str',
   lazy => 1,
-  required => 1,
   default  => sub {
     my ($self) = @_;
 
@@ -120,7 +136,6 @@ has main_module => (
   isa  => 'Dist::Zilla::Role::File',
   lazy => 1,
   init_arg => undef,
-  required => 1,
   default  => sub {
 
     my ($self) = @_;
@@ -188,6 +203,24 @@ sub _build_license {
   my $license_class    = $self->_license_class;
   my $copyright_holder = $self->_copyright_holder;
   my $copyright_year   = $self->_copyright_year;
+
+  my $provided_license;
+
+  for my $plugin ($self->plugins_with(-LicenseProvider)->flatten) {
+    my $this_license = $plugin->provide_license({
+      copyright_holder => $copyright_holder,
+      copyright_year   => $copyright_year,
+    });
+
+    next unless defined $this_license;
+
+    $self->log_fatal('attempted to set license twice')
+      if defined $provided_license;
+
+    $provided_license = $this_license;
+  }
+
+  return $provided_license if defined $provided_license;
 
   if ($license_class) {
     $license_class = String::RewritePrefix->rewrite(
@@ -280,7 +313,6 @@ has authors => (
   is   => 'ro',
   isa  => ArrayRef[Str],
   lazy => 1,
-  required => 1,
   default  => sub {
     my ($self) = @_;
 
@@ -526,7 +558,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 4.300024
+version 4.300025
 
 =head1 DESCRIPTION
 

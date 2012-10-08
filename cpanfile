@@ -1,5 +1,6 @@
 requires "App::Cmd::Setup" => "0.309";
 requires "App::Cmd::Tester" => "0.306";
+requires "App::Cmd::Tester::CaptureExternal" => "0";
 requires "Archive::Tar" => "0";
 requires "CPAN::Meta::Converter" => "2.101550";
 requires "CPAN::Meta::Prereqs" => "2.120630";
@@ -83,6 +84,7 @@ recommends "Term::ReadLine::Gnu" => "0";
 
 on 'test' => sub {
   requires "File::Find" => "0";
+  requires "Software::License::None" => "0";
   requires "Test::Fatal" => "0";
   requires "Test::File::ShareDir" => "0";
   requires "Test::More" => "0.96";

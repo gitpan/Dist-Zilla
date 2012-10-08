@@ -1,9 +1,9 @@
 use strict;
 package Dist::Zilla::App::Tester;
 {
-  $Dist::Zilla::App::Tester::VERSION = '4.300024';
+  $Dist::Zilla::App::Tester::VERSION = '4.300025';
 }
-use base 'App::Cmd::Tester';
+use base 'App::Cmd::Tester::CaptureExternal';
 use App::Cmd::Tester 0.306 (); # result_class, ->app
 # ABSTRACT: testing library for Dist::Zilla::App
 
@@ -46,7 +46,7 @@ sub test_dzil {
 {
   package Dist::Zilla::App::Tester::Result;
 {
-  $Dist::Zilla::App::Tester::Result::VERSION = '4.300024';
+  $Dist::Zilla::App::Tester::Result::VERSION = '4.300025';
 }
   BEGIN { our @ISA = qw(App::Cmd::Tester::Result); }
 
@@ -94,7 +94,7 @@ Dist::Zilla::App::Tester - testing library for Dist::Zilla::App
 
 =head1 VERSION
 
-version 4.300024
+version 4.300025
 
 =head1 AUTHOR
 
