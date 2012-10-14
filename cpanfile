@@ -94,3 +94,7 @@ on 'configure' => sub {
   requires "ExtUtils::MakeMaker" => "6.30";
   requires "File::ShareDir::Install" => "0.03";
 };
+
+on 'develop' => sub {
+  requires "Test::Pod" => "1.41";
+};

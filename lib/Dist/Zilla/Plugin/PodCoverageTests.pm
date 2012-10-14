@@ -1,13 +1,29 @@
 package Dist::Zilla::Plugin::PodCoverageTests;
 {
-  $Dist::Zilla::Plugin::PodCoverageTests::VERSION = '4.300025';
+  $Dist::Zilla::Plugin::PodCoverageTests::VERSION = '4.300026';
 }
 # ABSTRACT: a release test for Pod coverage
 use Moose;
 extends 'Dist::Zilla::Plugin::InlineFiles';
+with 'Dist::Zilla::Role::PrereqSource';
 
 use namespace::autoclean;
 
+
+# Register the release test prereq as a "develop requires"
+# so it will be listed in "dzil listdeps --author"
+sub register_prereqs {
+  my ($self) = @_;
+
+  $self->zilla->register_prereqs(
+    {
+      type  => 'requires',
+      phase => 'develop',
+    },
+    'Test::Pod::Coverage'     => '1.08',
+    'Pod::Coverage::TrustPod' => 0,
+  );
+}
 
 __PACKAGE__->meta->make_immutable;
 1;
@@ -20,7 +36,7 @@ Dist::Zilla::Plugin::PodCoverageTests - a release test for Pod coverage
 
 =head1 VERSION
 
-version 4.300025
+version 4.300026
 
 =head1 DESCRIPTION
 

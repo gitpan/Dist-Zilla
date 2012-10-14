@@ -123,6 +123,7 @@ eval { $v .= pmver('Test::Deep','any version') };
 eval { $v .= pmver('Test::Fatal','any version') };
 eval { $v .= pmver('Test::File::ShareDir','any version') };
 eval { $v .= pmver('Test::More','0.96') };
+eval { $v .= pmver('Test::Pod','1.41') };
 eval { $v .= pmver('Text::Glob','0.08') };
 eval { $v .= pmver('Text::Template','any version') };
 eval { $v .= pmver('Try::Tiny','any version') };

@@ -1,6 +1,6 @@
 package Dist::Zilla::PluginBundle::Filter;
 {
-  $Dist::Zilla::PluginBundle::Filter::VERSION = '4.300025';
+  $Dist::Zilla::PluginBundle::Filter::VERSION = '4.300026';
 }
 # ABSTRACT: use another bundle, with some plugins removed
 use Moose;
@@ -35,7 +35,12 @@ sub bundle_config {
 
   $bundle = Dist::Zilla::Util->expand_config_package_name($bundle);
 
-  Class::MOP::load_class($bundle);
+  my $load_opts = {};
+  if( my $v = $config->{filter}->{version} ){
+    $load_opts->{'-version'} = $v;
+  }
+
+  Class::MOP::load_class($bundle, $load_opts);
 
   my @plugins = $bundle->bundle_config({
     name    => $section->{name}, # not 100% sure about this -- rjbs, 2010-03-06
@@ -68,7 +73,7 @@ Dist::Zilla::PluginBundle::Filter - use another bundle, with some plugins remove
 
 =head1 VERSION
 
-version 4.300025
+version 4.300026
 
 =head1 SYNOPSIS
 

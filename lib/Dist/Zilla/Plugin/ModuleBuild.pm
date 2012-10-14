@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ModuleBuild;
 {
-  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '4.300025';
+  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '4.300026';
 }
 # ABSTRACT: build a Build.PL that uses Module::Build
 use List::MoreUtils qw(any uniq);
@@ -32,6 +32,12 @@ has 'mb_class' => (
   default => 'Module::Build',
 );
 
+has 'mb_lib' => (
+  isa => 'Str',
+  is  => 'rw',
+  default => 'inc'
+);
+
 my $template = q|
 use strict;
 use warnings;
@@ -53,7 +59,7 @@ sub _use_custom_class {
     return "";
   }
   else {
-    return "use lib 'inc'; use $class;";
+    return sprintf "use lib qw{%s}; use $class;", join ' ', split ',', $self->mb_lib;
   }
 }
 
@@ -163,7 +169,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 4.300025
+version 4.300026
 
 =head1 DESCRIPTION
 
@@ -181,8 +187,14 @@ Defaults to 0.3601
 =head2 mb_class
 
 B<Optional:> Specify the class to use to create the build object.  Defaults
-to C<Module::Build> itself.  If another class is specified, C<use lib 'inc'>
-is also added to the Build.PL file.
+to C<Module::Build> itself.  If another class is specified, then the value
+of mb_lib will be used to generate a line like C<use lib 'inc'> to be added
+to the generated Build.PL file.
+
+=head2 mb_lib
+
+B<Optional:> Specify the list of directories to be passed to lib when using 
+mb_class. Defaults to C<inc>. 
 
 =head1 SEE ALSO
 

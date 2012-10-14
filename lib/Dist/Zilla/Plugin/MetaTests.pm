@@ -1,13 +1,27 @@
 package Dist::Zilla::Plugin::MetaTests;
 {
-  $Dist::Zilla::Plugin::MetaTests::VERSION = '4.300025';
+  $Dist::Zilla::Plugin::MetaTests::VERSION = '4.300026';
 }
 # ABSTRACT: common extra tests for META.yml
 use Moose;
 extends 'Dist::Zilla::Plugin::InlineFiles';
+with 'Dist::Zilla::Role::PrereqSource';
 
 use namespace::autoclean;
 
+
+# Register the release test prereq as a "develop requires"
+# so it will be listed in "dzil listdeps --author"
+sub register_prereqs {
+  my ($self) = @_;
+
+  $self->zilla->register_prereqs(
+    {
+      phase => 'develop', type  => 'requires',
+    },
+    'Test::CPAN::Meta'     => 0,
+  );
+}
 
 __PACKAGE__->meta->make_immutable;
 1;
@@ -20,7 +34,7 @@ Dist::Zilla::Plugin::MetaTests - common extra tests for META.yml
 
 =head1 VERSION
 
-version 4.300025
+version 4.300026
 
 =head1 DESCRIPTION
 

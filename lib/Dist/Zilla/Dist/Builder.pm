@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 {
-  $Dist::Zilla::Dist::Builder::VERSION = '4.300025';
+  $Dist::Zilla::Dist::Builder::VERSION = '4.300026';
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -471,9 +471,8 @@ sub clean {
 }
 
 
-sub install {
-  my ($self, $arg) = @_;
-  $arg ||= {};
+sub ensure_built_in_tmpdir {
+  my $self = shift;
 
   require File::Temp;
 
@@ -482,7 +481,37 @@ sub install {
 
   my $target = dir( File::Temp::tempdir(DIR => $build_root) );
   $self->log("building distribution under $target for installation");
+
+  my $os_has_symlinks = eval { symlink("",""); 1 };
+  my $previous;
+  my $latest;
+
+  if( $os_has_symlinks ) {
+    $previous = file( $build_root, 'previous' );
+    $latest   = file( $build_root, 'latest'   );
+    if( -l $previous ) {
+      $previous->remove
+        or $self->log("cannot remove old .build/previous link");
+    }
+    if( -l $latest ) {
+      rename $latest, $previous
+        or $self->log("cannot move .build/latest link to .build/previous");
+    }
+    symlink $target, $latest
+      or $self->log('cannot create link .build/latest');
+  }
+
   $self->ensure_built_in($target);
+
+  return ($target, $latest, $previous);
+}
+
+
+sub install {
+  my ($self, $arg) = @_;
+  $arg ||= {};
+
+  my ($target, $latest) = $self->ensure_built_in_tmpdir;
 
   eval {
     ## no critic Punctuation
@@ -502,6 +531,7 @@ sub install {
   } else {
     $self->log("all's well; removing $target");
     $target->rmtree;
+    $latest->remove;
   }
 
   return;
@@ -514,20 +544,12 @@ sub test {
   Carp::croak("you can't test without any TestRunner plugins")
     unless my @testers = $self->plugins_with(-TestRunner)->flatten;
 
-  require File::Temp;
-
-  my $build_root = dir('.build');
-  $build_root->mkpath unless -d $build_root;
-
-  my $target = dir( File::Temp::tempdir(DIR => $build_root) );
-  $self->log("building test distribution under $target");
-
-  $self->ensure_built_in($target);
-
-  my $error = $self->run_tests_in($target);
+  my ($target, $latest) = $self->ensure_built_in_tmpdir;
+  my $error  = $self->run_tests_in($target);
 
   $self->log("all's well; removing $target");
   $target->rmtree;
+  $latest->remove;
 }
 
 
@@ -554,17 +576,9 @@ sub run_in_build {
     $self->plugins_with(-BuildRunner)->sort->reverse->flatten;
 
   require "Config.pm"; # skip autoprereq
-  require File::Temp;
 
-  # dzil-build the dist
-  my $build_root = dir('.build');
-  $build_root->mkpath unless -d $build_root;
-
-  my $target    = dir( File::Temp::tempdir(DIR => $build_root) );
+  my ($target, $latest) = $self->ensure_built_in_tmpdir;
   my $abstarget = $target->absolute;
-  $self->log("building test distribution under $target");
-
-  $self->ensure_built_in($target);
 
   # building the dist for real
   my $ok = eval {
@@ -586,6 +600,7 @@ sub run_in_build {
   if ($ok) {
     $self->log("all's well; removing $target");
     $target->rmtree;
+    $latest->remove;
   } else {
     my $error = $@ || '(unknown error)';
     $self->log($error);
@@ -606,7 +621,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 4.300025
+version 4.300026
 
 =head1 ATTRIBUTES
 
@@ -652,7 +667,7 @@ for the preposition!
 This method behaves like C<L</build_in>>, but if the dist is already built in
 C<$root> (or the default root, if no root is given), no exception is raised.
 
-=head2 ensure_built_in
+=head2 ensure_built
 
 This method just calls C<ensure_built_in> with no arguments.  It gets you the
 default behavior without the weird-looking formulation of C<ensure_built_in>
@@ -695,6 +710,13 @@ This method removes temporary files and directories suspected to have been
 produced by the Dist::Zilla build process.  Specifically, it deletes the
 F<.build> directory and any entity that starts with the dist name and a hyphen,
 like matching the glob C<Your-Dist-*>.
+
+=head2 ensure_built_in_tmpdir
+
+  $zilla->ensure_built_in_tmpdir;
+
+This method will consistently build the distribution in a temporary
+subdirectory. It will return the path for the temporary build location.
 
 =head2 install
 
