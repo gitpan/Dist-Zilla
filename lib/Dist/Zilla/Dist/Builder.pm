@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 {
-  $Dist::Zilla::Dist::Builder::VERSION = '4.300026';
+  $Dist::Zilla::Dist::Builder::VERSION = '4.300027';
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -531,7 +531,7 @@ sub install {
   } else {
     $self->log("all's well; removing $target");
     $target->rmtree;
-    $latest->remove;
+    $latest->remove if $latest;
   }
 
   return;
@@ -549,7 +549,7 @@ sub test {
 
   $self->log("all's well; removing $target");
   $target->rmtree;
-  $latest->remove;
+  $latest->remove if $latest;
 }
 
 
@@ -600,7 +600,7 @@ sub run_in_build {
   if ($ok) {
     $self->log("all's well; removing $target");
     $target->rmtree;
-    $latest->remove;
+    $latest->remove if $latest;
   } else {
     my $error = $@ || '(unknown error)';
     $self->log($error);
@@ -621,7 +621,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 4.300026
+version 4.300027
 
 =head1 ATTRIBUTES
 
