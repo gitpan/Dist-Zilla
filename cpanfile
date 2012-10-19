@@ -35,6 +35,7 @@ requires "File::Temp" => "0";
 requires "File::pushd" => "0";
 requires "Hash::Merge::Simple" => "0";
 requires "JSON" => "2";
+requires "List::AllUtils" => "0";
 requires "List::MoreUtils" => "0";
 requires "List::Util" => "0";
 requires "Log::Dispatchouli" => "1.102220";
@@ -97,4 +98,5 @@ on 'configure' => sub {
 
 on 'develop' => sub {
   requires "Test::Pod" => "1.41";
+  requires "version" => "0.9901";
 };

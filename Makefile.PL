@@ -68,6 +68,7 @@ my %WriteMakefileArgs = (
     "File::pushd" => 0,
     "Hash::Merge::Simple" => 0,
     "JSON" => 2,
+    "List::AllUtils" => 0,
     "List::MoreUtils" => 0,
     "List::Util" => 0,
     "Log::Dispatchouli" => "1.102220",
@@ -113,7 +114,7 @@ my %WriteMakefileArgs = (
     "version" => 0,
     "warnings" => 0
   },
-  "VERSION" => "4.300027",
+  "VERSION" => "4.300028",
   "test" => {
     "TESTS" => "t/*.t t/commands/*.t t/diagnostics/*.t t/plugins/*.t"
   }
