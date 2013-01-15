@@ -2,10 +2,11 @@ use strict;
 use warnings;
 package Dist::Zilla::Util;
 {
-  $Dist::Zilla::Util::VERSION = '4.300028';
+  $Dist::Zilla::Util::VERSION = '4.300029';
 }
 # ABSTRACT: random snippets of code that Dist::Zilla wants
 
+use Carp ();
 use String::RewritePrefix 0.002; # better string context behavior
 
 {
@@ -88,6 +89,25 @@ sub _global_config_root {
   return Path::Class::dir($homedir)->subdir('.dzil');
 }
 
+sub _assert_loaded_class_version_ok {
+  my ($self, $pkg, $version) = @_;
+
+  require CPAN::Meta::Requirements;
+  my $req = CPAN::Meta::Requirements->from_string_hash({
+    $pkg => $version,
+  });
+
+  my $have_version = $pkg->VERSION;
+  unless ($req->accepts_module($pkg => $have_version)) {
+    Carp::confess( sprintf
+      "%s version (%s) not match required version: %s",
+      $pkg,
+      $have_version,
+      $version,
+    );
+  }
+}
+
 1;
 
 __END__
@@ -100,7 +120,7 @@ Dist::Zilla::Util - random snippets of code that Dist::Zilla wants
 
 =head1 VERSION
 
-version 4.300028
+version 4.300029
 
 =head1 METHODS
 
@@ -124,7 +144,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Ricardo SIGNES.
+This software is copyright (c) 2013 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

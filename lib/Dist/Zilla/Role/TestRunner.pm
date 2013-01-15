@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::TestRunner;
 {
-  $Dist::Zilla::Role::TestRunner::VERSION = '4.300028';
+  $Dist::Zilla::Role::TestRunner::VERSION = '4.300029';
 }
 # ABSTRACT: something used as a delegating agent to 'dzil test'
 use Moose::Role;
@@ -23,7 +23,7 @@ Dist::Zilla::Role::TestRunner - something used as a delegating agent to 'dzil te
 
 =head1 VERSION
 
-version 4.300028
+version 4.300029
 
 =head1 DESCRIPTION
 
@@ -42,7 +42,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Ricardo SIGNES.
+This software is copyright (c) 2013 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

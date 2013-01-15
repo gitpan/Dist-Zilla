@@ -1,6 +1,6 @@
 package Dist::Zilla::PluginBundle::Classic;
 {
-  $Dist::Zilla::PluginBundle::Classic::VERSION = '4.300028';
+  $Dist::Zilla::PluginBundle::Classic::VERSION = '4.300029';
 }
 # ABSTRACT: the classic (old) default configuration for Dist::Zilla
 use Moose;
@@ -47,7 +47,7 @@ Dist::Zilla::PluginBundle::Classic - the classic (old) default configuration for
 
 =head1 VERSION
 
-version 4.300028
+version 4.300029
 
 =head1 DESCRIPTION
 
@@ -142,7 +142,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Ricardo SIGNES.
+This software is copyright (c) 2013 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

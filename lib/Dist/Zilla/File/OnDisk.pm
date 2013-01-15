@@ -1,6 +1,6 @@
 package Dist::Zilla::File::OnDisk;
 {
-  $Dist::Zilla::File::OnDisk::VERSION = '4.300028';
+  $Dist::Zilla::File::OnDisk::VERSION = '4.300029';
 }
 # ABSTRACT: a file that comes from your filesystem
 use Moose;
@@ -55,7 +55,7 @@ Dist::Zilla::File::OnDisk - a file that comes from your filesystem
 
 =head1 VERSION
 
-version 4.300028
+version 4.300029
 
 =head1 DESCRIPTION
 
@@ -69,7 +69,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Ricardo SIGNES.
+This software is copyright (c) 2013 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

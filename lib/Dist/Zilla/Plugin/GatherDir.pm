@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::GatherDir;
 {
-  $Dist::Zilla::Plugin::GatherDir::VERSION = '4.300028';
+  $Dist::Zilla::Plugin::GatherDir::VERSION = '4.300029';
 }
 # ABSTRACT: gather all the files in a directory
 use Moose;
@@ -68,11 +68,17 @@ has exclude_match => (
 sub gather_files {
   my ($self) = @_;
 
+  my $exclude_regex = qr/\000/;
+  $exclude_regex = qr/$exclude_regex|$_/
+    for ($self->exclude_match->flatten);
+  # \b\Q$_\E\b should also handle the `eq` check
+  $exclude_regex = qr/$exclude_regex|\b\Q$_\E\b/
+    for ($self->exclude_filename->flatten);
+
   my $root = "" . $self->root;
   $root =~ s{^~([\\/])}{File::HomeDir->my_home . $1}e;
   $root = Path::Class::dir($root);
 
-  my @files;
   my $rule = File::Find::Rule->new();
   $rule->extras({follow => $self->follow_symlinks});
   FILE: for my $filename ($rule->file->in($root)) {
@@ -83,24 +89,15 @@ sub gather_files {
       next FILE if grep { /^\.[^.]/ } $file->dir->dir_list;
     }
 
-    my $exclude_regex = qr/\000/;
-    $exclude_regex = qr/$exclude_regex|$_/
-      for ($self->exclude_match->flatten);
-    # \b\Q$_\E\b should also handle the `eq` check
-    $exclude_regex = qr/$exclude_regex|\b\Q$_\E\b/
-      for ($self->exclude_filename->flatten);
     next if $file =~ $exclude_regex;
 
-    push @files, $self->_file_from_filename($filename);
-  }
+    # _file_from_filename is overloaded in GatherDir::Template
+    my $fileobj = $self->_file_from_filename($filename);
 
-  for my $file (@files) {
-    (my $newname = $file->name) =~ s{\A\Q$root\E[\\/]}{}g;
-    $newname = File::Spec->catdir($self->prefix, $newname) if $self->prefix;
-    $newname = Path::Class::dir($newname)->as_foreign('Unix')->stringify;
+    $file = Path::Class::file($self->prefix, $file) if $self->prefix;
 
-    $file->name($newname);
-    $self->add_file($file);
+    $fileobj->name($file->as_foreign('Unix')->stringify);
+    $self->add_file($fileobj);
   }
 
   return;
@@ -128,7 +125,7 @@ Dist::Zilla::Plugin::GatherDir - gather all the files in a directory
 
 =head1 VERSION
 
-version 4.300028
+version 4.300029
 
 =head1 DESCRIPTION
 
@@ -198,7 +195,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Ricardo SIGNES.
+This software is copyright (c) 2013 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

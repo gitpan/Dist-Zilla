@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::setup;
 {
-  $Dist::Zilla::App::Command::setup::VERSION = '4.300028';
+  $Dist::Zilla::App::Command::setup::VERSION = '4.300029';
 }
 # ABSTRACT: set up a basic global config file
 use Dist::Zilla::App -command;
@@ -28,7 +28,7 @@ sub execute {
   if (
     -d $config_root
     and
-    my @files = grep { -f and $_->basename =~ /\Aconfig\./ }
+    my @files = grep { -f and $_->basename =~ /\Aconfig\.[^.]+\z/ }
     $config_root->children
   ) {
     $chrome->logger->log_fatal([
@@ -144,7 +144,7 @@ Dist::Zilla::App::Command::setup - set up a basic global config file
 
 =head1 VERSION
 
-version 4.300028
+version 4.300029
 
 =head1 SYNOPSIS
 
@@ -162,7 +162,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Ricardo SIGNES.
+This software is copyright (c) 2013 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
