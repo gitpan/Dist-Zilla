@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::TestRelease;
 {
-  $Dist::Zilla::Plugin::TestRelease::VERSION = '4.300029';
+  $Dist::Zilla::Plugin::TestRelease::VERSION = '4.300030';
 }
 use Moose;
 with 'Dist::Zilla::Role::BeforeRelease';
@@ -9,7 +9,6 @@ with 'Dist::Zilla::Role::BeforeRelease';
 use namespace::autoclean;
 
 
-use Archive::Tar;
 use File::pushd ();
 use Moose::Autobox;
 use Path::Class ();
@@ -24,6 +23,8 @@ sub before_release {
   my $tmpdir = Path::Class::dir( File::Temp::tempdir(DIR => $build_root) );
 
   $self->log("Extracting $tgz to $tmpdir");
+
+  require Archive::Tar;
 
   my @files = do {
     my $wd = File::pushd::pushd($tmpdir);
@@ -57,7 +58,7 @@ Dist::Zilla::Plugin::TestRelease - extract archive and run tests before releasin
 
 =head1 VERSION
 
-version 4.300029
+version 4.300030
 
 =head1 DESCRIPTION
 

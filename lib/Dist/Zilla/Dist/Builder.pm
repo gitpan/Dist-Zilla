@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 {
-  $Dist::Zilla::Dist::Builder::VERSION = '4.300029';
+  $Dist::Zilla::Dist::Builder::VERSION = '4.300030';
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -10,7 +10,6 @@ use Moose::Autobox 0.09; # ->flatten
 use MooseX::Types::Moose qw(HashRef);
 use MooseX::Types::Path::Class qw(Dir File);
 
-use Archive::Tar;
 use File::pushd ();
 use Path::Class;
 use Try::Tiny;
@@ -365,6 +364,7 @@ sub _build_archive {
 
   $self->log("building archive with Archive::Tar; install Archive::Tar::Wrapper for improved speed");
 
+  require Archive::Tar;
   my $archive = Archive::Tar->new;
   my %seen_dir;
   for my $distfile (
@@ -621,7 +621,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 4.300029
+version 4.300030
 
 =head1 ATTRIBUTES
 

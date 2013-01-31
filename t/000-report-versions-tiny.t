@@ -131,7 +131,6 @@ eval { $v .= pmver('Try::Tiny','any version') };
 eval { $v .= pmver('YAML::Tiny','any version') };
 eval { $v .= pmver('autobox','2.53') };
 eval { $v .= pmver('autodie','any version') };
-eval { $v .= pmver('base','any version') };
 eval { $v .= pmver('namespace::autoclean','any version') };
 eval { $v .= pmver('parent','any version') };
 eval { $v .= pmver('strict','any version') };

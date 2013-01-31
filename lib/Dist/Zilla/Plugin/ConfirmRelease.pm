@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ConfirmRelease;
 {
-  $Dist::Zilla::Plugin::ConfirmRelease::VERSION = '4.300029';
+  $Dist::Zilla::Plugin::ConfirmRelease::VERSION = '4.300030';
 }
 use Moose;
 with 'Dist::Zilla::Role::BeforeRelease';
@@ -8,7 +8,6 @@ with 'Dist::Zilla::Role::BeforeRelease';
 
 use namespace::autoclean;
 
-use ExtUtils::MakeMaker ();
 use Moose::Autobox;
 
 sub before_release {
@@ -46,7 +45,7 @@ Dist::Zilla::Plugin::ConfirmRelease - prompt for confirmation before releasing
 
 =head1 VERSION
 
-version 4.300029
+version 4.300030
 
 =head1 DESCRIPTION
 
@@ -57,10 +56,6 @@ they upload.
 The default is "no", but you can set the environment variable
 C<DZIL_CONFIRMRELEASE_DEFAULT> to "yes" if you just want to hit enter to
 release.
-
-This plugin uses C<ExtUtils::MakeMaker::prompt()>, so setting
-C<PERL_MM_USE_DEFAULT> to a true value will accept the default without
-prompting.
 
 =head1 AUTHOR
 

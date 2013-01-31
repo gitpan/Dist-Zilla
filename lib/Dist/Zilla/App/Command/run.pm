@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::run;
 {
-  $Dist::Zilla::App::Command::run::VERSION = '4.300029';
+  $Dist::Zilla::App::Command::run::VERSION = '4.300030';
 }
 # ABSTRACT: run stuff in a dir where your dist is built
 use Dist::Zilla::App -command;
@@ -11,11 +11,11 @@ use Dist::Zilla::App -command;
 sub abstract { 'run stuff in a dir where your dist is built' }
 
 sub usage_desc {
-  return '%c %o [ run command [ arg1 arg2 ... ] ]';
+  return '%c run %o [ run command [ arg1 arg2 ... ] ]';
 }
 
 sub execute {
-  my ($self, $opts, $args) = @_;
+  my ($self, $opt, $args) = @_;
 
   unless (@$args) {
     my $envname = $^O eq 'MSWin32' ? 'COMSPEC' : 'SHELL';
@@ -41,7 +41,7 @@ Dist::Zilla::App::Command::run - run stuff in a dir where your dist is built
 
 =head1 VERSION
 
-version 4.300029
+version 4.300030
 
 =head1 SYNOPSIS
 

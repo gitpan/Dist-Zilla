@@ -55,7 +55,6 @@ my %WriteMakefileArgs = (
     "DateTime" => "0.44",
     "Digest::MD5" => 0,
     "Encode" => 0,
-    "ExtUtils::MakeMaker" => 0,
     "ExtUtils::Manifest" => "1.54",
     "File::Copy::Recursive" => 0,
     "File::Find::Rule" => 0,
@@ -107,14 +106,13 @@ my %WriteMakefileArgs = (
     "YAML::Tiny" => 0,
     "autobox" => "2.53",
     "autodie" => 0,
-    "base" => 0,
     "namespace::autoclean" => 0,
     "parent" => 0,
     "strict" => 0,
     "version" => 0,
     "warnings" => 0
   },
-  "VERSION" => "4.300029",
+  "VERSION" => "4.300030",
   "test" => {
     "TESTS" => "t/*.t t/commands/*.t t/diagnostics/*.t t/plugins/*.t"
   }

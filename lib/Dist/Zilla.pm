@@ -1,13 +1,12 @@
 package Dist::Zilla;
 {
-  $Dist::Zilla::VERSION = '4.300029';
+  $Dist::Zilla::VERSION = '4.300030';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
 with 'Dist::Zilla::Role::ConfigDumper';
 
 use Moose::Autobox 0.09; # ->flatten
-use MooseX::LazyRequire;
 use MooseX::Types::Moose qw(ArrayRef Bool HashRef Object Str);
 use MooseX::Types::Perl qw(DistName LaxVersionStr);
 use MooseX::Types::Path::Class qw(Dir File);
@@ -558,7 +557,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 4.300029
+version 4.300030
 
 =head1 DESCRIPTION
 

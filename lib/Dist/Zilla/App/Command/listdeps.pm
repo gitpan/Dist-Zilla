@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::listdeps;
 {
-  $Dist::Zilla::App::Command::listdeps::VERSION = '4.300029';
+  $Dist::Zilla::App::Command::listdeps::VERSION = '4.300030';
 }
 use Dist::Zilla::App -command;
 # ABSTRACT: print your distribution's prerequisites
@@ -69,7 +69,7 @@ sub execute {
   my %modules = $self->extract_dependencies($self->zilla, \@phases, $opt->missing);
 
   if($opt->versions) {
-    for(sort { lc $a cmp $b } keys %modules) {
+    for(sort { lc $a cmp lc $b } keys %modules) {
       print "$_ = ".$modules{$_}."\n";
     }
   } else {
@@ -89,7 +89,7 @@ Dist::Zilla::App::Command::listdeps - print your distribution's prerequisites
 
 =head1 VERSION
 
-version 4.300029
+version 4.300030
 
 =head1 SYNOPSIS
 
