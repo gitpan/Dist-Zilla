@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 {
-  $Dist::Zilla::Dist::Builder::VERSION = '4.300030';
+  $Dist::Zilla::Dist::Builder::VERSION = '4.300031';
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -231,8 +231,9 @@ sub _load_config {
 
     my $package = $_->package;
 
+    my $bundle = $package =~ /^@/ ? ' bundle' : '';
     die <<"END_DIE";
-Required plugin $package isn't installed.
+Required plugin$bundle [$package] isn't installed.
 
 Run 'dzil authordeps' to see a list of all required plugins.
 You can pipe the list to your CPAN client to install or update them:
@@ -621,7 +622,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 4.300030
+version 4.300031
 
 =head1 ATTRIBUTES
 

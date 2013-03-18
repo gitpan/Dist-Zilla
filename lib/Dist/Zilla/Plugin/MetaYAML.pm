@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaYAML;
 {
-  $Dist::Zilla::Plugin::MetaYAML::VERSION = '4.300030';
+  $Dist::Zilla::Plugin::MetaYAML::VERSION = '4.300031';
 }
 # ABSTRACT: produce a META.yml
 use Moose;
@@ -8,10 +8,6 @@ use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
 
 use namespace::autoclean;
-
-use CPAN::Meta::Converter 2.101550; # improved downconversion
-use CPAN::Meta::Validator 2.101550; # improved downconversion
-use Hash::Merge::Simple ();
 
 
 has filename => (
@@ -32,6 +28,10 @@ sub gather_files {
 
   require Dist::Zilla::File::FromCode;
   require YAML::Tiny;
+  require CPAN::Meta::Converter;
+  CPAN::Meta::Converter->VERSION(2.101550); # improved downconversion
+  require CPAN::Meta::Validator;
+  CPAN::Meta::Validator->VERSION(2.101550); # improved downconversion
 
   my $zilla = $self->zilla;
 
@@ -72,7 +72,7 @@ Dist::Zilla::Plugin::MetaYAML - produce a META.yml
 
 =head1 VERSION
 
-version 4.300030
+version 4.300031
 
 =head1 DESCRIPTION
 

@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Tutorial;
 {
-  $Dist::Zilla::Tutorial::VERSION = '4.300030';
+  $Dist::Zilla::Tutorial::VERSION = '4.300031';
 }
 # ABSTRACT: how to use this "Dist::Zilla" thing
 use Carp ();
@@ -19,7 +19,7 @@ Dist::Zilla::Tutorial - how to use this "Dist::Zilla" thing
 
 =head1 VERSION
 
-version 4.300030
+version 4.300031
 
 =head1 SYNOPSIS
 
@@ -133,7 +133,7 @@ L<AfterBuild|Dist::Zilla::Role::AfterBuild> plugins do their thing.
 
 =head1 RELEASING YOUR DIST
 
-By running C<dzil release>, you'll can test your
+By running C<dzil release>, you'll test your
 distribution, build a tarball of it, and upload it to the CPAN.  Plugins are
 able to do things like check your version control system to make sure you're
 releasing a new version and that you tag the version you've just uploaded.  It

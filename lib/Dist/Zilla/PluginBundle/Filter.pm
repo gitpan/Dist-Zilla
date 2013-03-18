@@ -1,6 +1,6 @@
 package Dist::Zilla::PluginBundle::Filter;
 {
-  $Dist::Zilla::PluginBundle::Filter::VERSION = '4.300030';
+  $Dist::Zilla::PluginBundle::Filter::VERSION = '4.300031';
 }
 # ABSTRACT: use another bundle, with some plugins removed
 use Moose;
@@ -73,7 +73,7 @@ Dist::Zilla::PluginBundle::Filter - use another bundle, with some plugins remove
 
 =head1 VERSION
 
-version 4.300030
+version 4.300031
 
 =head1 SYNOPSIS
 

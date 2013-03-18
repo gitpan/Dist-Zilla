@@ -1,6 +1,6 @@
 package Dist::Zilla;
 {
-  $Dist::Zilla::VERSION = '4.300030';
+  $Dist::Zilla::VERSION = '4.300031';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -14,7 +14,6 @@ use Moose::Util::TypeConstraints;
 
 use Dist::Zilla::Types qw(License);
 
-use Hash::Merge::Simple ();
 use Log::Dispatchouli 1.100712; # proxy_loggers, quiet_fatal
 use Path::Class;
 use List::Util qw(first);
@@ -238,7 +237,8 @@ sub _build_license {
     if (@guess != 1) {
       $self->log_fatal(
         "no license data in config, no %Rights stash,",
-        "couldn't make a good guess at license from Pod; giving up"
+        "couldn't make a good guess at license from Pod; giving up. ",
+        "Perhaphs you need set global config file (dzil setup)?"
       );
     }
 
@@ -408,6 +408,7 @@ sub _build_distmeta {
                     . (defined $self->VERSION ? $self->VERSION : '(undef)')
   };
 
+  require Hash::Merge::Simple;
   $meta = Hash::Merge::Simple::merge($meta, $_->metadata)
     for $self->plugins_with(-MetaProvider)->flatten;
 
@@ -557,7 +558,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 4.300030
+version 4.300031
 
 =head1 DESCRIPTION
 

@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Util;
 {
-  $Dist::Zilla::Util::VERSION = '4.300030';
+  $Dist::Zilla::Util::VERSION = '4.300031';
 }
 # ABSTRACT: random snippets of code that Dist::Zilla wants
 
@@ -99,8 +99,8 @@ sub _assert_loaded_class_version_ok {
 
   my $have_version = $pkg->VERSION;
   unless ($req->accepts_module($pkg => $have_version)) {
-    Carp::confess( sprintf
-      "%s version (%s) not match required version: %s",
+    die( sprintf
+      "%s version (%s) not match required version: %s\n",
       $pkg,
       $have_version,
       $version,
@@ -120,7 +120,7 @@ Dist::Zilla::Util - random snippets of code that Dist::Zilla wants
 
 =head1 VERSION
 
-version 4.300030
+version 4.300031
 
 =head1 METHODS
 

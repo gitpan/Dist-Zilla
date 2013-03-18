@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaJSON;
 {
-  $Dist::Zilla::Plugin::MetaJSON::VERSION = '4.300030';
+  $Dist::Zilla::Plugin::MetaJSON::VERSION = '4.300031';
 }
 # ABSTRACT: produce a META.json
 use Moose;
@@ -9,11 +9,7 @@ with 'Dist::Zilla::Role::FileGatherer';
 
 use namespace::autoclean;
 
-use CPAN::Meta::Converter 2.101550; # improved downconversion
-use CPAN::Meta::Validator 2.101550; # improved downconversion
 use Dist::Zilla::File::FromCode;
-use Hash::Merge::Simple ();
-use JSON 2;
 
 
 has filename => (
@@ -33,6 +29,13 @@ sub gather_files {
   my ($self, $arg) = @_;
 
   my $zilla = $self->zilla;
+
+  require JSON;
+  JSON->VERSION(2);
+  require CPAN::Meta::Converter;
+  CPAN::Meta::Converter->VERSION(2.101550); # improved downconversion
+  require CPAN::Meta::Validator;
+  CPAN::Meta::Validator->VERSION(2.101550); # improved downconversion
 
   my $file  = Dist::Zilla::File::FromCode->new({
     name => $self->filename,
@@ -72,7 +75,7 @@ Dist::Zilla::Plugin::MetaJSON - produce a META.json
 
 =head1 VERSION
 
-version 4.300030
+version 4.300031
 
 =head1 DESCRIPTION
 
