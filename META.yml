@@ -111,7 +111,7 @@ resources:
   bugtracker: https://github.com/rjbs/dist-zilla/issues
   homepage: http://dzil.org/
   repository: http://github.com/rjbs/dist-zilla.git
-version: 4.300031
+version: 4.300032
 x_Dist_Zilla:
   perl:
     version: 5.017008

@@ -1,5 +1,9 @@
 Revision history for Dist-Zilla
 
+4.300032  2013-03-29 16:41:11 America/New_York
+          test_requires support for ModuleBuild and MakeMaker (thanks,
+          Tatsuhiko Miyagawa!)
+
 4.300031  2013-03-17 21:47:31 America/New_York
           stacktrace removed from exception when a plugin's minimum version
           check fails (thanks, Karen Etheridge!)

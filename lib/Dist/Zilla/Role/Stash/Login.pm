@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::Stash::Login;
 {
-  $Dist::Zilla::Role::Stash::Login::VERSION = '4.300031';
+  $Dist::Zilla::Role::Stash::Login::VERSION = '4.300032';
 }
 use Moose::Role;
 with 'Dist::Zilla::Role::Stash';
@@ -24,7 +24,7 @@ Dist::Zilla::Role::Stash::Login - a stash with username/password credentials
 
 =head1 VERSION
 
-version 4.300031
+version 4.300032
 
 =head1 OVERVIEW
 
