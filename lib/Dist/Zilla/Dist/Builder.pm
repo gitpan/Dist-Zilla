@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 {
-  $Dist::Zilla::Dist::Builder::VERSION = '4.300032';
+  $Dist::Zilla::Dist::Builder::VERSION = '4.300033';
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -498,7 +498,7 @@ sub ensure_built_in_tmpdir {
       rename $latest, $previous
         or $self->log("cannot move .build/latest link to .build/previous");
     }
-    symlink $target, $latest
+    symlink $target->basename, $latest
       or $self->log('cannot create link .build/latest');
   }
 
@@ -622,7 +622,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 4.300032
+version 4.300033
 
 =head1 ATTRIBUTES
 

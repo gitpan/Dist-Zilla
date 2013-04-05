@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::Prereqs;
 {
-  $Dist::Zilla::Plugin::Prereqs::VERSION = '4.300032';
+  $Dist::Zilla::Plugin::Prereqs::VERSION = '4.300033';
 }
 # ABSTRACT: list simple prerequisites
 use Moose;
@@ -117,7 +117,7 @@ Dist::Zilla::Plugin::Prereqs - list simple prerequisites
 
 =head1 VERSION
 
-version 4.300032
+version 4.300033
 
 =head1 SYNOPSIS
 
@@ -164,7 +164,7 @@ the resulting plugin:
 =head1 DESCRIPTION
 
 This module adds "fixed" prerequisites to your distribution.  These are prereqs
-with a known, fixed minimum version that doens't change based on platform or
+with a known, fixed minimum version that doesn't change based on platform or
 other conditions.
 
 You can specify prerequisites for different phases and kinds of relationships.

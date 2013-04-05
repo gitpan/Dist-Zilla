@@ -13,13 +13,7 @@ install_share module => "Dist::Zilla::MintingProfile::Default", "profiles";
 my %WriteMakefileArgs = (
   "ABSTRACT" => "distribution builder; installer not included!",
   "AUTHOR" => "Ricardo SIGNES <rjbs\@cpan.org>",
-  "BUILD_REQUIRES" => {
-    "File::Find" => 0,
-    "Software::License::None" => 0,
-    "Test::Fatal" => 0,
-    "Test::File::ShareDir" => 0,
-    "Test::More" => "0.96"
-  },
+  "BUILD_REQUIRES" => {},
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => "6.30",
     "File::ShareDir::Install" => "0.03"
@@ -112,12 +106,32 @@ my %WriteMakefileArgs = (
     "version" => 0,
     "warnings" => 0
   },
-  "VERSION" => "4.300032",
+  "TEST_REQUIRES" => {
+    "File::Find" => 0,
+    "Software::License::None" => 0,
+    "Test::Fatal" => 0,
+    "Test::File::ShareDir" => 0,
+    "Test::More" => "0.96"
+  },
+  "VERSION" => "4.300033",
   "test" => {
     "TESTS" => "t/*.t t/commands/*.t t/diagnostics/*.t t/plugins/*.t"
   }
 );
 
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
+  my $tr = delete $WriteMakefileArgs{TEST_REQUIRES};
+  my $br = $WriteMakefileArgs{BUILD_REQUIRES};
+  for my $mod ( keys %$tr ) {
+    if ( exists $br->{$mod} ) {
+      $br->{$mod} = $tr->{$mod} if $tr->{$mod} > $br->{$mod};
+    }
+    else {
+      $br->{$mod} = $tr->{$mod};
+    }
+  }
+}
 
 unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
   my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};

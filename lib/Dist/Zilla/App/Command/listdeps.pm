@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::listdeps;
 {
-  $Dist::Zilla::App::Command::listdeps::VERSION = '4.300032';
+  $Dist::Zilla::App::Command::listdeps::VERSION = '4.300033';
 }
 use Dist::Zilla::App -command;
 # ABSTRACT: print your distribution's prerequisites
@@ -106,7 +106,7 @@ Dist::Zilla::App::Command::listdeps - print your distribution's prerequisites
 
 =head1 VERSION
 
-version 4.300032
+version 4.300033
 
 =head1 SYNOPSIS
 
@@ -116,7 +116,7 @@ version 4.300032
 
 This is a command plugin for L<Dist::Zilla>. It provides the C<listdeps>
 command, which prints your distribution's prerequisites. You could pipe that
-list to a CPAN client like L<cpan> to install all of the dependecies in one
+list to a CPAN client like L<cpan> to install all of the dependencies in one
 quick go.
 
 =head1 OPTIONS

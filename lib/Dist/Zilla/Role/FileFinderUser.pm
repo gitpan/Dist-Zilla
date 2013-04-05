@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::FileFinderUser;
 {
-  $Dist::Zilla::Role::FileFinderUser::VERSION = '4.300032';
+  $Dist::Zilla::Role::FileFinderUser::VERSION = '4.300033';
 }
 # ABSTRACT: something that uses FileFinder plugins
 use MooseX::Role::Parameterized;
@@ -85,7 +85,7 @@ Dist::Zilla::Role::FileFinderUser - something that uses FileFinder plugins
 
 =head1 VERSION
 
-version 4.300032
+version 4.300033
 
 =head1 DESCRIPTION
 
@@ -118,7 +118,7 @@ Default: [ qw( finder ) ]
 =head2 default_finders
 
 This attribute is an arrayref of plugin names for the default plugins the
-consuming plugin will use as finder.s
+consuming plugin will use as finders.
 
 Example: C<< [ qw( :InstallModules :ExecFiles ) ] >>
 
