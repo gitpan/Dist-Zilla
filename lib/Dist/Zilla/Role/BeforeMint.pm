@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::BeforeMint;
 {
-  $Dist::Zilla::Role::BeforeMint::VERSION = '4.300033';
+  $Dist::Zilla::Role::BeforeMint::VERSION = '4.300034';
 }
 # ABSTRACT: something that runs before minting really begins
 use Moose::Role;
@@ -23,7 +23,7 @@ Dist::Zilla::Role::BeforeMint - something that runs before minting really begins
 
 =head1 VERSION
 
-version 4.300033
+version 4.300034
 
 =head1 DESCRIPTION
 

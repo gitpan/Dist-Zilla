@@ -33,7 +33,7 @@ my %WriteMakefileArgs = (
     "CPAN::Meta::Prereqs" => "2.120630",
     "CPAN::Meta::Requirements" => "2.121",
     "CPAN::Meta::Validator" => "2.101550",
-    "CPAN::Uploader" => "0.101550",
+    "CPAN::Uploader" => "0.103004",
     "Carp" => 0,
     "Class::Load" => "0.17",
     "Config::INI::Reader" => 0,
@@ -113,7 +113,7 @@ my %WriteMakefileArgs = (
     "Test::File::ShareDir" => 0,
     "Test::More" => "0.96"
   },
-  "VERSION" => "4.300033",
+  "VERSION" => "4.300034",
   "test" => {
     "TESTS" => "t/*.t t/commands/*.t t/diagnostics/*.t t/plugins/*.t"
   }

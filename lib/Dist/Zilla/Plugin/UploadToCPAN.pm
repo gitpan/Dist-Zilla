@@ -1,12 +1,11 @@
 package Dist::Zilla::Plugin::UploadToCPAN;
 {
-  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '4.300033';
+  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '4.300034';
 }
 # ABSTRACT: upload the dist to CPAN
 use Moose;
 with qw(Dist::Zilla::Role::BeforeRelease Dist::Zilla::Role::Releaser);
 
-use CPAN::Uploader 0.101550; # ua string
 use File::HomeDir;
 use File::Spec;
 use Moose::Util::TypeConstraints;
@@ -19,7 +18,8 @@ use namespace::autoclean;
 {
   package
     Dist::Zilla::Plugin::UploadToCPAN::_Uploader;
-  use parent 'CPAN::Uploader';
+  # CPAN::Uploader will be loaded later if used
+  our @ISA = 'CPAN::Uploader';
   # Report CPAN::Uploader's version, not ours:
   sub _ua_string { CPAN::Uploader->_ua_string }
 
@@ -133,6 +133,10 @@ has uploader => (
   default => sub {
     my ($self) = @_;
 
+    # Load the module lazily
+    require CPAN::Uploader;
+    CPAN::Uploader->VERSION('0.103004');  # require HTTPS
+
     my $uploader = Dist::Zilla::Plugin::UploadToCPAN::_Uploader->new({
       user     => $self->username,
       password => $self->password,
@@ -183,7 +187,7 @@ Dist::Zilla::Plugin::UploadToCPAN - upload the dist to CPAN
 
 =head1 VERSION
 
-version 4.300033
+version 4.300034
 
 =head1 SYNOPSIS
 

@@ -1,5 +1,9 @@
 Revision history for Dist-Zilla
 
+4.300034  2013-04-13 16:56:48 Europe/London
+          delay loading of CPAN::Uploader, and require a newer version to
+          require HTTPS (thanks, Olivier Mengué!)
+
 4.300033  2013-04-05 15:00:37 America/New_York
           fix .build/latest (thanks, Karen Etheridge!)
 
