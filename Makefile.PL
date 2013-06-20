@@ -78,8 +78,8 @@ my %WriteMakefileArgs = (
     "MooseX::Types::Perl" => 0,
     "PPI" => 0,
     "Params::Util" => 0,
-    "Path::Class" => 0,
-    "Perl::PrereqScanner" => "1.005",
+    "Path::Class" => "0.22",
+    "Perl::PrereqScanner" => "1.016",
     "Perl::Version" => 0,
     "Pod::Eventual" => "0.091480",
     "Scalar::Util" => 0,
@@ -111,9 +111,10 @@ my %WriteMakefileArgs = (
     "Software::License::None" => 0,
     "Test::Fatal" => 0,
     "Test::File::ShareDir" => 0,
-    "Test::More" => "0.96"
+    "Test::More" => "0.96",
+    "lib" => 0
   },
-  "VERSION" => "4.300034",
+  "VERSION" => "4.300035",
   "test" => {
     "TESTS" => "t/*.t t/commands/*.t t/diagnostics/*.t t/plugins/*.t"
   }

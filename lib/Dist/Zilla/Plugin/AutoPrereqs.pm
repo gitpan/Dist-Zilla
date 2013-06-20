@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoPrereqs;
 {
-  $Dist::Zilla::Plugin::AutoPrereqs::VERSION = '4.300034';
+  $Dist::Zilla::Plugin::AutoPrereqs::VERSION = '4.300035';
 }
 use Moose;
 with(
@@ -27,7 +27,7 @@ use namespace::autoclean;
 
 use List::AllUtils 'uniq';
 use Moose::Autobox;
-use Perl::PrereqScanner 1.005; # do not prune common libs
+use Perl::PrereqScanner 1.016; # don't skip "lib"
 use PPI;
 use CPAN::Meta::Requirements;
 use version;
@@ -108,6 +108,8 @@ sub register_prereqs {
     # remove prereqs shipped with current dist
     $req->clear_requirement($_) for @modules;
 
+    $req->clear_requirement($_) for qw(Config Errno); # never indexed
+
     # remove prereqs from skiplist
     for my $skip (($self->skips || [])->flatten) {
       my $re   = qr/$skip/;
@@ -144,7 +146,7 @@ Dist::Zilla::Plugin::AutoPrereqs - automatically extract prereqs from your modul
 
 =head1 VERSION
 
-version 4.300034
+version 4.300035
 
 =head1 SYNOPSIS
 

@@ -51,8 +51,8 @@ requires "MooseX::Types::Path::Class" => "0";
 requires "MooseX::Types::Perl" => "0";
 requires "PPI" => "0";
 requires "Params::Util" => "0";
-requires "Path::Class" => "0";
-requires "Perl::PrereqScanner" => "1.005";
+requires "Path::Class" => "0.22";
+requires "Perl::PrereqScanner" => "1.016";
 requires "Perl::Version" => "0";
 requires "Pod::Eventual" => "0.091480";
 requires "Scalar::Util" => "0";
@@ -87,6 +87,7 @@ on 'test' => sub {
   requires "Test::Fatal" => "0";
   requires "Test::File::ShareDir" => "0";
   requires "Test::More" => "0.96";
+  requires "lib" => "0";
 };
 
 on 'configure' => sub {
