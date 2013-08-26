@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 {
-  $Dist::Zilla::Dist::Builder::VERSION = '4.300035';
+  $Dist::Zilla::Dist::Builder::VERSION = '4.300036';
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -191,7 +191,7 @@ sub _load_config {
   my $config_class =
     $arg->{config_class} ||= 'Dist::Zilla::MVP::Reader::Finder';
 
-  Class::MOP::load_class($config_class);
+  Class::Load::load_class($config_class);
 
   $arg->{chrome}->logger->log_debug(
     { prefix => '[DZ] ' },
@@ -346,7 +346,8 @@ sub build_archive {
 
   $_->before_archive for $self->plugins_with(-BeforeArchive)->flatten;
 
-  my $method = Class::Load::load_optional_class('Archive::Tar::Wrapper')
+  my $method = Class::Load::load_optional_class('Archive::Tar::Wrapper',
+                                                { -version => 0.15 })
              ? '_build_archive_with_wrapper'
              : '_build_archive';
 
@@ -363,7 +364,7 @@ sub build_archive {
 sub _build_archive {
   my ($self, $built_in, $basename, $basedir) = @_;
 
-  $self->log("building archive with Archive::Tar; install Archive::Tar::Wrapper for improved speed");
+  $self->log("building archive with Archive::Tar; install Archive::Tar::Wrapper 0.15 or newer for improved speed");
 
   require Archive::Tar;
   my $archive = Archive::Tar->new;
@@ -519,8 +520,7 @@ sub install {
     my $wd = File::pushd::pushd($target);
     my @cmd = $arg->{install_command}
             ? @{ $arg->{install_command} }
-            : ($^X => '-MCPAN' =>
-                $^O eq 'MSWin32' ? q{-e"install '.'"} : '-einstall "."');
+            : (cpanm => ".");
 
     $self->log_debug([ 'installing via %s', \@cmd ]);
     system(@cmd) && $self->log_fatal([ "error running %s", \@cmd ]);
@@ -622,7 +622,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 4.300035
+version 4.300036
 
 =head1 ATTRIBUTES
 

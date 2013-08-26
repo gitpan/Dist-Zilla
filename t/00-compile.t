@@ -1,74 +1,181 @@
-#!perl
-
 use strict;
 use warnings;
 
-use Test::More;
+# this test was generated with Dist::Zilla::Plugin::Test::Compile 2.019
+
+use Test::More 0.88;
 
 
 
-use File::Find;
-use File::Temp qw{ tempdir };
-
-my @modules;
-find(
-  sub {
-    return if $File::Find::name !~ /\.pm\z/;
-    my $found = $File::Find::name;
-    $found =~ s{^lib/}{};
-    $found =~ s{[/\\]}{::}g;
-    $found =~ s/\.pm$//;
-    return if $found =~ /Dist::Zilla::Tutorial/;
-    push @modules, $found;
-  },
-  'lib',
+my @module_files = (
+    'Dist/Zilla.pm',
+    'Dist/Zilla/App.pm',
+    'Dist/Zilla/App/Command.pm',
+    'Dist/Zilla/App/Command/add.pm',
+    'Dist/Zilla/App/Command/authordeps.pm',
+    'Dist/Zilla/App/Command/build.pm',
+    'Dist/Zilla/App/Command/clean.pm',
+    'Dist/Zilla/App/Command/install.pm',
+    'Dist/Zilla/App/Command/listdeps.pm',
+    'Dist/Zilla/App/Command/new.pm',
+    'Dist/Zilla/App/Command/nop.pm',
+    'Dist/Zilla/App/Command/release.pm',
+    'Dist/Zilla/App/Command/run.pm',
+    'Dist/Zilla/App/Command/setup.pm',
+    'Dist/Zilla/App/Command/smoke.pm',
+    'Dist/Zilla/App/Command/test.pm',
+    'Dist/Zilla/App/Tester.pm',
+    'Dist/Zilla/Chrome/Term.pm',
+    'Dist/Zilla/Chrome/Test.pm',
+    'Dist/Zilla/Dist/Builder.pm',
+    'Dist/Zilla/Dist/Minter.pm',
+    'Dist/Zilla/File/FromCode.pm',
+    'Dist/Zilla/File/InMemory.pm',
+    'Dist/Zilla/File/OnDisk.pm',
+    'Dist/Zilla/MVP/Assembler.pm',
+    'Dist/Zilla/MVP/Assembler/GlobalConfig.pm',
+    'Dist/Zilla/MVP/Assembler/Zilla.pm',
+    'Dist/Zilla/MVP/Reader/Finder.pm',
+    'Dist/Zilla/MVP/Reader/Perl.pm',
+    'Dist/Zilla/MVP/RootSection.pm',
+    'Dist/Zilla/MVP/Section.pm',
+    'Dist/Zilla/MintingProfile/Default.pm',
+    'Dist/Zilla/Plugin/AutoPrereq.pm',
+    'Dist/Zilla/Plugin/AutoPrereqs.pm',
+    'Dist/Zilla/Plugin/AutoVersion.pm',
+    'Dist/Zilla/Plugin/BumpVersion.pm',
+    'Dist/Zilla/Plugin/CPANFile.pm',
+    'Dist/Zilla/Plugin/ConfirmRelease.pm',
+    'Dist/Zilla/Plugin/DistINI.pm',
+    'Dist/Zilla/Plugin/ExecDir.pm',
+    'Dist/Zilla/Plugin/ExtraTests.pm',
+    'Dist/Zilla/Plugin/FakeRelease.pm',
+    'Dist/Zilla/Plugin/FileFinder/ByName.pm',
+    'Dist/Zilla/Plugin/FileFinder/Filter.pm',
+    'Dist/Zilla/Plugin/FinderCode.pm',
+    'Dist/Zilla/Plugin/GatherDir.pm',
+    'Dist/Zilla/Plugin/GatherDir/Template.pm',
+    'Dist/Zilla/Plugin/GenerateFile.pm',
+    'Dist/Zilla/Plugin/InlineFiles.pm',
+    'Dist/Zilla/Plugin/License.pm',
+    'Dist/Zilla/Plugin/MakeMaker.pm',
+    'Dist/Zilla/Plugin/MakeMaker/Runner.pm',
+    'Dist/Zilla/Plugin/Manifest.pm',
+    'Dist/Zilla/Plugin/ManifestSkip.pm',
+    'Dist/Zilla/Plugin/MetaConfig.pm',
+    'Dist/Zilla/Plugin/MetaJSON.pm',
+    'Dist/Zilla/Plugin/MetaNoIndex.pm',
+    'Dist/Zilla/Plugin/MetaResources.pm',
+    'Dist/Zilla/Plugin/MetaTests.pm',
+    'Dist/Zilla/Plugin/MetaYAML.pm',
+    'Dist/Zilla/Plugin/ModuleBuild.pm',
+    'Dist/Zilla/Plugin/ModuleShareDirs.pm',
+    'Dist/Zilla/Plugin/NextRelease.pm',
+    'Dist/Zilla/Plugin/PkgDist.pm',
+    'Dist/Zilla/Plugin/PkgVersion.pm',
+    'Dist/Zilla/Plugin/PodCoverageTests.pm',
+    'Dist/Zilla/Plugin/PodSyntaxTests.pm',
+    'Dist/Zilla/Plugin/PodVersion.pm',
+    'Dist/Zilla/Plugin/Prereq.pm',
+    'Dist/Zilla/Plugin/Prereqs.pm',
+    'Dist/Zilla/Plugin/PruneCruft.pm',
+    'Dist/Zilla/Plugin/PruneFiles.pm',
+    'Dist/Zilla/Plugin/Readme.pm',
+    'Dist/Zilla/Plugin/RemovePrereqs.pm',
+    'Dist/Zilla/Plugin/ShareDir.pm',
+    'Dist/Zilla/Plugin/TemplateModule.pm',
+    'Dist/Zilla/Plugin/TestRelease.pm',
+    'Dist/Zilla/Plugin/UploadToCPAN.pm',
+    'Dist/Zilla/PluginBundle/Basic.pm',
+    'Dist/Zilla/PluginBundle/Classic.pm',
+    'Dist/Zilla/PluginBundle/FakeClassic.pm',
+    'Dist/Zilla/PluginBundle/Filter.pm',
+    'Dist/Zilla/Prereqs.pm',
+    'Dist/Zilla/Role/AfterBuild.pm',
+    'Dist/Zilla/Role/AfterMint.pm',
+    'Dist/Zilla/Role/AfterRelease.pm',
+    'Dist/Zilla/Role/BeforeArchive.pm',
+    'Dist/Zilla/Role/BeforeBuild.pm',
+    'Dist/Zilla/Role/BeforeMint.pm',
+    'Dist/Zilla/Role/BeforeRelease.pm',
+    'Dist/Zilla/Role/BuildPL.pm',
+    'Dist/Zilla/Role/BuildRunner.pm',
+    'Dist/Zilla/Role/Chrome.pm',
+    'Dist/Zilla/Role/ConfigDumper.pm',
+    'Dist/Zilla/Role/ExecFiles.pm',
+    'Dist/Zilla/Role/File.pm',
+    'Dist/Zilla/Role/FileFinder.pm',
+    'Dist/Zilla/Role/FileFinderUser.pm',
+    'Dist/Zilla/Role/FileGatherer.pm',
+    'Dist/Zilla/Role/FileInjector.pm',
+    'Dist/Zilla/Role/FileMunger.pm',
+    'Dist/Zilla/Role/FilePruner.pm',
+    'Dist/Zilla/Role/InstallTool.pm',
+    'Dist/Zilla/Role/LicenseProvider.pm',
+    'Dist/Zilla/Role/MetaProvider.pm',
+    'Dist/Zilla/Role/MintingProfile.pm',
+    'Dist/Zilla/Role/MintingProfile/ShareDir.pm',
+    'Dist/Zilla/Role/ModuleMaker.pm',
+    'Dist/Zilla/Role/NameProvider.pm',
+    'Dist/Zilla/Role/PPI.pm',
+    'Dist/Zilla/Role/Plugin.pm',
+    'Dist/Zilla/Role/PluginBundle.pm',
+    'Dist/Zilla/Role/PluginBundle/Easy.pm',
+    'Dist/Zilla/Role/PrereqSource.pm',
+    'Dist/Zilla/Role/Releaser.pm',
+    'Dist/Zilla/Role/ShareDir.pm',
+    'Dist/Zilla/Role/Stash.pm',
+    'Dist/Zilla/Role/Stash/Authors.pm',
+    'Dist/Zilla/Role/Stash/Login.pm',
+    'Dist/Zilla/Role/TestRunner.pm',
+    'Dist/Zilla/Role/TextTemplate.pm',
+    'Dist/Zilla/Role/VersionProvider.pm',
+    'Dist/Zilla/Stash/PAUSE.pm',
+    'Dist/Zilla/Stash/Rights.pm',
+    'Dist/Zilla/Stash/User.pm',
+    'Dist/Zilla/Tester.pm',
+    'Dist/Zilla/Types.pm',
+    'Dist/Zilla/Util.pm',
+    'Dist/Zilla/Util/AuthorDeps.pm',
+    'Test/DZil.pm'
 );
 
-sub _find_scripts {
-    my $dir = shift @_;
+my @scripts = (
+    'bin/dzil'
+);
 
-    my @found_scripts = ();
-    find(
-      sub {
-        return unless -f;
-        my $found = $File::Find::name;
-        return if $found =~ /Dist::Zilla::Tutorial/;
-        open my $FH, '<', $_ or do {
-          note( "Unable to open $found in ( $! ), skipping" );
-          return;
-        };
-        my $shebang = <$FH>;
-        return unless $shebang =~ /^#!.*?\bperl\b\s*$/;
-        push @found_scripts, $found;
-      },
-      $dir,
-    );
+# no fake home requested
 
-    return @found_scripts;
-}
+use IPC::Open3;
+use IO::Handle;
+use File::Spec;
 
-my @scripts;
-do { push @scripts, _find_scripts($_) if -d $_ }
-    for qw{ bin script scripts };
-
-my $plan = scalar(@modules) + scalar(@scripts);
-$plan ? (plan tests => $plan) : (plan skip_all => "no tests to run");
-
+my @warnings;
+for my $lib (@module_files)
 {
-    # fake home for cpan-testers
-    # no fake requested ## local $ENV{HOME} = tempdir( CLEANUP => 1 );
+    open my $stdout, '>', File::Spec->devnull or die $!;
+    open my $stdin, '<', File::Spec->devnull or die $!;
+    my $stderr = IO::Handle->new;
 
-    like( qx{ $^X -Ilib -e "require $_; print '$_ ok'" }, qr/^\s*$_ ok/s, "$_ loaded ok" )
-        for sort @modules;
+    my $pid = open3($stdin, $stdout, $stderr, qq{$^X -Mblib -e"require q[$lib]"});
+    waitpid($pid, 0);
+    is($? >> 8, 0, "$lib loaded ok");
 
-    SKIP: {
-        eval "use Test::Script 1.05; 1;";
-        skip "Test::Script needed to test script compilation", scalar(@scripts) if $@;
-        foreach my $file ( @scripts ) {
-            my $script = $file;
-            $script =~ s!.*/!!;
-            script_compiles( $file, "$script script compiles" );
-        }
+    if (my @_warnings = <$stderr>)
+    {
+        warn @_warnings;
+        push @warnings, @_warnings;
     }
-
 }
+
+use Test::Script 1.05;
+foreach my $file ( @scripts ) {
+    script_compiles( $file, "$file compiles" );
+}
+
+
+is(scalar(@warnings), 0, 'no warnings found') if $ENV{AUTHOR_TESTING};
+
+
+
+done_testing;

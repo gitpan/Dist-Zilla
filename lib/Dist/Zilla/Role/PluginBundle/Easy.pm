@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::PluginBundle::Easy;
 {
-  $Dist::Zilla::Role::PluginBundle::Easy::VERSION = '4.300035';
+  $Dist::Zilla::Role::PluginBundle::Easy::VERSION = '4.300036';
 }
 # ABSTRACT: something that bundles a bunch of plugins easily
 # This plugin was originally contributed by Christopher J. Madsen
@@ -101,7 +101,7 @@ sub add_bundle {
   if( my $v = $payload->{':version'} ){
     $load_opts->{'-version'} = $v;
   }
-  Class::MOP::load_class($package, $load_opts);
+  Class::Load::load_class($package, $load_opts);
 
   $bundle = "\@$bundle" unless $bundle =~ /^@/;
 
@@ -147,7 +147,7 @@ Dist::Zilla::Role::PluginBundle::Easy - something that bundles a bunch of plugin
 
 =head1 VERSION
 
-version 4.300035
+version 4.300036
 
 =head1 SYNOPSIS
 

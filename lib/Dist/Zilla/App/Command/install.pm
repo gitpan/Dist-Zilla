@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::install;
 {
-  $Dist::Zilla::App::Command::install::VERSION = '4.300035';
+  $Dist::Zilla::App::Command::install::VERSION = '4.300036';
 }
 # ABSTRACT: install your dist
 use Dist::Zilla::App -command;
@@ -37,7 +37,7 @@ Dist::Zilla::App::Command::install - install your dist
 
 =head1 VERSION
 
-version 4.300035
+version 4.300036
 
 =head1 SYNOPSIS
 
@@ -60,7 +60,7 @@ Any value that works with L<C<system>|perlfunc/system> is accepted.
 
 If not specified, calls (roughly):
 
-    perl -MCPAN -einstall "."
+    cpanm .
 
 For more information, look at the L<install|Dist::Zilla::Dist::Builder/install> method in
 Dist::Zilla.

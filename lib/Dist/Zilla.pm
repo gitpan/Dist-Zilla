@@ -1,6 +1,6 @@
 package Dist::Zilla;
 {
-  $Dist::Zilla::VERSION = '4.300035';
+  $Dist::Zilla::VERSION = '4.300036';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -247,7 +247,7 @@ sub _build_license {
     $self->log("based on POD in $filename, guessing license is $guess[0]");
   }
 
-  Class::MOP::load_class($license_class);
+  Class::Load::load_class($license_class);
 
   my $license = $license_class->new({
     holder => $self->_copyright_holder,
@@ -409,8 +409,14 @@ sub _build_distmeta {
   };
 
   require Hash::Merge::Simple;
-  $meta = Hash::Merge::Simple::merge($meta, $_->metadata)
-    for $self->plugins_with(-MetaProvider)->flatten;
+  my $dynamic;
+  for ($self->plugins_with(-MetaProvider)->flatten) {
+    my $plugin_meta = $_->metadata;
+    $meta = Hash::Merge::Simple::merge($meta, $plugin_meta);
+    $dynamic = 1 if $plugin_meta->{dynamic_config};
+  }
+
+  $meta->{dynamic_config} = 1 if $dynamic;
 
   return $meta;
 }
@@ -558,7 +564,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 4.300035
+version 4.300036
 
 =head1 DESCRIPTION
 

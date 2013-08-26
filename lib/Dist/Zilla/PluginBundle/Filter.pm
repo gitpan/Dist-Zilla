@@ -1,6 +1,6 @@
 package Dist::Zilla::PluginBundle::Filter;
 {
-  $Dist::Zilla::PluginBundle::Filter::VERSION = '4.300035';
+  $Dist::Zilla::PluginBundle::Filter::VERSION = '4.300036';
 }
 # ABSTRACT: use another bundle, with some plugins removed
 use Moose;
@@ -9,6 +9,7 @@ with 'Dist::Zilla::Role::PluginBundle';
 
 use namespace::autoclean;
 
+use Class::Load qw(try_load_class);
 use Dist::Zilla::Util;
 
 
@@ -33,18 +34,21 @@ sub bundle_config {
   Carp::croak("no bundle given for bundle filter")
     unless my $bundle = $config->{filter}->{bundle};
 
-  $bundle = Dist::Zilla::Util->expand_config_package_name($bundle);
+  my $pkg = Dist::Zilla::Util->expand_config_package_name($bundle);
 
   my $load_opts = {};
   if( my $v = $config->{filter}->{version} ){
     $load_opts->{'-version'} = $v;
   }
 
-  Class::MOP::load_class($bundle, $load_opts);
+  unless (try_load_class($pkg, $load_opts)) {
+    # XXX Naughty! -- rjbs, 2013-07-23
+    Config::MVP::Section->missing_package($pkg, $bundle);
+  }
 
-  my @plugins = $bundle->bundle_config({
+  my @plugins = $pkg->bundle_config({
     name    => $section->{name}, # not 100% sure about this -- rjbs, 2010-03-06
-    package => $bundle,
+    package => $pkg,
     payload => $config->{bundle} || {},
   });
 
@@ -73,7 +77,7 @@ Dist::Zilla::PluginBundle::Filter - use another bundle, with some plugins remove
 
 =head1 VERSION
 
-version 4.300035
+version 4.300036
 
 =head1 SYNOPSIS
 

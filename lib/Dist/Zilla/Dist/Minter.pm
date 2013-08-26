@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Minter;
 {
-  $Dist::Zilla::Dist::Minter::VERSION = '4.300035';
+  $Dist::Zilla::Dist::Minter::VERSION = '4.300036';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -32,7 +32,7 @@ sub _new_from_profile {
 
   my $config_class =
     $arg->{config_class} ||= 'Dist::Zilla::MVP::Reader::Finder';
-  Class::MOP::load_class($config_class);
+  Class::Load::load_class($config_class);
 
   $arg->{chrome}->logger->log_debug(
     { prefix => '[DZ] ' },
@@ -58,7 +58,7 @@ sub _new_from_profile {
     { '' => 'Dist::Zilla::MintingProfile::', '=', => '' },
     $profile_data->[0],
   );
-  Class::MOP::load_class($module);
+  Class::Load::load_class($module);
 
   my $profile_dir = $module->profile_dir($profile_data->[1]);
 
@@ -147,7 +147,7 @@ Dist::Zilla::Dist::Minter - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 4.300035
+version 4.300036
 
 =head1 AUTHOR
 

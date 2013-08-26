@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::UploadToCPAN;
 {
-  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '4.300035';
+  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '4.300036';
 }
 # ABSTRACT: upload the dist to CPAN
 use Moose;
@@ -98,17 +98,13 @@ has pause_cfg => (
   lazy    => 1,
   default => sub {
     my $self = shift;
-    open my $fh, '<', $self->pause_cfg_file
-      or return {};
-    my %ret;
-    # basically taken from the parsing code used by cpan-upload
-    # (maybe this should be part of the CPAN::Uploader api?)
-    while (<$fh>) {
-      next if /^\s*(?:#.*)?$/;
-      my ($k, $v) = /^\s*(\w+)\s+(.+)$/;
-      $ret{$k} = $v;
-    }
-    return \%ret;
+    require CPAN::Uploader;
+    my $cfg = try {
+      CPAN::Uploader->read_config_file( $self->pause_cfg_file );
+    } catch {
+      {};
+    };
+    return $cfg;
   },
 );
 
@@ -187,7 +183,7 @@ Dist::Zilla::Plugin::UploadToCPAN - upload the dist to CPAN
 
 =head1 VERSION
 
-version 4.300035
+version 4.300036
 
 =head1 SYNOPSIS
 
