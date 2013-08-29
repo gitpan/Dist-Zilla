@@ -1,5 +1,8 @@
 Revision history for Dist-Zilla
 
+4.300037  2013-08-28 21:43:36 America/New_York
+          update repo and bugtacker URLs
+
 4.300036  2013-08-25 21:41:21 America/New_York
           read CPAN::Uploader config with CPAN::Uploader, to work with new
           trial releases supporting encrypted credential (thanks, Mike Doherty)

@@ -82,14 +82,13 @@ requires "warnings" => "0";
 recommends "Term::ReadLine::Gnu" => "0";
 
 on 'test' => sub {
-  requires "File::Spec" => "0";
-  requires "IO::Handle" => "0";
-  requires "IPC::Open3" => "0";
+  requires "Capture::Tiny" => "0";
   requires "Software::License::None" => "0";
   requires "Test::Fatal" => "0";
   requires "Test::File::ShareDir" => "0";
   requires "Test::More" => "0.96";
   requires "Test::Script" => "1.05";
+  requires "blib" => "0";
   requires "lib" => "0";
 };
 
