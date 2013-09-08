@@ -1,6 +1,6 @@
 package Dist::Zilla;
 {
-  $Dist::Zilla::VERSION = '4.300037';
+  $Dist::Zilla::VERSION = '4.300038';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -389,7 +389,7 @@ sub _build_distmeta {
   my $meta = {
     'meta-spec' => {
       version => 2,
-      url     => 'http://github.com/dagolden/cpan-meta/',
+      url     => 'http://search.cpan.org/perldoc?CPAN::Meta::Spec',
     },
     name     => $self->name,
     version  => $self->version,
@@ -564,7 +564,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 4.300037
+version 4.300038
 
 =head1 DESCRIPTION
 

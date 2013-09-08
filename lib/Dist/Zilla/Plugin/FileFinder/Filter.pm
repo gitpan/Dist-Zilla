@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::FileFinder::Filter;
 {
-  $Dist::Zilla::Plugin::FileFinder::Filter::VERSION = '4.300037';
+  $Dist::Zilla::Plugin::FileFinder::Filter::VERSION = '4.300038';
 }
 use Moose;
 with(
@@ -64,7 +64,7 @@ Dist::Zilla::Plugin::FileFinder::Filter - filter matches from other FileFinders
 
 =head1 VERSION
 
-version 4.300037
+version 4.300038
 
 =head1 SYNOPSIS
 

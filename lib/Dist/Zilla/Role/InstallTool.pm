@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::InstallTool;
 {
-  $Dist::Zilla::Role::InstallTool::VERSION = '4.300037';
+  $Dist::Zilla::Role::InstallTool::VERSION = '4.300038';
 }
 # ABSTRACT: something that creates an install program for a dist
 use Moose::Role;
@@ -28,7 +28,7 @@ Dist::Zilla::Role::InstallTool - something that creates an install program for a
 
 =head1 VERSION
 
-version 4.300037
+version 4.300038
 
 =head1 DESCRIPTION
 
