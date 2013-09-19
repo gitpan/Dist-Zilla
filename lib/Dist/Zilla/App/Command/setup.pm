@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::setup;
 {
-  $Dist::Zilla::App::Command::setup::VERSION = '4.300038';
+  $Dist::Zilla::App::Command::setup::VERSION = '4.300039';
 }
 # ABSTRACT: set up a basic global config file
 use Dist::Zilla::App -command;
@@ -144,7 +144,7 @@ Dist::Zilla::App::Command::setup - set up a basic global config file
 
 =head1 VERSION
 
-version 4.300038
+version 4.300039
 
 =head1 SYNOPSIS
 

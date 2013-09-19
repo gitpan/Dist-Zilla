@@ -146,7 +146,7 @@
       },
       "x_mailing_list" : "http://www.listbox.com/subscribe/?list_id=139292"
    },
-   "version" : "4.300038",
+   "version" : "4.300039",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.019003"

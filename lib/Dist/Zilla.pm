@@ -1,6 +1,6 @@
 package Dist::Zilla;
 {
-  $Dist::Zilla::VERSION = '4.300038';
+  $Dist::Zilla::VERSION = '4.300039';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -395,7 +395,7 @@ sub _build_distmeta {
     version  => $self->version,
     abstract => $self->abstract,
     author   => $self->authors,
-    license  => $self->license->meta2_name,
+    license  => [ $self->license->meta2_name ],
 
     # XXX: what about unstable?
     release_status => ($self->is_trial or $self->version =~ /_/)
@@ -564,7 +564,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 4.300038
+version 4.300039
 
 =head1 DESCRIPTION
 

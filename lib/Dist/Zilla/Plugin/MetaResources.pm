@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaResources;
 {
-  $Dist::Zilla::Plugin::MetaResources::VERSION = '4.300038';
+  $Dist::Zilla::Plugin::MetaResources::VERSION = '4.300039';
 }
 
 # ABSTRACT: provide arbitrary "resources" for distribution metadata
@@ -22,6 +22,10 @@ sub BUILDARGS {
 
   my $zilla = delete $copy{zilla};
   my $name  = delete $copy{plugin_name};
+
+  if (exists $copy{license} && ref($copy{license}) ne 'ARRAY') {
+      $copy{license} = [ $copy{license} ];
+  }
 
   if (exists $copy{bugtracker}) {
     my $tracker = delete $copy{bugtracker};
@@ -66,7 +70,7 @@ Dist::Zilla::Plugin::MetaResources - provide arbitrary "resources" for distribut
 
 =head1 VERSION
 
-version 4.300038
+version 4.300039
 
 =head1 DESCRIPTION
 
