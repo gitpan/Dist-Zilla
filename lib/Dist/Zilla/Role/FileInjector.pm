@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::FileInjector;
 {
-  $Dist::Zilla::Role::FileInjector::VERSION = '4.300039';
+  $Dist::Zilla::Role::FileInjector::VERSION = '5.000'; # TRIAL
 }
 # ABSTRACT: something that can add files to the distribution
 use Moose::Role;
@@ -14,8 +14,7 @@ sub add_file {
   my ($self, $file) = @_;
   my ($pkg, undef, $line) = caller;
 
-  $file->meta->get_attribute('added_by')->set_value(
-    $file,
+  $file->_set_added_by(
     sprintf("%s (%s line %s)", $self->plugin_name, $pkg, $line),
   );
 
@@ -29,13 +28,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Role::FileInjector - something that can add files to the distribution
 
 =head1 VERSION
 
-version 4.300039
+version 5.000
 
 =head1 DESCRIPTION
 

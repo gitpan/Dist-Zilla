@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PodSyntaxTests;
 {
-  $Dist::Zilla::Plugin::PodSyntaxTests::VERSION = '4.300039';
+  $Dist::Zilla::Plugin::PodSyntaxTests::VERSION = '5.000'; # TRIAL
 }
 # ABSTRACT: a release test for Pod syntax
 use Moose;
@@ -31,13 +31,15 @@ __PACKAGE__->meta->make_immutable;
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Plugin::PodSyntaxTests - a release test for Pod syntax
 
 =head1 VERSION
 
-version 4.300039
+version 5.000
 
 =head1 DESCRIPTION
 

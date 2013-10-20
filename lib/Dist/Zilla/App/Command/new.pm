@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::new;
 {
-  $Dist::Zilla::App::Command::new::VERSION = '4.300039';
+  $Dist::Zilla::App::Command::new::VERSION = '5.000'; # TRIAL
 }
 # ABSTRACT: mint a new dist
 use Dist::Zilla::App -command;
@@ -66,13 +66,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::App::Command::new - mint a new dist
 
 =head1 VERSION
 
-version 4.300039
+version 5.000
 
 =head1 SYNOPSIS
 

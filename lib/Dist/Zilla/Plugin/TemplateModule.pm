@@ -1,17 +1,19 @@
 package Dist::Zilla::Plugin::TemplateModule;
 {
-  $Dist::Zilla::Plugin::TemplateModule::VERSION = '4.300039';
+  $Dist::Zilla::Plugin::TemplateModule::VERSION = '5.000'; # TRIAL
 }
 # ABSTRACT: a simple module-from-template plugin
 use Moose;
 with qw(Dist::Zilla::Role::ModuleMaker Dist::Zilla::Role::TextTemplate);
+
+use Path::Tiny;
 
 use namespace::autoclean;
 
 use autodie;
 
 use Sub::Exporter::ForMethods;
-use Data::Section 0.004 # fixed header_re
+use Data::Section 0.200002 # encoding and bytes
   { installer => Sub::Exporter::ForMethods::method_installer },
   '-setup';
 use Dist::Zilla::File::InMemory;
@@ -29,11 +31,7 @@ sub make_module {
   my $template;
 
   if ($self->has_template) {
-    open my $fh, '<', $self->template;
-
-    # Win32
-    binmode $fh, ':raw';
-    $template = do { local $/; <$fh> };
+    $template = path( $self->template )->slurp_utf8;
   } else {
     $template = ${ $self->section_data('Module.pm') };
   }
@@ -61,13 +59,15 @@ __PACKAGE__->meta->make_immutable;
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Plugin::TemplateModule - a simple module-from-template plugin
 
 =head1 VERSION
 
-version 4.300039
+version 5.000
 
 =head1 DESCRIPTION
 

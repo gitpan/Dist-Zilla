@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::ConfigDumper;
 {
-  $Dist::Zilla::Role::ConfigDumper::VERSION = '4.300039';
+  $Dist::Zilla::Role::ConfigDumper::VERSION = '5.000'; # TRIAL
 }
 # ABSTRACT: something that can dump its (public, simplified) configuration
 use Moose::Role;
@@ -15,13 +15,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Role::ConfigDumper - something that can dump its (public, simplified) configuration
 
 =head1 VERSION
 
-version 4.300039
+version 5.000
 
 =head1 AUTHOR
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaJSON;
 {
-  $Dist::Zilla::Plugin::MetaJSON::VERSION = '4.300039';
+  $Dist::Zilla::Plugin::MetaJSON::VERSION = '5.000'; # TRIAL
 }
 # ABSTRACT: produce a META.json
 use Moose;
@@ -39,6 +39,10 @@ sub gather_files {
 
   my $file  = Dist::Zilla::File::FromCode->new({
     name => $self->filename,
+    # RJBS and XDG didn't 100% agree on this, it's probably fine until somebody
+    # comes up with a really good argument to change it (or to remove this
+    # comment, settling the argument). -- rjbs, 2013-10-19
+    code_return_type => 'bytes',
     code => sub {
       my $distmeta  = $zilla->distmeta;
 
@@ -69,13 +73,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Plugin::MetaJSON - produce a META.json
 
 =head1 VERSION
 
-version 4.300039
+version 5.000
 
 =head1 DESCRIPTION
 

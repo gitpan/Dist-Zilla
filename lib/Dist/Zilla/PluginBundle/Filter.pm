@@ -1,6 +1,6 @@
 package Dist::Zilla::PluginBundle::Filter;
 {
-  $Dist::Zilla::PluginBundle::Filter::VERSION = '4.300039';
+  $Dist::Zilla::PluginBundle::Filter::VERSION = '5.000'; # TRIAL
 }
 # ABSTRACT: use another bundle, with some plugins removed
 use Moose;
@@ -71,13 +71,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::PluginBundle::Filter - use another bundle, with some plugins removed
 
 =head1 VERSION
 
-version 4.300039
+version 5.000
 
 =head1 SYNOPSIS
 

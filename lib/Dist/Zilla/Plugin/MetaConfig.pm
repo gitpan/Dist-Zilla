@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaConfig;
 {
-  $Dist::Zilla::Plugin::MetaConfig::VERSION = '4.300039';
+  $Dist::Zilla::Plugin::MetaConfig::VERSION = '5.000'; # TRIAL
 }
 # ABSTRACT: summarize Dist::Zilla configuration into distmeta
 use Moose;
@@ -49,13 +49,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Plugin::MetaConfig - summarize Dist::Zilla configuration into distmeta
 
 =head1 VERSION
 
-version 4.300039
+version 5.000
 
 =head1 DESCRIPTION
 

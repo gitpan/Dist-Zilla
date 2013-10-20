@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 {
-  $Dist::Zilla::Dist::Builder::VERSION = '4.300039';
+  $Dist::Zilla::Dist::Builder::VERSION = '5.000'; # TRIAL
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -263,9 +263,10 @@ sub build_in {
 
   $self->log("beginning to build " . $self->name);
 
-  $_->gather_files     for $self->plugins_with(-FileGatherer)->flatten;
-  $_->prune_files      for $self->plugins_with(-FilePruner)->flatten;
-  $_->munge_files      for $self->plugins_with(-FileMunger)->flatten;
+  $_->gather_files       for $self->plugins_with(-FileGatherer)->flatten;
+  $_->set_file_encodings for $self->plugins_with(-EncodingProvider)->flatten;
+  $_->prune_files        for $self->plugins_with(-FilePruner)->flatten;
+  $_->munge_files        for $self->plugins_with(-FileMunger)->flatten;
 
   $_->register_prereqs for $self->plugins_with(-PrereqSource)->flatten;
 
@@ -616,13 +617,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 4.300039
+version 5.000
 
 =head1 ATTRIBUTES
 

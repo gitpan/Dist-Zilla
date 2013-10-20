@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PodVersion;
 {
-  $Dist::Zilla::Plugin::PodVersion::VERSION = '4.300039';
+  $Dist::Zilla::Plugin::PodVersion::VERSION = '5.000'; # TRIAL
 }
 # ABSTRACT: add a VERSION head1 to each Perl document
 use Moose;
@@ -74,13 +74,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Plugin::PodVersion - add a VERSION head1 to each Perl document
 
 =head1 VERSION
 
-version 4.300039
+version 5.000
 
 =head1 DESCRIPTION
 

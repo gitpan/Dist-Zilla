@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::Readme;
 {
-  $Dist::Zilla::Plugin::Readme::VERSION = '4.300039';
+  $Dist::Zilla::Plugin::Readme::VERSION = '5.000'; # TRIAL
 }
 # ABSTRACT: build a README file
 use Moose;
@@ -47,13 +47,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Plugin::Readme - build a README file
 
 =head1 VERSION
 
-version 4.300039
+version 5.000
 
 =head1 DESCRIPTION
 

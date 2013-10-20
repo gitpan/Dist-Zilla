@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::BeforeRelease;
 {
-  $Dist::Zilla::Role::BeforeRelease::VERSION = '4.300039';
+  $Dist::Zilla::Role::BeforeRelease::VERSION = '5.000'; # TRIAL
 }
 # ABSTRACT: something that runs before release really begins
 use Moose::Role;
@@ -17,13 +17,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Role::BeforeRelease - something that runs before release really begins
 
 =head1 VERSION
 
-version 4.300039
+version 5.000
 
 =head1 DESCRIPTION
 

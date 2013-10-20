@@ -1,13 +1,16 @@
 package Dist::Zilla::Role::File;
 {
-  $Dist::Zilla::Role::File::VERSION = '4.300039';
+  $Dist::Zilla::Role::File::VERSION = '5.000'; # TRIAL
 }
 # ABSTRACT: something that can act like a file
 use Moose::Role;
 
 use Moose::Util::TypeConstraints;
+use Try::Tiny;
 
 use namespace::autoclean;
+
+with 'Dist::Zilla::Role::StubBuild';
 
 
 has name => (
@@ -19,6 +22,8 @@ has name => (
 
 has added_by => (
   is => 'ro',
+  writer => '_set_added_by',
+  isa => 'Str',
 );
 
 
@@ -34,7 +39,47 @@ has mode => (
   default => 0644,
 );
 
+requires 'encoding';
 requires 'content';
+requires 'encoded_content';
+
+sub _encode {
+  my ($self, $text) = @_;
+  my $enc = $self->encoding;
+  if ( $enc eq 'bytes' ) {
+    return $text; # XXX hope you were right that it really was bytes
+  }
+  else {
+    require Encode;
+    my $bytes =
+      try { Encode::encode($enc, $text, Encode::FB_CROAK()) }
+      catch { $self->_throw("encode $enc" => $_) };
+    return $bytes;
+  }
+}
+
+sub _decode {
+  my ($self, $bytes) = @_;
+  my $enc = $self->encoding;
+  if ( $enc eq 'bytes' ) {
+    $self->_throw(decode => "Can't decode text from 'bytes' encoding");
+  }
+  else {
+    require Encode;
+    my $text =
+      try { Encode::decode($enc, $bytes, Encode::FB_CROAK()) }
+      catch { $self->_throw("decode $enc" => $_) };
+    return $text;
+  }
+}
+
+sub _throw {
+  my ($self, $op, $msg) = @_;
+  my ($name, $added_by) = map {; $self->$_ } qw/name added_by/;
+  confess(
+    "Could not $op $name; $added_by; error was: $msg"
+  );
+}
 
 1;
 
@@ -42,13 +87,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Role::File - something that can act like a file
 
 =head1 VERSION
 
-version 4.300039
+version 5.000
 
 =head1 DESCRIPTION
 

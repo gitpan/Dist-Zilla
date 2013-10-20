@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::DistINI;
 {
-  $Dist::Zilla::Plugin::DistINI::VERSION = '4.300039';
+  $Dist::Zilla::Plugin::DistINI::VERSION = '5.000'; # TRIAL
 }
 # ABSTRACT: a plugin to add a dist.ini to newly-minted dists
 use Moose;
@@ -10,6 +10,7 @@ use Dist::Zilla::File::FromCode;
 
 use Moose::Autobox 0.10; # for ->each_value
 use MooseX::Types::Moose qw(ArrayRef Str);
+use Path::Tiny;
 
 use namespace::autoclean;
 
@@ -31,12 +32,7 @@ sub gather_files {
   $self->append_file->each_value(sub {
     my $fn = $self->zilla->root->file($_);
 
-    $postlude .= do {
-      use autodie;
-      local $/;
-      open my $fh, '<', $fn;
-      <$fh>;
-    };
+    $postlude .= path($fn)->slurp_utf8;
   });
 
   my $code = sub {
@@ -75,13 +71,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Plugin::DistINI - a plugin to add a dist.ini to newly-minted dists
 
 =head1 VERSION
 
-version 4.300039
+version 5.000
 
 =head1 DESCRIPTION
 

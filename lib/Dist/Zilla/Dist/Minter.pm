@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Minter;
 {
-  $Dist::Zilla::Dist::Minter::VERSION = '4.300039';
+  $Dist::Zilla::Dist::Minter::VERSION = '5.000'; # TRIAL
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -116,9 +116,10 @@ sub mint_dist {
     $minter->make_module({ name => $module->{name} })
   }
 
-  $_->gather_files for $self->plugins_with(-FileGatherer)->flatten;
-  $_->prune_files  for $self->plugins_with(-FilePruner)->flatten;
-  $_->munge_files  for $self->plugins_with(-FileMunger)->flatten;
+  $_->gather_files       for $self->plugins_with(-FileGatherer)->flatten;
+  $_->set_file_encodings for $self->plugins_with(-EncodingProvider)->flatten;
+  $_->prune_files        for $self->plugins_with(-FilePruner)->flatten;
+  $_->munge_files        for $self->plugins_with(-FileMunger)->flatten;
 
   $self->_check_dupe_files;
 
@@ -141,13 +142,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Dist::Minter - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 4.300039
+version 5.000
 
 =head1 AUTHOR
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::InlineFiles;
 {
-  $Dist::Zilla::Plugin::InlineFiles::VERSION = '4.300039';
+  $Dist::Zilla::Plugin::InlineFiles::VERSION = '5.000'; # TRIAL
 }
 # ABSTRACT: files in a data section
 use Moose;
@@ -11,9 +11,9 @@ use namespace::autoclean;
 
 
 use Sub::Exporter::ForMethods;
-use Data::Section 0.004 # fixed header_re
+use Data::Section 0.200002 # encoding and bytes
   { installer => Sub::Exporter::ForMethods::method_installer },
-  '-setup';
+  '-setup' => { encoding => 'bytes' };
 use Dist::Zilla::File::InMemory;
 
 sub gather_files {
@@ -41,13 +41,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Plugin::InlineFiles - files in a data section
 
 =head1 VERSION
 
-version 4.300039
+version 5.000
 
 =head1 DESCRIPTION
 
