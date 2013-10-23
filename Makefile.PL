@@ -65,7 +65,7 @@ my %WriteMakefileArgs = (
     "List::MoreUtils" => 0,
     "List::Util" => 0,
     "Log::Dispatchouli" => "1.102220",
-    "Mixin::Linewise" => "0.100",
+    "Mixin::Linewise::Readers" => "0.100",
     "Moose" => "0.92",
     "Moose::Autobox" => "0.10",
     "Moose::Role" => 0,
@@ -114,13 +114,14 @@ my %WriteMakefileArgs = (
     "IO::Handle" => 0,
     "IPC::Open3" => 0,
     "Software::License::None" => 0,
+    "Test::FailWarnings" => 0,
     "Test::Fatal" => 0,
     "Test::File::ShareDir" => 0,
     "Test::More" => "0.96",
     "lib" => 0,
     "utf8" => 0
   },
-  "VERSION" => "5.000",
+  "VERSION" => "5.001",
   "test" => {
     "TESTS" => "t/*.t t/commands/*.t t/diagnostics/*.t t/plugins/*.t"
   }

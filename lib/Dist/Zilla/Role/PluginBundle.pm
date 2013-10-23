@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::PluginBundle;
 {
-  $Dist::Zilla::Role::PluginBundle::VERSION = '5.000'; # TRIAL
+  $Dist::Zilla::Role::PluginBundle::VERSION = '5.001'; # TRIAL
 }
 # ABSTRACT: something that bundles a bunch of plugins
 use Moose::Role;
@@ -30,7 +30,7 @@ Dist::Zilla::Role::PluginBundle - something that bundles a bunch of plugins
 
 =head1 VERSION
 
-version 5.000
+version 5.001
 
 =head1 DESCRIPTION
 

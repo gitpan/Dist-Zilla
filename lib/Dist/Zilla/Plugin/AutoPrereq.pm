@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoPrereq;
 {
-  $Dist::Zilla::Plugin::AutoPrereq::VERSION = '5.000'; # TRIAL
+  $Dist::Zilla::Plugin::AutoPrereq::VERSION = '5.001'; # TRIAL
 }
 use Moose;
 extends 'Dist::Zilla::Plugin::AutoPrereqs';
@@ -30,7 +30,7 @@ Dist::Zilla::Plugin::AutoPrereq - (DEPRECATED) the old name for Dist::Zilla::Plu
 
 =head1 VERSION
 
-version 5.000
+version 5.001
 
 =head1 SEE ALSO
 

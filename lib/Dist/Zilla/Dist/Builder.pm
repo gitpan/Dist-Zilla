@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 {
-  $Dist::Zilla::Dist::Builder::VERSION = '5.000'; # TRIAL
+  $Dist::Zilla::Dist::Builder::VERSION = '5.001'; # TRIAL
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -12,6 +12,7 @@ use MooseX::Types::Path::Class qw(Dir File);
 
 use File::pushd ();
 use Path::Class;
+use Path::Tiny; # because more Path::* is better, eh?
 use Try::Tiny;
 
 use namespace::autoclean;
@@ -384,15 +385,9 @@ sub _build_archive {
     }
 
     my $filename = $built_in->file( $distfile->name );
-    my $content = do {
-      use autodie;
-      local $/;
-      open my $fh, '<', $filename;
-      <$fh>;
-    };
     $archive->add_data(
       $basedir->file( $distfile->name ),
-      $content,
+      path($filename)->slurp_raw,
       { mode => (stat $filename)[2] & ~022 },
     );
   }
@@ -625,7 +620,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 5.000
+version 5.001
 
 =head1 ATTRIBUTES
 

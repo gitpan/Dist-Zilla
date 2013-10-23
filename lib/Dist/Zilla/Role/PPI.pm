@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::PPI;
 {
-  $Dist::Zilla::Role::PPI::VERSION = '5.000'; # TRIAL
+  $Dist::Zilla::Role::PPI::VERSION = '5.001'; # TRIAL
 }
 # ABSTRACT: a role for plugins which use PPI
 use Moose::Role;
@@ -37,9 +37,10 @@ sub save_ppi_document_to_file {
 
   my $new_content = $document->serialize;
 
-  $CACHE{ md5($new_content) } = $document;
-
   $file->content($new_content);
+
+  $CACHE{ md5($file->encoded_content) } = $document;
+
 }
 
 
@@ -72,7 +73,7 @@ Dist::Zilla::Role::PPI - a role for plugins which use PPI
 
 =head1 VERSION
 
-version 5.000
+version 5.001
 
 =head1 DESCRIPTION
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::File::FromCode;
 {
-  $Dist::Zilla::File::FromCode::VERSION = '5.000'; # TRIAL
+  $Dist::Zilla::File::FromCode::VERSION = '5.001'; # TRIAL
 }
 # ABSTRACT: a file whose content is (re-)built on demand
 use Moose;
@@ -8,6 +8,8 @@ use Moose::Util::TypeConstraints;
 
 use namespace::autoclean;
 
+
+with 'Dist::Zilla::Role::File';
 
 has code => (
   is  => 'rw',
@@ -23,11 +25,19 @@ has code_return_type => (
 );
 
 
+sub encoding;
+
 has encoding => (
-    is => 'ro',
-    isa => 'Str',
-    default => 'UTF-8',
+  is => 'ro',
+  isa => 'Str',
+  lazy => 1,
+  builder => "_build_encoding",
 );
+
+sub _build_encoding {
+  my ($self) = @_;
+  return $self->code_return_type eq 'text' ? 'UTF-8' : 'bytes';
+}
 
 
 sub content {
@@ -63,8 +73,11 @@ sub encoded_content {
   }
 }
 
+around 'added_by' => sub {
+  my ($orig, $self) = @_;
+  return sprintf("%s from coderef set by %s", $self->code_return_type, $self->$orig);
+};
 
-with 'Dist::Zilla::Role::File';
 __PACKAGE__->meta->make_immutable;
 1;
 
@@ -80,7 +93,7 @@ Dist::Zilla::File::FromCode - a file whose content is (re-)built on demand
 
 =head1 VERSION
 
-version 5.000
+version 5.001
 
 =head1 DESCRIPTION
 

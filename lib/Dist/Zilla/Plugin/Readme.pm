@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::Readme;
 {
-  $Dist::Zilla::Plugin::Readme::VERSION = '5.000'; # TRIAL
+  $Dist::Zilla::Plugin::Readme::VERSION = '5.001'; # TRIAL
 }
 # ABSTRACT: build a README file
 use Moose;
@@ -55,7 +55,7 @@ Dist::Zilla::Plugin::Readme - build a README file
 
 =head1 VERSION
 
-version 5.000
+version 5.001
 
 =head1 DESCRIPTION
 

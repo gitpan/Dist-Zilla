@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ModuleBuild;
 {
-  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '5.000'; # TRIAL
+  $Dist::Zilla::Plugin::ModuleBuild::VERSION = '5.001'; # TRIAL
 }
 # ABSTRACT: build a Build.PL that uses Module::Build
 use List::MoreUtils qw(any uniq);
@@ -14,6 +14,7 @@ with (
 
 use namespace::autoclean;
 
+use CPAN::Meta::Requirements 2.121; # requirements_for_module
 use Dist::Zilla::File::InMemory;
 use List::MoreUtils qw(any uniq);
 use Data::Dumper;
@@ -47,17 +48,11 @@ use Module::Build {{ $plugin->mb_version }};
 
 my {{ $module_build_args }}
 
+my {{ $fallback_build_prereqs }}
+
 unless ( eval { Module::Build->VERSION(0.4004) } ) {
-  my $tr = delete $module_build_args{test_requires};
-  my $br = $module_build_args{build_requires};
-  for my $mod ( keys %$tr ) {
-    if ( exists $br->{$mod} ) {
-      $br->{$mod} = $tr->{$mod} if $tr->{$mod} > $br->{$mod};
-    }
-    else {
-      $br->{$mod} = $tr->{$mod};
-    }
-  }
+  delete $module_build_args{test_requires};
+  $module_build_args{build_requires} = \%fallback_build_requires;
 }
 
 my $build = {{ $plugin->mb_class }}->new(%module_build_args);
@@ -74,6 +69,16 @@ sub _use_custom_class {
   else {
     return sprintf "use lib qw{%s}; use $class;", join ' ', split ',', $self->mb_lib;
   }
+}
+
+sub _dump_as {
+  my ($self, $ref, $name) = @_;
+  require Data::Dumper;
+  my $dumper = Data::Dumper->new( [ $ref ], [ $name ] );
+  $dumper->Sortkeys( 1 );
+  $dumper->Indent( 1 );
+  $dumper->Useqq( 1 );
+  return $dumper->Dump;
 }
 
 sub register_prereqs {
@@ -125,6 +130,17 @@ sub module_build_args {
   };
 }
 
+sub fallback_build_requires {
+  my $self = shift;
+  my $prereqs = $self->zilla->prereqs;
+  my $merged = CPAN::Meta::Requirements->new;
+  for my $phase ( qw/build test/ ) {
+    my $req = $prereqs->requirements_for($phase, 'requires');
+    $merged->add_requirements( $req );
+  };
+  return $self->_dump_as( $merged->as_string_hash, '*fallback_build_requires' );
+}
+
 sub setup_installer {
   my ($self, $arg) = @_;
 
@@ -135,19 +151,16 @@ sub setup_installer {
 
   $self->__module_build_args($module_build_args);
 
-  my $module_build_dumper = Data::Dumper->new(
-    [ $module_build_args ],
-    [ '*module_build_args' ],
-  );
-  $module_build_dumper->Sortkeys( 1 );
-  $module_build_dumper->Indent( 1 );
-  $module_build_dumper->Useqq( 1 );
+  my $dumped_args = $self->_dump_as($module_build_args, '*module_build_args');
+
+  my $fallback_build_requires = $self->fallback_build_requires;
 
   my $content = $self->fill_in_string(
     $template,
     {
-      plugin            => \$self,
-      module_build_args => \($module_build_dumper->Dump),
+      plugin                  => \$self,
+      module_build_args       => \$dumped_args,
+      fallback_build_prereqs  => \$fallback_build_requires,
     },
   );
 
@@ -181,7 +194,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 5.000
+version 5.001
 
 =head1 DESCRIPTION
 

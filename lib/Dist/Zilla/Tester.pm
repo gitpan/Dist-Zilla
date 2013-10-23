@@ -1,13 +1,13 @@
 package Dist::Zilla::Tester;
 {
-  $Dist::Zilla::Tester::VERSION = '5.000'; # TRIAL
+  $Dist::Zilla::Tester::VERSION = '5.001'; # TRIAL
 }
 use Moose;
 extends 'Dist::Zilla::Dist::Builder';
 # ABSTRACT: a testing-enabling stand-in for Dist::Zilla
 
 # XXX: Adding this autoclean causes problem.  "Builder" and "Minter" do not
-# show in in tests.  I'm really not sure why. -- rjbs, 2011-08-19
+# show in tests.  I'm really not sure why. -- rjbs, 2011-08-19
 # use namespace::autoclean;
 
 use autodie;
@@ -15,6 +15,7 @@ use Dist::Zilla::Chrome::Test;
 use File::pushd ();
 use File::Spec;
 use File::Temp;
+use Path::Tiny;
 
 use Sub::Exporter::Util ();
 use Sub::Exporter -setup => {
@@ -38,10 +39,9 @@ sub minter { 'Dist::Zilla::Tester::_Minter' }
 {
   package Dist::Zilla::Tester::_Role;
 {
-  $Dist::Zilla::Tester::_Role::VERSION = '5.000'; # TRIAL
+  $Dist::Zilla::Tester::_Role::VERSION = '5.001'; # TRIAL
 }
   use Moose::Role;
-  use Path::Tiny ();
 
   has tempdir => (
     is   => 'ro',
@@ -88,7 +88,7 @@ sub minter { 'Dist::Zilla::Tester::_Minter' }
 {
   package Dist::Zilla::Tester::_Builder;
 {
-  $Dist::Zilla::Tester::_Builder::VERSION = '5.000'; # TRIAL
+  $Dist::Zilla::Tester::_Builder::VERSION = '5.001'; # TRIAL
 }
   use Moose;
   extends 'Dist::Zilla::Dist::Builder';
@@ -130,9 +130,7 @@ sub minter { 'Dist::Zilla::Tester::_Minter' }
       while (my ($name, $content) = each %$files) {
         my $fn = $tempdir->file($name);
         $fn->dir->mkpath;
-        open my $fh, '>:raw:encoding(UTF-8)', $fn;
-        print { $fh } $content;
-        close $fh;
+        Path::Tiny::path($fn)->spew_utf8($content);
       }
     }
 
@@ -180,7 +178,7 @@ sub minter { 'Dist::Zilla::Tester::_Minter' }
 {
   package Dist::Zilla::Tester::_Minter;
 {
-  $Dist::Zilla::Tester::_Minter::VERSION = '5.000'; # TRIAL
+  $Dist::Zilla::Tester::_Minter::VERSION = '5.001'; # TRIAL
 }
   use Moose;
   extends 'Dist::Zilla::Dist::Minter';
@@ -274,7 +272,7 @@ Dist::Zilla::Tester - a testing-enabling stand-in for Dist::Zilla
 
 =head1 VERSION
 
-version 5.000
+version 5.001
 
 =head1 AUTHOR
 

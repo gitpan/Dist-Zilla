@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Util::AuthorDeps;
 {
-  $Dist::Zilla::Util::AuthorDeps::VERSION = '5.000'; # TRIAL
+  $Dist::Zilla::Util::AuthorDeps::VERSION = '5.001'; # TRIAL
 }
 # ABSTRACT: Utils for listing your distribution's author dependencies
 
@@ -32,6 +32,7 @@ sub extract_author_deps {
     unless -e $ini;
 
   my $fh = $ini->openr;
+  binmode($fh, ":encoding(UTF-8)");
 
   require Config::INI::Reader;
   my $config = Config::INI::Reader->read_handle($fh);
@@ -89,8 +90,8 @@ sub extract_author_deps {
 
   # Move inc:: first in list as they may impact the loading of other
   # plugins (in particular local ones).
-  # Also order inc:: so that thoses that want to hack @INC with inc:: plugins
-  # can have a consistant playground.
+  # Also order inc:: so that those that want to hack @INC with inc:: plugins
+  # can have a consistent playground.
   # We don't sort the others packages to preserve the same (random) ordering
   # for the common case (no inc::, no '; authordep') as in previous dzil
   # releases.
@@ -124,7 +125,7 @@ Dist::Zilla::Util::AuthorDeps - Utils for listing your distribution's author dep
 
 =head1 VERSION
 
-version 5.000
+version 5.001
 
 =head1 AUTHOR
 

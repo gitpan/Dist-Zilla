@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::FileMunger;
 {
-  $Dist::Zilla::Role::FileMunger::VERSION = '5.000'; # TRIAL
+  $Dist::Zilla::Role::FileMunger::VERSION = '5.001'; # TRIAL
 }
 # ABSTRACT: something that alters a file's destination or content
 use Moose::Role;
@@ -17,7 +17,8 @@ sub munge_files {
   $self->log_fatal("no munge_file behavior implemented!")
     unless $self->can('munge_file');
 
-  $self->munge_file($_) for $self->zilla->files->flatten;
+  $self->munge_file($_)
+    for grep { $_->encoding ne 'bytes' } $self->zilla->files->flatten;
 }
 
 1;
@@ -34,17 +35,22 @@ Dist::Zilla::Role::FileMunger - something that alters a file's destination or co
 
 =head1 VERSION
 
-version 5.000
+version 5.001
 
 =head1 DESCRIPTION
 
 A FileMunger has an opportunity to mess around with each file that will be
 included in the distribution.  Each FileMunger's C<munge_files> method is
-called once.  By default, this method will just call the C<munge_file> (note
-the missing terminal 's') once for each file.
+called once.  By default, this method will just call the C<munge_file> method
+(note the missing terminal 's') once for each file, excluding files with an
+encoding attribute of 'bytes'.
 
-This method is expected to change attributes about the file before it is
-written out to the built distribution.
+The C<munge_file> method is expected to change attributes about the file before
+it is written out to the built distribution.
+
+If you want to modify all files (including ones with an encoding of 'bytes') or
+want to select a more limited set of files, you can provide your own
+C<munge_files> method.
 
 =head1 AUTHOR
 

@@ -3,6 +3,7 @@ use warnings;
 use utf8;
 use Test::More;
 use Test::Fatal;
+use Test::FailWarnings -allow_deps => 1;
 binmode(Test::More->builder->$_, ":utf8") for qw/output failure_output todo_output/;
 
 use Encode;
@@ -19,11 +20,23 @@ my %sample = (
 
 my $sample              = join("\n", values %sample);
 my $encoded_sample      = encode("UTF-8", $sample);
-my $db_sample          = $sample x 2;
-my $db_encoded_sample  = $encoded_sample x 2;
+my $db_sample           = $sample x 2;
+my $db_encoded_sample   = $encoded_sample x 2;
+my $latin1_dolmen       = encode("latin1", $sample{dolmen});
+
+sub new_args {
+  my (undef, $file, $line) = caller;
+  $file = path($file)->relative;
+  my %args = (
+    name => 'foo.txt',
+    added_by => "$file line $line",
+    @_
+  );
+  return [\%args];
+}
 
 sub test_mutable_roundtrip {
-  my ($obj, $label) = @_;
+  my ($obj) = @_;
 
   ok( $obj->DOES("Dist::Zilla::Role::MutableFile"), "does MutableFile role" );
 
@@ -42,6 +55,27 @@ sub test_mutable_roundtrip {
   is( $obj->content, $sample, "get content");
 }
 
+sub test_content_from_bytes {
+  my ($obj, $source_re) = @_;
+  # assumes object encoded_content is encoded sample
+  is( $obj->encoded_content, $encoded_sample, "get encoded_content" );
+  my $err = exception { $obj->content };
+  like(
+    $err,
+    qr/can't decode text from 'bytes'/i,
+    "get content from bytes should throw error"
+  );
+  like( $err, $source_re, "error shows encoded_content source" );
+}
+
+sub test_latin1 {
+  my ($obj) = @_;
+  # assumes encoded_content is $latin1_dolmen and encoding
+  # is already set to 'latin1"
+  is( $obj->encoded_content, $latin1_dolmen, "get encoded_content" );
+  is( $obj->content, $sample{dolmen}, "get content" );
+}
+
 subtest "OnDisk" => sub {
   my $class = "Dist::Zilla::File::OnDisk";
 
@@ -49,8 +83,28 @@ subtest "OnDisk" => sub {
     my $tempfile = Path::Tiny->tempfile;
 
     ok( $tempfile->spew_utf8($sample), "create UTF-8 encoded tempfile" );
-    my $obj = new_ok( $class, [name => "$tempfile"] );
+    my $obj = new_ok( $class, new_args(name => "$tempfile") );
     test_mutable_roundtrip($obj);
+  };
+
+  subtest "binary file" => sub {
+    my $tempfile = Path::Tiny->tempfile;
+
+    ok( $tempfile->spew_raw($encoded_sample), "create binary tempfile" );
+    my $obj = new_ok( $class, new_args(name => "$tempfile") );
+    ok( $obj->encoding("bytes"), "set encoding to 'bytes'");
+    test_content_from_bytes($obj, qr/encoded_content set by \S+ line \d+/);
+  };
+
+  subtest "latin1 file" => sub {
+    my $tempfile = Path::Tiny->tempfile;
+
+    ok(
+      $tempfile->spew( { binmode => ":encoding(latin1)"}, $sample{dolmen} ),
+      "create latin1 tempfile"
+    );
+    my $obj = new_ok( $class, new_args(name => "$tempfile", encoding => 'latin1') );
+    test_latin1($obj);
   };
 
 };
@@ -59,22 +113,36 @@ subtest "InMemory" => sub {
   my $class = "Dist::Zilla::File::InMemory";
 
   subtest "UTF-8 string" => sub {
-    my $obj = new_ok( $class, [name => "foo.txt", content => $sample] );
+    my $obj = new_ok( $class, new_args(content => $sample) );
     test_mutable_roundtrip($obj);
   };
+
+  subtest "binary string" => sub {
+    my $obj = new_ok( $class, new_args( encoded_content => $encoded_sample ) );
+    ok( $obj->encoding("bytes"), "set encoding to 'bytes'");
+    test_content_from_bytes($obj, qr/encoded_content set by \S+ line \d+/);
+  };
+
+  subtest "latin1 string" => sub {
+    my $obj = new_ok(
+      $class, new_args(encoded_content => $latin1_dolmen, encoding => "latin1")
+    );
+    test_latin1($obj);
+  };
+
 };
 
 subtest "FromCode" => sub {
   my $class = "Dist::Zilla::File::FromCode";
 
   subtest "UTF-8 string" => sub {
-    my $obj = new_ok( $class, [name => "foo.txt", code => sub { $sample } ]);
+    my $obj = new_ok( $class, new_args( code => sub { $sample } ));
     is( $obj->content, $sample, "content" );
     is( $obj->encoded_content, $encoded_sample, "encoded_content" );
   };
 
   subtest "content immutable" => sub {
-    my $obj = new_ok( $class, [name => "foo.txt", code => sub { $sample } ]);
+    my $obj = new_ok( $class, new_args( code => sub { $sample } ));
     like(
       exception { $obj->content($sample) },
       qr/cannot set content/,
@@ -86,6 +154,25 @@ subtest "FromCode" => sub {
       "changing encoded_content should throw error"
     );
   };
+
+  subtest "binary string" => sub {
+    my $obj = new_ok(
+      $class, new_args( code_return_type => 'bytes', code => sub { $encoded_sample } )
+    );
+    test_content_from_bytes($obj, qr/bytes from coderef set by \S+ line \d+/);
+  };
+
+  subtest "latin1 string" => sub {
+    my $obj = new_ok(
+      $class, new_args(
+        code_return_type => 'bytes',
+        code => sub { $latin1_dolmen },
+        encoding => 'latin1',
+      )
+    );
+    test_latin1($obj);
+  };
+
 };
 
 done_testing;

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::FakeRelease;
 {
-  $Dist::Zilla::Plugin::FakeRelease::VERSION = '5.000'; # TRIAL
+  $Dist::Zilla::Plugin::FakeRelease::VERSION = '5.001'; # TRIAL
 }
 # ABSTRACT: fake plugin to test release
 
@@ -44,7 +44,7 @@ Dist::Zilla::Plugin::FakeRelease - fake plugin to test release
 
 =head1 VERSION
 
-version 5.000
+version 5.001
 
 =head1 SYNOPSIS
 

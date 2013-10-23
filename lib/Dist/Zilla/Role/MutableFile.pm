@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::MutableFile;
 {
-  $Dist::Zilla::Role::MutableFile::VERSION = '5.000'; # TRIAL
+  $Dist::Zilla::Role::MutableFile::VERSION = '5.001'; # TRIAL
 }
 # ABSTRACT: something that can act like a file with changeable contents
 use Moose::Role;
@@ -88,14 +88,14 @@ has _content_source => (
 );
 
 sub _update_by {
-    my ($self, $attr, $from) = @_;
-    $self->_content_source($attr);
-    $self->_set_added_by($from);
+  my ($self, $attr, $from) = @_;
+  $self->_content_source($attr);
+  $self->_set_added_by($from);
 }
 
 around 'added_by' => sub {
-    my ($orig, $self) = @_;
-    return sprintf("%s set by %s", $self->_content_source, $self->$orig);
+  my ($orig, $self) = @_;
+  return sprintf("%s set by %s", $self->_content_source, $self->$orig);
 };
 
 # we really only need one of these and only if _content or _encoded_content
@@ -126,7 +126,7 @@ Dist::Zilla::Role::MutableFile - something that can act like a file with changea
 
 =head1 VERSION
 
-version 5.000
+version 5.001
 
 =head1 DESCRIPTION
 
