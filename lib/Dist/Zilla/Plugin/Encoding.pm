@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::Encoding;
 {
-  $Dist::Zilla::Plugin::Encoding::VERSION = '5.001'; # TRIAL
+  $Dist::Zilla::Plugin::Encoding::VERSION = '5.002'; # TRIAL
 }
 # ABSTRACT: set the encoding of arbitrary files
 use Moose;
@@ -74,7 +74,7 @@ Dist::Zilla::Plugin::Encoding - set the encoding of arbitrary files
 
 =head1 VERSION
 
-version 5.001
+version 5.002
 
 =head1 SYNOPSIS
 

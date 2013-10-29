@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ConfirmRelease;
 {
-  $Dist::Zilla::Plugin::ConfirmRelease::VERSION = '5.001'; # TRIAL
+  $Dist::Zilla::Plugin::ConfirmRelease::VERSION = '5.002'; # TRIAL
 }
 use Moose;
 with 'Dist::Zilla::Role::BeforeRelease';
@@ -47,7 +47,7 @@ Dist::Zilla::Plugin::ConfirmRelease - prompt for confirmation before releasing
 
 =head1 VERSION
 
-version 5.001
+version 5.002
 
 =head1 DESCRIPTION
 
