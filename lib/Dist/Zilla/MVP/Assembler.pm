@@ -1,6 +1,6 @@
 package Dist::Zilla::MVP::Assembler;
 {
-  $Dist::Zilla::MVP::Assembler::VERSION = '5.002'; # TRIAL
+  $Dist::Zilla::MVP::Assembler::VERSION = '5.003'; # TRIAL
 }
 use Moose;
 extends 'Config::MVP::Assembler';
@@ -65,7 +65,7 @@ Dist::Zilla::MVP::Assembler - Dist::Zilla-specific subclass of Config::MVP::Asse
 
 =head1 VERSION
 
-version 5.002
+version 5.003
 
 =head1 DESCRIPTION
 

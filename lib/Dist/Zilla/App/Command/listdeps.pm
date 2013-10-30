@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::listdeps;
 {
-  $Dist::Zilla::App::Command::listdeps::VERSION = '5.002'; # TRIAL
+  $Dist::Zilla::App::Command::listdeps::VERSION = '5.003'; # TRIAL
 }
 use Dist::Zilla::App -command;
 # ABSTRACT: print your distribution's prerequisites
@@ -24,7 +24,7 @@ sub prereqs {
 
   $_->before_build for @{ $zilla->plugins_with(-BeforeBuild) };
   $_->gather_files for @{ $zilla->plugins_with(-FileGatherer) };
-  $_->set_file_encodings for @{ $self->plugins_with(-EncodingProvider) };
+  $_->set_file_encodings for @{ $zilla->plugins_with(-EncodingProvider) };
   $_->prune_files  for @{ $zilla->plugins_with(-FilePruner) };
   $_->munge_files  for @{ $zilla->plugins_with(-FileMunger) };
   $_->register_prereqs for @{ $zilla->plugins_with(-PrereqSource) };
@@ -109,7 +109,7 @@ Dist::Zilla::App::Command::listdeps - print your distribution's prerequisites
 
 =head1 VERSION
 
-version 5.002
+version 5.003
 
 =head1 SYNOPSIS
 

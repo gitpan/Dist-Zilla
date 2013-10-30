@@ -25,6 +25,7 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "Dist::Zilla",
   "PREREQ_PM" => {
+    "App::Cmd::Command::version" => 0,
     "App::Cmd::Setup" => "0.309",
     "App::Cmd::Tester" => "0.306",
     "App::Cmd::Tester::CaptureExternal" => 0,
@@ -121,7 +122,7 @@ my %WriteMakefileArgs = (
     "lib" => 0,
     "utf8" => 0
   },
-  "VERSION" => "5.002",
+  "VERSION" => "5.003",
   "test" => {
     "TESTS" => "t/*.t t/commands/*.t t/diagnostics/*.t t/plugins/*.t"
   }
@@ -129,6 +130,7 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
+  "App::Cmd::Command::version" => 0,
   "App::Cmd::Setup" => "0.309",
   "App::Cmd::Tester" => "0.306",
   "App::Cmd::Tester::CaptureExternal" => 0,

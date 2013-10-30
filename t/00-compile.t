@@ -3,7 +3,7 @@ use warnings;
 
 # this test was generated with Dist::Zilla::Plugin::Test::Compile 2.037
 
-use Test::More  tests => 135 + ($ENV{AUTHOR_TESTING} ? 1 : 0);
+use Test::More  tests => 136 + ($ENV{AUTHOR_TESTING} ? 1 : 0);
 
 
 
@@ -24,6 +24,7 @@ my @module_files = (
     'Dist/Zilla/App/Command/setup.pm',
     'Dist/Zilla/App/Command/smoke.pm',
     'Dist/Zilla/App/Command/test.pm',
+    'Dist/Zilla/App/Command/version.pm',
     'Dist/Zilla/App/Tester.pm',
     'Dist/Zilla/Chrome/Term.pm',
     'Dist/Zilla/Chrome/Test.pm',

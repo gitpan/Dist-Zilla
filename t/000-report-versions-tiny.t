@@ -48,6 +48,7 @@ sub pmver {
     return sprintf('%-45s => %-10s%-15s%s', $module, $pmver, $wanted, "\n");
 }
 
+eval { $v .= pmver('App::Cmd::Command::version','any version') };
 eval { $v .= pmver('App::Cmd::Setup','0.309') };
 eval { $v .= pmver('App::Cmd::Tester','0.306') };
 eval { $v .= pmver('App::Cmd::Tester::CaptureExternal','any version') };

@@ -46,6 +46,7 @@ lib/Dist/Zilla/App/Command/run.pm
 lib/Dist/Zilla/App/Command/setup.pm
 lib/Dist/Zilla/App/Command/smoke.pm
 lib/Dist/Zilla/App/Command/test.pm
+lib/Dist/Zilla/App/Command/version.pm
 lib/Dist/Zilla/App/Tester.pm
 lib/Dist/Zilla/Chrome/Term.pm
 lib/Dist/Zilla/Chrome/Test.pm

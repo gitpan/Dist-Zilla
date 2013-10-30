@@ -30,6 +30,7 @@ no_index:
 recommends:
   Term::ReadLine::Gnu: 0
 requires:
+  App::Cmd::Command::version: 0
   App::Cmd::Setup: 0.309
   App::Cmd::Tester: 0.306
   App::Cmd::Tester::CaptureExternal: 0
@@ -119,7 +120,7 @@ resources:
   bugtracker: https://github.com/rjbs/Dist-Zilla/issues
   homepage: http://dzil.org/
   repository: https://github.com/rjbs/Dist-Zilla.git
-version: 5.002
+version: 5.003
 x_Dist_Zilla:
   perl:
     version: 5.019004

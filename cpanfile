@@ -1,3 +1,4 @@
+requires "App::Cmd::Command::version" => "0";
 requires "App::Cmd::Setup" => "0.309";
 requires "App::Cmd::Tester" => "0.306";
 requires "App::Cmd::Tester::CaptureExternal" => "0";
