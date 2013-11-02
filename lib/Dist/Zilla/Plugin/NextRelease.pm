@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::NextRelease;
 {
-  $Dist::Zilla::Plugin::NextRelease::VERSION = '5.003'; # TRIAL
+  $Dist::Zilla::Plugin::NextRelease::VERSION = '5.004';
 }
 # ABSTRACT: update the next release number in your changelog
 
@@ -48,7 +48,7 @@ has time_zone => (
 has format => (
   is  => 'ro',
   isa => 'Str', # should be more validated Later -- rjbs, 2008-06-05
-  default => '%-9v %{yyyy-MM-dd HH:mm:ss VVVV}d',
+  default => '%-9v %{yyyy-MM-dd HH:mm:ss VVVV}d%{ (TRIAL RELEASE)}T',
 );
 
 has filename => (
@@ -146,15 +146,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Dist::Zilla::Plugin::NextRelease - update the next release number in your changelog
 
 =head1 VERSION
 
-version 5.003
+version 5.004
 
 =head1 SYNOPSIS
 

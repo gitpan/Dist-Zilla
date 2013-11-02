@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::nop;
 {
-  $Dist::Zilla::App::Command::nop::VERSION = '5.003'; # TRIAL
+  $Dist::Zilla::App::Command::nop::VERSION = '5.004';
 }
 # ABSTRACT: initialize dzil, then exit
 use Dist::Zilla::App -command;
@@ -22,15 +22,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Dist::Zilla::App::Command::nop - initialize dzil, then exit
 
 =head1 VERSION
 
-version 5.003
+version 5.004
 
 =head1 SYNOPSIS
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MakeMaker;
 {
-  $Dist::Zilla::Plugin::MakeMaker::VERSION = '5.003'; # TRIAL
+  $Dist::Zilla::Plugin::MakeMaker::VERSION = '5.004';
 }
 
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
@@ -263,15 +263,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMaker
 
 =head1 VERSION
 
-version 5.003
+version 5.004
 
 =head1 DESCRIPTION
 

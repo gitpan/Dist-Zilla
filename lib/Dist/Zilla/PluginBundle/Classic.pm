@@ -1,6 +1,6 @@
 package Dist::Zilla::PluginBundle::Classic;
 {
-  $Dist::Zilla::PluginBundle::Classic::VERSION = '5.003'; # TRIAL
+  $Dist::Zilla::PluginBundle::Classic::VERSION = '5.004';
 }
 # ABSTRACT: the classic (old) default configuration for Dist::Zilla
 use Moose;
@@ -41,15 +41,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Dist::Zilla::PluginBundle::Classic - the classic (old) default configuration for Dist::Zilla
 
 =head1 VERSION
 
-version 5.003
+version 5.004
 
 =head1 DESCRIPTION
 

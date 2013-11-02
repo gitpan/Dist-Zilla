@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ManifestSkip;
 {
-  $Dist::Zilla::Plugin::ManifestSkip::VERSION = '5.003'; # TRIAL
+  $Dist::Zilla::Plugin::ManifestSkip::VERSION = '5.004';
 }
 # ABSTRACT: decline to build files that appear in a MANIFEST.SKIP-like file
 use Moose;
@@ -61,15 +61,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Dist::Zilla::Plugin::ManifestSkip - decline to build files that appear in a MANIFEST.SKIP-like file
 
 =head1 VERSION
 
-version 5.003
+version 5.004
 
 =head1 DESCRIPTION
 

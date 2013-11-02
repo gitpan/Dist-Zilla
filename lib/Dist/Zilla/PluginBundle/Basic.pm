@@ -1,6 +1,6 @@
 package Dist::Zilla::PluginBundle::Basic;
 {
-  $Dist::Zilla::PluginBundle::Basic::VERSION = '5.003'; # TRIAL
+  $Dist::Zilla::PluginBundle::Basic::VERSION = '5.004';
 }
 # ABSTRACT: the basic plugins to maintain and release CPAN dists
 use Moose;
@@ -38,15 +38,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Dist::Zilla::PluginBundle::Basic - the basic plugins to maintain and release CPAN dists
 
 =head1 VERSION
 
-version 5.003
+version 5.004
 
 =head1 DESCRIPTION
 

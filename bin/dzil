@@ -15,15 +15,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 dzil - do stuff with your dist
 
 =head1 VERSION
 
-version 5.003
+version 5.004
 
 =head1 OVERVIEW
 

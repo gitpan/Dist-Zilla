@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::CPANFile;
 {
-  $Dist::Zilla::Plugin::CPANFile::VERSION = '5.003'; # TRIAL
+  $Dist::Zilla::Plugin::CPANFile::VERSION = '5.004';
 }
 # ABSTRACT: produce a cpanfile prereqs file
 use Moose;
@@ -73,15 +73,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Dist::Zilla::Plugin::CPANFile - produce a cpanfile prereqs file
 
 =head1 VERSION
 
-version 5.003
+version 5.004
 
 =head1 DESCRIPTION
 

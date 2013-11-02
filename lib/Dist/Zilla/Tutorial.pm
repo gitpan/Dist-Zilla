@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Tutorial;
 {
-  $Dist::Zilla::Tutorial::VERSION = '5.003'; # TRIAL
+  $Dist::Zilla::Tutorial::VERSION = '5.004';
 }
 # ABSTRACT: how to use this "Dist::Zilla" thing
 use Carp ();
@@ -13,15 +13,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Dist::Zilla::Tutorial - how to use this "Dist::Zilla" thing
 
 =head1 VERSION
 
-version 5.003
+version 5.004
 
 =head1 SYNOPSIS
 

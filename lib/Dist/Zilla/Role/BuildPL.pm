@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::BuildPL;
 {
-  $Dist::Zilla::Role::BuildPL::VERSION = '5.003'; # TRIAL
+  $Dist::Zilla::Role::BuildPL::VERSION = '5.004';
 }
 use Moose::Role;
 
@@ -39,15 +39,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Dist::Zilla::Role::BuildPL - Common ground for Build.PL based builders
 
 =head1 VERSION
 
-version 5.003
+version 5.004
 
 =head1 DESCRIPTION
 

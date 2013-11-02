@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PodCoverageTests;
 {
-  $Dist::Zilla::Plugin::PodCoverageTests::VERSION = '5.003'; # TRIAL
+  $Dist::Zilla::Plugin::PodCoverageTests::VERSION = '5.004';
 }
 # ABSTRACT: a release test for Pod coverage
 use Moose;
@@ -30,15 +30,13 @@ __PACKAGE__->meta->make_immutable;
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Dist::Zilla::Plugin::PodCoverageTests - a release test for Pod coverage
 
 =head1 VERSION
 
-version 5.003
+version 5.004
 
 =head1 DESCRIPTION
 

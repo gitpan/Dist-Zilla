@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PruneCruft;
 {
-  $Dist::Zilla::Plugin::PruneCruft::VERSION = '5.003'; # TRIAL
+  $Dist::Zilla::Plugin::PruneCruft::VERSION = '5.004';
 }
 # ABSTRACT: prune stuff that you probably don't mean to include
 use Moose;
@@ -75,15 +75,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Dist::Zilla::Plugin::PruneCruft - prune stuff that you probably don't mean to include
 
 =head1 VERSION
 
-version 5.003
+version 5.004
 
 =head1 SYNOPSIS
 

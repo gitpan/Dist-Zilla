@@ -1,6 +1,6 @@
 package Dist::Zilla;
 {
-  $Dist::Zilla::VERSION = '5.003'; # TRIAL
+  $Dist::Zilla::VERSION = '5.004';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
@@ -551,15 +551,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 5.003
+version 5.004
 
 =head1 DESCRIPTION
 

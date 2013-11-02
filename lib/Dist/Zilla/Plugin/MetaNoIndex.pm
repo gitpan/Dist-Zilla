@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaNoIndex;
 {
-  $Dist::Zilla::Plugin::MetaNoIndex::VERSION = '5.003'; # TRIAL
+  $Dist::Zilla::Plugin::MetaNoIndex::VERSION = '5.004';
 }
 # ABSTRACT: Stop CPAN from indexing stuff
 
@@ -59,15 +59,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Dist::Zilla::Plugin::MetaNoIndex - Stop CPAN from indexing stuff
 
 =head1 VERSION
 
-version 5.003
+version 5.004
 
 =head1 SYNOPSIS
 
@@ -126,6 +124,8 @@ under it like C<My::Package::Foo>.
 =head2 metadata
 
 Returns a reference to a hash containing the distribution's no_index metadata.
+
+=encoding utf8
 
 =for Pod::Coverage mvp_aliases mvp_multivalue_args
 

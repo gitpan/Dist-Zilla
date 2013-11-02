@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoPrereq;
 {
-  $Dist::Zilla::Plugin::AutoPrereq::VERSION = '5.003'; # TRIAL
+  $Dist::Zilla::Plugin::AutoPrereq::VERSION = '5.004';
 }
 use Moose;
 extends 'Dist::Zilla::Plugin::AutoPrereqs';
@@ -22,15 +22,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Dist::Zilla::Plugin::AutoPrereq - (DEPRECATED) the old name for Dist::Zilla::Plugin::AutoPrereqs
 
 =head1 VERSION
 
-version 5.003
+version 5.004
 
 =head1 SEE ALSO
 

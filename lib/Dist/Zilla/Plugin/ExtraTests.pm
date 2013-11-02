@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ExtraTests;
 {
-  $Dist::Zilla::Plugin::ExtraTests::VERSION = '5.003'; # TRIAL
+  $Dist::Zilla::Plugin::ExtraTests::VERSION = '5.004';
 }
 # ABSTRACT: rewrite ./xt tests to ./t tests with skips
 use Moose;
@@ -63,15 +63,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Dist::Zilla::Plugin::ExtraTests - rewrite ./xt tests to ./t tests with skips
 
 =head1 VERSION
 
-version 5.003
+version 5.004
 
 =head1 DESCRIPTION
 

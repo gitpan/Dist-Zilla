@@ -1,6 +1,6 @@
 package Dist::Zilla::File::FromCode;
 {
-  $Dist::Zilla::File::FromCode::VERSION = '5.003'; # TRIAL
+  $Dist::Zilla::File::FromCode::VERSION = '5.004';
 }
 # ABSTRACT: a file whose content is (re-)built on demand
 use Moose;
@@ -85,15 +85,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Dist::Zilla::File::FromCode - a file whose content is (re-)built on demand
 
 =head1 VERSION
 
-version 5.003
+version 5.004
 
 =head1 DESCRIPTION
 

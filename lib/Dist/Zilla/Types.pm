@@ -1,6 +1,6 @@
 package Dist::Zilla::Types;
 {
-  $Dist::Zilla::Types::VERSION = '5.003'; # TRIAL
+  $Dist::Zilla::Types::VERSION = '5.004';
 }
 # ABSTRACT: dzil-specific type library
 
@@ -24,15 +24,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Dist::Zilla::Types - dzil-specific type library
 
 =head1 VERSION
 
-version 5.003
+version 5.004
 
 =head1 OVERVIEW
 

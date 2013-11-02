@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::clean;
 {
-  $Dist::Zilla::App::Command::clean::VERSION = '5.003'; # TRIAL
+  $Dist::Zilla::App::Command::clean::VERSION = '5.004';
 }
 # ABSTRACT: clean up after build, test, or install
 use Dist::Zilla::App -command;
@@ -27,15 +27,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Dist::Zilla::App::Command::clean - clean up after build, test, or install
 
 =head1 VERSION
 
-version 5.003
+version 5.004
 
 =head1 SYNOPSIS
 

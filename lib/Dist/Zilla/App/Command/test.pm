@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::test;
 {
-  $Dist::Zilla::App::Command::test::VERSION = '5.003'; # TRIAL
+  $Dist::Zilla::App::Command::test::VERSION = '5.004';
 }
 # ABSTRACT: test your dist
 use Dist::Zilla::App -command;
@@ -34,15 +34,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Dist::Zilla::App::Command::test - test your dist
 
 =head1 VERSION
 
-version 5.003
+version 5.004
 
 =head1 SYNOPSIS
 
