@@ -86,9 +86,6 @@ requires "warnings" => "0";
 recommends "Term::ReadLine::Gnu" => "0";
 
 on 'test' => sub {
-  requires "File::Spec" => "0";
-  requires "IO::Handle" => "0";
-  requires "IPC::Open3" => "0";
   requires "Software::License::None" => "0";
   requires "Test::FailWarnings" => "0";
   requires "Test::Fatal" => "0";

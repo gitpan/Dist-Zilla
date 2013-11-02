@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 {
-  $Dist::Zilla::Dist::Builder::VERSION = '5.004';
+  $Dist::Zilla::Dist::Builder::VERSION = '5.005';
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -239,7 +239,7 @@ Required plugin$bundle $package isn't installed.
 Run 'dzil authordeps' to see a list of all required plugins.
 You can pipe the list to your CPAN client to install or update them:
 
-    dzil authordeps | cpanm
+    dzil authordeps --missing | cpanm
 
 END_DIE
 
@@ -526,9 +526,13 @@ sub install {
     $self->log($@);
     $self->log("left failed dist in place at $target");
   } else {
-    $self->log("all's well; removing $target");
-    $target->rmtree;
-    $latest->remove if $latest;
+    if ($arg->{keep_build_dir}) {
+      $self->log("all's well; left dist in place at $target");
+    } else {
+      $self->log("all's well; removing $target");
+      $target->rmtree;
+      $latest->remove if $latest;
+    }
   }
 
   return;
@@ -536,13 +540,18 @@ sub install {
 
 
 sub test {
-  my ($self) = @_;
+  my ($self, $arg) = @_;
 
   Carp::croak("you can't test without any TestRunner plugins")
     unless my @testers = $self->plugins_with(-TestRunner)->flatten;
 
   my ($target, $latest) = $self->ensure_built_in_tmpdir;
   my $error  = $self->run_tests_in($target);
+
+  if ($arg and $arg->{keep_build_dir}) {
+    $self->log("all's well; left dist in place at $target");
+    return;
+  }
 
   $self->log("all's well; removing $target");
   $target->rmtree;
@@ -618,7 +627,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 5.004
+version 5.005
 
 =head1 ATTRIBUTES
 
@@ -725,6 +734,8 @@ subdir and an installer will be run.
 
 Valid arguments are:
 
+  keep_build_dir  - if true, don't rmtree the build dir, even if everything
+                    seemed to work
   install_command - the command to run in the subdir to install the dist
                     default (roughly): $^X -MCPAN -einstall .
 
@@ -732,10 +743,15 @@ Valid arguments are:
 
 =head2 test
 
-  $zilla->test;
+  $zilla->test(\%arg);
 
 This method builds a new copy of the distribution and tests it using
 C<L</run_tests_in>>.
+
+C<\%arg> may be omitted.  Otherwise, valid arguments are:
+
+  keep_build_dir  - if true, don't rmtree the build dir, even if everything
+                    seemed to work
 
 =head2 run_tests_in
 

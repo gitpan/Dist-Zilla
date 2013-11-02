@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Util::AuthorDeps;
 {
-  $Dist::Zilla::Util::AuthorDeps::VERSION = '5.004';
+  $Dist::Zilla::Util::AuthorDeps::VERSION = '5.005';
 }
 # ABSTRACT: Utils for listing your distribution's author dependencies
 
@@ -123,7 +123,7 @@ Dist::Zilla::Util::AuthorDeps - Utils for listing your distribution's author dep
 
 =head1 VERSION
 
-version 5.004
+version 5.005
 
 =head1 AUTHOR
 

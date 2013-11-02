@@ -111,9 +111,6 @@ my %WriteMakefileArgs = (
     "warnings" => 0
   },
   "TEST_REQUIRES" => {
-    "File::Spec" => 0,
-    "IO::Handle" => 0,
-    "IPC::Open3" => 0,
     "Software::License::None" => 0,
     "Test::FailWarnings" => 0,
     "Test::Fatal" => 0,
@@ -122,7 +119,7 @@ my %WriteMakefileArgs = (
     "lib" => 0,
     "utf8" => 0
   },
-  "VERSION" => "5.004",
+  "VERSION" => "5.005",
   "test" => {
     "TESTS" => "t/*.t t/commands/*.t t/diagnostics/*.t t/plugins/*.t"
   }
@@ -166,8 +163,6 @@ my %FallbackPrereqs = (
   "File::Temp" => 0,
   "File::pushd" => 0,
   "Hash::Merge::Simple" => 0,
-  "IO::Handle" => 0,
-  "IPC::Open3" => 0,
   "JSON" => 2,
   "List::AllUtils" => 0,
   "List::MoreUtils" => 0,

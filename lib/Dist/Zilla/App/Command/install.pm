@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::install;
 {
-  $Dist::Zilla::App::Command::install::VERSION = '5.004';
+  $Dist::Zilla::App::Command::install::VERSION = '5.005';
 }
 # ABSTRACT: install your dist
 use Dist::Zilla::App -command;
@@ -12,6 +12,7 @@ sub abstract { 'install your dist' }
 
 sub opt_spec {
   [ 'install-command=s', 'command to run to install (e.g. "cpan .")' ],
+  [ 'keep-build-dir|keep' => 'keep the build directory even after a success' ],
 }
 
 
@@ -21,6 +22,9 @@ sub execute {
   $self->zilla->install({
     $opt->install_command
       ? (install_command => [ $opt->install_command ])
+      : (),
+    $opt->keep_build_dir
+      ? (keep_build_dir => 1)
       : (),
   });
 }
@@ -37,7 +41,7 @@ Dist::Zilla::App::Command::install - install your dist
 
 =head1 VERSION
 
-version 5.004
+version 5.005
 
 =head1 SYNOPSIS
 

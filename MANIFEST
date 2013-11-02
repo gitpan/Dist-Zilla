@@ -172,7 +172,6 @@ misc/lib/Dist/Zilla/App/Command/gconf.pm
 misc/lib/Dist/Zilla/App/Command/input.pm
 profiles/default/extra-dist.ini
 profiles/default/profile.ini
-t/00-compile.t
 t/000-report-versions-tiny.t
 t/commands/authordeps.t
 t/compile.t

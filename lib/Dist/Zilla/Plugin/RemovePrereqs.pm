@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::RemovePrereqs;
 {
-  $Dist::Zilla::Plugin::RemovePrereqs::VERSION = '5.004';
+  $Dist::Zilla::Plugin::RemovePrereqs::VERSION = '5.005';
 }
 # ABSTRACT: a plugin to remove gathered prereqs
 use Moose;
@@ -69,7 +69,7 @@ Dist::Zilla::Plugin::RemovePrereqs - a plugin to remove gathered prereqs
 
 =head1 VERSION
 
-version 5.004
+version 5.005
 
 =head1 SYNOPSIS
 
