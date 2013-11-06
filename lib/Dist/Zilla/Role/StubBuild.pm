@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::StubBuild;
 {
-  $Dist::Zilla::Role::StubBuild::VERSION = '5.005';
+  $Dist::Zilla::Role::StubBuild::VERSION = '5.006';
 }
 # ABSTRACT: provides an empty BUILD methods
 
@@ -20,7 +20,7 @@ Dist::Zilla::Role::StubBuild - provides an empty BUILD methods
 
 =head1 VERSION
 
-version 5.005
+version 5.006
 
 =head1 AUTHOR
 

@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Test::DZil;
 {
-  $Test::DZil::VERSION = '5.005';
+  $Test::DZil::VERSION = '5.006';
 }
 # ABSTRACT: tools for testing Dist::Zilla plugins
 
@@ -142,7 +142,7 @@ Test::DZil - tools for testing Dist::Zilla plugins
 
 =head1 VERSION
 
-version 5.005
+version 5.006
 
 =head1 DESCRIPTION
 

@@ -11,6 +11,7 @@ corpus/dist/AutoPrereqs/bin/foobar
 corpus/dist/AutoPrereqs/dist.ini
 corpus/dist/AutoPrereqs/lib/DZPA/Empty.pm
 corpus/dist/AutoPrereqs/lib/DZPA/Main.pm
+corpus/dist/AutoPrereqs/t/data.bin
 corpus/dist/DZ-NonAscii/Changes
 corpus/dist/DZ-NonAscii/dist.ini
 corpus/dist/DZ-NonAscii/lib/DZ1.pm

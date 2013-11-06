@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::PPI;
 {
-  $Dist::Zilla::Role::PPI::VERSION = '5.005';
+  $Dist::Zilla::Role::PPI::VERSION = '5.006';
 }
 # ABSTRACT: a role for plugins which use PPI
 use Moose::Role;
@@ -71,7 +71,7 @@ Dist::Zilla::Role::PPI - a role for plugins which use PPI
 
 =head1 VERSION
 
-version 5.005
+version 5.006
 
 =head1 DESCRIPTION
 

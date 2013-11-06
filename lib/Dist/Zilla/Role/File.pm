@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::File;
 {
-  $Dist::Zilla::Role::File::VERSION = '5.005';
+  $Dist::Zilla::Role::File::VERSION = '5.006';
 }
 # ABSTRACT: something that can act like a file
 use Moose::Role;
@@ -43,10 +43,16 @@ requires 'encoding';
 requires 'content';
 requires 'encoded_content';
 
+
+sub is_bytes {
+    my ($self) = @_;
+    return $self->encoding eq 'bytes';
+}
+
 sub _encode {
   my ($self, $text) = @_;
   my $enc = $self->encoding;
-  if ( $enc eq 'bytes' ) {
+  if ( $self->is_bytes ) {
     return $text; # XXX hope you were right that it really was bytes
   }
   else {
@@ -61,7 +67,7 @@ sub _encode {
 sub _decode {
   my ($self, $bytes) = @_;
   my $enc = $self->encoding;
-  if ( $enc eq 'bytes' ) {
+  if ( $self->is_bytes ) {
     $self->_throw(decode => "Can't decode text from 'bytes' encoding");
   }
   else {
@@ -93,7 +99,7 @@ Dist::Zilla::Role::File - something that can act like a file
 
 =head1 VERSION
 
-version 5.005
+version 5.006
 
 =head1 DESCRIPTION
 
@@ -115,6 +121,13 @@ L<FileInjector|Dist::Zilla::Role::FileInjector> role.
 
 This is the mode with which the file should be written out.  It's an integer
 with the usual C<chmod> semantics.  It defaults to 0644.
+
+=head1 METHODS
+
+=head2 is_bytes
+
+Returns true if the C<encoding> is bytes.  When true, accessing
+C<content> will be an error.
 
 =head1 AUTHOR
 

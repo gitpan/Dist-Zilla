@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::GatherDir;
 {
-  $Dist::Zilla::Plugin::GatherDir::VERSION = '5.005';
+  $Dist::Zilla::Plugin::GatherDir::VERSION = '5.006';
 }
 # ABSTRACT: gather all the files in a directory
 use Moose;
@@ -125,7 +125,7 @@ Dist::Zilla::Plugin::GatherDir - gather all the files in a directory
 
 =head1 VERSION
 
-version 5.005
+version 5.006
 
 =head1 DESCRIPTION
 

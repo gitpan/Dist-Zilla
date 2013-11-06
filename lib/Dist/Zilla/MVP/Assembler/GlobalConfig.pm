@@ -1,6 +1,6 @@
 package Dist::Zilla::MVP::Assembler::GlobalConfig;
 {
-  $Dist::Zilla::MVP::Assembler::GlobalConfig::VERSION = '5.005';
+  $Dist::Zilla::MVP::Assembler::GlobalConfig::VERSION = '5.006';
 }
 use Moose;
 extends 'Dist::Zilla::MVP::Assembler';
@@ -40,7 +40,7 @@ Dist::Zilla::MVP::Assembler::GlobalConfig - Dist::Zilla::MVP::Assembler for glob
 
 =head1 VERSION
 
-version 5.005
+version 5.006
 
 =head1 OVERVIEW
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::ExecFiles;
 {
-  $Dist::Zilla::Role::ExecFiles::VERSION = '5.005';
+  $Dist::Zilla::Role::ExecFiles::VERSION = '5.006';
 }
 # ABSTRACT: something that finds files to install as executables
 use Moose::Role;
@@ -29,7 +29,7 @@ Dist::Zilla::Role::ExecFiles - something that finds files to install as executab
 
 =head1 VERSION
 
-version 5.005
+version 5.006
 
 =head1 AUTHOR
 

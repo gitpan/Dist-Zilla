@@ -149,7 +149,7 @@
       },
       "x_mailing_list" : "http://www.listbox.com/subscribe/?list_id=139292"
    },
-   "version" : "5.005",
+   "version" : "5.006",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.019005"
@@ -173,12 +173,12 @@
          {
             "class" : "Dist::Zilla::Plugin::PromptIfStale",
             "name" : "@Filter/RJBS-Outdated",
-            "version" : "0.008"
+            "version" : "0.009"
          },
          {
             "class" : "Dist::Zilla::Plugin::PromptIfStale",
             "name" : "@Filter/CPAN-Outdated",
-            "version" : "0.008"
+            "version" : "0.009"
          },
          {
             "class" : "Dist::Zilla::Plugin::PruneCruft",

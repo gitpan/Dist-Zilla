@@ -1,5 +1,10 @@
 Revision history for Dist-Zilla
 
+5.006     2013-11-06 09:21:12 America/New_York
+        - add ->is_bytes to files; shortcut for ->encoding eq 'bytes'
+          (thanks, David Golden)
+        - AutoPrereqs will not try scanning binary files (thanks, David Golden)
+
 5.005     2013-11-02 16:32:04 America/New_York
         - add --keep-build-dir to "dzil test" and "dzil install"
 

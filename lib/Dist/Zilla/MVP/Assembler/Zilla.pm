@@ -1,6 +1,6 @@
 package Dist::Zilla::MVP::Assembler::Zilla;
 {
-  $Dist::Zilla::MVP::Assembler::Zilla::VERSION = '5.005';
+  $Dist::Zilla::MVP::Assembler::Zilla::VERSION = '5.006';
 }
 use Moose;
 extends 'Dist::Zilla::MVP::Assembler';
@@ -54,7 +54,7 @@ Dist::Zilla::MVP::Assembler::Zilla - Dist::Zilla::MVP::Assembler for the Dist::Z
 
 =head1 VERSION
 
-version 5.005
+version 5.006
 
 =head1 OVERVIEW
 

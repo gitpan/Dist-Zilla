@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::MutableFile;
 {
-  $Dist::Zilla::Role::MutableFile::VERSION = '5.005';
+  $Dist::Zilla::Role::MutableFile::VERSION = '5.006';
 }
 # ABSTRACT: something that can act like a file with changeable contents
 use Moose::Role;
@@ -124,7 +124,7 @@ Dist::Zilla::Role::MutableFile - something that can act like a file with changea
 
 =head1 VERSION
 
-version 5.005
+version 5.006
 
 =head1 DESCRIPTION
 

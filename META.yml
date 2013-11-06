@@ -117,7 +117,7 @@ resources:
   bugtracker: https://github.com/rjbs/Dist-Zilla/issues
   homepage: http://dzil.org/
   repository: https://github.com/rjbs/Dist-Zilla.git
-version: 5.005
+version: 5.006
 x_Dist_Zilla:
   perl:
     version: 5.019005
@@ -137,11 +137,11 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::PromptIfStale
       name: '@Filter/RJBS-Outdated'
-      version: 0.008
+      version: 0.009
     -
       class: Dist::Zilla::Plugin::PromptIfStale
       name: '@Filter/CPAN-Outdated'
-      version: 0.008
+      version: 0.009
     -
       class: Dist::Zilla::Plugin::PruneCruft
       name: '@Filter/@Filter/PruneCruft'

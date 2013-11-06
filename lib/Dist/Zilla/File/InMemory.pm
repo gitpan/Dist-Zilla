@@ -1,6 +1,6 @@
 package Dist::Zilla::File::InMemory;
 {
-  $Dist::Zilla::File::InMemory::VERSION = '5.005';
+  $Dist::Zilla::File::InMemory::VERSION = '5.006';
 }
 # ABSTRACT: a file that you build entirely in memory
 use Moose;
@@ -43,7 +43,7 @@ Dist::Zilla::File::InMemory - a file that you build entirely in memory
 
 =head1 VERSION
 
-version 5.005
+version 5.006
 
 =head1 DESCRIPTION
 
