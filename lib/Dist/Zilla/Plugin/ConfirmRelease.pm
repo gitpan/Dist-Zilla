@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ConfirmRelease;
 {
-  $Dist::Zilla::Plugin::ConfirmRelease::VERSION = '5.006';
+  $Dist::Zilla::Plugin::ConfirmRelease::VERSION = '5.007';
 }
 use Moose;
 with 'Dist::Zilla::Role::BeforeRelease';
@@ -17,8 +17,8 @@ sub before_release {
                   map {; $_->plugin_name }
                   $self->zilla->plugins_with(-Releaser)->flatten;
 
-  my $prompt = "*** Preparing to release $tgz with $releasers ***\n"
-             . "Do you want to continue the release process?";
+  $self->log("*** Preparing to release $tgz with $releasers ***");
+  my $prompt = "Do you want to continue the release process?";
 
   my $default = exists $ENV{DZIL_CONFIRMRELEASE_DEFAULT}
               ? $ENV{DZIL_CONFIRMRELEASE_DEFAULT}
@@ -39,13 +39,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Plugin::ConfirmRelease - prompt for confirmation before releasing
 
 =head1 VERSION
 
-version 5.006
+version 5.007
 
 =head1 DESCRIPTION
 

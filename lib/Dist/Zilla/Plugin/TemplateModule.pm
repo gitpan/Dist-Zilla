@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::TemplateModule;
 {
-  $Dist::Zilla::Plugin::TemplateModule::VERSION = '5.006';
+  $Dist::Zilla::Plugin::TemplateModule::VERSION = '5.007';
 }
 # ABSTRACT: a simple module-from-template plugin
 use Moose;
@@ -59,13 +59,15 @@ __PACKAGE__->meta->make_immutable;
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Plugin::TemplateModule - a simple module-from-template plugin
 
 =head1 VERSION
 
-version 5.006
+version 5.007
 
 =head1 DESCRIPTION
 

@@ -53,6 +53,7 @@ eval { $v .= pmver('App::Cmd::Setup','0.309') };
 eval { $v .= pmver('App::Cmd::Tester','0.306') };
 eval { $v .= pmver('App::Cmd::Tester::CaptureExternal','any version') };
 eval { $v .= pmver('Archive::Tar','any version') };
+eval { $v .= pmver('Archive::Tar::Wrapper','0.15') };
 eval { $v .= pmver('CPAN::Meta::Converter','2.101550') };
 eval { $v .= pmver('CPAN::Meta::Prereqs','2.120630') };
 eval { $v .= pmver('CPAN::Meta::Requirements','2.121') };

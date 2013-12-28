@@ -1,6 +1,6 @@
 package Dist::Zilla::MVP::Section;
 {
-  $Dist::Zilla::MVP::Section::VERSION = '5.006';
+  $Dist::Zilla::MVP::Section::VERSION = '5.007';
 }
 use Moose;
 extends 'Config::MVP::Section';
@@ -45,13 +45,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::MVP::Section - a standard section in Dist::Zilla's configuration sequence
 
 =head1 VERSION
 
-version 5.006
+version 5.007
 
 =head1 AUTHOR
 

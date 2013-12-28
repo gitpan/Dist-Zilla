@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PodVersion;
 {
-  $Dist::Zilla::Plugin::PodVersion::VERSION = '5.006';
+  $Dist::Zilla::Plugin::PodVersion::VERSION = '5.007';
 }
 # ABSTRACT: add a VERSION head1 to each Perl document
 use Moose;
@@ -43,7 +43,7 @@ sub munge_pod {
     $_++; # move past the =head1 line itself
     $_++ while $content[$_] =~ /^\s*$/;
 
-    $_++; # move past the line with the abstract
+    $_++ while $content[$_] !~ /^\s*$/; # move past the abstract
     $_++ while $content[$_] =~ /^\s*$/;
 
     splice @content, $_ - 1, 0, (
@@ -74,13 +74,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Plugin::PodVersion - add a VERSION head1 to each Perl document
 
 =head1 VERSION
 
-version 5.006
+version 5.007
 
 =head1 DESCRIPTION
 

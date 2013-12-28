@@ -3,7 +3,7 @@ use warnings;
 
 package Dist::Zilla::App::Command::version;
 {
-  $Dist::Zilla::App::Command::version::VERSION = '5.006';
+  $Dist::Zilla::App::Command::version::VERSION = '5.007';
 }
 use Dist::Zilla::App -command;
 use Moose;
@@ -25,13 +25,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::App::Command::version - display dzil's version
 
 =head1 VERSION
 
-version 5.006
+version 5.007
 
 =head1 SYNOPSIS
 

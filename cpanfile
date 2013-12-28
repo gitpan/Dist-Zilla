@@ -83,6 +83,7 @@ requires "perl" => "v5.8.5";
 requires "strict" => "0";
 requires "version" => "0";
 requires "warnings" => "0";
+recommends "Archive::Tar::Wrapper" => "0.15";
 recommends "Term::ReadLine::Gnu" => "0";
 
 on 'test' => sub {

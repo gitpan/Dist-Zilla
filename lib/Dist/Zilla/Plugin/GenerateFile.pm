@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::GenerateFile;
 {
-  $Dist::Zilla::Plugin::GenerateFile::VERSION = '5.006';
+  $Dist::Zilla::Plugin::GenerateFile::VERSION = '5.007';
 }
 # ABSTRACT: build a custom file from only the plugin configuration
 use Moose;
@@ -102,20 +102,22 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Plugin::GenerateFile - build a custom file from only the plugin configuration
 
 =head1 VERSION
 
-version 5.006
+version 5.007
 
 =head1 SYNOPSIS
 
 In your F<dist.ini>:
 
   [GenerateFile]
-  filename    = todo/{{ $dist->name =~ s/::/-/r }}_master-plan.txt
+  filename    = todo/{{ $dist->name }}-master-plan.txt
   name_is_template = 1
   content_is_template = 1
   content = # Outlines the plan for world domination by {{$dist->name}}

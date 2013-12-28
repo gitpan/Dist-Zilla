@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::FileFinderUser;
 {
-  $Dist::Zilla::Role::FileFinderUser::VERSION = '5.006';
+  $Dist::Zilla::Role::FileFinderUser::VERSION = '5.007';
 }
 # ABSTRACT: something that uses FileFinder plugins
 use MooseX::Role::Parameterized;
@@ -79,13 +79,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Role::FileFinderUser - something that uses FileFinder plugins
 
 =head1 VERSION
 
-version 5.006
+version 5.007
 
 =head1 DESCRIPTION
 
@@ -150,7 +152,15 @@ L<Dist::Zilla::Plugin::ExecDir> plugin to mark those files as executables.
 =item :ShareFiles
 
 Searches your ShareDir directory and lists the files in it.
-Hint: Use the L<Dist::Zilla::Plugin::ShareDir> plugin to setup the sharedir.
+Hint: Use the L<Dist::Zilla::Plugin::ShareDir> plugin to set up the sharedir.
+
+=item :All
+
+Returns all files in the distribution.
+
+=item :None
+
+Returns nothing.
 
 =back
 

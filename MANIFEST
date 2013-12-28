@@ -26,6 +26,7 @@ corpus/dist/DZT_Inc/Foo.pm
 corpus/dist/DZT_Inc/Foo/Bar.pm
 corpus/dist/DZT_NoPm/lib/DZT/Sample.pod
 corpus/dist/DZT_NoPm/t/basic.t
+corpus/dist/DZT_Share/my_data.dat
 corpus/extra/subdir/index.html
 corpus/extra/vader.txt
 corpus/global/config.ini

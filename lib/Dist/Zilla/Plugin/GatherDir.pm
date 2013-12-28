@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::GatherDir;
 {
-  $Dist::Zilla::Plugin::GatherDir::VERSION = '5.006';
+  $Dist::Zilla::Plugin::GatherDir::VERSION = '5.007';
 }
 # ABSTRACT: gather all the files in a directory
 use Moose;
@@ -119,13 +119,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Plugin::GatherDir - gather all the files in a directory
 
 =head1 VERSION
 
-version 5.006
+version 5.007
 
 =head1 DESCRIPTION
 
@@ -162,7 +164,7 @@ configuration file is located.
 
 =head2 prefix
 
-This parameter can be set to gather all the files found under a common
+This parameter can be set to place the gathered files under a particular
 directory.  See the L<description|DESCRIPTION> above for an example.
 
 =head2 include_dotfiles

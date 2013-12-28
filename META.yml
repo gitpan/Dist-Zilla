@@ -14,7 +14,7 @@ configure_requires:
   ExtUtils::MakeMaker: 6.30
   File::ShareDir::Install: 0.03
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.005, CPAN::Meta::Converter version 2.132830'
+generated_by: 'Dist::Zilla version 5.007, CPAN::Meta::Converter version 2.133380'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -25,6 +25,7 @@ no_index:
     - corpus
     - misc
 recommends:
+  Archive::Tar::Wrapper: 0.15
   Term::ReadLine::Gnu: 0
 requires:
   App::Cmd::Command::version: 0
@@ -117,103 +118,118 @@ resources:
   bugtracker: https://github.com/rjbs/Dist-Zilla/issues
   homepage: http://dzil.org/
   repository: https://github.com/rjbs/Dist-Zilla.git
-version: 5.006
+version: 5.007
 x_Dist_Zilla:
   perl:
-    version: 5.019005
+    version: 5.018001
   plugins:
     -
       class: Dist::Zilla::Plugin::Git::GatherDir
       name: '@Filter/Git::GatherDir'
-      version: 2.017
+      version: 2.019
     -
       class: Dist::Zilla::Plugin::CheckPrereqsIndexed
       name: '@Filter/CheckPrereqsIndexed'
-      version: 0.009
+      version: 0.010
     -
       class: Dist::Zilla::Plugin::CheckExtraTests
       name: '@Filter/CheckExtraTests'
+      version: 0.016
+    -
+      class: Dist::Zilla::Plugin::PromptIfStale
+      config:
+        Dist::Zilla::Plugin::PromptIfStale:
+          check_all_plugins: 0
+          check_all_prereqs: 0
+          modules:
+            - Dist::Zilla::PluginBundle::RJBS
+          phase: build
+          skip: []
+      name: '@Filter/RJBS-Outdated'
       version: 0.015
     -
       class: Dist::Zilla::Plugin::PromptIfStale
-      name: '@Filter/RJBS-Outdated'
-      version: 0.009
-    -
-      class: Dist::Zilla::Plugin::PromptIfStale
+      config:
+        Dist::Zilla::Plugin::PromptIfStale:
+          check_all_plugins: 1
+          check_all_prereqs: 0
+          modules: []
+          phase: release
+          skip: []
       name: '@Filter/CPAN-Outdated'
-      version: 0.009
+      version: 0.015
     -
       class: Dist::Zilla::Plugin::PruneCruft
       name: '@Filter/@Filter/PruneCruft'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::ManifestSkip
       name: '@Filter/@Filter/ManifestSkip'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::MetaYAML
       name: '@Filter/@Filter/MetaYAML'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::License
       name: '@Filter/@Filter/License'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::Readme
       name: '@Filter/@Filter/Readme'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::ExecDir
       name: '@Filter/@Filter/ExecDir'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::ShareDir
       name: '@Filter/@Filter/ShareDir'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::MakeMaker
       name: '@Filter/@Filter/MakeMaker'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::Manifest
       name: '@Filter/@Filter/Manifest'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::TestRelease
       name: '@Filter/@Filter/TestRelease'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::ConfirmRelease
       name: '@Filter/@Filter/ConfirmRelease'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::UploadToCPAN
       name: '@Filter/@Filter/UploadToCPAN'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::AutoPrereqs
       name: '@Filter/AutoPrereqs'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::Git::NextVersion
       name: '@Filter/Git::NextVersion'
-      version: 2.017
+      version: 2.019
     -
       class: Dist::Zilla::Plugin::PkgVersion
       name: '@Filter/PkgVersion'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::MetaConfig
       name: '@Filter/MetaConfig'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::MetaJSON
       name: '@Filter/MetaJSON'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::NextRelease
       name: '@Filter/NextRelease'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::Test::ChangesHasContent
       name: '@Filter/Test::ChangesHasContent'
@@ -221,7 +237,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::PodSyntaxTests
       name: '@Filter/PodSyntaxTests'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::ReportVersions::Tiny
       name: '@Filter/ReportVersions::Tiny'
@@ -233,7 +249,7 @@ x_Dist_Zilla:
           phase: test
           type: requires
       name: '@Filter/TestMoreWithSubtests'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::PodWeaver
       config:
@@ -242,8 +258,81 @@ x_Dist_Zilla:
           finder:
             - ':InstallModules'
             - ':ExecFiles'
+          plugins:
+            -
+              class: Pod::Weaver::Plugin::EnsurePod5
+              name: '@CorePrep/EnsurePod5'
+              version: 4.005
+            -
+              class: Pod::Weaver::Plugin::H1Nester
+              name: '@CorePrep/H1Nester'
+              version: 4.005
+            -
+              class: Pod::Weaver::Plugin::SingleEncoding
+              name: '@RJBS/SingleEncoding'
+              version: 4.005
+            -
+              class: Pod::Weaver::Section::Name
+              name: '@RJBS/Name'
+              version: 4.005
+            -
+              class: Pod::Weaver::Section::Version
+              name: '@RJBS/Version'
+              version: 4.005
+            -
+              class: Pod::Weaver::Section::Region
+              name: '@RJBS/Prelude'
+              version: 4.005
+            -
+              class: Pod::Weaver::Section::Generic
+              name: '@RJBS/Synopsis'
+              version: 4.005
+            -
+              class: Pod::Weaver::Section::Generic
+              name: '@RJBS/Description'
+              version: 4.005
+            -
+              class: Pod::Weaver::Section::Generic
+              name: '@RJBS/Overview'
+              version: 4.005
+            -
+              class: Pod::Weaver::Section::Generic
+              name: '@RJBS/Stability'
+              version: 4.005
+            -
+              class: Pod::Weaver::Section::Collect
+              name: Attributes
+              version: 4.005
+            -
+              class: Pod::Weaver::Section::Collect
+              name: Methods
+              version: 4.005
+            -
+              class: Pod::Weaver::Section::Collect
+              name: Functions
+              version: 4.005
+            -
+              class: Pod::Weaver::Section::Leftovers
+              name: '@RJBS/Leftovers'
+              version: 4.005
+            -
+              class: Pod::Weaver::Section::Region
+              name: '@RJBS/postlude'
+              version: 4.005
+            -
+              class: Pod::Weaver::Section::Authors
+              name: '@RJBS/Authors'
+              version: 4.005
+            -
+              class: Pod::Weaver::Section::Legal
+              name: '@RJBS/Legal'
+              version: 4.005
+            -
+              class: Pod::Weaver::Plugin::Transformer
+              name: '@RJBS/List'
+              version: 4.005
       name: '@Filter/PodWeaver'
-      version: 4.001
+      version: 4.002
     -
       class: Dist::Zilla::Plugin::GithubMeta
       name: '@Filter/GithubMeta'
@@ -251,31 +340,31 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Git::Check
       name: '@Filter/@Git/Check'
-      version: 2.017
+      version: 2.019
     -
       class: Dist::Zilla::Plugin::Git::Commit
       name: '@Filter/@Git/Commit'
-      version: 2.017
+      version: 2.019
     -
       class: Dist::Zilla::Plugin::Git::Tag
       name: '@Filter/@Git/Tag'
-      version: 2.017
+      version: 2.019
     -
       class: Dist::Zilla::Plugin::Git::Push
       name: '@Filter/@Git/Push'
-      version: 2.017
+      version: 2.019
     -
       class: Dist::Zilla::Plugin::ModuleShareDirs
       name: ModuleShareDirs
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::MetaNoIndex
       name: MetaNoIndex
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::MetaResources
       name: MetaResources
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::Prereqs
       config:
@@ -283,7 +372,7 @@ x_Dist_Zilla:
           phase: test
           type: requires
       name: TestRequires
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::Prereqs
       config:
@@ -291,7 +380,7 @@ x_Dist_Zilla:
           phase: runtime
           type: recommends
       name: RuntimeRecommends
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::Prereqs
       config:
@@ -299,7 +388,7 @@ x_Dist_Zilla:
           phase: runtime
           type: requires
       name: Prereqs
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::RemovePrereqs
       config:
@@ -309,37 +398,37 @@ x_Dist_Zilla:
             - Dist::Zilla::Tester::_Role
             - Some::Package::That::Does::Not::Exist::Due::To::A::Typo
       name: RemovePrereqs
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::CPANFile
       name: CPANFile
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':InstallModules'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':IncModules'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':TestFiles'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':ExecFiles'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':ShareFiles'
-      version: 5.005
+      version: 5.007
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':MainModule'
-      version: 5.005
+      version: 5.007
   zilla:
     class: Dist::Zilla::Dist::Builder
     config:
       is_trial: 0
-    version: 5.005
+    version: 5.007

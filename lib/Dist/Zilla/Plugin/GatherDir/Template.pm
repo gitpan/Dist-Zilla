@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::GatherDir::Template;
 {
-  $Dist::Zilla::Plugin::GatherDir::Template::VERSION = '5.006';
+  $Dist::Zilla::Plugin::GatherDir::Template::VERSION = '5.007';
 }
 # ABSTRACT: gather all the files in a directory and use them as templates
 use Moose;
@@ -43,13 +43,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Plugin::GatherDir::Template - gather all the files in a directory and use them as templates
 
 =head1 VERSION
 
-version 5.006
+version 5.007
 
 =head1 DESCRIPTION
 

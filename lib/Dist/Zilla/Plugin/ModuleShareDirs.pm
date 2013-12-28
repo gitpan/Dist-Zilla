@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ModuleShareDirs;
 {
-  $Dist::Zilla::Plugin::ModuleShareDirs::VERSION = '5.006';
+  $Dist::Zilla::Plugin::ModuleShareDirs::VERSION = '5.007';
 }
 # ABSTRACT: install a directory's contents as module-based "ShareDir" content
 use Moose;
@@ -62,13 +62,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Plugin::ModuleShareDirs - install a directory's contents as module-based "ShareDir" content
 
 =head1 VERSION
 
-version 5.006
+version 5.007
 
 =head1 SYNOPSIS
 

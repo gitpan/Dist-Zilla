@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command;
 {
-  $Dist::Zilla::App::Command::VERSION = '5.006';
+  $Dist::Zilla::App::Command::VERSION = '5.007';
 }
 # ABSTRACT: base class for dzil commands
 use App::Cmd::Setup -command;
@@ -24,13 +24,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::App::Command - base class for dzil commands
 
 =head1 VERSION
 
-version 5.006
+version 5.007
 
 =head1 METHODS
 

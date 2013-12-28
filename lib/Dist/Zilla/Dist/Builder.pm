@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 {
-  $Dist::Zilla::Dist::Builder::VERSION = '5.006';
+  $Dist::Zilla::Dist::Builder::VERSION = '5.007';
 }
 # ABSTRACT: dist zilla subclass for building dists
 use Moose 0.92; # role composition fixes
@@ -111,18 +111,19 @@ sub _setup_default_plugins {
       zilla       => $self,
       style       => 'list',
       code        => sub {
+        my $self = shift;
         my $map = $self->zilla->_share_dir_map;
         my @files;
         if ( $map->{dist} ) {
           push @files, $self->zilla->files->grep(sub {
-            local $_ = $_->name; m{\A\Q$map->{dist}\E/}
-          });
+            $_->name =~ m{\A\Q$map->{dist}\E/}
+          })->flatten;
         }
         if ( my $mod_map = $map->{module} ) {
           for my $mod ( keys %$mod_map ) {
             push @files, $self->zilla->files->grep(sub {
-              local $_ = $_->name; m{\A\Q$mod_map->{$mod}\E/}
-            });
+              $_->name =~ m{\A\Q$mod_map->{$mod}\E/}
+            })->flatten;
           }
         }
         return \@files;
@@ -144,6 +145,30 @@ sub _setup_default_plugins {
         return 1 if $_ eq $self->zilla->main_module->name;
         return;
       },
+    });
+
+    $self->plugins->push($plugin);
+  }
+
+  unless ($self->plugin_named(':AllFiles')) {
+    require Dist::Zilla::Plugin::FinderCode;
+    my $plugin = Dist::Zilla::Plugin::FinderCode->new({
+      plugin_name => ':AllFiles',
+      zilla       => $self,
+      style       => 'grep',
+      code        => sub { return 1 },
+    });
+
+    $self->plugins->push($plugin);
+  }
+
+  unless ($self->plugin_named(':NoFiles')) {
+    require Dist::Zilla::Plugin::FinderCode;
+    my $plugin = Dist::Zilla::Plugin::FinderCode->new({
+      plugin_name => ':NoFiles',
+      zilla       => $self,
+      style       => 'list',
+      code        => sub { return },
     });
 
     $self->plugins->push($plugin);
@@ -573,7 +598,7 @@ sub run_tests_in {
 
 
 sub run_in_build {
-  my ($self, $cmd) = @_;
+  my ($self, $cmd, $arg) = @_;
 
   # The sort below is a cheap hack to get ModuleBuild ahead of
   # ExtUtils::MakeMaker. -- rjbs, 2010-01-05
@@ -589,6 +614,12 @@ sub run_in_build {
   # building the dist for real
   my $ok = eval {
     my $wd = File::pushd::pushd($target);
+
+    if ($arg and exists $arg->{build} and ! $arg->{build}) {
+      system(@$cmd) and die "error while running: @$cmd";
+      return 1;
+    }
+
     $builders[0]->build;
 
     local $ENV{PERL5LIB} = join $Config::Config{path_sep},
@@ -621,13 +652,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 5.006
+version 5.007
 
 =head1 ATTRIBUTES
 
