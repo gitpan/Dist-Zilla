@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::run;
 {
-  $Dist::Zilla::App::Command::run::VERSION = '5.007';
+  $Dist::Zilla::App::Command::run::VERSION = '5.008';
 }
 # ABSTRACT: run stuff in a dir where your dist is built
 use Dist::Zilla::App -command;
@@ -31,7 +31,7 @@ sub execute {
     $self->log("no command supplied to run so using \$$envname: $args->[0]");
   }
 
-  $self->zilla->run_in_build($args, { build => $args->build });
+  $self->zilla->run_in_build($args, { build => $opt->build });
 }
 
 1;
@@ -48,7 +48,7 @@ Dist::Zilla::App::Command::run - run stuff in a dir where your dist is built
 
 =head1 VERSION
 
-version 5.007
+version 5.008
 
 =head1 SYNOPSIS
 

@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::smoke;
 {
-  $Dist::Zilla::App::Command::smoke::VERSION = '5.007';
+  $Dist::Zilla::App::Command::smoke::VERSION = '5.008';
 }
 # ABSTRACT: smoke your dist
 use Dist::Zilla::App -command;
@@ -41,7 +41,7 @@ Dist::Zilla::App::Command::smoke - smoke your dist
 
 =head1 VERSION
 
-version 5.007
+version 5.008
 
 =head1 SYNOPSIS
 

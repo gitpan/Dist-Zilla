@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PodSyntaxTests;
 {
-  $Dist::Zilla::Plugin::PodSyntaxTests::VERSION = '5.007';
+  $Dist::Zilla::Plugin::PodSyntaxTests::VERSION = '5.008';
 }
 # ABSTRACT: a release test for Pod syntax
 use Moose;
@@ -39,7 +39,7 @@ Dist::Zilla::Plugin::PodSyntaxTests - a release test for Pod syntax
 
 =head1 VERSION
 
-version 5.007
+version 5.008
 
 =head1 DESCRIPTION
 

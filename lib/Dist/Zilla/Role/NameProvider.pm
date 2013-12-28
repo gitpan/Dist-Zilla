@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::NameProvider;
 {
-  $Dist::Zilla::Role::NameProvider::VERSION = '5.007';
+  $Dist::Zilla::Role::NameProvider::VERSION = '5.008';
 }
 # ABSTRACT: something that provides a name for the dist
 use Moose::Role;
@@ -24,7 +24,7 @@ Dist::Zilla::Role::NameProvider - something that provides a name for the dist
 
 =head1 VERSION
 
-version 5.007
+version 5.008
 
 =head1 DESCRIPTION
 

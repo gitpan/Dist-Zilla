@@ -1,6 +1,6 @@
 package Dist::Zilla::Chrome::Term;
 {
-  $Dist::Zilla::Chrome::Term::VERSION = '5.007';
+  $Dist::Zilla::Chrome::Term::VERSION = '5.008';
 }
 use Moose;
 # ABSTRACT: chrome used for terminal-based interaction
@@ -136,7 +136,7 @@ Dist::Zilla::Chrome::Term - chrome used for terminal-based interaction
 
 =head1 VERSION
 
-version 5.007
+version 5.008
 
 =head1 OVERVIEW
 
