@@ -1,10 +1,12 @@
 package Dist::Zilla;
 {
-  $Dist::Zilla::VERSION = '5.008';
+  $Dist::Zilla::VERSION = '5.009';
 }
 # ABSTRACT: distribution builder; installer not included!
 use Moose 0.92; # role composition fixes
 with 'Dist::Zilla::Role::ConfigDumper';
+
+# This comment has fün̈n̈ÿ characters.
 
 use Moose::Autobox 0.09; # ->flatten
 use MooseX::Types::Moose qw(ArrayRef Bool HashRef Object Str);
@@ -559,7 +561,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 5.008
+version 5.009
 
 =head1 DESCRIPTION
 
@@ -784,7 +786,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Ricardo SIGNES.
+This software is copyright (c) 2014 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

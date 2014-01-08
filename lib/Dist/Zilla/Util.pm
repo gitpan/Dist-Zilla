@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Util;
 {
-  $Dist::Zilla::Util::VERSION = '5.008';
+  $Dist::Zilla::Util::VERSION = '5.009';
 }
 # ABSTRACT: random snippets of code that Dist::Zilla wants
 
@@ -57,7 +57,7 @@ use String::RewritePrefix 0.002; # better string context behavior
 sub abstract_from_file {
   my ($self, $file) = @_;
   my $e = Dist::Zilla::Util::PEA->_new;
-  $e->read_string($file->content);
+  $e->read_string($file->encoded_content);
   return $e->{abstract};
 }
 
@@ -122,7 +122,7 @@ Dist::Zilla::Util - random snippets of code that Dist::Zilla wants
 
 =head1 VERSION
 
-version 5.008
+version 5.009
 
 =head1 METHODS
 
@@ -146,7 +146,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Ricardo SIGNES.
+This software is copyright (c) 2014 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

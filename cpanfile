@@ -52,6 +52,7 @@ requires "MooseX::Types::Moose" => "0";
 requires "MooseX::Types::Path::Class" => "0";
 requires "MooseX::Types::Perl" => "0";
 requires "PPI" => "0";
+requires "PPI::Document" => "0";
 requires "Params::Util" => "0";
 requires "Path::Class" => "0.22";
 requires "Path::Tiny" => "0";

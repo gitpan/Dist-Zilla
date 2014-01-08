@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PkgVersion;
 {
-  $Dist::Zilla::Plugin::PkgVersion::VERSION = '5.008';
+  $Dist::Zilla::Plugin::PkgVersion::VERSION = '5.009';
 }
 # ABSTRACT: add a $VERSION to your packages
 use Moose;
@@ -85,6 +85,12 @@ sub munge_perl {
     my $trial = $self->zilla->is_trial ? ' # TRIAL' : '';
     my $perl = "{\n  \$$package\::VERSION\x20=\x20'$version';$trial\n}\n";
 
+    $self->log("non-ASCII package name is likely to cause problems")
+      if $package =~ /\P{ASCII}/;
+
+    $self->log("non-ASCII version is likely to cause problems")
+      if $version =~ /\P{ASCII}/;
+
     my $version_doc = PPI::Document->new(\$perl);
     my @children = $version_doc->schildren;
 
@@ -118,7 +124,7 @@ Dist::Zilla::Plugin::PkgVersion - add a $VERSION to your packages
 
 =head1 VERSION
 
-version 5.008
+version 5.009
 
 =head1 SYNOPSIS
 
@@ -173,7 +179,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Ricardo SIGNES.
+This software is copyright (c) 2014 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

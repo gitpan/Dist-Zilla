@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PruneCruft;
 {
-  $Dist::Zilla::Plugin::PruneCruft::VERSION = '5.008';
+  $Dist::Zilla::Plugin::PruneCruft::VERSION = '5.009';
 }
 # ABSTRACT: prune stuff that you probably don't mean to include
 use Moose;
@@ -83,7 +83,7 @@ Dist::Zilla::Plugin::PruneCruft - prune stuff that you probably don't mean to in
 
 =head1 VERSION
 
-version 5.008
+version 5.009
 
 =head1 SYNOPSIS
 
@@ -118,7 +118,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Ricardo SIGNES.
+This software is copyright (c) 2014 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

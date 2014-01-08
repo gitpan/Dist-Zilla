@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::NextRelease;
 {
-  $Dist::Zilla::Plugin::NextRelease::VERSION = '5.008';
+  $Dist::Zilla::Plugin::NextRelease::VERSION = '5.009';
 }
 # ABSTRACT: update the next release number in your changelog
 
@@ -48,7 +48,7 @@ has time_zone => (
 has format => (
   is  => 'ro',
   isa => 'Str', # should be more validated Later -- rjbs, 2008-06-05
-  default => '%-9v %{yyyy-MM-dd HH:mm:ss VVVV}d%{ (TRIAL RELEASE)}T',
+  default => '%-9v %{yyyy-MM-dd HH:mm:ssZZZZZ VVVV}d%{ (TRIAL RELEASE)}T',
 );
 
 has filename => (
@@ -154,7 +154,7 @@ Dist::Zilla::Plugin::NextRelease - update the next release number in your change
 
 =head1 VERSION
 
-version 5.008
+version 5.009
 
 =head1 SYNOPSIS
 
@@ -281,7 +281,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Ricardo SIGNES.
+This software is copyright (c) 2014 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

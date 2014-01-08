@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ExtraTests;
 {
-  $Dist::Zilla::Plugin::ExtraTests::VERSION = '5.008';
+  $Dist::Zilla::Plugin::ExtraTests::VERSION = '5.009';
 }
 # ABSTRACT: rewrite ./xt tests to ./t tests with skips
 use Moose;
@@ -71,7 +71,7 @@ Dist::Zilla::Plugin::ExtraTests - rewrite ./xt tests to ./t tests with skips
 
 =head1 VERSION
 
-version 5.008
+version 5.009
 
 =head1 DESCRIPTION
 
@@ -91,7 +91,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Ricardo SIGNES.
+This software is copyright (c) 2014 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

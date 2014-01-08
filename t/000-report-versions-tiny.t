@@ -104,6 +104,7 @@ eval { $v .= pmver('MooseX::Types::Moose','any version') };
 eval { $v .= pmver('MooseX::Types::Path::Class','any version') };
 eval { $v .= pmver('MooseX::Types::Perl','any version') };
 eval { $v .= pmver('PPI','any version') };
+eval { $v .= pmver('PPI::Document','any version') };
 eval { $v .= pmver('Params::Util','any version') };
 eval { $v .= pmver('Path::Class','0.22') };
 eval { $v .= pmver('Path::Tiny','any version') };

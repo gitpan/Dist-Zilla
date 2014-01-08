@@ -1,6 +1,6 @@
 package Dist::Zilla::Stash::Rights;
 {
-  $Dist::Zilla::Stash::Rights::VERSION = '5.008';
+  $Dist::Zilla::Stash::Rights::VERSION = '5.009';
 }
 use Moose;
 with 'Dist::Zilla::Role::Stash';
@@ -40,7 +40,7 @@ Dist::Zilla::Stash::Rights - a stash of your default licensing terms
 
 =head1 VERSION
 
-version 5.008
+version 5.009
 
 =head1 AUTHOR
 
@@ -48,7 +48,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Ricardo SIGNES.
+This software is copyright (c) 2014 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

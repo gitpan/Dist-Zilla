@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::PPI;
 {
-  $Dist::Zilla::Role::PPI::VERSION = '5.008';
+  $Dist::Zilla::Role::PPI::VERSION = '5.009';
 }
 # ABSTRACT: a role for plugins which use PPI
 use Moose::Role;
@@ -17,7 +17,6 @@ my %CACHE;
 sub ppi_document_for_file {
   my ($self, $file) = @_;
 
-  my $content = $file->content;
   my $encoded_content = $file->encoded_content;
 
   # We cache on the MD5 checksum to detect if the document has been modified
@@ -25,7 +24,8 @@ sub ppi_document_for_file {
   my $md5 = md5($encoded_content);
   return $CACHE{$md5} if $CACHE{$md5};
 
-  my $document = PPI::Document->new(\$content)
+  require PPI::Document;
+  my $document = PPI::Document->new(\$encoded_content)
     or Carp::croak(PPI::Document->errstr);
 
   return $CACHE{$md5} = $document;
@@ -37,9 +37,9 @@ sub save_ppi_document_to_file {
 
   my $new_content = $document->serialize;
 
-  $file->content($new_content);
+  $file->encoded_content($new_content);
 
-  $CACHE{ md5($file->encoded_content) } = $document;
+  $CACHE{ md5($new_content) } = $document;
 
 }
 
@@ -73,7 +73,7 @@ Dist::Zilla::Role::PPI - a role for plugins which use PPI
 
 =head1 VERSION
 
-version 5.008
+version 5.009
 
 =head1 DESCRIPTION
 
@@ -113,7 +113,7 @@ Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Ricardo SIGNES.
+This software is copyright (c) 2014 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
