@@ -2,32 +2,32 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::smoke;
 # ABSTRACT: smoke your dist
-$Dist::Zilla::App::Command::smoke::VERSION = '5.010';
+$Dist::Zilla::App::Command::smoke::VERSION = '5.011';
 use Dist::Zilla::App -command;
 
 # =head1 SYNOPSIS
-# 
+#
 #   dzil smoke [ --release ] [ --author ] [ --no-automated ]
-# 
+#
 # =head1 DESCRIPTION
-# 
+#
 # This command builds and tests the distribution in "smoke testing mode."
-# 
+#
 # This command is a thin wrapper around the L<test|Dist::Zilla::Dist::Builder/test> method in
 # Dist::Zilla.  It builds your dist and runs the tests with the AUTOMATED_TESTING
 # environment variable turned on, so it's like doing this:
-# 
+#
 #   export AUTOMATED_TESTING=1
 #   dzil build --no-tgz
 #   cd $BUILD_DIRECTORY
 #   perl Makefile.PL
 #   make
 #   make test
-# 
+#
 # A build that fails tests will be left behind for analysis, and F<dzil> will
 # exit a non-zero value.  If the tests are successful, the build directory will
 # be removed and F<dzil> will exit with status 0.
-# 
+#
 # =cut
 
 sub opt_spec {
@@ -37,19 +37,19 @@ sub opt_spec {
 }
 
 # =head1 OPTIONS
-# 
+#
 # =head2 --release
-# 
+#
 # This will run the test suite with RELEASE_TESTING=1
-# 
+#
 # =head2 --no-automated
-# 
+#
 # This will run the test suite without setting AUTOMATED_TESTING
-# 
+#
 # =head2 --author
-# 
+#
 # This will run the test suite with AUTHOR_TESTING=1
-# 
+#
 # =cut
 
 sub abstract { 'smoke your dist' }
@@ -78,7 +78,7 @@ Dist::Zilla::App::Command::smoke - smoke your dist
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 SYNOPSIS
 

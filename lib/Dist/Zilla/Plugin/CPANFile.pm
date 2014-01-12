@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::CPANFile;
 # ABSTRACT: produce a cpanfile prereqs file
-$Dist::Zilla::Plugin::CPANFile::VERSION = '5.010';
+$Dist::Zilla::Plugin::CPANFile::VERSION = '5.011';
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
@@ -10,14 +10,14 @@ use namespace::autoclean;
 use Dist::Zilla::File::FromCode;
 
 # =head1 DESCRIPTION
-# 
+#
 # This plugin will add a F<cpanfile> file to the distribution.
-# 
+#
 # =attr filename
-# 
+#
 # If given, parameter allows you to specify an alternate name for the generated
 # file.  It defaults, of course, to F<cpanfile>.
-# 
+#
 # =cut
 
 has filename => (
@@ -89,7 +89,7 @@ Dist::Zilla::Plugin::CPANFile - produce a cpanfile prereqs file
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 DESCRIPTION
 

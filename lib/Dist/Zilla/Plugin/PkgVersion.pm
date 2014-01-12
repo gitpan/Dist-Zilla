@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PkgVersion;
 # ABSTRACT: add a $VERSION to your packages
-$Dist::Zilla::Plugin::PkgVersion::VERSION = '5.010';
+$Dist::Zilla::Plugin::PkgVersion::VERSION = '5.011';
 use Moose;
 with(
   'Dist::Zilla::Role::FileMunger',
@@ -16,46 +16,46 @@ use MooseX::Types::Perl qw(LaxVersionStr);
 use namespace::autoclean;
 
 # =head1 SYNOPSIS
-# 
+#
 # in dist.ini
-# 
+#
 #   [PkgVersion]
-# 
+#
 # =head1 DESCRIPTION
-# 
+#
 # This plugin will add lines like the following to each package in each Perl
 # module or program (more or less) within the distribution:
-# 
+#
 #   $MyModule::VERSION = 0.001;
-# 
+#
 # ...where 0.001 is the version of the dist, and MyModule is the name of the
 # package being given a version.  (In other words, it always uses fully-qualified
 # names to assign versions.)
-# 
+#
 # It will skip any package declaration that includes a newline between the
 # C<package> keyword and the package name, like:
-# 
+#
 #   package
 #     Foo::Bar;
-# 
+#
 # This sort of declaration is also ignored by the CPAN toolchain, and is
 # typically used when doing monkey patching or other tricky things.
-# 
+#
 # =attr die_on_existing_version
-# 
+#
 # If true, then when PkgVersion sees an existing C<$VERSION> assignment, it will
 # throw an exception rather than skip the file.  This attribute defaults to
 # false.
-# 
+#
 # =attr die_on_line_insertion
-# 
+#
 # By default, PkgVersion look for a blank line after each C<package> statement.
 # If it finds one, it inserts the C<$VERSION> assignment on that line.  If it
 # doesn't, it will insert a new line, which means the shipped copy of the module
 # will have different line numbers (off by one) than the source.  If
 # C<die_on_line_insertion> is true, PkgVersion will raise an exception rather
 # than insert a new line.
-# 
+#
 # =cut
 
 sub munge_files {
@@ -66,9 +66,6 @@ sub munge_files {
 
 sub munge_file {
   my ($self, $file) = @_;
-
-  # XXX: for test purposes, for now! evil! -- rjbs, 2010-03-17
-  return                          if $file->name    =~ /^corpus\//;
 
   return                          if $file->name    =~ /\.t$/i;
   return $self->munge_perl($file) if $file->name    =~ /\.(?:pm|pl)$/i;
@@ -198,16 +195,16 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 # =head1 SEE ALSO
-# 
+#
 # Core Dist::Zilla plugins:
 # L<PodVersion|Dist::Zilla::Plugin::PodVersion>,
 # L<AutoVersion|Dist::Zilla::Plugin::AutoVersion>,
 # L<NextRelease|Dist::Zilla::Plugin::NextRelease>.
-# 
+#
 # Other Dist::Zilla plugins:
 # L<OurPkgVersion|Dist::Zilla::Plugin::OurPkgVersion> inserts version
 # numbers using C<our $VERSION = '...';> and without changing line numbers
-# 
+#
 # =cut
 
 __END__
@@ -222,7 +219,7 @@ Dist::Zilla::Plugin::PkgVersion - add a $VERSION to your packages
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 SYNOPSIS
 

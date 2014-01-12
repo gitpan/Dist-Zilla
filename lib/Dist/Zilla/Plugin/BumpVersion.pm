@@ -1,21 +1,21 @@
 package Dist::Zilla::Plugin::BumpVersion;
 # ABSTRACT: (DEPRECATED) bump the version number by one before building
-$Dist::Zilla::Plugin::BumpVersion::VERSION = '5.010';
+$Dist::Zilla::Plugin::BumpVersion::VERSION = '5.011';
 use Moose;
 with 'Dist::Zilla::Role::BeforeBuild';
 
 use namespace::autoclean;
 
 # =head1 SYNOPSIS
-# 
+#
 # B<WARNING>  This plugin is deprecated and will be removed.  It is generally
 # useless.  It does not do what you think it does.
-# 
+#
 # If loaded, this plugin will ensure that the distribution's version number is
 # bumped up by one (in the smallest already-defined version units) before
 # building begins.  In other words, if F<dist.ini>'s version reads C<0.002> then
 # the newly built dist will be C<0.003>.
-# 
+#
 # =cut
 
 sub before_build {
@@ -61,7 +61,7 @@ Dist::Zilla::Plugin::BumpVersion - (DEPRECATED) bump the version number by one b
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 SYNOPSIS
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Chrome::Test;
 # ABSTRACT: the chrome used by Dist::Zilla::Tester
-$Dist::Zilla::Chrome::Test::VERSION = '5.010';
+$Dist::Zilla::Chrome::Test::VERSION = '5.011';
 use Moose;
 
 use MooseX::Types::Moose qw(ArrayRef HashRef Str);
@@ -19,7 +19,7 @@ has logger => (
 );
 
 # =attr response_for
-# 
+#
 # The response_for attribute (which exists only in the Test chrome) is a
 # hashref that lets you specify the answer to questions asked by
 # C<prompt_str> or C<prompt_yn>.  The key is the prompt string.  If the
@@ -28,13 +28,13 @@ has logger => (
 # returned every time the question is asked.  If the arrayref is empty
 # (or the prompt is not listed in the hash), the default answer (if any)
 # is returned.
-# 
+#
 # Since you can't pass arguments to the Chrome constructor, response_for
 # is initialized to an empty hash, and you can add entries after
 # construction with the C<set_response_for> method:
-# 
+#
 #   $chrome->set_response_for($prompt => $response);
-# 
+#
 # =cut
 
 has response_for => (
@@ -87,7 +87,7 @@ Dist::Zilla::Chrome::Test - the chrome used by Dist::Zilla::Tester
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 ATTRIBUTES
 

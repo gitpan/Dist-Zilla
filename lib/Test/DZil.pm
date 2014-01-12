@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Test::DZil;
 # ABSTRACT: tools for testing Dist::Zilla plugins
-$Test::DZil::VERSION = '5.010';
+$Test::DZil::VERSION = '5.011';
 use Dist::Zilla::Tester;
 use Params::Util qw(_HASH0);
 use JSON 2;
@@ -24,29 +24,29 @@ use Sub::Exporter -setup => {
 };
 
 # =head1 DESCRIPTION
-# 
+#
 # Test::DZil provides routines for writing tests for Dist::Zilla plugins.
-# 
+#
 # =cut
 
 # =func Builder
-# 
+#
 # =func Minter
-# 
+#
 #   my $tzil = Builder->from_config(...);
-# 
+#
 # These return class names that subclass L<Dist::Zilla::Dist::Builder> or
 # L<Dist::Zilla::Dist::Minter>, respectively, with the L<Dist::Zilla::Tester>
 # behavior added.
-# 
+#
 # =func is_filelist
-# 
+#
 #   is_filelist( \@files_we_have, \@files_we_want, $desc );
-# 
+#
 # This test assertion compares two arrayrefs of filenames, taking care of slash
 # normalization and sorting.  C<@files_we_have> may also contain objects that
 # do L<Dist::Zilla::Role::File>.
-# 
+#
 # =cut
 
 sub is_filelist {
@@ -64,12 +64,12 @@ sub is_filelist {
 }
 
 # =func is_yaml
-# 
+#
 #   is_yaml( $yaml_string, $want_struct, $comment );
-# 
+#
 # This test assertion deserializes the given YAML string and does a
 # C<L<cmp_deeply|Test::Deep/cmp_deeply>>.
-# 
+#
 # =cut
 
 sub is_yaml {
@@ -83,12 +83,12 @@ sub is_yaml {
 }
 
 # =func is_json
-# 
+#
 #   is_json( $json_string, $want_struct, $comment );
-# 
+#
 # This test assertion deserializes the given JSON string and does a
 # C<L<cmp_deeply|Test::Deep/cmp_deeply>>.
-# 
+#
 # =cut
 
 sub is_json {
@@ -151,14 +151,14 @@ sub _build_ini_builder {
 }
 
 # =func dist_ini
-# 
+#
 #   my $ini_text = dist_ini(\%root_config, @plugins);
-# 
+#
 # This routine returns a string that could be used to populate a simple
 # F<dist.ini> file.  The C<%root_config> gives data for the "root" section of the
 # configuration.  To provide a line multiple times, provide an arrayref.  For
 # example, the root section could read:
-# 
+#
 #   {
 #     name   => 'Dist-Sample',
 #     author => [
@@ -166,32 +166,32 @@ sub _build_ini_builder {
 #       'Q. Smith <qsmith@example.com>',
 #     ],
 #   }
-# 
+#
 # The root section is optional.
-# 
+#
 # Plugins can be given in a few ways:
-# 
+#
 # =begin :list
-# 
+#
 # = C<"PluginMoniker">
-# 
+#
 # = C<[ "PluginMoniker" ]>
-# 
+#
 # These become C<[PluginMoniker]>
-# 
+#
 # = C<[ "PluginMoniker", "PluginName" ]>
-# 
+#
 # This becomes C<[PluginMoniker / PluginName]>
-# 
+#
 # = C<[ "PluginMoniker", { ... } ]>
-# 
+#
 # = C<[ "PluginMoniker", "PluginName", { ... } ]>
-# 
+#
 # These use the given hashref as the parameters inside the section, with the same
 # semantics as the root section.
-# 
+#
 # =end :list
-# 
+#
 # =cut
 
 sub _dist_ini {
@@ -199,11 +199,11 @@ sub _dist_ini {
 }
 
 # =func simple_ini
-# 
+#
 # This behaves exactly like C<dist_ini>, but it merges any given root config into
 # a starter config, which means that you can often skip any explicit root config.
 # The starter config may change slightly over time, but is something like this:
-# 
+#
 #   {
 #     name     => 'DZT-Sample',
 #     abstract => 'Sample DZ Dist',
@@ -212,7 +212,7 @@ sub _dist_ini {
 #     license  => 'Perl_5',
 #     copyright_holder => 'E. Xavier Ample',
 #   }
-# 
+#
 # =cut
 
 sub _simple_ini {
@@ -240,7 +240,7 @@ Test::DZil - tools for testing Dist::Zilla plugins
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 DESCRIPTION
 

@@ -2,35 +2,35 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::new;
 # ABSTRACT: mint a new dist
-$Dist::Zilla::App::Command::new::VERSION = '5.010';
+$Dist::Zilla::App::Command::new::VERSION = '5.011';
 use Dist::Zilla::App -command;
 
 # =head1 SYNOPSIS
-# 
+#
 # Creates a new Dist-Zilla based distribution under the current directory.
-# 
+#
 #   $ dzil new Main::Module::Name
-# 
+#
 # There are two arguments, C<-p> and C<-P>. C<-P> specify the minting profile
 # provider and C<-p> - the profile name.
-# 
+#
 # The default profile provider first looks in the
 # F<~/.dzil/profiles/$profile_name> and then among standard profiles, shipped
 # with Dist::Zilla. For example:
-# 
+#
 #   $ dzil new -p work Corporate::Library
-# 
+#
 # This command would instruct C<dzil> to look in F<~/.dzil/profiles/work> for a
 # F<profile.ini> (or other "profile" config file).  If no profile name is given,
 # C<dzil> will look for the C<default> profile.  If no F<default> directory
 # exists, it will use a very simple configuration shipped with Dist::Zilla.
-# 
+#
 #   $ dzil new -P Foo Corporate::Library
-# 
+#
 # This command would instruct C<dzil> to consult the Foo provider about the
 # directory of 'default' profile.
-# 
-# 
+#
+#
 # =cut
 
 sub abstract { 'mint a new dist' }
@@ -99,7 +99,7 @@ Dist::Zilla::App::Command::new - mint a new dist
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 SYNOPSIS
 

@@ -2,23 +2,23 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::install;
 # ABSTRACT: install your dist
-$Dist::Zilla::App::Command::install::VERSION = '5.010';
+$Dist::Zilla::App::Command::install::VERSION = '5.011';
 use Dist::Zilla::App -command;
 
 # =head1 SYNOPSIS
-# 
+#
 # Installs your distribution using a specified command.
-# 
+#
 #     dzil install [--install-command="cmd"]
-# 
+#
 # =cut
 sub abstract { 'install your dist' }
 
 # =head1 EXAMPLE
-# 
+#
 #     $ dzil install
 #     $ dzil install --install-command="cpan ."
-# 
+#
 # =cut
 
 sub opt_spec {
@@ -27,20 +27,20 @@ sub opt_spec {
 }
 
 # =head1 OPTIONS
-# 
+#
 # =head2 --install-command
-# 
+#
 # This defines what command to run after building the dist in the dist dir.
-# 
+#
 # Any value that works with L<C<system>|perlfunc/system> is accepted.
-# 
+#
 # If not specified, calls (roughly):
-# 
+#
 #     cpanm .
-# 
+#
 # For more information, look at the L<install|Dist::Zilla::Dist::Builder/install> method in
 # Dist::Zilla.
-# 
+#
 # =cut
 
 sub execute {
@@ -70,7 +70,7 @@ Dist::Zilla::App::Command::install - install your dist
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 SYNOPSIS
 

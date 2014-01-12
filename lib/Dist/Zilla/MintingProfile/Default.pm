@@ -1,6 +1,6 @@
 package Dist::Zilla::MintingProfile::Default;
 # ABSTRACT: Default minting profile provider
-$Dist::Zilla::MintingProfile::Default::VERSION = '5.010';
+$Dist::Zilla::MintingProfile::Default::VERSION = '5.011';
 use Moose;
 with 'Dist::Zilla::Role::MintingProfile::ShareDir';
 
@@ -10,12 +10,12 @@ use Dist::Zilla::Util;
 use Path::Class;
 
 # =head1 DESCRIPTION
-# 
+#
 # Default minting profile provider.
-# 
+#
 # This provider looks first in the F<~/.dzil/profiles/$profile_name> directory,
 # if not found it looks among the default profiles shipped with Dist::Zilla.
-# 
+#
 # =cut
 
 around profile_dir => sub {
@@ -49,7 +49,7 @@ Dist::Zilla::MintingProfile::Default - Default minting profile provider
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 DESCRIPTION
 

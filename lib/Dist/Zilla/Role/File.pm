@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::File;
 # ABSTRACT: something that can act like a file
-$Dist::Zilla::Role::File::VERSION = '5.010';
+$Dist::Zilla::Role::File::VERSION = '5.011';
 use Moose::Role;
 
 use Moose::Util::TypeConstraints;
@@ -11,13 +11,13 @@ use namespace::autoclean;
 with 'Dist::Zilla::Role::StubBuild';
 
 # =head1 DESCRIPTION
-# 
+#
 # This role describes a file that may be written into the shipped distribution.
-# 
+#
 # =attr name
-# 
+#
 # This is the name of the file to be written out.
-# 
+#
 # =cut
 
 has name => (
@@ -27,11 +27,11 @@ has name => (
 );
 
 # =attr added_by
-# 
+#
 # This is a string describing when and why the file was added to the
 # distribution.  It will generally be set by a plugin implementing the
 # L<FileInjector|Dist::Zilla::Role::FileInjector> role.
-# 
+#
 # =cut
 
 has added_by => (
@@ -41,10 +41,10 @@ has added_by => (
 );
 
 # =attr mode
-# 
+#
 # This is the mode with which the file should be written out.  It's an integer
 # with the usual C<chmod> semantics.  It defaults to 0644.
-# 
+#
 # =cut
 
 my $safe_file_mode = subtype(
@@ -64,10 +64,10 @@ requires 'content';
 requires 'encoded_content';
 
 # =method is_bytes
-# 
+#
 # Returns true if the C<encoding> is bytes.  When true, accessing
 # C<content> will be an error.
-# 
+#
 # =cut
 
 sub is_bytes {
@@ -127,7 +127,7 @@ Dist::Zilla::Role::File - something that can act like a file
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 DESCRIPTION
 

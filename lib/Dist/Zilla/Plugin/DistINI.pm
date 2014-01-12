@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::DistINI;
 # ABSTRACT: a plugin to add a dist.ini to newly-minted dists
-$Dist::Zilla::Plugin::DistINI::VERSION = '5.010';
+$Dist::Zilla::Plugin::DistINI::VERSION = '5.011';
 use Moose;
 with qw(Dist::Zilla::Role::FileGatherer);
 
@@ -13,43 +13,43 @@ use Path::Tiny;
 use namespace::autoclean;
 
 # =head1 DESCRIPTION
-# 
+#
 # This plugins produces a F<dist.ini> file in a new dist, specifying the required
 # core attributes from the dist being minted.
-# 
+#
 # This plugin is dead simple and pretty stupid, but should get better as dist
 # minting facilities improve.  For example, it will not specify any plugins.
-# 
+#
 # In the meantime, you may be happier with a F<dist.ini> template.
-# 
+#
 # =attr append_file
-# 
+#
 # This parameter may be a filename in the profile's directory to append to the
 # generated F<dist.ini> with things like plugins.  In other words, if your make
 # this file, called F<plugins.ini>:
-# 
+#
 #   [@Basic]
 #   [NextRelease]
 #   [@Git]
-# 
+#
 # ...and your F<profile.ini> includes:
-# 
+#
 #   [DistINI]
 #   append_file = plugins.ini
-# 
+#
 # ...then the generated C<dist.ini> in a newly-minted dist will look something
 # like this:
-# 
+#
 #   name    = My-New-Dist
 #   author  = E. Xavier Ample <example@example.com>
 #   license = Perl_5
 #   copyright_holder = E. Xavier Ample
 #   copyright_year   = 2010
-# 
+#
 #   [@Basic]
 #   [NextRelease]
 #   [@Git]
-# 
+#
 # =cut
 
 sub mvp_multivalue_args { qw(append_file) }
@@ -116,7 +116,7 @@ Dist::Zilla::Plugin::DistINI - a plugin to add a dist.ini to newly-minted dists
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 DESCRIPTION
 

@@ -1,6 +1,6 @@
 package Dist::Zilla;
 # ABSTRACT: distribution builder; installer not included!
-$Dist::Zilla::VERSION = '5.010';
+$Dist::Zilla::VERSION = '5.011';
 use Moose 0.92; # role composition fixes
 with 'Dist::Zilla::Role::ConfigDumper';
 
@@ -30,7 +30,7 @@ use Dist::Zilla::Util;
 use namespace::autoclean;
 
 # =head1 DESCRIPTION
-# 
+#
 # Dist::Zilla builds distributions of code to be uploaded to the CPAN.  In this
 # respect, it is like L<ExtUtils::MakeMaker>, L<Module::Build>, or
 # L<Module::Install>.  Unlike those tools, however, it is not also a system for
@@ -38,11 +38,11 @@ use namespace::autoclean;
 # authors, and is meant to be run on a repository checkout rather than on
 # published, released code, it can do much more than those tools, and is free to
 # make much more ludicrous demands in terms of prerequisites.
-# 
+#
 # If you have access to the web, you can learn more and find an interactive
 # tutorial at B<L<dzil.org|http://dzil.org/>>.  If not, try
 # L<Dist::Zilla::Tutorial>.
-# 
+#
 # =cut
 
 has chrome => (
@@ -52,11 +52,11 @@ has chrome => (
 );
 
 # =attr name
-# 
+#
 # The name attribute (which is required) gives the name of the distribution to be
 # built.  This is usually the name of the distribution's main module, with the
 # double colons (C<::>) replaced with dashes.  For example: C<Dist-Zilla>.
-# 
+#
 # =cut
 
 has name => (
@@ -67,9 +67,9 @@ has name => (
 );
 
 # =attr version
-# 
+#
 # This is the version of the distribution to be created.
-# 
+#
 # =cut
 
 has _version_override => (
@@ -123,10 +123,10 @@ sub _build_version {
 }
 
 # =attr abstract
-# 
+#
 # This is a one-line summary of the distribution.  If none is given, one will be
 # looked for in the L</main_module> of the dist.
-# 
+#
 # =cut
 
 has abstract => (
@@ -156,18 +156,18 @@ has abstract => (
 );
 
 # =attr main_module
-# 
+#
 # This is the module where Dist::Zilla might look for various defaults, like
 # the distribution abstract.  By default, it's derived from the distribution
 # name.  If your distribution is Foo-Bar, and F<lib/Foo/Bar.pm> exists,
 # that's the main_module.  Otherwise, it's the shortest-named module in the
 # distribution.  This may change!
-# 
+#
 # You can override the default by specifying the file path explicitly,
 # ie:
-# 
+#
 #   main_module = lib/Foo/Bar.pm
-# 
+#
 # =cut
 
 has _main_module_override => (
@@ -230,17 +230,17 @@ has main_module => (
 );
 
 # =attr license
-# 
+#
 # This is the L<Software::License|Software::License> object for this dist's
 # license and copyright.
-# 
+#
 # It will be created automatically, if possible, with the
 # C<copyright_holder> and C<copyright_year> attributes.  If necessary, it will
 # try to guess the license from the POD of the dist's main module.
-# 
+#
 # A better option is to set the C<license> name in the dist's config to something
 # understandable, like C<Perl_5>.
-# 
+#
 # =cut
 
 has license => (
@@ -369,16 +369,16 @@ has _copyright_year => (
 );
 
 # =attr authors
-# 
+#
 # This is an arrayref of author strings, like this:
-# 
+#
 #   [
 #     'Ricardo Signes <rjbs@cpan.org>',
 #     'X. Ample, Jr <example@example.biz>',
 #   ]
-# 
+#
 # This is likely to change at some point in the near future.
-# 
+#
 # =cut
 
 has authors => (
@@ -403,14 +403,14 @@ has authors => (
 );
 
 # =attr files
-# 
+#
 # This is an arrayref of objects implementing L<Dist::Zilla::Role::File> that
 # will, if left in this arrayref, be built into the dist.
-# 
+#
 # Non-core code should avoid altering this arrayref, but sometimes there is not
 # other way to change the list of files.  In the future, the representation used
 # for storing files B<will be changed>.
-# 
+#
 # =cut
 
 has files => (
@@ -435,10 +435,10 @@ sub prune_file {
 }
 
 # =attr root
-# 
+#
 # This is the root directory of the dist, as a L<Path::Class::Dir>.  It will
 # nearly always be the current working directory in which C<dzil> was run.
-# 
+#
 # =cut
 
 has root => (
@@ -449,9 +449,9 @@ has root => (
 );
 
 # =attr is_trial
-# 
+#
 # This attribute tells us whether or not the dist will be a trial release.
-# 
+#
 # =cut
 
 has is_trial => (
@@ -461,13 +461,13 @@ has is_trial => (
 );
 
 # =attr plugins
-# 
+#
 # This is an arrayref of plugins that have been plugged into this Dist::Zilla
 # object.
-# 
+#
 # Non-core code B<must not> alter this arrayref.  Public access to this attribute
 # B<may go away> in the future.
-# 
+#
 # =cut
 
 has plugins => (
@@ -478,11 +478,11 @@ has plugins => (
 );
 
 # =attr distmeta
-# 
+#
 # This is a hashref containing the metadata about this distribution that will be
 # stored in META.yml or META.json.  You should not alter the metadata in this
 # hash; use a MetaProvider plugin instead.
-# 
+#
 # =cut
 
 has distmeta => (
@@ -534,10 +534,10 @@ sub _build_distmeta {
 sub _metadata_generator_id { 'Dist::Zilla' }
 
 # =attr prereqs
-# 
+#
 # This is a L<Dist::Zilla::Prereqs> object, which is a thin layer atop
 # L<CPAN::Meta::Prereqs>, and describes the distribution's prerequisites.
-# 
+#
 # =cut
 
 has prereqs => (
@@ -549,9 +549,9 @@ has prereqs => (
 );
 
 # =method plugin_named
-# 
+#
 #   my $plugin = $zilla->plugin_named( $plugin_name );
-# 
+#
 # =cut
 
 sub plugin_named {
@@ -563,13 +563,13 @@ sub plugin_named {
 }
 
 # =method plugins_with
-# 
+#
 #   my $roles = $zilla->plugins_with( -SomeRole );
-# 
+#
 # This method returns an arrayref containing all the Dist::Zilla object's plugins
 # that perform a the named role.  If the given role name begins with a dash, the
 # dash is replaced with "Dist::Zilla::Role::"
-# 
+#
 # =cut
 
 sub plugins_with {
@@ -582,14 +582,14 @@ sub plugins_with {
 }
 
 # =method find_files
-# 
+#
 #   my $files = $zilla->find_files( $finder_name );
-# 
+#
 # This method will look for a
 # L<FileFinder|Dist::Zilla::Role::FileFinder>-performing plugin with the given
 # name and return the result of calling C<find_files> on it.  If no plugin can be
 # found, an exception will be raised.
-# 
+#
 # =cut
 
 sub find_files {
@@ -644,18 +644,18 @@ sub _write_out_file {
 }
 
 # =attr logger
-# 
+#
 # This attribute stores a L<Log::Dispatchouli::Proxy> object, used to log
 # messages.  By default, a proxy to the dist's L<Chrome|Dist::Zilla::Chrome> is
 # taken.
-# 
+#
 # The following methods are delegated from the Dist::Zilla object to the logger:
-# 
+#
 # =for :list
 # * log
 # * log_debug
 # * log_fatal
-# 
+#
 # =cut
 
 has logger => (
@@ -690,13 +690,13 @@ has _global_stashes => (
 );
 
 # =method stash_named
-# 
+#
 #   my $stash = $zilla->stash_named( $name );
-# 
+#
 # This method will return the stash with the given name, or undef if none exists.
 # It looks for a local stash (for this dist) first, then falls back to a global
 # stash (from the user's global configuration).
-# 
+#
 # =cut
 
 sub stash_named {
@@ -710,35 +710,35 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 # =head1 SUPPORT
-# 
+#
 # There are usually people on C<irc.perl.org> in C<#distzilla>, even if they're
 # idling.
-# 
+#
 # The L<Dist::Zilla website|http://dzil.org/> has several valuable resources for
 # learning to use Dist::Zilla.
-# 
+#
 # There is a mailing list to discuss Dist::Zilla.  You can L<join the
 # list|http://www.listbox.com/subscribe/?list_id=139292> or L<browse the
 # archives|http://listbox.com/member/archive/139292>.
-# 
+#
 # =head1 SEE ALSO
-# 
+#
 # =over 4
-# 
+#
 # =item *
-# 
+#
 # In the Dist::Zilla distribution:
-# 
+#
 # =over 4
-# 
+#
 # =item *
-# 
+#
 # Plugin bundles:
 # L<@Basic|Dist::Zilla::PluginBundle::Basic>,
 # L<@Filter|Dist::Zilla::PluginBundle::Filter>.
-# 
+#
 # =item *
-# 
+#
 # Major plugins:
 # L<GatherDir|Dist::Zilla::Plugin::GatherDir>,
 # L<Prereqs|Dist::Zilla::Plugin::Prereqs>,
@@ -746,25 +746,25 @@ __PACKAGE__->meta->make_immutable;
 # L<MetaYAML|Dist::Zilla::Plugin::MetaYAML>,
 # L<MetaJSON|Dist::Zilla::Plugin::MetaJSON>,
 # ...
-# 
+#
 # =back
-# 
+#
 # =item *
-# 
+#
 # On the CPAN:
-# 
+#
 # =over 4
-# 
+#
 # =item *
-# 
+#
 # Search for plugins: L<https://metacpan.org/search?q=Dist::Zilla::Plugin::>
-# 
+#
 # =item *
-# 
+#
 # Search for plugin bundles: L<https://metacpan.org/search?q=Dist::Zilla::PluginBundle::>
-# 
+#
 # =back
-# 
+#
 # =back
 
 __END__
@@ -779,7 +779,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 DESCRIPTION
 

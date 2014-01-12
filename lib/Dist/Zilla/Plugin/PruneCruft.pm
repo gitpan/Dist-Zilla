@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PruneCruft;
 # ABSTRACT: prune stuff that you probably don't mean to include
-$Dist::Zilla::Plugin::PruneCruft::VERSION = '5.010';
+$Dist::Zilla::Plugin::PruneCruft::VERSION = '5.011';
 use Moose;
 use Moose::Autobox;
 use Moose::Util::TypeConstraints;
@@ -9,32 +9,32 @@ with 'Dist::Zilla::Role::FilePruner';
 use namespace::autoclean;
 
 # =head1 SYNOPSIS
-# 
+#
 # This plugin tries to compensate for the stupid crap that turns up in your
 # working copy, removing it before it gets into your dist and screws everything
 # up.
-# 
+#
 # In your F<dist.ini>:
-# 
+#
 #   [PruneCruft]
-# 
+#
 # If you would like to exclude certain exclusions, use the C<except> option (it
 # can be specified multiple times):
-# 
+#
 #   [PruneCruft]
 #   except = \.gitignore
 #   except = t/.*/\.keep$
-# 
+#
 # This plugin is included in the L<@Basic|Dist::Zilla::PluginBundle::Basic>
 # bundle.
-# 
+#
 # =head1 SEE ALSO
-# 
+#
 # Dist::Zilla plugins:
 # L<@Basic|Dist::Zilla::PluginBundle::Basic>,
 # L<PruneFiles|Dist::Zilla::Plugin::PruneFiles>,
 # L<ManifestSkip|Dist::Zilla::Plugin::ManifestSkip>.
-# 
+#
 # =cut
 
 {
@@ -109,7 +109,7 @@ Dist::Zilla::Plugin::PruneCruft - prune stuff that you probably don't mean to in
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 SYNOPSIS
 

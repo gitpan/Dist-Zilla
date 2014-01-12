@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ConfirmRelease;
 # ABSTRACT: prompt for confirmation before releasing
-$Dist::Zilla::Plugin::ConfirmRelease::VERSION = '5.010';
+$Dist::Zilla::Plugin::ConfirmRelease::VERSION = '5.011';
 use Moose;
 with 'Dist::Zilla::Role::BeforeRelease';
 
@@ -34,11 +34,11 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 # =head1 DESCRIPTION
-# 
+#
 # This plugin prompts the author whether or not to continue before releasing
 # the distribution to CPAN.  It gives authors a chance to abort before
 # they upload.
-# 
+#
 # The default is "no", but you can set the environment variable
 # C<DZIL_CONFIRMRELEASE_DEFAULT> to "yes" if you just want to hit enter to
 # release.
@@ -55,7 +55,7 @@ Dist::Zilla::Plugin::ConfirmRelease - prompt for confirmation before releasing
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 DESCRIPTION
 

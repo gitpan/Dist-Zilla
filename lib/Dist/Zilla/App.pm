@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App;
 # ABSTRACT: Dist::Zilla's App::Cmd
-$Dist::Zilla::App::VERSION = '5.010';
+$Dist::Zilla::App::VERSION = '5.011';
 use App::Cmd::Setup 0.309 -app; # better compilation error detection
 
 use Carp ();
@@ -73,10 +73,10 @@ END_DIE
 }
 
 # =method zilla
-# 
+#
 # This returns the Dist::Zilla object in use by the command.  If none has yet
 # been constructed, one will be by calling C<< Dist::Zilla->from_config >>.
-# 
+#
 # =cut
 
 sub chrome {
@@ -156,7 +156,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 METHODS
 

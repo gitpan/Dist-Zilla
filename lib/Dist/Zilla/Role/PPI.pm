@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::PPI;
 # ABSTRACT: a role for plugins which use PPI
-$Dist::Zilla::Role::PPI::VERSION = '5.010';
+$Dist::Zilla::Role::PPI::VERSION = '5.011';
 use Moose::Role;
 
 use Moose::Util::TypeConstraints;
@@ -10,19 +10,19 @@ use namespace::autoclean;
 use Digest::MD5 qw(md5);
 
 # =head1 DESCRIPTION
-# 
+#
 # This role provides some common utilities for plugins which use PPI
-# 
+#
 # =method ppi_document_for_file
-# 
+#
 #   my $document = $self->ppi_document_for_file($file);
-# 
+#
 # Given a dzil file object (anything that does L<Dist::Zilla::Role::File>), this
 # method returns a new L<PPI::Document> for that file's content.
-# 
+#
 # Internally, this method caches these documents. If multiple plugins want a
 # document for the same file, this avoids reparsing it.
-# 
+#
 # =cut
 
 my %CACHE;
@@ -45,15 +45,15 @@ sub ppi_document_for_file {
 }
 
 # =method save_ppi_document_to_file
-# 
+#
 #   my $document = $self->save_ppi_document_to_file($document,$file);
-# 
+#
 # Given a L<PPI::Document> and a dzil file object (anything that does
 # L<Dist::Zilla::Role::File>), this method saves the serialized document in the
 # file.
-# 
+#
 # It also updates the internal PPI document cache with the new document.
-# 
+#
 # =cut
 
 sub save_ppi_document_to_file {
@@ -67,11 +67,11 @@ sub save_ppi_document_to_file {
 }
 
 # =method document_assigns_to_variable
-# 
+#
 #   if( $self->ppi_document_for_file($document, '$FOO')) { ... }
-# 
+#
 # This method returns true if the document assigns to the given variable.
-# 
+#
 # =cut
 
 sub document_assigns_to_variable {
@@ -103,7 +103,7 @@ Dist::Zilla::Role::PPI - a role for plugins which use PPI
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 DESCRIPTION
 

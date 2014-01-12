@@ -1,15 +1,15 @@
 package Dist::Zilla::Stash::PAUSE;
 # ABSTRACT: a stash of your PAUSE credentials
-$Dist::Zilla::Stash::PAUSE::VERSION = '5.010';
+$Dist::Zilla::Stash::PAUSE::VERSION = '5.011';
 use Moose;
 
 use namespace::autoclean;
 
 # =head1 OVERVIEW
-# 
+#
 # The PAUSE stash is a L<Login|Dist::Zilla::Role::Stash::Login> stash generally
 # used for uploading to PAUSE.
-# 
+#
 # =cut
 
 sub mvp_aliases {
@@ -44,7 +44,7 @@ Dist::Zilla::Stash::PAUSE - a stash of your PAUSE credentials
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 OVERVIEW
 

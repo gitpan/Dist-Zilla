@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MakeMaker;
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
-$Dist::Zilla::Plugin::MakeMaker::VERSION = '5.010';
+$Dist::Zilla::Plugin::MakeMaker::VERSION = '5.011';
 use Moose;
 use Moose::Autobox;
 
@@ -14,20 +14,20 @@ use Dist::Zilla::File::InMemory;
 use Dist::Zilla::Plugin::MakeMaker::Runner;
 
 # =head1 DESCRIPTION
-# 
+#
 # This plugin will produce an L<ExtUtils::MakeMaker>-powered F<Makefile.PL> for
 # the distribution.  If loaded, the L<Manifest|Dist::Zilla::Plugin::Manifest>
 # plugin should also be loaded.
-# 
+#
 # =cut
 
 # =attr eumm_version
-# 
+#
 # This option declares the version of ExtUtils::MakeMaker required to configure
 # and build the distribution.  It defaults to 6.30, which ensures a working
 # C<INSTALL_BASE>.  It can be safely set to earlier versions, although I<no
 # testing has been done to determine the minimum version actually required>.
-# 
+#
 # =cut
 
 has eumm_version => (
@@ -37,13 +37,13 @@ has eumm_version => (
 );
 
 # =attr make_path
-# 
+#
 # This option sets the path to F<make>, used to build your dist and run tests.
 # It defaults to the value for C<make> in L<Config>, or to C<make> if that isn't
 # set.
-# 
+#
 # You probably won't need to set this option.
-# 
+#
 # =cut
 
 has 'make_path' => (
@@ -284,18 +284,18 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 # =head1 SEE ALSO
-# 
+#
 # Core Dist::Zilla plugins:
 # L<@Basic|Dist::Zilla::PluginBundle::Basic>,
 # L<ModuleBuild|Dist::Zilla::Plugin::ModuleBuild>,
 # L<Manifest|Dist::Zilla::Plugin::Manifest>.
-# 
+#
 # Dist::Zilla roles:
 # L<BuildRunner|Dist::Zilla::Role::FileGatherer>,
 # L<InstallTool|Dist::Zilla::Role::InstallTool>,
 # L<PrereqSource|Dist::Zilla::Role::PrereqSource>,
 # L<TestRunner|Dist::Zilla::Role::TestRunner>.
-# 
+#
 # =cut
 
 __END__
@@ -310,7 +310,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 DESCRIPTION
 

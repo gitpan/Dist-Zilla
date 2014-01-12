@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PodVersion;
 # ABSTRACT: add a VERSION head1 to each Perl document
-$Dist::Zilla::Plugin::PodVersion::VERSION = '5.010';
+$Dist::Zilla::Plugin::PodVersion::VERSION = '5.011';
 use Moose;
 with(
   'Dist::Zilla::Role::FileMunger',
@@ -12,12 +12,12 @@ with(
 use namespace::autoclean;
 
 # =head1 DESCRIPTION
-# 
+#
 # This plugin adds a C<=head1 VERSION> section to most perl files in the
 # distribution, indicating the version of the dist being built.  This section is
 # added after C<=head1 NAME>.  If there is no such section, the version section
 # will not be added.
-# 
+#
 # =cut
 
 sub munge_files {
@@ -77,12 +77,12 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 # =head1 SEE ALSO
-# 
+#
 # Core Dist::Zilla plugins:
 # L<PkgVersion|Dist::Zilla::Plugin::PkgVersion>,
 # L<AutoVersion|Dist::Zilla::Plugin::AutoVersion>,
 # L<NextRelease|Dist::Zilla::Plugin::NextRelease>.
-# 
+#
 # =cut
 
 __END__
@@ -97,7 +97,7 @@ Dist::Zilla::Plugin::PodVersion - add a VERSION head1 to each Perl document
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 DESCRIPTION
 

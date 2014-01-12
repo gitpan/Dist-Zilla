@@ -1,6 +1,6 @@
 package Dist::Zilla::PluginBundle::Classic;
 # ABSTRACT: the classic (old) default configuration for Dist::Zilla
-$Dist::Zilla::PluginBundle::Classic::VERSION = '5.010';
+$Dist::Zilla::PluginBundle::Classic::VERSION = '5.011';
 use Moose;
 with 'Dist::Zilla::Role::PluginBundle::Easy';
 
@@ -36,16 +36,16 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 # =head1 DESCRIPTION
-# 
+#
 # This bundle is more or less the original configuration bundled with
 # Dist::Zilla.  More than likely, you'd rather be using
 # L<@Basic|Dist::Zilla::PluginBundle::Basic> or a more complex bundle.  This one
 # will muck around with your code by adding C<$VERSION> declarations and will
 # mess with you Pod by adding a C<=head1 VERSION> section, but it won't get you a
 # lot of more useful features like autoversioning, autoprereqs, or Pod::Weaver.
-# 
+#
 # It includes the following plugins with their default configuration:
-# 
+#
 # =for :list
 # * L<Dist::Zilla::Plugin::GatherDir>
 # * L<Dist::Zilla::Plugin::PruneCruft>
@@ -64,11 +64,11 @@ __PACKAGE__->meta->make_immutable;
 # * L<Dist::Zilla::Plugin::Manifest>
 # * L<Dist::Zilla::Plugin::ConfirmRelease>
 # * L<Dist::Zilla::Plugin::UploadToCPAN>
-# 
+#
 # =head1 SEE ALSO
-# 
+#
 # L<@Basic|Dist::Zilla::PluginBundle::Basic>
-# 
+#
 # =cut
 
 __END__
@@ -83,7 +83,7 @@ Dist::Zilla::PluginBundle::Classic - the classic (old) default configuration for
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 DESCRIPTION
 

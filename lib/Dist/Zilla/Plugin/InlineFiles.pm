@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::InlineFiles;
 # ABSTRACT: files in a data section
-$Dist::Zilla::Plugin::InlineFiles::VERSION = '5.010';
+$Dist::Zilla::Plugin::InlineFiles::VERSION = '5.011';
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
@@ -8,11 +8,11 @@ with 'Dist::Zilla::Role::FileGatherer';
 use namespace::autoclean;
 
 # =head1 DESCRIPTION
-# 
+#
 # This plugin exists only to be extended, and gathers all files contained in its
 # data section and those of its ancestors.  For more information, see
 # L<Data::Section|Data::Section>.
-# 
+#
 # =cut
 
 use Sub::Exporter::ForMethods;
@@ -43,12 +43,12 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 # =head1 SEE ALSO
-# 
+#
 # Core Dist::Zilla plugins inheriting from L<InlineFiles>:
 # L<MetaTests|Dist::Zilla::Plugin::MetaTests>,
 # L<PodCoverageTests|Dist::Zilla::Plugin::PodCoverageTests>,
 # L<PodSyntaxTests|Dist::Zilla::Plugin::PodSyntaxTests>.
-# 
+#
 # =cut
 
 __END__
@@ -63,7 +63,7 @@ Dist::Zilla::Plugin::InlineFiles - files in a data section
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 DESCRIPTION
 

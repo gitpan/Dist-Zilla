@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ModuleShareDirs;
 # ABSTRACT: install a directory's contents as module-based "ShareDir" content
-$Dist::Zilla::Plugin::ModuleShareDirs::VERSION = '5.010';
+$Dist::Zilla::Plugin::ModuleShareDirs::VERSION = '5.011';
 use Moose;
 
 use namespace::autoclean;
@@ -8,13 +8,13 @@ use namespace::autoclean;
 use Moose::Autobox;
 
 # =head1 SYNOPSIS
-# 
+#
 # In your F<dist.ini>:
-# 
+#
 #   [ModuleShareDirs]
 #   Foo::Bar = shares/foo_bar
 #   Foo::Baz = shares/foo_baz
-# 
+#
 # =cut
 
 has _module_map => (
@@ -77,7 +77,7 @@ Dist::Zilla::Plugin::ModuleShareDirs - install a directory's contents as module-
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 SYNOPSIS
 

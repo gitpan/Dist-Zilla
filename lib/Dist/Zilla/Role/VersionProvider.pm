@@ -1,20 +1,20 @@
 package Dist::Zilla::Role::VersionProvider;
 # ABSTRACT: something that provides a version number for the dist
-$Dist::Zilla::Role::VersionProvider::VERSION = '5.010';
+$Dist::Zilla::Role::VersionProvider::VERSION = '5.011';
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
 
 use namespace::autoclean;
 
 # =head1 DESCRIPTION
-# 
+#
 # Plugins implementing this role must provide a C<provide_version> method that
 # will be called when setting the dist's version.
-# 
+#
 # If a VersionProvider offers a version but one has already been set, an
 # exception will be raised.  If C<provides_version> returns undef, it will be
 # ignored.
-# 
+#
 # =cut
 
 requires 'provide_version';
@@ -22,10 +22,10 @@ requires 'provide_version';
 1;
 
 # =head1 SEE ALSO
-# 
+#
 # Core Dist::Zilla plugins implementing this role:
 # L<AutoVersion|Dist::Zilla::Plugin::AutoVersion>.
-# 
+#
 # =cut
 
 __END__
@@ -40,7 +40,7 @@ Dist::Zilla::Role::VersionProvider - something that provides a version number fo
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 DESCRIPTION
 

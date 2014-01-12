@@ -1,16 +1,16 @@
 package Dist::Zilla::Types;
 # ABSTRACT: dzil-specific type library
-$Dist::Zilla::Types::VERSION = '5.010';
+$Dist::Zilla::Types::VERSION = '5.011';
 use namespace::autoclean;
 
 # =head1 OVERVIEW
-# 
+#
 # This library provides L<MooseX::Types> types for use by Dist::Zilla.  These
 # types are not (yet?) for public consumption, and you should not rely on them.
-# 
+#
 # Dist::Zilla uses a number of types found in L<MooseX::Types::Perl>.  Maybe
 # that's what you want.
-# 
+#
 # =cut
 
 use MooseX::Types -declare => [qw(License OneZero YesNoStr)];
@@ -38,7 +38,7 @@ Dist::Zilla::Types - dzil-specific type library
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 OVERVIEW
 

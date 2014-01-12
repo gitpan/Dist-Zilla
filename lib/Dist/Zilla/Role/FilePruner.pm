@@ -1,18 +1,18 @@
 package Dist::Zilla::Role::FilePruner;
 # ABSTRACT: something that removes found files from the distribution
-$Dist::Zilla::Role::FilePruner::VERSION = '5.010';
+$Dist::Zilla::Role::FilePruner::VERSION = '5.011';
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
 
 use namespace::autoclean;
 
 # =head1 DESCRIPTION
-# 
+#
 # Plugins implementing FilePruner have their C<prune_files> method called once
 # all the L<FileGatherer|Dist::Zilla::Role::FileGatherer> plugins have been
 # called.  They are expected to (optionally) remove files from the list of files
 # to be included in the distribution.
-# 
+#
 # =cut
 
 requires 'prune_files';
@@ -31,7 +31,7 @@ Dist::Zilla::Role::FilePruner - something that removes found files from the dist
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 DESCRIPTION
 

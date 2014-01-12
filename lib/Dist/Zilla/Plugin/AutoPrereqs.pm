@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoPrereqs;
 # ABSTRACT: automatically extract prereqs from your modules
-$Dist::Zilla::Plugin::AutoPrereqs::VERSION = '5.010';
+$Dist::Zilla::Plugin::AutoPrereqs::VERSION = '5.011';
 use Moose;
 with(
   'Dist::Zilla::Role::PrereqSource',
@@ -21,23 +21,23 @@ with(
 );
 
 # =attr finder
-# 
+#
 # This is the name of a L<FileFinder|Dist::Zilla::Role::FileFinder>
 # whose files will be scanned to determine runtime prerequisites.  It
 # may be specified multiple times.  The default value is
 # C<:InstallModules> and C<:ExecFiles>.
-# 
+#
 # =attr test_finder
-# 
+#
 # Just like C<finder>, but for test-phase prerequisites.  The default
 # value is C<:TestFiles>.
-# 
+#
 # =attr configure_finder
-# 
+#
 # Just like C<finder>, but for configure-phase prerequisites.  There is
 # no default value; AutoPrereqs will not determine configure-phase
 # prerequisites unless you set configure_finder.
-# 
+#
 # =cut
 
 use namespace::autoclean;
@@ -49,49 +49,49 @@ use CPAN::Meta::Requirements;
 use version;
 
 # =head1 SYNOPSIS
-# 
+#
 # In your F<dist.ini>:
-# 
+#
 #   [AutoPrereqs]
 #   skip = ^Foo|Bar$
 #   skip = ^Other::Dist
-# 
+#
 # =head1 DESCRIPTION
-# 
+#
 # This plugin will extract loosely your distribution prerequisites from
 # your files using L<Perl::PrereqScanner>.
-# 
+#
 # If some prereqs are not found, you can still add them manually with the
 # L<Prereqs|Dist::Zilla::Plugin::Prereqs> plugin.
-# 
+#
 # This plugin will skip the modules shipped within your dist.
-# 
+#
 # =attr extra_scanners
-# 
+#
 # This is an arrayref of scanner names (as expected by Perl::PrereqScanner).
 # It will be passed as the C<extra_scanners> parameter to Perl::PrereqScanner.
-# 
+#
 # =attr scanners
-# 
+#
 # This is an arrayref of scanner names (as expected by Perl::PrereqScanner).
 # If present, it will be passed as the C<scanners> parameter to
 # Perl::PrereqScanner, which means that it will replace the default list
 # of scanners.
-# 
+#
 # =attr skips
-# 
+#
 # This is an arrayref of regular expressions, derived from all the 'skip' lines
 # in the configuration.  Any module names matching any of these regexes will not
 # be registered as prerequisites.
-# 
+#
 # =head1 SEE ALSO
-# 
+#
 # L<Prereqs|Dist::Zilla::Plugin::Prereqs>, L<Perl::PrereqScanner>.
-# 
+#
 # =head1 CREDITS
-# 
+#
 # This plugin was originally contributed by Jerome Quelin.
-# 
+#
 # =cut
 
 sub mvp_multivalue_args { qw(extra_scanners scanners skips) }
@@ -213,7 +213,7 @@ Dist::Zilla::Plugin::AutoPrereqs - automatically extract prereqs from your modul
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 SYNOPSIS
 

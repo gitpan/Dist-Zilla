@@ -1,21 +1,21 @@
 package Dist::Zilla::File::FromCode;
 # ABSTRACT: a file whose content is (re-)built on demand
-$Dist::Zilla::File::FromCode::VERSION = '5.010';
+$Dist::Zilla::File::FromCode::VERSION = '5.011';
 use Moose;
 use Moose::Util::TypeConstraints;
 
 use namespace::autoclean;
 
 # =head1 DESCRIPTION
-# 
+#
 # This represents a file whose contents will be generated on demand from a
 # callback or method name.
-# 
+#
 # It has one attribute, C<code>, which may be a method name (string) or a
 # coderef.  When the file's C<content> method is called, the code is used to
 # generate the content.  This content is I<not> cached.  It is recomputed every
 # time the content is requested.
-# 
+#
 # =cut
 
 with 'Dist::Zilla::Role::File';
@@ -27,9 +27,9 @@ has code => (
 );
 
 # =attr code_return_type
-# 
+#
 # 'text' or 'bytes'
-# 
+#
 # =cut
 
 has code_return_type => (
@@ -39,7 +39,7 @@ has code_return_type => (
 );
 
 # =attr encoding
-# 
+#
 # =cut
 
 sub encoding;
@@ -57,7 +57,7 @@ sub _build_encoding {
 }
 
 # =attr content
-# 
+#
 # =cut
 
 sub content {
@@ -77,7 +77,7 @@ sub content {
 }
 
 # =attr encoded_content
-# 
+#
 # =cut
 
 sub encoded_content {
@@ -116,7 +116,7 @@ Dist::Zilla::File::FromCode - a file whose content is (re-)built on demand
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 DESCRIPTION
 

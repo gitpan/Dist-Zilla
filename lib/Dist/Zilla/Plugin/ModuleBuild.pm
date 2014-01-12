@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ModuleBuild;
 # ABSTRACT: build a Build.PL that uses Module::Build
-$Dist::Zilla::Plugin::ModuleBuild::VERSION = '5.010';
+$Dist::Zilla::Plugin::ModuleBuild::VERSION = '5.011';
 use List::MoreUtils qw(any uniq);
 use Moose;
 use Moose::Autobox;
@@ -18,30 +18,30 @@ use List::MoreUtils qw(any uniq);
 use Data::Dumper;
 
 # =head1 DESCRIPTION
-# 
+#
 # This plugin will create a F<Build.PL> for installing the dist using
 # L<Module::Build>.
-# 
+#
 # =cut
 
 # =attr mb_version
-# 
+#
 # B<Optional:> Specify the minimum version of L<Module::Build> to depend on.
-# 
+#
 # Defaults to 0.3601
-# 
+#
 # =attr mb_class
-# 
+#
 # B<Optional:> Specify the class to use to create the build object.  Defaults
 # to C<Module::Build> itself.  If another class is specified, then the value
 # of mb_lib will be used to generate a line like C<use lib 'inc'> to be added
 # to the generated Build.PL file.
-# 
+#
 # =attr mb_lib
-# 
+#
 # B<Optional:> Specify the list of directories to be passed to lib when using 
 # mb_class. Defaults to C<inc>. 
-# 
+#
 # =cut
 
 has 'mb_version' => (
@@ -209,16 +209,16 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 # =head1 SEE ALSO
-# 
+#
 # Core Dist::Zilla plugins:
 # L<@Basic|Dist::Zilla::PluginBundle::Basic>,
 # L<@Filter|Dist::Zilla::PluginBundle::Filter>,
 # L<MakeMaker|Dist::Zilla::Plugin::MakeMaker>,
 # L<Manifest|Dist::Zilla::Plugin::Manifest>.
-# 
+#
 # Dist::Zilla roles:
 # L<BuildPL|Dist::Zilla::Role::BuildPL>.
-# 
+#
 # =cut
 
 __END__
@@ -233,7 +233,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 DESCRIPTION
 

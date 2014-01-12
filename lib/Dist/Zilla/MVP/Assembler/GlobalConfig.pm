@@ -1,21 +1,21 @@
 package Dist::Zilla::MVP::Assembler::GlobalConfig;
 # ABSTRACT: Dist::Zilla::MVP::Assembler for global configuration
-$Dist::Zilla::MVP::Assembler::GlobalConfig::VERSION = '5.010';
+$Dist::Zilla::MVP::Assembler::GlobalConfig::VERSION = '5.011';
 use Moose;
 extends 'Dist::Zilla::MVP::Assembler';
 
 use namespace::autoclean;
 
 # =head1 OVERVIEW
-# 
+#
 # This is a subclass of L<Dist::Zilla::MVP::Assembler> used when assembling the
 # global configuration.  It has a C<stash_registry> attribute, a hashref, into
 # which stashes will be registered.
-# 
+#
 # They get registered via the C<register_stash> method, below, generally called
 # by the C<register_component> method on L<Dist::Zilla::Role::Stash>-performing
 # class.
-# 
+#
 # =cut
 
 has stash_registry => (
@@ -25,12 +25,12 @@ has stash_registry => (
 );
 
 # =method register_stash
-# 
+#
 #   $assembler->register_stash($name => $stash_object);
-# 
+#
 # This adds a stash to the assembler's stash registry -- unless the name is
 # already taken, in which case an exception is raised.
-# 
+#
 # =cut
 
 sub register_stash {
@@ -59,7 +59,7 @@ Dist::Zilla::MVP::Assembler::GlobalConfig - Dist::Zilla::MVP::Assembler for glob
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 OVERVIEW
 

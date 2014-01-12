@@ -1,16 +1,16 @@
 package Dist::Zilla::Role::BeforeArchive;
 # ABSTRACT: something that runs before the archive file is built
-$Dist::Zilla::Role::BeforeArchive::VERSION = '5.010';
+$Dist::Zilla::Role::BeforeArchive::VERSION = '5.011';
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
 
 use namespace::autoclean;
 
 # =head1 DESCRIPTION
-# 
+#
 # Plugins implementing this role have their C<before_archive> method
 # called before the archive is actually built.
-# 
+#
 # =cut
 
 requires 'before_archive';
@@ -29,7 +29,7 @@ Dist::Zilla::Role::BeforeArchive - something that runs before the archive file i
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 DESCRIPTION
 

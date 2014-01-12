@@ -1,16 +1,16 @@
 package Dist::Zilla::Role::AfterRelease;
 # ABSTRACT: something that runs after release is mostly complete
-$Dist::Zilla::Role::AfterRelease::VERSION = '5.010';
+$Dist::Zilla::Role::AfterRelease::VERSION = '5.011';
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
 
 use namespace::autoclean;
 
 # =head1 DESCRIPTION
-# 
+#
 # Plugins implementing this role have their C<after_release> method called
 # once the release is done.
-# 
+#
 # =cut
 
 requires 'after_release';
@@ -29,7 +29,7 @@ Dist::Zilla::Role::AfterRelease - something that runs after release is mostly co
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 DESCRIPTION
 

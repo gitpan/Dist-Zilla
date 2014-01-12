@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::GenerateFile;
 # ABSTRACT: build a custom file from only the plugin configuration
-$Dist::Zilla::Plugin::GenerateFile::VERSION = '5.010';
+$Dist::Zilla::Plugin::GenerateFile::VERSION = '5.011';
 use Moose;
 use Moose::Autobox;
 with (
@@ -13,9 +13,9 @@ use namespace::autoclean;
 use Dist::Zilla::File::InMemory;
 
 # =head1 SYNOPSIS
-# 
+#
 # In your F<dist.ini>:
-# 
+#
 #   [GenerateFile]
 #   filename    = todo/{{ $dist->name }}-master-plan.txt
 #   name_is_template = 1
@@ -25,27 +25,27 @@ use Dist::Zilla::File::InMemory;
 #   content = Item 1: Think of an idea!
 #   content = Item 2: ?
 #   content = Item 3: Profit!
-# 
+#
 # =head1 DESCRIPTION
-# 
+#
 # This plugin adds a file to the distribution.
-# 
+#
 # You can specify the content, as a sequence of lines, in your configuration.
 # The specified filename and content might be literals or might be Text::Template
 # templates.
-# 
+#
 # =head2 Templating of the content
-# 
+#
 # If you provide C<content_is_template> (or C<is_template>) parameter of "1", the
 # content will be run through Text::Template.  The variables C<$plugin> and
 # C<$dist> will be provided, set to the GenerateFile plugin and the Dist::Zilla
 # object respectively.
-# 
+#
 # If you provide a C<name_is_template> parameter of "1", the filename will be run
 # through Text::Template.  The variables C<$plugin> and C<$dist> will be
 # provided, set to the GenerateFile plugin and the Dist::Zilla object
 # respectively.
-# 
+#
 # =cut
 
 sub mvp_aliases { +{ is_template => 'content_is_template' } }
@@ -53,9 +53,9 @@ sub mvp_aliases { +{ is_template => 'content_is_template' } }
 sub mvp_multivalue_args { qw(content) }
 
 # =attr filename
-# 
+#
 # This attribute names the file you want to generate.  It is required.
-# 
+#
 # =cut
 
 has filename => (
@@ -65,10 +65,10 @@ has filename => (
 );
 
 # =attr content
-# 
+#
 # The C<content> attribute is an arrayref of lines that will be joined together
 # with newlines to form the file content.
-# 
+#
 # =cut
 
 has content => (
@@ -77,10 +77,10 @@ has content => (
 );
 
 # =attr content_is_template, is_template
-# 
+#
 # This attribute is a bool indicating whether or not the content should be
 # treated as a Text::Template template.  By default, it is false.
-# 
+#
 # =cut
 
 has content_is_template => (
@@ -90,12 +90,12 @@ has content_is_template => (
 );
 
 # =cut
-# 
+#
 # =attr name_is_template
-# 
+#
 # This attribute is a bool indicating whether or not the filename should be
 # treated as a Text::Template template.  By default, it is false.
-# 
+#
 # =cut
 
 has name_is_template => (
@@ -168,7 +168,7 @@ Dist::Zilla::Plugin::GenerateFile - build a custom file from only the plugin con
 
 =head1 VERSION
 
-version 5.010
+version 5.011
 
 =head1 SYNOPSIS
 
