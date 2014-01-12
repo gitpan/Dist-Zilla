@@ -1,11 +1,8 @@
 use strict;
 use warnings;
 package Dist::Zilla::Util;
-{
-  $Dist::Zilla::Util::VERSION = '5.009';
-}
 # ABSTRACT: random snippets of code that Dist::Zilla wants
-
+$Dist::Zilla::Util::VERSION = '5.010';
 use Carp ();
 use String::RewritePrefix 0.002; # better string context behavior
 
@@ -53,6 +50,13 @@ use String::RewritePrefix 0.002; # better string context behavior
   }
 }
 
+# =method abstract_from_file
+# 
+# This method, I<which is likely to change or go away>, tries to guess the
+# abstract of a given file, assuming that it's Perl code.  It looks for a POD
+# C<=head1> section called "NAME" or a comment beginning with C<ABSTRACT:>.
+# 
+# =cut
 
 sub abstract_from_file {
   my ($self, $file) = @_;
@@ -61,6 +65,15 @@ sub abstract_from_file {
   return $e->{abstract};
 }
 
+# =method expand_config_package_name
+# 
+#   my $pkg_name = Util->expand_config_package_name($string);
+# 
+# This method, I<which is likely to change or go away>, rewrites the given string
+# into a package name.  Consult L<Dist::Zilla::Config|Dist::Zilla::Config> for
+# more information.
+# 
+# =cut
 
 sub expand_config_package_name {
   my ($self, $package) = @_;
@@ -122,7 +135,7 @@ Dist::Zilla::Util - random snippets of code that Dist::Zilla wants
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 METHODS
 

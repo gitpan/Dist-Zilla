@@ -1,8 +1,6 @@
 package Dist::Zilla::Role::PPI;
-{
-  $Dist::Zilla::Role::PPI::VERSION = '5.009';
-}
 # ABSTRACT: a role for plugins which use PPI
+$Dist::Zilla::Role::PPI::VERSION = '5.010';
 use Moose::Role;
 
 use Moose::Util::TypeConstraints;
@@ -11,6 +9,21 @@ use namespace::autoclean;
 
 use Digest::MD5 qw(md5);
 
+# =head1 DESCRIPTION
+# 
+# This role provides some common utilities for plugins which use PPI
+# 
+# =method ppi_document_for_file
+# 
+#   my $document = $self->ppi_document_for_file($file);
+# 
+# Given a dzil file object (anything that does L<Dist::Zilla::Role::File>), this
+# method returns a new L<PPI::Document> for that file's content.
+# 
+# Internally, this method caches these documents. If multiple plugins want a
+# document for the same file, this avoids reparsing it.
+# 
+# =cut
 
 my %CACHE;
 
@@ -22,15 +35,26 @@ sub ppi_document_for_file {
   # We cache on the MD5 checksum to detect if the document has been modified
   # by some other plugin since it was last parsed, our document is invalid.
   my $md5 = md5($encoded_content);
-  return $CACHE{$md5} if $CACHE{$md5};
+  return $CACHE{$md5}->clone if $CACHE{$md5};
 
   require PPI::Document;
   my $document = PPI::Document->new(\$encoded_content)
     or Carp::croak(PPI::Document->errstr);
 
-  return $CACHE{$md5} = $document;
+  return ($CACHE{$md5} = $document)->clone;
 }
 
+# =method save_ppi_document_to_file
+# 
+#   my $document = $self->save_ppi_document_to_file($document,$file);
+# 
+# Given a L<PPI::Document> and a dzil file object (anything that does
+# L<Dist::Zilla::Role::File>), this method saves the serialized document in the
+# file.
+# 
+# It also updates the internal PPI document cache with the new document.
+# 
+# =cut
 
 sub save_ppi_document_to_file {
   my ($self, $document, $file) = @_;
@@ -39,10 +63,16 @@ sub save_ppi_document_to_file {
 
   $file->encoded_content($new_content);
 
-  $CACHE{ md5($new_content) } = $document;
-
+  $CACHE{ md5($new_content) } = $document->clone;
 }
 
+# =method document_assigns_to_variable
+# 
+#   if( $self->ppi_document_for_file($document, '$FOO')) { ... }
+# 
+# This method returns true if the document assigns to the given variable.
+# 
+# =cut
 
 sub document_assigns_to_variable {
   my ($self, $document, $variable) = @_;
@@ -73,7 +103,7 @@ Dist::Zilla::Role::PPI - a role for plugins which use PPI
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

@@ -1,11 +1,8 @@
 use strict;
 use warnings;
 package Test::DZil;
-{
-  $Test::DZil::VERSION = '5.009';
-}
 # ABSTRACT: tools for testing Dist::Zilla plugins
-
+$Test::DZil::VERSION = '5.010';
 use Dist::Zilla::Tester;
 use Params::Util qw(_HASH0);
 use JSON 2;
@@ -26,7 +23,31 @@ use Sub::Exporter -setup => {
   groups  => [ default => [ qw(-all) ] ],
 };
 
+# =head1 DESCRIPTION
+# 
+# Test::DZil provides routines for writing tests for Dist::Zilla plugins.
+# 
+# =cut
 
+# =func Builder
+# 
+# =func Minter
+# 
+#   my $tzil = Builder->from_config(...);
+# 
+# These return class names that subclass L<Dist::Zilla::Dist::Builder> or
+# L<Dist::Zilla::Dist::Minter>, respectively, with the L<Dist::Zilla::Tester>
+# behavior added.
+# 
+# =func is_filelist
+# 
+#   is_filelist( \@files_we_have, \@files_we_want, $desc );
+# 
+# This test assertion compares two arrayrefs of filenames, taking care of slash
+# normalization and sorting.  C<@files_we_have> may also contain objects that
+# do L<Dist::Zilla::Role::File>.
+# 
+# =cut
 
 sub is_filelist {
   my ($have, $want, $comment) = @_;
@@ -42,6 +63,14 @@ sub is_filelist {
   Test::More::is_deeply(\@have, \@want, $comment);
 }
 
+# =func is_yaml
+# 
+#   is_yaml( $yaml_string, $want_struct, $comment );
+# 
+# This test assertion deserializes the given YAML string and does a
+# C<L<cmp_deeply|Test::Deep/cmp_deeply>>.
+# 
+# =cut
 
 sub is_yaml {
   my ($yaml, $want, $comment) = @_;
@@ -53,6 +82,14 @@ sub is_yaml {
   Test::Deep::cmp_deeply($have->[0], $want, $comment);
 }
 
+# =func is_json
+# 
+#   is_json( $json_string, $want_struct, $comment );
+# 
+# This test assertion deserializes the given JSON string and does a
+# C<L<cmp_deeply|Test::Deep/cmp_deeply>>.
+# 
+# =cut
 
 sub is_json {
   my ($json, $want, $comment) = @_;
@@ -113,11 +150,70 @@ sub _build_ini_builder {
   }
 }
 
+# =func dist_ini
+# 
+#   my $ini_text = dist_ini(\%root_config, @plugins);
+# 
+# This routine returns a string that could be used to populate a simple
+# F<dist.ini> file.  The C<%root_config> gives data for the "root" section of the
+# configuration.  To provide a line multiple times, provide an arrayref.  For
+# example, the root section could read:
+# 
+#   {
+#     name   => 'Dist-Sample',
+#     author => [
+#       'J. Smith <jsmith@example.com>',
+#       'Q. Smith <qsmith@example.com>',
+#     ],
+#   }
+# 
+# The root section is optional.
+# 
+# Plugins can be given in a few ways:
+# 
+# =begin :list
+# 
+# = C<"PluginMoniker">
+# 
+# = C<[ "PluginMoniker" ]>
+# 
+# These become C<[PluginMoniker]>
+# 
+# = C<[ "PluginMoniker", "PluginName" ]>
+# 
+# This becomes C<[PluginMoniker / PluginName]>
+# 
+# = C<[ "PluginMoniker", { ... } ]>
+# 
+# = C<[ "PluginMoniker", "PluginName", { ... } ]>
+# 
+# These use the given hashref as the parameters inside the section, with the same
+# semantics as the root section.
+# 
+# =end :list
+# 
+# =cut
 
 sub _dist_ini {
   _build_ini_builder;
 }
 
+# =func simple_ini
+# 
+# This behaves exactly like C<dist_ini>, but it merges any given root config into
+# a starter config, which means that you can often skip any explicit root config.
+# The starter config may change slightly over time, but is something like this:
+# 
+#   {
+#     name     => 'DZT-Sample',
+#     abstract => 'Sample DZ Dist',
+#     version  => '0.001',
+#     author   => 'E. Xavier Ample <example@example.org>',
+#     license  => 'Perl_5',
+#     copyright_holder => 'E. Xavier Ample',
+#   }
+# 
+# =cut
 
 sub _simple_ini {
   _build_ini_builder({
@@ -144,7 +240,7 @@ Test::DZil - tools for testing Dist::Zilla plugins
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

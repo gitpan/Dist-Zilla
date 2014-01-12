@@ -1,8 +1,6 @@
 package Dist::Zilla::Role::InstallTool;
-{
-  $Dist::Zilla::Role::InstallTool::VERSION = '5.009';
-}
 # ABSTRACT: something that creates an install program for a dist
+$Dist::Zilla::Role::InstallTool::VERSION = '5.010';
 use Moose::Role;
 with qw(
   Dist::Zilla::Role::Plugin
@@ -13,6 +11,16 @@ use namespace::autoclean;
 
 use Moose::Autobox;
 
+# =head1 DESCRIPTION
+# 
+# Plugins implementing InstallTool have their C<setup_installer> method called to
+# inject files after all other file injection and munging has taken place.
+# They're expected to produce files needed to make the distribution
+# installable, like F<Makefile.PL> or F<Build.PL> and add them with the
+# C<add_file> method provided by L<Dist::Zilla::Role::FileInjector>, which is
+# also composed by this role.
+# 
+# =cut
 
 requires 'setup_installer';
 
@@ -30,7 +38,7 @@ Dist::Zilla::Role::InstallTool - something that creates an install program for a
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

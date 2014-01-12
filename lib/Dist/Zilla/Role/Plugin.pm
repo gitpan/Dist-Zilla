@@ -1,8 +1,6 @@
 package Dist::Zilla::Role::Plugin;
-{
-  $Dist::Zilla::Role::Plugin::VERSION = '5.009';
-}
 # ABSTRACT: something that gets plugged in to Dist::Zilla
+$Dist::Zilla::Role::Plugin::VERSION = '5.010';
 use Moose::Role;
 with 'Dist::Zilla::Role::ConfigDumper';
 
@@ -12,6 +10,16 @@ use MooseX::Types;
 
 use namespace::autoclean;
 
+# =head1 DESCRIPTION
+# 
+# The Plugin role should be applied to all plugin classes.  It provides a few key
+# methods and attributes that all plugins will need.
+# 
+# =attr plugin_name
+# 
+# The plugin name is generally determined when configuration is read.
+# 
+# =cut
 
 has plugin_name => (
   is  => 'ro',
@@ -19,6 +27,12 @@ has plugin_name => (
   required => 1,
 );
 
+# =attr zilla
+# 
+# This attribute contains the Dist::Zilla object into which the plugin was
+# plugged.
+# 
+# =cut
 
 has zilla => (
   is  => 'ro',
@@ -27,6 +41,12 @@ has zilla => (
   weak_ref => 1,
 );
 
+# =method log
+# 
+# The plugin's C<log> method delegates to the Dist::Zilla object's
+# L<Dist::Zilla/log> method after including a bit of argument-munging.
+# 
+# =cut
 
 has logger => (
   is   => 'ro',
@@ -83,7 +103,7 @@ Dist::Zilla::Role::Plugin - something that gets plugged in to Dist::Zilla
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

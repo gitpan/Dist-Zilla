@@ -1,9 +1,6 @@
 package Dist::Zilla::Plugin::NextRelease;
-{
-  $Dist::Zilla::Plugin::NextRelease::VERSION = '5.009';
-}
 # ABSTRACT: update the next release number in your changelog
-
+$Dist::Zilla::Plugin::NextRelease::VERSION = '5.010';
 use namespace::autoclean;
 
 use Moose;
@@ -142,6 +139,113 @@ sub after_release {
 __PACKAGE__->meta->make_immutable;
 1;
 
+# =head1 SYNOPSIS
+# 
+# In your F<dist.ini>:
+# 
+#   [NextRelease]
+# 
+# In your F<Changes> file:
+# 
+#   {{$NEXT}}
+# 
+# 
+# =head1 DESCRIPTION
+# 
+# Tired of having to update your F<Changes> file by hand with the new
+# version and release date / time each time you release your distribution?
+# Well, this plugin is for you.
+# 
+# Add this plugin to your F<dist.ini>, and the following to your
+# F<Changes> file:
+# 
+#   {{$NEXT}}
+# 
+# The C<NextRelease> plugin will then do 2 things:
+# 
+# =over 4
+# 
+# =item * At build time, this special marker will be replaced with the
+# version and the build date, to form a standard changelog header. This
+# will be done to the in-memory file - the original F<Changes> file won't
+# be updated.
+# 
+# =item * After release (when running C<dzil release>), since the version
+# and build date are now part of your dist's history, the real F<Changes>
+# file (not the in-memory one) will be updated with this piece of
+# information.
+# 
+# =back
+# 
+# The module accepts the following options in its F<dist.ini> section:
+# 
+# =begin :list
+# 
+# = filename
+# the name of your changelog file;  defaults to F<Changes>
+# 
+# = update_filename
+# the file to which to write an updated changelog to; defaults to the C<filename>
+# 
+# = format
+# sprintf-like string used to compute the next value of C<{{$NEXT}}>;
+# defaults to C<%-9v %{yyyy-MM-dd HH:mm:ss VVVV}d>
+# 
+# = time_zone
+# the timezone to use when generating the date;  defaults to I<local>
+# 
+# = user_stash
+# the name of the stash where the user's name and email address can be found;
+# defaults to C<%User>
+# 
+# =end :list
+# 
+# The module allows the following sprintf-like format codes in the C<format>:
+# 
+# =begin :list
+# 
+# = C<%v>
+# The distribution version
+# 
+# = C<%{-TRIAL}T>
+# Expands to -TRIAL (or any other supplied string) if this
+# is a trial release, or the empty string if not.  A bare C<%T> means
+# C<%{-TRIAL}T>.
+# 
+# = C<%{-TRIAL}V>
+# Equivalent to C<%v%{-TRIAL}T>, to allow for the application of modifiers such
+# as space padding to the entire version string produced.
+# 
+# = C<%{CLDR format}d>
+# The date of the release.  You can use any CLDR format supported by
+# L<DateTime>.  You must specify the format; there is no default.
+# 
+# = C<%U>
+# The name of the user making this release (from C<user_stash>).
+# 
+# = C<%E>
+# The email address of the user making this release (from C<user_stash>).
+# 
+# = C<%n>
+# A newline
+# 
+# = C<%t>
+# A tab
+# 
+# =end :list
+# 
+# =head1 SEE ALSO
+# 
+# Core Dist::Zilla plugins:
+# L<AutoVersion|Dist::Zilla::Plugin::AutoVersion>,
+# L<PkgVersion|Dist::Zilla::Plugin::PkgVersion>,
+# L<PodVersion|Dist::Zilla::Plugin::PodVersion>.
+# 
+# Dist::Zilla roles:
+# L<AfterRelease|Dist::Zilla::Plugin::AfterRelease>,
+# L<FileMunger|Dist::Zilla::Role::FileMunger>,
+# L<TextTemplate|Dist::Zilla::Role::TextTemplate>.
+
 __END__
 
 =pod
@@ -154,7 +258,7 @@ Dist::Zilla::Plugin::NextRelease - update the next release number in your change
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 SYNOPSIS
 

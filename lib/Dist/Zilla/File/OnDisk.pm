@@ -1,8 +1,6 @@
 package Dist::Zilla::File::OnDisk;
-{
-  $Dist::Zilla::File::OnDisk::VERSION = '5.009';
-}
 # ABSTRACT: a file that comes from your filesystem
+$Dist::Zilla::File::OnDisk::VERSION = '5.010';
 use Moose;
 
 use Path::Tiny;
@@ -11,6 +9,13 @@ use namespace::autoclean;
 
 with 'Dist::Zilla::Role::MutableFile', 'Dist::Zilla::Role::StubBuild';
 
+# =head1 DESCRIPTION
+# 
+# This represents a file stored on disk.  Its C<content> attribute is read from
+# the originally given file name when first read, but is then kept in memory and
+# may be altered by plugins.
+# 
+# =cut
 
 has _original_name => (
   is  => 'ro',
@@ -50,7 +55,7 @@ Dist::Zilla::File::OnDisk - a file that comes from your filesystem
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

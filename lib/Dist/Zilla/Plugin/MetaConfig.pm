@@ -1,13 +1,24 @@
 package Dist::Zilla::Plugin::MetaConfig;
-{
-  $Dist::Zilla::Plugin::MetaConfig::VERSION = '5.009';
-}
 # ABSTRACT: summarize Dist::Zilla configuration into distmeta
+$Dist::Zilla::Plugin::MetaConfig::VERSION = '5.010';
 use Moose;
 with 'Dist::Zilla::Role::MetaProvider';
 
 use namespace::autoclean;
 
+# =head1 DESCRIPTION
+# 
+# This plugin adds a top-level C<x_Dist_Zilla> key to the
+# L<distmeta|Dist::Zilla/distmeta> for the distribution.  It describe the
+# Dist::Zilla version used as well as all the plugins used.  Each plugin's name,
+# package, and version will be included.  Plugins may augment their
+# implementation of the L<Dist::Zilla::Role::ConfigDumper> role methods to add
+# more data to this dump.
+# 
+# More information may be added to the top-level of this metadata as time goes
+# on.
+# 
+# =cut
 
 sub metadata {
   my ($self) = @_;
@@ -45,6 +56,12 @@ sub metadata {
 __PACKAGE__->meta->make_immutable;
 1;
 
+# =head1 SEE ALSO
+# 
+# Dist::Zilla roles: L<MetaProvider|Dist::Zilla::Role::MetaProvider>.
+# 
+# =cut
+
 __END__
 
 =pod
@@ -57,7 +74,7 @@ Dist::Zilla::Plugin::MetaConfig - summarize Dist::Zilla configuration into distm
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

@@ -1,15 +1,32 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::build;
-{
-  $Dist::Zilla::App::Command::build::VERSION = '5.009';
-}
 # ABSTRACT: build your dist
+$Dist::Zilla::App::Command::build::VERSION = '5.010';
 use Dist::Zilla::App -command;
 
+# =head1 SYNOPSIS
+# 
+#   dzil build [ --trial ] [ --tgz | --no-tgz ] [ --in /path/to/build/dir ]
+# 
+# =head1 DESCRIPTION
+# 
+# This command is a very thin layer over the Dist::Zilla C<build> method, which
+# does all the things required to build your distribution.  By default, it will
+# also archive your distribution and leave you with a complete, ready-to-release
+# distribution tarball.
+# 
+# =cut
 
 sub abstract { 'build your dist' }
 
+# =head1 EXAMPLE
+# 
+#   $ dzil build
+#   $ dzil build --no-tgz
+#   $ dzil build --in /path/to/build/dir
+# 
+# =cut
 
 sub opt_spec {
   [ 'trial'  => 'build a trial release that PAUSE will not index'      ],
@@ -17,6 +34,25 @@ sub opt_spec {
   [ 'in=s'   => 'the directory in which to build the distribution'     ]
 }
 
+# =head1 OPTIONS
+# 
+# =head2 --trial
+# 
+# This will build a trial distribution.  Among other things, it will generally
+# mean that the built tarball's basename ends in F<-TRIAL>.
+# 
+# =head2 --tgz | --no-tgz
+# 
+# Builds a .tar.gz in your project directory after building the distribution.
+# 
+# --tgz behaviour is by default, use --no-tgz to disable building an archive.
+# 
+# =head2 --in
+# 
+# Specifies the directory into which the distribution should be built.  If
+# necessary, the directory will be created.  An archive will not be created.
+# 
+# =cut
 
 sub execute {
   my ($self, $opt, $args) = @_;
@@ -45,7 +81,7 @@ Dist::Zilla::App::Command::build - build your dist
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 SYNOPSIS
 

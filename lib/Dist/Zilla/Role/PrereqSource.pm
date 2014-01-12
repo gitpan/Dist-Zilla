@@ -1,13 +1,17 @@
 package Dist::Zilla::Role::PrereqSource;
-{
-  $Dist::Zilla::Role::PrereqSource::VERSION = '5.009';
-}
 # ABSTRACT: something that registers prerequisites
+$Dist::Zilla::Role::PrereqSource::VERSION = '5.010';
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
 
 use namespace::autoclean;
 
+# =head1 DESCRIPTION
+# 
+# PrereqSource plugins have a C<register_prereqs> method that should register
+# prereqs with the Dist::Zilla object.
+# 
+# =cut
 
 requires 'register_prereqs';
 
@@ -25,7 +29,7 @@ Dist::Zilla::Role::PrereqSource - something that registers prerequisites
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

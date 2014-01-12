@@ -1,12 +1,21 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::setup;
-{
-  $Dist::Zilla::App::Command::setup::VERSION = '5.009';
-}
 # ABSTRACT: set up a basic global config file
+$Dist::Zilla::App::Command::setup::VERSION = '5.010';
 use Dist::Zilla::App -command;
 
+# =head1 SYNOPSIS
+# 
+#   $ dzil setup
+#   Enter your name> Ricardo Signes
+#   ...
+# 
+# Dist::Zilla looks for per-user configuration in F<~/.dzil/config.ini>.  This
+# command prompts the user for some basic information that can be used to produce
+# the most commonly needed F<config.ini> sections.
+# 
+# =cut
 
 use autodie;
 
@@ -104,6 +113,8 @@ sub execute {
   }
 
   $config_root->mkpath unless -d $config_root;
+  $config_root->subdir('profiles')->mkpath
+    unless -d $config_root->subdir('profiles');
 
   my $umask = umask;
   umask( $umask | 077 ); # this file might contain PAUSE pw; make it go-r
@@ -147,7 +158,7 @@ Dist::Zilla::App::Command::setup - set up a basic global config file
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 SYNOPSIS
 

@@ -1,13 +1,17 @@
 package Dist::Zilla::Role::BeforeMint;
-{
-  $Dist::Zilla::Role::BeforeMint::VERSION = '5.009';
-}
 # ABSTRACT: something that runs before minting really begins
+$Dist::Zilla::Role::BeforeMint::VERSION = '5.010';
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
 
 use namespace::autoclean;
 
+# =head1 DESCRIPTION
+# 
+# Plugins implementing this role have their C<before_mint> method called
+# before any other plugins are consulted.
+# 
+# =cut
 
 requires 'before_mint';
 
@@ -25,7 +29,7 @@ Dist::Zilla::Role::BeforeMint - something that runs before minting really begins
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

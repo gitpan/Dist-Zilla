@@ -1,12 +1,18 @@
 package Dist::Zilla::File::InMemory;
-{
-  $Dist::Zilla::File::InMemory::VERSION = '5.009';
-}
 # ABSTRACT: a file that you build entirely in memory
+$Dist::Zilla::File::InMemory::VERSION = '5.010';
 use Moose;
 
 use namespace::autoclean;
 
+# =head1 DESCRIPTION
+# 
+# This represents a file created in memory -- it's not much more than a glorified
+# string.
+# 
+# See L<Dist::Zilla::Role::MutableFile> for details.
+# 
+# =cut
 
 with 'Dist::Zilla::Role::MutableFile', 'Dist::Zilla::Role::StubBuild';
 
@@ -45,7 +51,7 @@ Dist::Zilla::File::InMemory - a file that you build entirely in memory
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

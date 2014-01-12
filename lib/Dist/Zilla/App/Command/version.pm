@@ -1,16 +1,20 @@
 use strict;
 use warnings;
-
 package Dist::Zilla::App::Command::version;
-{
-  $Dist::Zilla::App::Command::version::VERSION = '5.009';
-}
+# ABSTRACT: display dzil's version
+$Dist::Zilla::App::Command::version::VERSION = '5.010';
 use Dist::Zilla::App -command;
 use Moose;
 extends 'App::Cmd::Command::version';
 
-# ABSTRACT: display dzil's version
 
+# =head1 SYNOPSIS
+# 
+# Print dzil version
+# 
+#   $ dzil --version or $dzil version
+# 
+# =cut
 
 sub version_for_display {
   my $version_pkg = $_[0]->version_package;
@@ -33,7 +37,7 @@ Dist::Zilla::App::Command::version - display dzil's version
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 SYNOPSIS
 

@@ -1,8 +1,6 @@
 package Dist::Zilla::Dist::Builder;
-{
-  $Dist::Zilla::Dist::Builder::VERSION = '5.009';
-}
 # ABSTRACT: dist zilla subclass for building dists
+$Dist::Zilla::Dist::Builder::VERSION = '5.010';
 use Moose 0.92; # role composition fixes
 extends 'Dist::Zilla';
 
@@ -17,6 +15,22 @@ use Try::Tiny;
 
 use namespace::autoclean;
 
+# =method from_config
+# 
+#   my $zilla = Dist::Zilla->from_config(\%arg);
+# 
+# This routine returns a new Zilla from the configuration in the current working
+# directory.
+# 
+# This method should not be relied upon, yet.  Its semantics are B<certain> to
+# change.
+# 
+# Valid arguments are:
+# 
+#   config_class - the class to use to read the config
+#                  default: Dist::Zilla::MVP::Reader::Finder
+# 
+# =cut
 
 sub from_config {
   my ($class, $arg) = @_;
@@ -273,6 +287,21 @@ END_DIE
   return $seq;
 }
 
+# =method build_in
+# 
+#   $zilla->build_in($root);
+# 
+# This method builds the distribution in the given directory.  If no directory
+# name is given, it defaults to DistName-Version.  If the distribution has
+# already been built, an exception will be thrown.
+# 
+# =method build
+# 
+# This method just calls C<build_in> with no arguments.  It gets you the default
+# behavior without the weird-looking formulation of C<build_in> with no object
+# for the preposition!
+# 
+# =cut
 
 sub build { $_[0]->build_in }
 
@@ -319,6 +348,11 @@ sub build_in {
   $self->built_in($build_root);
 }
 
+# =attr built_in
+# 
+# This is the L<Path::Class::Dir>, if any, in which the dist has been built.
+# 
+# =cut
 
 has built_in => (
   is   => 'rw',
@@ -326,6 +360,20 @@ has built_in => (
   init_arg  => undef,
 );
 
+# =method ensure_built_in
+# 
+#   $zilla->ensure_built_in($root);
+# 
+# This method behaves like C<L</build_in>>, but if the dist is already built in
+# C<$root> (or the default root, if no root is given), no exception is raised.
+# 
+# =method ensure_built
+# 
+# This method just calls C<ensure_built_in> with no arguments.  It gets you the
+# default behavior without the weird-looking formulation of C<ensure_built_in>
+# with no object for the preposition!
+# 
+# =cut
 
 sub ensure_built {
   $_[0]->ensure_built_in;
@@ -342,6 +390,15 @@ sub ensure_built_in {
   $self->build_in($root);
 }
 
+# =method dist_basename
+# 
+#   my $basename = $zilla->dist_basename;
+# 
+# This method will return the dist's basename (e.g. C<Dist-Name-1.01>.
+# The basename is used as the top-level directory in the tarball.  It
+# does not include C<-TRIAL>, even if building a trial dist.
+# 
+# =cut
 
 sub dist_basename {
   my ($self) = @_;
@@ -352,6 +409,15 @@ sub dist_basename {
   );
 }
 
+# =method archive_filename
+# 
+#   my $tarball = $zilla->archive_filename;
+# 
+# This method will return the filename (e.g. C<Dist-Name-1.01.tar.gz>)
+# of the tarball of this dist.  It will include C<-TRIAL> if building a
+# trial dist.  The tarball might not exist.
+# 
+# =cut
 
 sub archive_filename {
   my ($self) = @_;
@@ -362,6 +428,14 @@ sub archive_filename {
   );
 }
 
+# =method build_archive
+# 
+#   $zilla->build_archive;
+# 
+# This method will ensure that the dist has been built, and will then build a
+# tarball of the build directory in the current directory.
+# 
+# =cut
 
 sub build_archive {
   my ($self) = @_;
@@ -457,6 +531,15 @@ sub _prep_build_root {
   return $build_root;
 }
 
+# =method release
+# 
+#   $zilla->release;
+# 
+# This method releases the distribution, probably by uploading it to the CPAN.
+# The actual effects of this method (as with most of the methods) is determined
+# by the loaded plugins.
+# 
+# =cut
 
 sub release {
   my $self = shift;
@@ -478,6 +561,14 @@ sub release {
   $_->after_release($tgz) for $self->plugins_with(-AfterRelease)->flatten;
 }
 
+# =method clean
+# 
+# This method removes temporary files and directories suspected to have been
+# produced by the Dist::Zilla build process.  Specifically, it deletes the
+# F<.build> directory and any entity that starts with the dist name and a hyphen,
+# like matching the glob C<Your-Dist-*>.
+# 
+# =cut
 
 sub clean {
   my ($self, $dry_run) = @_;
@@ -493,6 +584,14 @@ sub clean {
   };
 }
 
+# =method ensure_built_in_tmpdir
+# 
+#   $zilla->ensure_built_in_tmpdir;
+# 
+# This method will consistently build the distribution in a temporary
+# subdirectory. It will return the path for the temporary build location.
+# 
+# =cut
 
 sub ensure_built_in_tmpdir {
   my $self = shift;
@@ -529,6 +628,24 @@ sub ensure_built_in_tmpdir {
   return ($target, $latest, $previous);
 }
 
+# =method install
+# 
+#   $zilla->install( \%arg );
+# 
+# This method installs the distribution locally.  The distribution will be built
+# in a temporary subdirectory, then the process will change directory to that
+# subdir and an installer will be run.
+# 
+# Valid arguments are:
+# 
+#   keep_build_dir  - if true, don't rmtree the build dir, even if everything
+#                     seemed to work
+#   install_command - the command to run in the subdir to install the dist
+#                     default (roughly): $^X -MCPAN -einstall .
+# 
+#                     this argument should be an arrayref
+# 
+# =cut
 
 sub install {
   my ($self, $arg) = @_;
@@ -563,6 +680,19 @@ sub install {
   return;
 }
 
+# =method test
+# 
+#   $zilla->test(\%arg);
+# 
+# This method builds a new copy of the distribution and tests it using
+# C<L</run_tests_in>>.
+# 
+# C<\%arg> may be omitted.  Otherwise, valid arguments are:
+# 
+#   keep_build_dir  - if true, don't rmtree the build dir, even if everything
+#                     seemed to work
+# 
+# =cut
 
 sub test {
   my ($self, $arg) = @_;
@@ -583,6 +713,18 @@ sub test {
   $latest->remove if $latest;
 }
 
+# =method run_tests_in
+# 
+#   my $error = $zilla->run_tests_in($directory);
+# 
+# This method runs the tests in $directory (a Path::Class::Dir), which
+# must contain an already-built copy of the distribution.  It will throw an
+# exception if there are test failures.
+# 
+# It does I<not> set any of the C<*_TESTING> environment variables, nor
+# does it clean up C<$directory> afterwards.
+# 
+# =cut
 
 sub run_tests_in {
   my ($self, $target) = @_;
@@ -596,6 +738,16 @@ sub run_tests_in {
   }
 }
 
+# =method run_in_build
+# 
+#   $zilla->run_in_build( \@cmd );
+# 
+# This method makes a temporary directory, builds the distribution there,
+# executes the dist's first L<BuildRunner|Dist::Zilla::Role::BuildRunner>, and
+# then runs the given command in the build directory.  If the command exits
+# non-zero, the directory will be left in place.
+# 
+# =cut
 
 sub run_in_build {
   my ($self, $cmd, $arg) = @_;
@@ -660,7 +812,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 ATTRIBUTES
 

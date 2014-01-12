@@ -1,13 +1,17 @@
 package Dist::Zilla::Role::Releaser;
-{
-  $Dist::Zilla::Role::Releaser::VERSION = '5.009';
-}
 # ABSTRACT: something that makes a release of the dist
+$Dist::Zilla::Role::Releaser::VERSION = '5.010';
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
 
 use namespace::autoclean;
 
+# =head1 DESCRIPTION
+# 
+# Plugins implementing this role have their C<release> method called when
+# releasing.  It's passed the distribution tarball to be released.
+# 
+# =cut
 
 requires 'release';
 
@@ -25,7 +29,7 @@ Dist::Zilla::Role::Releaser - something that makes a release of the dist
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

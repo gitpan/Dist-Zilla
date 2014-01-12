@@ -1,14 +1,17 @@
 package Dist::Zilla::MVP::Reader::Perl;
-{
-  $Dist::Zilla::MVP::Reader::Perl::VERSION = '5.009';
-}
+# ABSTRACT: the reader for dist.pl files
+$Dist::Zilla::MVP::Reader::Perl::VERSION = '5.010';
 use Moose;
 extends 'Config::MVP::Reader';
 with qw(Config::MVP::Reader::Findable::ByExtension);
-# ABSTRACT: the reader for dist.pl files
 
 use namespace::autoclean;
 
+# =head1 DESCRIPTION
+# 
+# Dist::Zilla::Config reads in the F<dist.pl> file for a distribution.
+# 
+# =cut
 
 sub default_extension { 'pl' }
 
@@ -60,7 +63,7 @@ Dist::Zilla::MVP::Reader::Perl - the reader for dist.pl files
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

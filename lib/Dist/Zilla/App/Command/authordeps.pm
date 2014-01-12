@@ -1,12 +1,22 @@
 use strict;
 use warnings;
 package Dist::Zilla::App::Command::authordeps;
-{
-  $Dist::Zilla::App::Command::authordeps::VERSION = '5.009';
-}
-use Dist::Zilla::App -command;
 # ABSTRACT: List your distribution's author dependencies
+$Dist::Zilla::App::Command::authordeps::VERSION = '5.010';
+use Dist::Zilla::App -command;
 
+# =head1 SYNOPSIS
+# 
+#   $ dzil authordeps
+# 
+# This will scan the F<dist.ini> file and print a list of plugin modules that
+# probably need to be installed for the dist to be buildable.  This is a very
+# naive scan, but tends to be pretty accurate.  Modules can be added to its
+# results by using special comments in the form:
+# 
+#   ; authordep Some::Package
+# 
+# =cut
 
 sub abstract { "list your distribution's author dependencies" }
 
@@ -50,7 +60,7 @@ Dist::Zilla::App::Command::authordeps - List your distribution's author dependen
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 SYNOPSIS
 

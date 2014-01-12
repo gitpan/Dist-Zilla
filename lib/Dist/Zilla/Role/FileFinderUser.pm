@@ -1,25 +1,107 @@
 package Dist::Zilla::Role::FileFinderUser;
-{
-  $Dist::Zilla::Role::FileFinderUser::VERSION = '5.009';
-}
 # ABSTRACT: something that uses FileFinder plugins
+$Dist::Zilla::Role::FileFinderUser::VERSION = '5.010';
 use MooseX::Role::Parameterized;
 
 use namespace::autoclean;
 
+# =head1 DESCRIPTION
+# 
+# This role enables you to search for files in the dist. This makes it easy to find specific
+# files and have the code factored out to common methods.
+# 
+# Here's an example of a finder: ( taken from AutoPrereqs )
+# 
+#   with 'Dist::Zilla::Role::FileFinderUser' => {
+#       default_finders  => [ ':InstallModules', ':ExecFiles' ],
+#   };
+# 
+# Then you use it in your code like this:
+# 
+#   foreach my $file ( $self->found_files ) {
+#     # $file is an object! Look at L<Dist::Zilla::Role::File>
+#   }
+# 
+# =cut
 
+# =attr finder_arg_names
+# 
+# Define the name of the attribute which will hold this finder. Be sure to specify different names
+# if you have multiple finders!
+# 
+# This is an ArrayRef.
+# 
+# Default: [ qw( finder ) ]
+# 
+# =cut
 
 parameter finder_arg_names => (
   isa => 'ArrayRef',
   default => sub { [ 'finder' ] },
 );
 
+# =attr default_finders
+# 
+# This attribute is an arrayref of plugin names for the default plugins the
+# consuming plugin will use as finders.
+# 
+# Example: C<< [ qw( :InstallModules :ExecFiles ) ] >>
+# 
+# The default finders are:
+# 
+# =begin :list
+# 
+# = :InstallModules
+# 
+# Searches your lib/ directory for pm/pod files
+# 
+# = :IncModules
+# 
+# Searches your inc/ directory for pm files
+# 
+# = :MainModule
+# 
+# Finds the C<main_module> of your dist
+# 
+# = :TestFiles
+# 
+# Searches your t/ directory and lists the files in it.
+# 
+# = :ExecFiles
+# 
+# Searches your distribution for executable files.  Hint: Use the
+# L<Dist::Zilla::Plugin::ExecDir> plugin to mark those files as executables.
+# 
+# = :ShareFiles
+# 
+# Searches your ShareDir directory and lists the files in it.
+# Hint: Use the L<Dist::Zilla::Plugin::ShareDir> plugin to set up the sharedir.
+# 
+# = :All
+# 
+# Returns all files in the distribution.
+# 
+# = :None
+# 
+# Returns nothing.
+# 
+# =end :list
+# 
+# =cut
 
 parameter default_finders => (
   isa => 'ArrayRef',
   required => 1,
 );
 
+# =attr method
+# 
+# This will be the name of the subroutine installed in your package for this
+# finder.  Be sure to specify different names if you have multiple finders!
+# 
+# Default: found_files
+# 
+# =cut
 
 parameter method => (
   isa     => 'Str',
@@ -87,7 +169,7 @@ Dist::Zilla::Role::FileFinderUser - something that uses FileFinder plugins
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

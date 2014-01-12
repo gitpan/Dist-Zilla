@@ -1,13 +1,24 @@
 package Dist::Zilla::Plugin::ExtraTests;
-{
-  $Dist::Zilla::Plugin::ExtraTests::VERSION = '5.009';
-}
 # ABSTRACT: rewrite ./xt tests to ./t tests with skips
+$Dist::Zilla::Plugin::ExtraTests::VERSION = '5.010';
 use Moose;
 with 'Dist::Zilla::Role::FileMunger';
 
 use namespace::autoclean;
 
+# =head1 DESCRIPTION
+# 
+# This plugin rewrites tests found in the following directories:
+# 
+#   ./xt/author  - tests for author testing (env AUTHOR_TESTING is true)
+#   ./xt/release - tests for pre-release testers (env RELEASE_TESTING is true)
+#   ./xt/smoke   - tests for automated testers (env AUTOMATED_TESTING is true)
+# 
+# The tests are renamed and moved to F<./t>, and they are rewritten to include
+# some simple Perl code to skip all included tests if the correct env vars are
+# not set.
+# 
+# =cut
 
 sub munge_file {
   my ($self, $file) = @_;
@@ -71,7 +82,7 @@ Dist::Zilla::Plugin::ExtraTests - rewrite ./xt tests to ./t tests with skips
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

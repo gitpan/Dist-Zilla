@@ -1,13 +1,18 @@
 package Dist::Zilla::Plugin::License;
-{
-  $Dist::Zilla::Plugin::License::VERSION = '5.009';
-}
 # ABSTRACT: output a LICENSE file
+$Dist::Zilla::Plugin::License::VERSION = '5.010';
 use Moose;
 with 'Dist::Zilla::Role::FileGatherer';
 
 use namespace::autoclean;
 
+# =head1 DESCRIPTION
+# 
+# This plugin adds a F<LICENSE> file containing the full text of the
+# distribution's license, as produced by the C<fulltext> method of the
+# dist's L<Software::License> object.
+# 
+# =cut
 
 use Dist::Zilla::File::InMemory;
 
@@ -26,6 +31,30 @@ sub gather_files {
 __PACKAGE__->meta->make_immutable;
 1;
 
+# =head1 SEE ALSO
+# 
+# =over 4
+# 
+# =item *
+# 
+# the C<license> attribute of the L<Dist::Zilla> object to select the license
+# to use.
+# 
+# =item *
+# 
+# Dist::Zilla roles:
+# L<FileGatherer|Dist::Zilla::Role::FileGatherer>.
+# 
+# =item *
+# 
+# Other modules:
+# L<Software::License>,
+# L<Software::License::Artistic_2_0>.
+# 
+# =back
+# 
+# =cut
+
 __END__
 
 =pod
@@ -38,7 +67,7 @@ Dist::Zilla::Plugin::License - output a LICENSE file
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

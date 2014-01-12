@@ -1,13 +1,21 @@
 package Dist::Zilla::Role::TestRunner;
-{
-  $Dist::Zilla::Role::TestRunner::VERSION = '5.009';
-}
 # ABSTRACT: something used as a delegating agent to 'dzil test'
+$Dist::Zilla::Role::TestRunner::VERSION = '5.010';
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
 
 use namespace::autoclean;
 
+# =head1 DESCRIPTION
+# 
+# Plugins implementing this role have their C<test> method called when
+# testing.  It's passed the root directory of the build test dir.
+# 
+# =method test
+# 
+# This method should throw an exception on failure.
+# 
+# =cut
 
 requires 'test';
 
@@ -25,7 +33,7 @@ Dist::Zilla::Role::TestRunner - something used as a delegating agent to 'dzil te
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

@@ -1,14 +1,29 @@
 package Dist::Zilla::Plugin::PodCoverageTests;
-{
-  $Dist::Zilla::Plugin::PodCoverageTests::VERSION = '5.009';
-}
 # ABSTRACT: a release test for Pod coverage
+$Dist::Zilla::Plugin::PodCoverageTests::VERSION = '5.010';
 use Moose;
 extends 'Dist::Zilla::Plugin::InlineFiles';
 with 'Dist::Zilla::Role::PrereqSource';
 
 use namespace::autoclean;
 
+# =head1 DESCRIPTION
+# 
+# This is an extension of L<Dist::Zilla::Plugin::InlineFiles>, providing the
+# following files:
+# 
+#   xt/release/pod-coverage.t - a standard Test::Pod::Coverage test
+# 
+# This test uses L<Pod::Coverage::TrustPod> to check your Pod coverage.  This
+# means that to indicate that some subs should be treated as covered, even if no
+# documentation can be found, you can add:
+# 
+#   =for Pod::Coverage sub_name other_sub this_one_too
+# 
+# L<Test::Pod::Coverage> C<1.08> and L<Pod::Coverage::TrustPod> will be added as
+# C<develop requires> dependencies.
+# 
+# =cut
 
 # Register the release test prereq as a "develop requires"
 # so it will be listed in "dzil listdeps --author"
@@ -38,7 +53,7 @@ Dist::Zilla::Plugin::PodCoverageTests - a release test for Pod coverage
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

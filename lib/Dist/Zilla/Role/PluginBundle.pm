@@ -1,12 +1,18 @@
 package Dist::Zilla::Role::PluginBundle;
-{
-  $Dist::Zilla::Role::PluginBundle::VERSION = '5.009';
-}
 # ABSTRACT: something that bundles a bunch of plugins
+$Dist::Zilla::Role::PluginBundle::VERSION = '5.010';
 use Moose::Role;
 
 use namespace::autoclean;
 
+# =head1 DESCRIPTION
+# 
+# When loading configuration, if the config reader encounters a PluginBundle, it
+# will replace its place in the plugin list with the result of calling its
+# C<bundle_config> method, which will be passed a Config::MVP::Section to
+# configure the bundle.
+# 
+# =cut
 
 sub register_component {
   my ($class, $name, $arg, $self) = @_;
@@ -30,7 +36,7 @@ Dist::Zilla::Role::PluginBundle - something that bundles a bunch of plugins
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

@@ -1,8 +1,6 @@
 package Dist::Zilla::Plugin::MetaJSON;
-{
-  $Dist::Zilla::Plugin::MetaJSON::VERSION = '5.009';
-}
 # ABSTRACT: produce a META.json
+$Dist::Zilla::Plugin::MetaJSON::VERSION = '5.010';
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
@@ -11,6 +9,19 @@ use namespace::autoclean;
 
 use Dist::Zilla::File::FromCode;
 
+# =head1 DESCRIPTION
+# 
+# This plugin will add a F<META.json> file to the distribution.
+# 
+# This file is meant to replace the old-style F<META.yml>.  For more information
+# on this file, see L<Module::Build::API> and L<CPAN::Meta>.
+# 
+# =attr filename
+# 
+# If given, parameter allows you to specify an alternate name for the generated
+# file.  It defaults, of course, to F<META.json>.
+# 
+# =cut
 
 has filename => (
   is  => 'ro',
@@ -18,6 +29,15 @@ has filename => (
   default => 'META.json',
 );
 
+# =attr version
+# 
+# This parameter lets you pick what version of the spec to use when generating
+# the output.  It defaults to 2 at present, but may be updated to new specs as
+# they are released and adopted.
+# 
+# If you want a fixed version, specify it.
+# 
+# =cut
 
 has version => (
   is  => 'ro',
@@ -69,6 +89,21 @@ sub gather_files {
 __PACKAGE__->meta->make_immutable;
 1;
 
+# =head1 SEE ALSO
+# 
+# Core Dist::Zilla plugins:
+# L<@Basic|Dist::Zilla::PluginBundle::Basic>,
+# L<Manifest|Dist::Zilla::Plugin::Manifest>.
+# 
+# Dist::Zilla roles:
+# L<FileGatherer|Dist::Zilla::Role::FileGatherer>.
+# 
+# Other modules:
+# L<CPAN::Meta>,
+# L<CPAN::Meta::Spec>, L<JSON>.
+# 
+# =cut
+
 __END__
 
 =pod
@@ -81,7 +116,7 @@ Dist::Zilla::Plugin::MetaJSON - produce a META.json
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

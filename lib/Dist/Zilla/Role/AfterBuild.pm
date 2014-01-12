@@ -1,13 +1,20 @@
 package Dist::Zilla::Role::AfterBuild;
-{
-  $Dist::Zilla::Role::AfterBuild::VERSION = '5.009';
-}
 # ABSTRACT: something that runs after building is mostly complete
+$Dist::Zilla::Role::AfterBuild::VERSION = '5.010';
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
 
 use namespace::autoclean;
 
+# =head1 DESCRIPTION
+# 
+# Plugins implementing this role have their C<after_build> method called once all
+# the files have been written out.  It is passed a hashref with the following
+# data:
+# 
+#   build_root - the directory in which the dist was built
+# 
+# =cut
 
 requires 'after_build';
 
@@ -25,7 +32,7 @@ Dist::Zilla::Role::AfterBuild - something that runs after building is mostly com
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

@@ -1,14 +1,21 @@
 package Dist::Zilla::Role::MutableFile;
-{
-  $Dist::Zilla::Role::MutableFile::VERSION = '5.009';
-}
 # ABSTRACT: something that can act like a file with changeable contents
+$Dist::Zilla::Role::MutableFile::VERSION = '5.010';
 use Moose::Role;
 
 use Moose::Util::TypeConstraints;
 use MooseX::SetOnce;
 use namespace::autoclean;
 
+# =head1 DESCRIPTION
+# 
+# This role describes a file whose contents may be modified
+# 
+# =attr encoding
+# 
+# Default is 'UTF-8'. Can only be set once.
+# 
+# =cut
 
 with 'Dist::Zilla::Role::File';
 
@@ -22,6 +29,9 @@ has encoding => (
   traits      => [ qw(SetOnce) ],
 );
 
+# =attr content
+# 
+# =cut
 
 has _content => (
   is          => 'rw',
@@ -52,6 +62,9 @@ sub content {
   }
 }
 
+# =attr encoded_content
+# 
+# =cut
 
 has _encoded_content => (
   is          => 'rw',
@@ -126,7 +139,7 @@ Dist::Zilla::Role::MutableFile - something that can act like a file with changea
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

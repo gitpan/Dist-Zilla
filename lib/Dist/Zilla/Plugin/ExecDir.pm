@@ -1,14 +1,22 @@
 package Dist::Zilla::Plugin::ExecDir;
-{
-  $Dist::Zilla::Plugin::ExecDir::VERSION = '5.009';
-}
 # ABSTRACT: install a directory's contents as executables
+$Dist::Zilla::Plugin::ExecDir::VERSION = '5.010';
 use Moose;
 
 use namespace::autoclean;
 
 use Moose::Autobox;
 
+# =head1 SYNOPSIS
+# 
+# In your F<dist.ini>:
+# 
+#   [ExecDir]
+#   dir = scripts
+# 
+# If no C<dir> is provided, the default is F<bin>.
+# 
+# =cut
 
 has dir => (
   is   => 'ro',
@@ -39,7 +47,7 @@ Dist::Zilla::Plugin::ExecDir - install a directory's contents as executables
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 SYNOPSIS
 

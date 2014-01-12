@@ -1,13 +1,88 @@
 package Dist::Zilla::Plugin::Prereqs;
-{
-  $Dist::Zilla::Plugin::Prereqs::VERSION = '5.009';
-}
 # ABSTRACT: list simple prerequisites
+$Dist::Zilla::Plugin::Prereqs::VERSION = '5.010';
 use Moose;
 with 'Dist::Zilla::Role::PrereqSource';
 
 use namespace::autoclean;
 
+# =head1 SYNOPSIS
+# 
+# In your F<dist.ini>:
+# 
+#   [Prereqs]
+#   Foo::Bar = 1.002
+#   MRO::Compat = 10
+#   Sub::Exporter = 0
+# 
+# You can specify requirements for different phases and relationships with:
+# 
+#   [Prereqs]
+#   -phase = test
+#   -relationship = recommends
+# 
+#   Fitz::Fotz    = 1.23
+#   Text::SoundEx = 3
+# 
+# Remember that if you load two Prereqs plugins, each will needs its own name,
+# added like this:
+# 
+#   [Prereqs / PluginName]
+#   -phase = test
+#   -relationship = recommends
+# 
+#   Fitz::Fotz    = 1.23
+#   Text::SoundEx = 3
+# 
+# If the name is the CamelCase concatenation of a phase and relationship
+# (or just a relationship), it will set those parameters implicitly.  If
+# you use a custom name, but it does not specify the relationship, and
+# you didn't specify either C<-phase> or C<-relationship>, it throws the
+# error C<No -phase or -relationship specified>.  This is to prevent a
+# typo that makes the name meaningless from slipping by unnoticed.
+# 
+# The example below is equivalent to the example above, except for the name of
+# the resulting plugin:
+# 
+#   [Prereqs / TestRecommends]
+#   Fitz::Fotz    = 1.23
+#   Text::SoundEx = 3
+# 
+# =head1 DESCRIPTION
+# 
+# This module adds "fixed" prerequisites to your distribution.  These are prereqs
+# with a known, fixed minimum version that doesn't change based on platform or
+# other conditions.
+# 
+# You can specify prerequisites for different phases and kinds of relationships.
+# In C<RuntimeRequires>, the phase is Runtime and the relationship is Requires.
+# These are described in more detail in the L<CPAN::Meta
+# specification|CPAN::Meta::Spec/PREREQUISITES>.
+# 
+# The phases are:
+# 
+# =for :list
+# * configure
+# * build
+# * test
+# * runtime
+# * develop
+# 
+# The relationship types are:
+# 
+# =for :list
+# * requires
+# * recommends
+# * suggests
+# * conflicts
+# 
+# If the phase is omitted, it will default to I<runtime>; thus, specifying
+# "Prereqs / Recommends" in your dist.ini is equivalent to I<RuntimeRecommends>.
+# 
+# Not all of these phases are useful for all tools, especially tools that only
+# understand version 1.x CPAN::Meta files.
+# 
+# =cut
 
 has prereq_phase => (
   is   => 'ro',
@@ -107,6 +182,24 @@ sub register_prereqs {
 __PACKAGE__->meta->make_immutable;
 1;
 
+# =head1 SEE ALSO
+# 
+# =over 4
+# 
+# =item *
+# 
+# Core Dist::Zilla plugins:
+# L<@Basic|Dist::Zilla::PluginBundle::Basic>,
+# L<AutoPrereqs|Dist::Zilla::Plugin::AutoPrereqs>.
+# 
+# =item *
+# 
+# The CPAN Meta specification: L<CPAN::Meta/PREREQUISITES>.
+# 
+# =back
+# 
+# =cut
+
 __END__
 
 =pod
@@ -119,7 +212,7 @@ Dist::Zilla::Plugin::Prereqs - list simple prerequisites
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 SYNOPSIS
 

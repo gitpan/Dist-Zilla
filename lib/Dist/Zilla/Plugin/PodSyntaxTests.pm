@@ -1,14 +1,22 @@
 package Dist::Zilla::Plugin::PodSyntaxTests;
-{
-  $Dist::Zilla::Plugin::PodSyntaxTests::VERSION = '5.009';
-}
 # ABSTRACT: a release test for Pod syntax
+$Dist::Zilla::Plugin::PodSyntaxTests::VERSION = '5.010';
 use Moose;
 extends 'Dist::Zilla::Plugin::InlineFiles';
 with 'Dist::Zilla::Role::PrereqSource';
 
 use namespace::autoclean;
 
+# =head1 DESCRIPTION
+# 
+# This is an extension of L<Dist::Zilla::Plugin::InlineFiles>, providing the
+# following files:
+# 
+#   xt/release/pod-syntax.t   - a standard Test::Pod test
+# 
+# L<Test::Pod> C<1.41> will be added as a C<develop requires> dependency.
+# 
+# =cut
 
 
 # Register the release test prereq as a "develop requires"
@@ -39,7 +47,7 @@ Dist::Zilla::Plugin::PodSyntaxTests - a release test for Pod syntax
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 

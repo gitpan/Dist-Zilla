@@ -1,9 +1,6 @@
 package Dist::Zilla::Plugin::MakeMaker::Runner;
-{
-  $Dist::Zilla::Plugin::MakeMaker::Runner::VERSION = '5.009';
-}
 # ABSTRACT: Test and build dists with a Makefile.PL
-
+$Dist::Zilla::Plugin::MakeMaker::Runner::VERSION = '5.010';
 use Moose;
 with(
   'Dist::Zilla::Role::BuildRunner',
@@ -57,7 +54,7 @@ Dist::Zilla::Plugin::MakeMaker::Runner - Test and build dists with a Makefile.PL
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 AUTHOR
 

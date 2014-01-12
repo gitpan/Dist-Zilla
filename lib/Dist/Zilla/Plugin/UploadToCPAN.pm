@@ -1,8 +1,6 @@
 package Dist::Zilla::Plugin::UploadToCPAN;
-{
-  $Dist::Zilla::Plugin::UploadToCPAN::VERSION = '5.009';
-}
 # ABSTRACT: upload the dist to CPAN
+$Dist::Zilla::Plugin::UploadToCPAN::VERSION = '5.010';
 use Moose;
 with qw(Dist::Zilla::Role::BeforeRelease Dist::Zilla::Role::Releaser);
 
@@ -14,6 +12,30 @@ use Try::Tiny;
 
 use namespace::autoclean;
 
+# =head1 SYNOPSIS
+# 
+# If loaded, this plugin will allow the F<release> command to upload to the CPAN.
+# 
+# =head1 DESCRIPTION
+# 
+# This plugin looks for configuration in your C<dist.ini> or (more
+# likely) C<~/.dzil/config.ini>:
+# 
+#   [%PAUSE]
+#   username = YOUR-PAUSE-ID
+#   password = YOUR-PAUSE-PASSWORD
+# 
+# If this configuration does not exist, it can read the configuration from
+# C<~/.pause>, in the same format that L<cpan-upload> requires:
+# 
+#   user YOUR-PAUSE-ID
+#   password YOUR-PAUSE-PASSWORD
+# 
+# If neither configuration exists, it will prompt you to enter your
+# username and password during the BeforeRelease phase.  Entering a
+# blank username or password will abort the release.
+# 
+# =cut
 
 {
   package
@@ -54,6 +76,12 @@ sub mvp_aliases {
   return { user => 'username' };
 }
 
+# =attr username
+# 
+# This option supplies the user's PAUSE username.  If not supplied, it will be
+# looked for in the user's PAUSE configuration.
+# 
+# =cut
 
 has username => (
   is   => 'ro',
@@ -68,6 +96,12 @@ has username => (
   },
 );
 
+# =attr password
+# 
+# This option supplies the user's PAUSE password.  If not supplied, it will be
+# looked for in the user's PAUSE configuration.
+# 
+# =cut
 
 has password => (
   is   => 'ro',
@@ -91,6 +125,13 @@ has pause_cfg_file => (
   },
 );
 
+# =attr pause_cfg
+# 
+# This is a hashref of defaults loaded from F<~/.pause> -- this attribute is
+# subject to removal in future versions, as the config-loading behavior in
+# CPAN::Uploader is improved.
+# 
+# =cut
 
 has pause_cfg => (
   is      => 'ro',
@@ -108,6 +149,12 @@ has pause_cfg => (
   },
 );
 
+# =attr subdir
+# 
+# If given, this specifies a subdirectory under the user's home directory to
+# which to upload.  Using this option is not recommended.
+# 
+# =cut
 
 has subdir => (
     is        => 'ro',
@@ -115,6 +162,13 @@ has subdir => (
     predicate => 'has_subdir',
 );
 
+# =attr upload_uri
+# 
+# If given, this specifies an alternate URI for the PAUSE upload form.  By
+# default, the default supplied by L<CPAN::Uploader> is used.  Using this option
+# is not recommended in most cases.
+# 
+# =cut
 
 has upload_uri => (
   is => 'ro',
@@ -185,7 +239,7 @@ Dist::Zilla::Plugin::UploadToCPAN - upload the dist to CPAN
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 SYNOPSIS
 

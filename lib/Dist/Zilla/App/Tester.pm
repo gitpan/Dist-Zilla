@@ -1,11 +1,9 @@
 use strict;
 package Dist::Zilla::App::Tester;
-{
-  $Dist::Zilla::App::Tester::VERSION = '5.009';
-}
+# ABSTRACT: testing library for Dist::Zilla::App
+$Dist::Zilla::App::Tester::VERSION = '5.010';
 use parent 'App::Cmd::Tester::CaptureExternal';
 use App::Cmd::Tester 0.306 (); # result_class, ->app
-# ABSTRACT: testing library for Dist::Zilla::App
 
 use Dist::Zilla::App;
 use File::Copy::Recursive qw(dircopy);
@@ -45,10 +43,8 @@ sub test_dzil {
 
 {
   package Dist::Zilla::App::Tester::Result;
-{
-  $Dist::Zilla::App::Tester::Result::VERSION = '5.009';
-}
-  BEGIN { our @ISA = qw(App::Cmd::Tester::Result); }
+$Dist::Zilla::App::Tester::Result::VERSION = '5.010';
+BEGIN { our @ISA = qw(App::Cmd::Tester::Result); }
 
   sub tempdir {
     my ($self) = @_;
@@ -96,7 +92,7 @@ Dist::Zilla::App::Tester - testing library for Dist::Zilla::App
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 AUTHOR
 

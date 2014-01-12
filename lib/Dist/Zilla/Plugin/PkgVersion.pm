@@ -1,8 +1,6 @@
 package Dist::Zilla::Plugin::PkgVersion;
-{
-  $Dist::Zilla::Plugin::PkgVersion::VERSION = '5.009';
-}
 # ABSTRACT: add a $VERSION to your packages
+$Dist::Zilla::Plugin::PkgVersion::VERSION = '5.010';
 use Moose;
 with(
   'Dist::Zilla::Role::FileMunger',
@@ -17,6 +15,48 @@ use MooseX::Types::Perl qw(LaxVersionStr);
 
 use namespace::autoclean;
 
+# =head1 SYNOPSIS
+# 
+# in dist.ini
+# 
+#   [PkgVersion]
+# 
+# =head1 DESCRIPTION
+# 
+# This plugin will add lines like the following to each package in each Perl
+# module or program (more or less) within the distribution:
+# 
+#   $MyModule::VERSION = 0.001;
+# 
+# ...where 0.001 is the version of the dist, and MyModule is the name of the
+# package being given a version.  (In other words, it always uses fully-qualified
+# names to assign versions.)
+# 
+# It will skip any package declaration that includes a newline between the
+# C<package> keyword and the package name, like:
+# 
+#   package
+#     Foo::Bar;
+# 
+# This sort of declaration is also ignored by the CPAN toolchain, and is
+# typically used when doing monkey patching or other tricky things.
+# 
+# =attr die_on_existing_version
+# 
+# If true, then when PkgVersion sees an existing C<$VERSION> assignment, it will
+# throw an exception rather than skip the file.  This attribute defaults to
+# false.
+# 
+# =attr die_on_line_insertion
+# 
+# By default, PkgVersion look for a blank line after each C<package> statement.
+# If it finds one, it inserts the C<$VERSION> assignment on that line.  If it
+# doesn't, it will insert a new line, which means the shipped copy of the module
+# will have different line numbers (off by one) than the source.  If
+# C<die_on_line_insertion> is true, PkgVersion will raise an exception rather
+# than insert a new line.
+# 
+# =cut
 
 sub munge_files {
   my ($self) = @_;
@@ -37,6 +77,12 @@ sub munge_file {
 }
 
 has die_on_existing_version => (
+  is  => 'ro',
+  isa => 'Bool',
+  default => 0,
+);
+
+has die_on_line_insertion => (
   is  => 'ro',
   isa => 'Bool',
   default => 0,
@@ -68,7 +114,6 @@ sub munge_perl {
   my $munged = 0;
   for my $stmt (@$package_stmts) {
     my $package = $stmt->namespace;
-
     if ($seen_pkg{ $package }++) {
       $self->log([ 'skipping package re-declaration for %s', $package ]);
       next;
@@ -79,20 +124,17 @@ sub munge_perl {
       next;
     }
 
-    # the \x20 hack is here so that when we scan *this* document we don't find
-    # an assignment to version; it shouldn't be needed, but it's been annoying
-    # enough in the past that I'm keeping it here until tests are better
-    my $trial = $self->zilla->is_trial ? ' # TRIAL' : '';
-    my $perl = "{\n  \$$package\::VERSION\x20=\x20'$version';$trial\n}\n";
-
     $self->log("non-ASCII package name is likely to cause problems")
       if $package =~ /\P{ASCII}/;
 
     $self->log("non-ASCII version is likely to cause problems")
       if $version =~ /\P{ASCII}/;
 
-    my $version_doc = PPI::Document->new(\$perl);
-    my @children = $version_doc->schildren;
+    # the \x20 hack is here so that when we scan *this* document we don't find
+    # an assignment to version; it shouldn't be needed, but it's been annoying
+    # enough in the past that I'm keeping it here until tests are better
+    my $trial = $self->zilla->is_trial ? ' # TRIAL' : '';
+    my $perl = "\$$package\::VERSION\x20=\x20'$version';$trial";
 
     $self->log_debug([
       'adding $VERSION assignment to %s in %s',
@@ -100,9 +142,52 @@ sub munge_perl {
       $file->name,
     ]);
 
-    Carp::carp("error inserting version in " . $file->name)
-      unless $stmt->insert_after($children[0]->clone)
-      and    $stmt->insert_after( PPI::Token::Whitespace->new("\n") );
+    my $blank;
+
+    {
+      my $curr = $stmt;
+      while (1) {
+        my $find = $document->find(sub {
+          return $_[1]->line_number == $curr->line_number + 1;
+          return;
+        });
+
+        last unless $find and @$find == 1;
+
+        if ($find->[0]->isa('PPI::Token::Comment')) {
+          $curr = $find->[0];
+          next;
+        }
+
+        if ("$find->[0]" =~ /\A\s*\z/) {
+          $blank = $find->[0];
+        }
+
+        last;
+      }
+    }
+
+    $perl = $blank ? "$perl\n" : "\n$perl";
+
+    # Why can't I use PPI::Token::Unknown? -- rjbs, 2014-01-11
+    my $bogus_token = PPI::Token::Comment->new($perl);
+
+    if ($blank) {
+      Carp::carp("error inserting version in " . $file->name)
+        unless $blank->insert_after($bogus_token);
+      $blank->delete;
+    } else {
+      my $method = $self->die_on_line_insertion ? 'log_fatal' : 'log';
+      $self->$method([
+        'no blank line for $VERSION after package %s statement on line %s',
+        $stmt->namespace,
+        $stmt->line_number,
+      ]);
+
+      Carp::carp("error inserting version in " . $file->name)
+        unless $stmt->insert_after($bogus_token);
+    }
+
     $munged = 1;
   }
 
@@ -111,6 +196,19 @@ sub munge_perl {
 
 __PACKAGE__->meta->make_immutable;
 1;
+
+# =head1 SEE ALSO
+# 
+# Core Dist::Zilla plugins:
+# L<PodVersion|Dist::Zilla::Plugin::PodVersion>,
+# L<AutoVersion|Dist::Zilla::Plugin::AutoVersion>,
+# L<NextRelease|Dist::Zilla::Plugin::NextRelease>.
+# 
+# Other Dist::Zilla plugins:
+# L<OurPkgVersion|Dist::Zilla::Plugin::OurPkgVersion> inserts version
+# numbers using C<our $VERSION = '...';> and without changing line numbers
+# 
+# =cut
 
 __END__
 
@@ -124,7 +222,7 @@ Dist::Zilla::Plugin::PkgVersion - add a $VERSION to your packages
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 SYNOPSIS
 
@@ -137,9 +235,7 @@ in dist.ini
 This plugin will add lines like the following to each package in each Perl
 module or program (more or less) within the distribution:
 
-  {
-    $MyModule::VERSION = 0.001;
-  }
+  $MyModule::VERSION = 0.001;
 
 ...where 0.001 is the version of the dist, and MyModule is the name of the
 package being given a version.  (In other words, it always uses fully-qualified
@@ -161,6 +257,15 @@ typically used when doing monkey patching or other tricky things.
 If true, then when PkgVersion sees an existing C<$VERSION> assignment, it will
 throw an exception rather than skip the file.  This attribute defaults to
 false.
+
+=head2 die_on_line_insertion
+
+By default, PkgVersion look for a blank line after each C<package> statement.
+If it finds one, it inserts the C<$VERSION> assignment on that line.  If it
+doesn't, it will insert a new line, which means the shipped copy of the module
+will have different line numbers (off by one) than the source.  If
+C<die_on_line_insertion> is true, PkgVersion will raise an exception rather
+than insert a new line.
 
 =head1 SEE ALSO
 

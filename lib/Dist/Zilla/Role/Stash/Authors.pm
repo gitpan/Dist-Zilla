@@ -1,13 +1,17 @@
 package Dist::Zilla::Role::Stash::Authors;
-{
-  $Dist::Zilla::Role::Stash::Authors::VERSION = '5.009';
-}
+# ABSTRACT: a stash that provides a list of author strings
+$Dist::Zilla::Role::Stash::Authors::VERSION = '5.010';
 use Moose::Role;
 with 'Dist::Zilla::Role::Stash';
-# ABSTRACT: a stash that provides a list of author strings
 
 use namespace::autoclean;
 
+# =head1 OVERVIEW
+# 
+# An Authors stash must provide an C<authors> method that returns an arrayref of
+# author strings, generally in the form "Name <email>".
+# 
+# =cut
 
 requires 'authors';
 
@@ -25,7 +29,7 @@ Dist::Zilla::Role::Stash::Authors - a stash that provides a list of author strin
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 OVERVIEW
 

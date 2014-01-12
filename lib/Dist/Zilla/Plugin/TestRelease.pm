@@ -1,13 +1,27 @@
 package Dist::Zilla::Plugin::TestRelease;
-{
-  $Dist::Zilla::Plugin::TestRelease::VERSION = '5.009';
-}
+# ABSTRACT: extract archive and run tests before releasing the dist
+$Dist::Zilla::Plugin::TestRelease::VERSION = '5.010';
 use Moose;
 with 'Dist::Zilla::Role::BeforeRelease';
-# ABSTRACT: extract archive and run tests before releasing the dist
 
 use namespace::autoclean;
 
+# =head1 DESCRIPTION
+# 
+# This plugin runs before a release happens.  It will extract the to-be-released
+# archive into a temporary directory and use the TestRunner plugins to run its
+# tests.  If the tests fail, the release is aborted and the temporary directory
+# is left in place.  If the tests pass, the temporary directory is cleaned up and
+# the release process continues.
+# 
+# This will set the RELEASE_TESTING and AUTHOR_TESTING env vars while running the
+# test suite.
+# 
+# =head1 CREDITS
+# 
+# This plugin was originally contributed by Christopher J. Madsen.
+# 
+# =cut
 
 use File::pushd ();
 use Moose::Autobox;
@@ -60,7 +74,7 @@ Dist::Zilla::Plugin::TestRelease - extract archive and run tests before releasin
 
 =head1 VERSION
 
-version 5.009
+version 5.010
 
 =head1 DESCRIPTION
 
