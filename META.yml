@@ -119,7 +119,7 @@ resources:
   bugtracker: https://github.com/rjbs/Dist-Zilla/issues
   homepage: http://dzil.org/
   repository: https://github.com/rjbs/Dist-Zilla.git
-version: 5.011
+version: 5.012
 x_Dist_Zilla:
   perl:
     version: 5.018002

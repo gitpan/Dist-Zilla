@@ -151,7 +151,7 @@
       },
       "x_mailing_list" : "http://www.listbox.com/subscribe/?list_id=139292"
    },
-   "version" : "5.011",
+   "version" : "5.012",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.018002"

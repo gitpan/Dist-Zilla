@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::add;
 # ABSTRACT: add a module to a dist
-$Dist::Zilla::App::Command::add::VERSION = '5.011';
+$Dist::Zilla::App::Command::add::VERSION = '5.012';
 use Dist::Zilla::App -command;
 use Path::Class;
 use File::pushd ();
@@ -87,7 +87,7 @@ Dist::Zilla::App::Command::add - add a module to a dist
 
 =head1 VERSION
 
-version 5.011
+version 5.012
 
 =head1 SYNOPSIS
 
