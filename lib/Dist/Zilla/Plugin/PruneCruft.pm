@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PruneCruft;
 # ABSTRACT: prune stuff that you probably don't mean to include
-$Dist::Zilla::Plugin::PruneCruft::VERSION = '5.012';
+$Dist::Zilla::Plugin::PruneCruft::VERSION = '5.013';
 use Moose;
 use Moose::Autobox;
 use Moose::Util::TypeConstraints;
@@ -70,6 +70,9 @@ sub exclude_file {
   return 1 if $file->name eq 'MYMETA.yml';
   return 1 if $file->name eq 'MYMETA.json';
   return 1 if $file->name eq 'pm_to_blib';
+  # Avoid bundling fatlib/ dir created by App::FatPacker
+  # https://github.com/andk/pause/pull/65
+  return 1 if substr($file->name, 0, 7) eq 'fatlib/';
 
   if ((my $file = $file->name) =~ s/\.c$//) {
       for my $other ($self->zilla->files->flatten) {
@@ -109,7 +112,7 @@ Dist::Zilla::Plugin::PruneCruft - prune stuff that you probably don't mean to in
 
 =head1 VERSION
 
-version 5.012
+version 5.013
 
 =head1 SYNOPSIS
 

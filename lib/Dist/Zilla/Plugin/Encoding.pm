@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::Encoding;
 # ABSTRACT: set the encoding of arbitrary files
-$Dist::Zilla::Plugin::Encoding::VERSION = '5.012';
+$Dist::Zilla::Plugin::Encoding::VERSION = '5.013';
 use Moose;
 with 'Dist::Zilla::Role::EncodingProvider';
 
@@ -28,7 +28,8 @@ sub mvp_aliases { return { filename => 'filenames', match => 'matches' } }
 
 # =attr encoding
 #
-# This is the encoding to set on the selected files.
+# This is the encoding to set on the selected files. The special value "bytes"
+# can be used to indicate raw files that should not be encoded.
 #
 # =cut
 
@@ -104,7 +105,7 @@ Dist::Zilla::Plugin::Encoding - set the encoding of arbitrary files
 
 =head1 VERSION
 
-version 5.012
+version 5.013
 
 =head1 SYNOPSIS
 
@@ -125,7 +126,8 @@ In your F<dist.ini>:
 
 =head2 encoding
 
-This is the encoding to set on the selected files.
+This is the encoding to set on the selected files. The special value "bytes"
+can be used to indicate raw files that should not be encoded.
 
 =head2 filenames
 

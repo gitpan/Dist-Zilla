@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 # ABSTRACT: dist zilla subclass for building dists
-$Dist::Zilla::Dist::Builder::VERSION = '5.012';
+$Dist::Zilla::Dist::Builder::VERSION = '5.013';
 use Moose 0.92; # role composition fixes
 extends 'Dist::Zilla';
 
@@ -653,7 +653,7 @@ sub install {
 
   my ($target, $latest) = $self->ensure_built_in_tmpdir;
 
-  eval {
+  my $ok = eval {
     ## no critic Punctuation
     my $wd = File::pushd::pushd($target);
     my @cmd = $arg->{install_command}
@@ -662,19 +662,21 @@ sub install {
 
     $self->log_debug([ 'installing via %s', \@cmd ]);
     system(@cmd) && $self->log_fatal([ "error running %s", \@cmd ]);
+    1;
   };
 
-  if ($@) {
-    $self->log($@);
-    $self->log("left failed dist in place at $target");
+  unless ($ok) {
+    my $error = $@ || '(exception clobered)';
+    $self->log("install failed, left failed dist in place at $target");
+    die $error;
+  }
+
+  if ($arg->{keep_build_dir}) {
+    $self->log("all's well; left dist in place at $target");
   } else {
-    if ($arg->{keep_build_dir}) {
-      $self->log("all's well; left dist in place at $target");
-    } else {
-      $self->log("all's well; removing $target");
-      $target->rmtree;
-      $latest->remove if $latest;
-    }
+    $self->log("all's well; removing $target");
+    $target->rmtree;
+    $latest->remove if $latest;
   }
 
   return;
@@ -812,7 +814,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 5.012
+version 5.013
 
 =head1 ATTRIBUTES
 

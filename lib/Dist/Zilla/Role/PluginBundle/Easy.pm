@@ -1,7 +1,7 @@
 package Dist::Zilla::Role::PluginBundle::Easy;
 # ABSTRACT: something that bundles a bunch of plugins easily
 # This plugin was originally contributed by Christopher J. Madsen
-$Dist::Zilla::Role::PluginBundle::Easy::VERSION = '5.012';
+$Dist::Zilla::Role::PluginBundle::Easy::VERSION = '5.013';
 use Moose::Role;
 with 'Dist::Zilla::Role::PluginBundle';
 
@@ -111,7 +111,7 @@ sub bundle_config {
 #
 # =for :list
 # * a plugin moniker (like you might provide in your config file)
-# * an arrayref of: C<< [ $moniker, $plugin_name, \%plugin_config >>
+# * an arrayref of: C<< [ $moniker, $plugin_name, \%plugin_config ] >>
 #
 # In the case of an arrayref, both C<$plugin_name> and C<\%plugin_config> are
 # optional.
@@ -228,7 +228,7 @@ Dist::Zilla::Role::PluginBundle::Easy - something that bundles a bunch of plugin
 
 =head1 VERSION
 
-version 5.012
+version 5.013
 
 =head1 SYNOPSIS
 
@@ -287,7 +287,7 @@ a plugin moniker (like you might provide in your config file)
 
 =item *
 
-an arrayref of: C<< [ $moniker, $plugin_name, \%plugin_config >>
+an arrayref of: C<< [ $moniker, $plugin_name, \%plugin_config ] >>
 
 =back
 

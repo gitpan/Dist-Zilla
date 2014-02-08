@@ -115,6 +115,7 @@ eval { $v .= pmver('Scalar::Util','any version') };
 eval { $v .= pmver('Software::License','0.101370') };
 eval { $v .= pmver('Software::License::None','any version') };
 eval { $v .= pmver('Software::LicenseUtils','any version') };
+eval { $v .= pmver('Storable','any version') };
 eval { $v .= pmver('String::Formatter','0.100680') };
 eval { $v .= pmver('String::RewritePrefix','0.005') };
 eval { $v .= pmver('Sub::Exporter','any version') };

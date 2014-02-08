@@ -62,6 +62,7 @@ requires "Pod::Eventual" => "0.091480";
 requires "Scalar::Util" => "0";
 requires "Software::License" => "0.101370";
 requires "Software::LicenseUtils" => "0";
+requires "Storable" => "0";
 requires "String::Formatter" => "0.100680";
 requires "String::RewritePrefix" => "0.005";
 requires "Sub::Exporter" => "0";

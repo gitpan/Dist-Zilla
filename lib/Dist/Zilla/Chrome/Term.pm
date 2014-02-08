@@ -1,6 +1,6 @@
 package Dist::Zilla::Chrome::Term;
 # ABSTRACT: chrome used for terminal-based interaction
-$Dist::Zilla::Chrome::Term::VERSION = '5.012';
+$Dist::Zilla::Chrome::Term::VERSION = '5.013';
 use Moose;
 
 # =head1 OVERVIEW
@@ -54,7 +54,7 @@ has term_enc => (
   lazy => 1,
   default => sub {
     require Term::Encoding;
-    return Term::Encoding::get_encoding();
+    return Term::Encoding::get_encoding() || die 'cannot determine encoding: no locale set?';
   },
 );
 
@@ -140,7 +140,7 @@ Dist::Zilla::Chrome::Term - chrome used for terminal-based interaction
 
 =head1 VERSION
 
-version 5.012
+version 5.013
 
 =head1 OVERVIEW
 

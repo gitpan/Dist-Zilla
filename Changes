@@ -1,5 +1,16 @@
 Revision history for Dist-Zilla
 
+5.013     2014-02-08 17:08:16-05:00 America/New_York
+        - META.json is now a UTF-8 file, rather than ASCII
+        - document the use of filefinders in [PkgVersion], and remove
+          filtering out of .t, .pod files; do skip non-text files, though
+        - always load modules in "extra tests" like pod-coverage.t
+        - PruneCruft also prunes ./fatlib
+        - avoid being tricked by statements in __END__ section when looking for
+          variable assignments
+        - if "dzil install" fails due to exception, it is now propagated
+        - provide a better error when terminal encoding can't be determined
+
 5.012     2014-01-15 09:58:00-05:00 America/New_York
         - when handling a multi-line abstract, fold the lines on whitespace;
           previously, the newlines had been left in, which caused downstream

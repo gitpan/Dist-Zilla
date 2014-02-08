@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::FileMunger;
 # ABSTRACT: something that alters a file's destination or content
-$Dist::Zilla::Role::FileMunger::VERSION = '5.012';
+$Dist::Zilla::Role::FileMunger::VERSION = '5.013';
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
 
@@ -31,8 +31,14 @@ sub munge_files {
   $self->log_fatal("no munge_file behavior implemented!")
     unless $self->can('munge_file');
 
-  $self->munge_file($_)
-    for grep { ! $_->is_bytes } $self->zilla->files->flatten;
+  for my $file ($self->zilla->files->flatten) {
+    if ($file->is_bytes) {
+      $self->log_debug($file->name . " has 'bytes' encoding, skipping...");
+      next;
+    }
+
+    $self->munge_file($file);
+  }
 }
 
 1;
@@ -49,7 +55,7 @@ Dist::Zilla::Role::FileMunger - something that alters a file's destination or co
 
 =head1 VERSION
 
-version 5.012
+version 5.013
 
 =head1 DESCRIPTION
 

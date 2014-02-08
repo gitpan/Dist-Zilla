@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PruneFiles;
 # ABSTRACT: prune arbitrary files from the dist
-$Dist::Zilla::Plugin::PruneFiles::VERSION = '5.012';
+$Dist::Zilla::Plugin::PruneFiles::VERSION = '5.013';
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FilePruner';
@@ -23,7 +23,7 @@ use namespace::autoclean;
 #   filename = xt/release/pod-coverage.t ; pod coverage tests are for jerks
 #   filename = todo-list.txt             ; keep our secret plans to ourselves
 #
-#   match     = ^test_data/*
+#   match     = ^test_data/
 #   match     = ^test.cvs$
 #
 # =cut
@@ -102,7 +102,7 @@ Dist::Zilla::Plugin::PruneFiles - prune arbitrary files from the dist
 
 =head1 VERSION
 
-version 5.012
+version 5.013
 
 =head1 SYNOPSIS
 
@@ -120,7 +120,7 @@ In your F<dist.ini>:
   filename = xt/release/pod-coverage.t ; pod coverage tests are for jerks
   filename = todo-list.txt             ; keep our secret plans to ourselves
 
-  match     = ^test_data/*
+  match     = ^test_data/
   match     = ^test.cvs$
 
 =head1 ATTRIBUTES
