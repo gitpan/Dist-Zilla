@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::add;
 # ABSTRACT: add a module to a dist
-$Dist::Zilla::App::Command::add::VERSION = '5.013';
+$Dist::Zilla::App::Command::add::VERSION = '5.014';
 use Dist::Zilla::App -command;
 use Path::Class;
 use File::pushd ();
@@ -64,12 +64,14 @@ sub execute {
   my $root = dir($zilla->root)->absolute;
   my $wd = File::pushd::pushd($minter->root);
 
+  my $factory = $minter->plugin_named(':DefaultModuleMaker');
+
   for my $name ( @$arg ) {
-    my $factory = $minter->plugin_named(':DefaultModuleMaker');
     $factory->make_module({ name => $name });
-    for my $file ( @{ $factory->zilla->files} ) {
-      $zilla->_write_out_file($file, $root);
-    }
+  }
+
+  for my $file ( @{ $factory->zilla->files} ) {
+    $zilla->_write_out_file($file, $root);
   }
 }
 
@@ -87,7 +89,7 @@ Dist::Zilla::App::Command::add - add a module to a dist
 
 =head1 VERSION
 
-version 5.013
+version 5.014
 
 =head1 SYNOPSIS
 

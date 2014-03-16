@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PkgVersion;
 # ABSTRACT: add a $VERSION to your packages
-$Dist::Zilla::Plugin::PkgVersion::VERSION = '5.013';
+$Dist::Zilla::Plugin::PkgVersion::VERSION = '5.014';
 use Moose;
 with(
   'Dist::Zilla::Role::FileMunger',
@@ -239,7 +239,7 @@ Dist::Zilla::Plugin::PkgVersion - add a $VERSION to your packages
 
 =head1 VERSION
 
-version 5.013
+version 5.014
 
 =head1 SYNOPSIS
 

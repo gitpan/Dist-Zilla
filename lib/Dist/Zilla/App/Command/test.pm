@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::test;
 # ABSTRACT: test your dist
-$Dist::Zilla::App::Command::test::VERSION = '5.013';
+$Dist::Zilla::App::Command::test::VERSION = '5.014';
 use Dist::Zilla::App -command;
 
 # =head1 SYNOPSIS
@@ -34,6 +34,7 @@ sub opt_spec {
   [ 'author!' => 'enables the AUTHOR_TESTING env variable (default behavior)', { default => 1 } ],
   [ 'all' => 'enables the RELEASE_TESTING, AUTOMATED_TESTING and AUTHOR_TESTING env variables', { default => 0 } ],
   [ 'keep-build-dir|keep' => 'keep the build directory even after a success' ],
+  [ 'jobs|j=i' => 'number of parallel test jobs to run' ],
 }
 
 # =head1 OPTIONS
@@ -69,6 +70,9 @@ sub execute {
     $opt->keep_build_dir
       ? (keep_build_dir => 1)
       : (),
+    $opt->jobs
+      ? (jobs => $opt->jobs)
+      : (),
   });
 }
 
@@ -86,7 +90,7 @@ Dist::Zilla::App::Command::test - test your dist
 
 =head1 VERSION
 
-version 5.013
+version 5.014
 
 =head1 SYNOPSIS
 

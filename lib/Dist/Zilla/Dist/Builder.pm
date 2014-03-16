@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 # ABSTRACT: dist zilla subclass for building dists
-$Dist::Zilla::Dist::Builder::VERSION = '5.013';
+$Dist::Zilla::Dist::Builder::VERSION = '5.014';
 use Moose 0.92; # role composition fixes
 extends 'Dist::Zilla';
 
@@ -703,7 +703,7 @@ sub test {
     unless my @testers = $self->plugins_with(-TestRunner)->flatten;
 
   my ($target, $latest) = $self->ensure_built_in_tmpdir;
-  my $error  = $self->run_tests_in($target);
+  my $error  = $self->run_tests_in($target, $arg);
 
   if ($arg and $arg->{keep_build_dir}) {
     $self->log("all's well; left dist in place at $target");
@@ -717,7 +717,7 @@ sub test {
 
 # =method run_tests_in
 #
-#   my $error = $zilla->run_tests_in($directory);
+#   my $error = $zilla->run_tests_in($directory, $arg);
 #
 # This method runs the tests in $directory (a Path::Class::Dir), which
 # must contain an already-built copy of the distribution.  It will throw an
@@ -729,14 +729,14 @@ sub test {
 # =cut
 
 sub run_tests_in {
-  my ($self, $target) = @_;
+  my ($self, $target, $arg) = @_;
 
   Carp::croak("you can't test without any TestRunner plugins")
     unless my @testers = $self->plugins_with(-TestRunner)->flatten;
 
   for my $tester (@testers) {
     my $wd = File::pushd::pushd($target);
-    $tester->test( $target );
+    $tester->test( $target, $arg );
   }
 }
 
@@ -814,7 +814,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 5.013
+version 5.014
 
 =head1 ATTRIBUTES
 
@@ -942,7 +942,7 @@ C<\%arg> may be omitted.  Otherwise, valid arguments are:
 
 =head2 run_tests_in
 
-  my $error = $zilla->run_tests_in($directory);
+  my $error = $zilla->run_tests_in($directory, $arg);
 
 This method runs the tests in $directory (a Path::Class::Dir), which
 must contain an already-built copy of the distribution.  It will throw an

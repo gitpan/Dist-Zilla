@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::BuildPL;
 # ABSTRACT: Common ground for Build.PL based builders
-$Dist::Zilla::Role::BuildPL::VERSION = '5.013';
+$Dist::Zilla::Role::BuildPL::VERSION = '5.014';
 use Moose::Role;
 
 with qw(
@@ -30,9 +30,17 @@ sub build {
 }
 
 sub test {
-  my ($self, $target) = @_;
+  my ($self, $target, $arg) = @_;
 
   $self->build;
+
+  my $job_count = $arg && exists $arg->{jobs}
+                ? $arg->{jobs}
+                : $self->default_jobs;
+  my $jobs = "j$job_count";
+  my $ho = "HARNESS_OPTIONS";
+  local $ENV{$ho} = $ENV{$ho} ? "$ENV{$ho}:$jobs" : $jobs;
+
   my @testing = $self->zilla->logger->get_debug ? '--verbose' : ();
   system $^X, 'Build', 'test', @testing and die "error running $^X Build test\n";
 
@@ -53,7 +61,7 @@ Dist::Zilla::Role::BuildPL - Common ground for Build.PL based builders
 
 =head1 VERSION
 
-version 5.013
+version 5.014
 
 =head1 DESCRIPTION
 

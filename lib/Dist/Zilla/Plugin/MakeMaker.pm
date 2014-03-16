@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MakeMaker;
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
-$Dist::Zilla::Plugin::MakeMaker::VERSION = '5.013';
+$Dist::Zilla::Plugin::MakeMaker::VERSION = '5.014';
 use Moose;
 use Moose::Autobox;
 
@@ -59,9 +59,10 @@ has '_runner' => (
   default => sub {
     my ($self) = @_;
     Dist::Zilla::Plugin::MakeMaker::Runner->new({
-      zilla       => $self->zilla,
-      plugin_name => $self->plugin_name . '::Runner',
-      make_path   => $self->make_path,
+      zilla        => $self->zilla,
+      plugin_name  => $self->plugin_name . '::Runner',
+      make_path    => $self->make_path,
+      default_jobs => $self->default_jobs,
     });
   },
 );
@@ -310,7 +311,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 5.013
+version 5.014
 
 =head1 DESCRIPTION
 

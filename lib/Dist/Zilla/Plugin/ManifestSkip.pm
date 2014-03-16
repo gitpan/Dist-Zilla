@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ManifestSkip;
 # ABSTRACT: decline to build files that appear in a MANIFEST.SKIP-like file
-$Dist::Zilla::Plugin::ManifestSkip::VERSION = '5.013';
+$Dist::Zilla::Plugin::ManifestSkip::VERSION = '5.014';
 use Moose;
 with 'Dist::Zilla::Role::FilePruner';
 
@@ -91,7 +91,7 @@ Dist::Zilla::Plugin::ManifestSkip - decline to build files that appear in a MANI
 
 =head1 VERSION
 
-version 5.013
+version 5.014
 
 =head1 DESCRIPTION
 
