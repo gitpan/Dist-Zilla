@@ -1,22 +1,22 @@
 package Dist::Zilla::Plugin::ExecDir;
 # ABSTRACT: install a directory's contents as executables
-$Dist::Zilla::Plugin::ExecDir::VERSION = '5.014';
+$Dist::Zilla::Plugin::ExecDir::VERSION = '5.015';
 use Moose;
 
 use namespace::autoclean;
 
 use Moose::Autobox;
 
-# =head1 SYNOPSIS
-#
-# In your F<dist.ini>:
-#
-#   [ExecDir]
-#   dir = scripts
-#
-# If no C<dir> is provided, the default is F<bin>.
-#
-# =cut
+#pod =head1 SYNOPSIS
+#pod
+#pod In your F<dist.ini>:
+#pod
+#pod   [ExecDir]
+#pod   dir = scripts
+#pod
+#pod If no C<dir> is provided, the default is F<bin>.
+#pod
+#pod =cut
 
 has dir => (
   is   => 'ro',
@@ -47,7 +47,7 @@ Dist::Zilla::Plugin::ExecDir - install a directory's contents as executables
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 SYNOPSIS
 

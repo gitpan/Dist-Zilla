@@ -1,6 +1,6 @@
 package Dist::Zilla::Chrome::Test;
 # ABSTRACT: the chrome used by Dist::Zilla::Tester
-$Dist::Zilla::Chrome::Test::VERSION = '5.014';
+$Dist::Zilla::Chrome::Test::VERSION = '5.015';
 use Moose;
 
 use MooseX::Types::Moose qw(ArrayRef HashRef Str);
@@ -18,24 +18,24 @@ has logger => (
   }
 );
 
-# =attr response_for
-#
-# The response_for attribute (which exists only in the Test chrome) is a
-# hashref that lets you specify the answer to questions asked by
-# C<prompt_str> or C<prompt_yn>.  The key is the prompt string.  If the
-# value is a string, it is returned every time that question is asked.
-# If the value is an arrayref, the first element is shifted off and
-# returned every time the question is asked.  If the arrayref is empty
-# (or the prompt is not listed in the hash), the default answer (if any)
-# is returned.
-#
-# Since you can't pass arguments to the Chrome constructor, response_for
-# is initialized to an empty hash, and you can add entries after
-# construction with the C<set_response_for> method:
-#
-#   $chrome->set_response_for($prompt => $response);
-#
-# =cut
+#pod =attr response_for
+#pod
+#pod The response_for attribute (which exists only in the Test chrome) is a
+#pod hashref that lets you specify the answer to questions asked by
+#pod C<prompt_str> or C<prompt_yn>.  The key is the prompt string.  If the
+#pod value is a string, it is returned every time that question is asked.
+#pod If the value is an arrayref, the first element is shifted off and
+#pod returned every time the question is asked.  If the arrayref is empty
+#pod (or the prompt is not listed in the hash), the default answer (if any)
+#pod is returned.
+#pod
+#pod Since you can't pass arguments to the Chrome constructor, response_for
+#pod is initialized to an empty hash, and you can add entries after
+#pod construction with the C<set_response_for> method:
+#pod
+#pod   $chrome->set_response_for($prompt => $response);
+#pod
+#pod =cut
 
 has response_for => (
   isa     => HashRef[ ArrayRef | Str ],
@@ -87,7 +87,7 @@ Dist::Zilla::Chrome::Test - the chrome used by Dist::Zilla::Tester
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 ATTRIBUTES
 

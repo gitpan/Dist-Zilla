@@ -1,37 +1,37 @@
 package Dist::Zilla::Plugin::Encoding;
 # ABSTRACT: set the encoding of arbitrary files
-$Dist::Zilla::Plugin::Encoding::VERSION = '5.014';
+$Dist::Zilla::Plugin::Encoding::VERSION = '5.015';
 use Moose;
 with 'Dist::Zilla::Role::EncodingProvider';
 
 use namespace::autoclean;
 
-# =head1 SYNOPSIS
-#
-# This plugin allows you to explicitly set the encoding on some files in your
-# distribution. You can either specify the exact set of files (with the
-# "filenames" parameter) or provide the regular expressions to check (using
-# "match").
-#
-# In your F<dist.ini>:
-#
-#   [Encoding]
-#   encoding = Latin-3
-#
-#   filename = t/esperanto.t  ; this file is Esperanto
-#   match     = ^t/urkish/    ; these are all Turkish
-#
-# =cut
+#pod =head1 SYNOPSIS
+#pod
+#pod This plugin allows you to explicitly set the encoding on some files in your
+#pod distribution. You can either specify the exact set of files (with the
+#pod "filenames" parameter) or provide the regular expressions to check (using
+#pod "match").
+#pod
+#pod In your F<dist.ini>:
+#pod
+#pod   [Encoding]
+#pod   encoding = Latin-3
+#pod
+#pod   filename = t/esperanto.t  ; this file is Esperanto
+#pod   match     = ^t/urkish/    ; these are all Turkish
+#pod
+#pod =cut
 
 sub mvp_multivalue_args { qw(filenames matches) }
 sub mvp_aliases { return { filename => 'filenames', match => 'matches' } }
 
-# =attr encoding
-#
-# This is the encoding to set on the selected files. The special value "bytes"
-# can be used to indicate raw files that should not be encoded.
-#
-# =cut
+#pod =attr encoding
+#pod
+#pod This is the encoding to set on the selected files. The special value "bytes"
+#pod can be used to indicate raw files that should not be encoded.
+#pod
+#pod =cut
 
 has encoding => (
   is   => 'ro',
@@ -39,11 +39,11 @@ has encoding => (
   required => 1,
 );
 
-# =attr filenames
-#
-# This is an arrayref of filenames to have their encoding set.
-#
-# =cut
+#pod =attr filenames
+#pod
+#pod This is an arrayref of filenames to have their encoding set.
+#pod
+#pod =cut
 
 has filenames => (
   is   => 'ro',
@@ -51,12 +51,12 @@ has filenames => (
   default => sub { [] },
 );
 
-# =attr matches
-#
-# This is an arrayref of regular expressions.  Any file whose name matches one of
-# these regex will have its encoding set.
-#
-# =cut
+#pod =attr matches
+#pod
+#pod This is an arrayref of regular expressions.  Any file whose name matches one of
+#pod these regex will have its encoding set.
+#pod
+#pod =cut
 
 has matches => (
   is   => 'ro',
@@ -105,7 +105,7 @@ Dist::Zilla::Plugin::Encoding - set the encoding of arbitrary files
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 SYNOPSIS
 

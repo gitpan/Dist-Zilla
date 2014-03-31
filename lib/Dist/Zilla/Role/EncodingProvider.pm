@@ -1,19 +1,19 @@
 package Dist::Zilla::Role::EncodingProvider;
 # ABSTRACT: something that sets a files' encoding
-$Dist::Zilla::Role::EncodingProvider::VERSION = '5.014';
+$Dist::Zilla::Role::EncodingProvider::VERSION = '5.015';
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
 
 use namespace::autoclean;
 
-# =head1 DESCRIPTION
-#
-# EncodingProvider plugins do their work after files are gathered, but before
-# they're munged.  They're meant to set the C<encoding> on files.
-#
-# The method C<set_file_encodings> is called with no arguments.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod EncodingProvider plugins do their work after files are gathered, but before
+#pod they're munged.  They're meant to set the C<encoding> on files.
+#pod
+#pod The method C<set_file_encodings> is called with no arguments.
+#pod
+#pod =cut
 
 requires 'set_file_encodings';
 
@@ -31,7 +31,7 @@ Dist::Zilla::Role::EncodingProvider - something that sets a files' encoding
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

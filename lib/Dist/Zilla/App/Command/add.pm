@@ -2,21 +2,21 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::add;
 # ABSTRACT: add a module to a dist
-$Dist::Zilla::App::Command::add::VERSION = '5.014';
+$Dist::Zilla::App::Command::add::VERSION = '5.015';
 use Dist::Zilla::App -command;
 use Path::Class;
 use File::pushd ();
 
-# =head1 SYNOPSIS
-#
-# Adds a new module to a Dist::Zilla-based distribution
-#
-#   $ dzil add Some::New::Module
-#
-# There are two arguments, C<-p> and C<-P>. C<-P> specify the minting profile
-# provider and C<-p> - the profile name. These work just like C<dzil new>.
-#
-# =cut
+#pod =head1 SYNOPSIS
+#pod
+#pod Adds a new module to a Dist::Zilla-based distribution
+#pod
+#pod   $ dzil add Some::New::Module
+#pod
+#pod There are two arguments, C<-p> and C<-P>. C<-P> specify the minting profile
+#pod provider and C<-p> - the profile name. These work just like C<dzil new>.
+#pod
+#pod =cut
 
 sub abstract { 'add modules to an existing dist' }
 
@@ -89,7 +89,7 @@ Dist::Zilla::App::Command::add - add a module to a dist
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 SYNOPSIS
 

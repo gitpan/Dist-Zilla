@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::RemovePrereqs;
 # ABSTRACT: a plugin to remove gathered prereqs
-$Dist::Zilla::Plugin::RemovePrereqs::VERSION = '5.014';
+$Dist::Zilla::Plugin::RemovePrereqs::VERSION = '5.015';
 use Moose;
 with 'Dist::Zilla::Role::PrereqSource';
 
@@ -11,24 +11,24 @@ use Moose::Autobox;
 use MooseX::Types::Moose qw(ArrayRef);
 use MooseX::Types::Perl  qw(ModuleName);
 
-# =head1 SYNOPSIS
-#
-# In your F<dist.ini>:
-#
-#   [RemovePrereqs]
-#   remove = Foo::Bar
-#   remove = MRO::Compat
-#
-# This will remove any prerequisite of any type from any prereq phase.  This is
-# useful for eliminating incorrectly detected prereqs.
-#
-# =head1 SEE ALSO
-#
-# Dist::Zilla plugins:
-# L<Prereqs|Dist::Zilla::Plugin::Prereqs>,
-# L<AutoPrereqs|Dist::Zilla::Plugin::AutoPrereqs>.
-#
-# =cut
+#pod =head1 SYNOPSIS
+#pod
+#pod In your F<dist.ini>:
+#pod
+#pod   [RemovePrereqs]
+#pod   remove = Foo::Bar
+#pod   remove = MRO::Compat
+#pod
+#pod This will remove any prerequisite of any type from any prereq phase.  This is
+#pod useful for eliminating incorrectly detected prereqs.
+#pod
+#pod =head1 SEE ALSO
+#pod
+#pod Dist::Zilla plugins:
+#pod L<Prereqs|Dist::Zilla::Plugin::Prereqs>,
+#pod L<AutoPrereqs|Dist::Zilla::Plugin::AutoPrereqs>.
+#pod
+#pod =cut
 
 sub mvp_multivalue_args { qw(modules_to_remove) }
 
@@ -87,7 +87,7 @@ Dist::Zilla::Plugin::RemovePrereqs - a plugin to remove gathered prereqs
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 SYNOPSIS
 

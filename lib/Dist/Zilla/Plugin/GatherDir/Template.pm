@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::GatherDir::Template;
 # ABSTRACT: gather all the files in a directory and use them as templates
-$Dist::Zilla::Plugin::GatherDir::Template::VERSION = '5.014';
+$Dist::Zilla::Plugin::GatherDir::Template::VERSION = '5.015';
 use Moose;
 extends 'Dist::Zilla::Plugin::GatherDir';
 with 'Dist::Zilla::Role::TextTemplate';
@@ -12,20 +12,20 @@ use Moose::Autobox;
 use Dist::Zilla::File::FromCode;
 use Path::Tiny;
 
-# =head1 DESCRIPTION
-#
-# This is a subclass of the L<GatherDir|Dist::Zilla::Plugin::GatherDir>
-# plugin.  It works just like its parent class, except that each
-# gathered file is processed through L<Text::Template>.
-#
-# The variables C<$plugin> and C<$dist> will be provided to the
-# template, set to the GatherDir::Template plugin and the Dist::Zilla
-# object, respectively.
-#
-# It is meant to be used when minting dists with C<dzil new>, but could be used
-# in building existing dists, too.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod This is a subclass of the L<GatherDir|Dist::Zilla::Plugin::GatherDir>
+#pod plugin.  It works just like its parent class, except that each
+#pod gathered file is processed through L<Text::Template>.
+#pod
+#pod The variables C<$plugin> and C<$dist> will be provided to the
+#pod template, set to the GatherDir::Template plugin and the Dist::Zilla
+#pod object, respectively.
+#pod
+#pod It is meant to be used when minting dists with C<dzil new>, but could be used
+#pod in building existing dists, too.
+#pod
+#pod =cut
 
 sub _file_from_filename {
   my ($self, $filename) = @_;
@@ -63,7 +63,7 @@ Dist::Zilla::Plugin::GatherDir::Template - gather all the files in a directory a
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

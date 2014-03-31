@@ -1,17 +1,17 @@
 package Dist::Zilla::Role::BeforeRelease;
 # ABSTRACT: something that runs before release really begins
-$Dist::Zilla::Role::BeforeRelease::VERSION = '5.014';
+$Dist::Zilla::Role::BeforeRelease::VERSION = '5.015';
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
 
 use namespace::autoclean;
 
-# =head1 DESCRIPTION
-#
-# Plugins implementing this role have their C<before_release> method
-# called before the release is actually done.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod Plugins implementing this role have their C<before_release> method
+#pod called before the release is actually done.
+#pod
+#pod =cut
 
 requires 'before_release';
 
@@ -29,7 +29,7 @@ Dist::Zilla::Role::BeforeRelease - something that runs before release really beg
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

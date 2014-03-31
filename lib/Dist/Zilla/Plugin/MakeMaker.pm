@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MakeMaker;
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
-$Dist::Zilla::Plugin::MakeMaker::VERSION = '5.014';
+$Dist::Zilla::Plugin::MakeMaker::VERSION = '5.015';
 use Moose;
 use Moose::Autobox;
 
@@ -13,22 +13,22 @@ use List::MoreUtils qw(any uniq);
 use Dist::Zilla::File::InMemory;
 use Dist::Zilla::Plugin::MakeMaker::Runner;
 
-# =head1 DESCRIPTION
-#
-# This plugin will produce an L<ExtUtils::MakeMaker>-powered F<Makefile.PL> for
-# the distribution.  If loaded, the L<Manifest|Dist::Zilla::Plugin::Manifest>
-# plugin should also be loaded.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod This plugin will produce an L<ExtUtils::MakeMaker>-powered F<Makefile.PL> for
+#pod the distribution.  If loaded, the L<Manifest|Dist::Zilla::Plugin::Manifest>
+#pod plugin should also be loaded.
+#pod
+#pod =cut
 
-# =attr eumm_version
-#
-# This option declares the version of ExtUtils::MakeMaker required to configure
-# and build the distribution.  It defaults to 6.30, which ensures a working
-# C<INSTALL_BASE>.  It can be safely set to earlier versions, although I<no
-# testing has been done to determine the minimum version actually required>.
-#
-# =cut
+#pod =attr eumm_version
+#pod
+#pod This option declares the version of ExtUtils::MakeMaker required to configure
+#pod and build the distribution.  It defaults to 6.30, which ensures a working
+#pod C<INSTALL_BASE>.  It can be safely set to earlier versions, although I<no
+#pod testing has been done to determine the minimum version actually required>.
+#pod
+#pod =cut
 
 has eumm_version => (
   isa => 'Str',
@@ -36,15 +36,15 @@ has eumm_version => (
   default => '6.30',
 );
 
-# =attr make_path
-#
-# This option sets the path to F<make>, used to build your dist and run tests.
-# It defaults to the value for C<make> in L<Config>, or to C<make> if that isn't
-# set.
-#
-# You probably won't need to set this option.
-#
-# =cut
+#pod =attr make_path
+#pod
+#pod This option sets the path to F<make>, used to build your dist and run tests.
+#pod It defaults to the value for C<make> in L<Config>, or to C<make> if that isn't
+#pod set.
+#pod
+#pod You probably won't need to set this option.
+#pod
+#pod =cut
 
 has 'make_path' => (
   isa => 'Str',
@@ -284,20 +284,20 @@ has __write_makefile_args => (
 __PACKAGE__->meta->make_immutable;
 1;
 
-# =head1 SEE ALSO
-#
-# Core Dist::Zilla plugins:
-# L<@Basic|Dist::Zilla::PluginBundle::Basic>,
-# L<ModuleBuild|Dist::Zilla::Plugin::ModuleBuild>,
-# L<Manifest|Dist::Zilla::Plugin::Manifest>.
-#
-# Dist::Zilla roles:
-# L<BuildRunner|Dist::Zilla::Role::FileGatherer>,
-# L<InstallTool|Dist::Zilla::Role::InstallTool>,
-# L<PrereqSource|Dist::Zilla::Role::PrereqSource>,
-# L<TestRunner|Dist::Zilla::Role::TestRunner>.
-#
-# =cut
+#pod =head1 SEE ALSO
+#pod
+#pod Core Dist::Zilla plugins:
+#pod L<@Basic|Dist::Zilla::PluginBundle::Basic>,
+#pod L<ModuleBuild|Dist::Zilla::Plugin::ModuleBuild>,
+#pod L<Manifest|Dist::Zilla::Plugin::Manifest>.
+#pod
+#pod Dist::Zilla roles:
+#pod L<BuildRunner|Dist::Zilla::Role::FileGatherer>,
+#pod L<InstallTool|Dist::Zilla::Role::InstallTool>,
+#pod L<PrereqSource|Dist::Zilla::Role::PrereqSource>,
+#pod L<TestRunner|Dist::Zilla::Role::TestRunner>.
+#pod
+#pod =cut
 
 __END__
 
@@ -311,7 +311,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

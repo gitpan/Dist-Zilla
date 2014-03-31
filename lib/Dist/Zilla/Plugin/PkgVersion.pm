@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PkgVersion;
 # ABSTRACT: add a $VERSION to your packages
-$Dist::Zilla::Plugin::PkgVersion::VERSION = '5.014';
+$Dist::Zilla::Plugin::PkgVersion::VERSION = '5.015';
 use Moose;
 with(
   'Dist::Zilla::Role::FileMunger',
@@ -15,62 +15,62 @@ use MooseX::Types::Perl qw(LaxVersionStr);
 
 use namespace::autoclean;
 
-# =head1 SYNOPSIS
-#
-# in dist.ini
-#
-#   [PkgVersion]
-#
-# =head1 DESCRIPTION
-#
-# This plugin will add lines like the following to each package in each Perl
-# module or program (more or less) within the distribution:
-#
-#   $MyModule::VERSION = 0.001;
-#
-# ...where 0.001 is the version of the dist, and MyModule is the name of the
-# package being given a version.  (In other words, it always uses fully-qualified
-# names to assign versions.)
-#
-# It will skip any package declaration that includes a newline between the
-# C<package> keyword and the package name, like:
-#
-#   package
-#     Foo::Bar;
-#
-# This sort of declaration is also ignored by the CPAN toolchain, and is
-# typically used when doing monkey patching or other tricky things.
-#
-# =attr die_on_existing_version
-#
-# If true, then when PkgVersion sees an existing C<$VERSION> assignment, it will
-# throw an exception rather than skip the file.  This attribute defaults to
-# false.
-#
-# =attr die_on_line_insertion
-#
-# By default, PkgVersion look for a blank line after each C<package> statement.
-# If it finds one, it inserts the C<$VERSION> assignment on that line.  If it
-# doesn't, it will insert a new line, which means the shipped copy of the module
-# will have different line numbers (off by one) than the source.  If
-# C<die_on_line_insertion> is true, PkgVersion will raise an exception rather
-# than insert a new line.
-#
-# =attr finder
-#
-# =for stopwords FileFinder
-#
-# This is the name of a L<FileFinder|Dist::Zilla::Role::FileFinder> for finding
-# modules to edit.  The default value is C<:InstallModules> and C<:ExecFiles>;
-# this option can be used more than once.
-#
-# Other predefined finders are listed in
-# L<Dist::Zilla::Role::FileFinderUser/default_finders>.
-# You can define your own with the
-# L<[FileFinder::ByName]|Dist::Zilla::Plugin::FileFinder::ByName> and
-# L<[FileFinder::Filter]|Dist::Zilla::Plugin::FileFinder::Filter> plugins.
-#
-# =cut
+#pod =head1 SYNOPSIS
+#pod
+#pod in dist.ini
+#pod
+#pod   [PkgVersion]
+#pod
+#pod =head1 DESCRIPTION
+#pod
+#pod This plugin will add lines like the following to each package in each Perl
+#pod module or program (more or less) within the distribution:
+#pod
+#pod   $MyModule::VERSION = 0.001;
+#pod
+#pod ...where 0.001 is the version of the dist, and MyModule is the name of the
+#pod package being given a version.  (In other words, it always uses fully-qualified
+#pod names to assign versions.)
+#pod
+#pod It will skip any package declaration that includes a newline between the
+#pod C<package> keyword and the package name, like:
+#pod
+#pod   package
+#pod     Foo::Bar;
+#pod
+#pod This sort of declaration is also ignored by the CPAN toolchain, and is
+#pod typically used when doing monkey patching or other tricky things.
+#pod
+#pod =attr die_on_existing_version
+#pod
+#pod If true, then when PkgVersion sees an existing C<$VERSION> assignment, it will
+#pod throw an exception rather than skip the file.  This attribute defaults to
+#pod false.
+#pod
+#pod =attr die_on_line_insertion
+#pod
+#pod By default, PkgVersion look for a blank line after each C<package> statement.
+#pod If it finds one, it inserts the C<$VERSION> assignment on that line.  If it
+#pod doesn't, it will insert a new line, which means the shipped copy of the module
+#pod will have different line numbers (off by one) than the source.  If
+#pod C<die_on_line_insertion> is true, PkgVersion will raise an exception rather
+#pod than insert a new line.
+#pod
+#pod =attr finder
+#pod
+#pod =for stopwords FileFinder
+#pod
+#pod This is the name of a L<FileFinder|Dist::Zilla::Role::FileFinder> for finding
+#pod modules to edit.  The default value is C<:InstallModules> and C<:ExecFiles>;
+#pod this option can be used more than once.
+#pod
+#pod Other predefined finders are listed in
+#pod L<Dist::Zilla::Role::FileFinderUser/default_finders>.
+#pod You can define your own with the
+#pod L<[FileFinder::ByName]|Dist::Zilla::Plugin::FileFinder::ByName> and
+#pod L<[FileFinder::Filter]|Dist::Zilla::Plugin::FileFinder::Filter> plugins.
+#pod
+#pod =cut
 
 sub munge_files {
   my ($self) = @_;
@@ -122,7 +122,7 @@ sub munge_perl {
 
   my $package_stmts = $document->find('PPI::Statement::Package');
   unless ($package_stmts) {
-    $self->log([ 'skipping %s: no package statement found', $file->name ]);
+    $self->log_debug([ 'skipping %s: no package statement found', $file->name ]);
     return;
   }
 
@@ -214,18 +214,18 @@ sub munge_perl {
 __PACKAGE__->meta->make_immutable;
 1;
 
-# =head1 SEE ALSO
-#
-# Core Dist::Zilla plugins:
-# L<PodVersion|Dist::Zilla::Plugin::PodVersion>,
-# L<AutoVersion|Dist::Zilla::Plugin::AutoVersion>,
-# L<NextRelease|Dist::Zilla::Plugin::NextRelease>.
-#
-# Other Dist::Zilla plugins:
-# L<OurPkgVersion|Dist::Zilla::Plugin::OurPkgVersion> inserts version
-# numbers using C<our $VERSION = '...';> and without changing line numbers
-#
-# =cut
+#pod =head1 SEE ALSO
+#pod
+#pod Core Dist::Zilla plugins:
+#pod L<PodVersion|Dist::Zilla::Plugin::PodVersion>,
+#pod L<AutoVersion|Dist::Zilla::Plugin::AutoVersion>,
+#pod L<NextRelease|Dist::Zilla::Plugin::NextRelease>.
+#pod
+#pod Other Dist::Zilla plugins:
+#pod L<OurPkgVersion|Dist::Zilla::Plugin::OurPkgVersion> inserts version
+#pod numbers using C<our $VERSION = '...';> and without changing line numbers
+#pod
+#pod =cut
 
 __END__
 
@@ -239,7 +239,7 @@ Dist::Zilla::Plugin::PkgVersion - add a $VERSION to your packages
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 SYNOPSIS
 

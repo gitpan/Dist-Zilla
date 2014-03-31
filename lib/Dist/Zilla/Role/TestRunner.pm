@@ -1,34 +1,34 @@
 package Dist::Zilla::Role::TestRunner;
 # ABSTRACT: something used as a delegating agent to 'dzil test'
-$Dist::Zilla::Role::TestRunner::VERSION = '5.014';
+$Dist::Zilla::Role::TestRunner::VERSION = '5.015';
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
 
 use namespace::autoclean;
 
-# =head1 DESCRIPTION
-#
-# Plugins implementing this role have their C<test> method called when
-# testing.  It's passed the root directory of the build test dir and an
-# optional hash reference of arguments.  Valid arguments include:
-#
-# =for :list
-# * jobs -- if parallel testing is supported, this indicates how many to run at once
-#
-# =method test
-#
-# This method should throw an exception on failure.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod Plugins implementing this role have their C<test> method called when
+#pod testing.  It's passed the root directory of the build test dir and an
+#pod optional hash reference of arguments.  Valid arguments include:
+#pod
+#pod =for :list
+#pod * jobs -- if parallel testing is supported, this indicates how many to run at once
+#pod
+#pod =method test
+#pod
+#pod This method should throw an exception on failure.
+#pod
+#pod =cut
 
 requires 'test';
 
-# =attr default_jobs
-#
-# This attribute is the default value that should be used as the C<jobs> argument
-# to the C<test> method.
-#
-# =cut
+#pod =attr default_jobs
+#pod
+#pod This attribute is the default value that should be used as the C<jobs> argument
+#pod to the C<test> method.
+#pod
+#pod =cut
 
 has default_jobs => (
   is      => 'ro',
@@ -59,7 +59,7 @@ Dist::Zilla::Role::TestRunner - something used as a delegating agent to 'dzil te
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

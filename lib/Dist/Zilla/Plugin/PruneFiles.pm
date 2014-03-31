@@ -1,41 +1,41 @@
 package Dist::Zilla::Plugin::PruneFiles;
 # ABSTRACT: prune arbitrary files from the dist
-$Dist::Zilla::Plugin::PruneFiles::VERSION = '5.014';
+$Dist::Zilla::Plugin::PruneFiles::VERSION = '5.015';
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FilePruner';
 
 use namespace::autoclean;
 
-# =head1 SYNOPSIS
-#
-# This plugin allows you to explicitly prune some files from your
-# distribution. You can either specify the exact set of files (with the
-# "filenames" parameter) or provide the regular expressions to
-# check (using "match").
-#
-# This is useful if another plugin (maybe a FileGatherer) adds a
-# bunch of files, and you only want a subset of them.
-#
-# In your F<dist.ini>:
-#
-#   [PruneFiles]
-#   filename = xt/release/pod-coverage.t ; pod coverage tests are for jerks
-#   filename = todo-list.txt             ; keep our secret plans to ourselves
-#
-#   match     = ^test_data/
-#   match     = ^test.cvs$
-#
-# =cut
+#pod =head1 SYNOPSIS
+#pod
+#pod This plugin allows you to explicitly prune some files from your
+#pod distribution. You can either specify the exact set of files (with the
+#pod "filenames" parameter) or provide the regular expressions to
+#pod check (using "match").
+#pod
+#pod This is useful if another plugin (maybe a FileGatherer) adds a
+#pod bunch of files, and you only want a subset of them.
+#pod
+#pod In your F<dist.ini>:
+#pod
+#pod   [PruneFiles]
+#pod   filename = xt/release/pod-coverage.t ; pod coverage tests are for jerks
+#pod   filename = todo-list.txt             ; keep our secret plans to ourselves
+#pod
+#pod   match     = ^test_data/
+#pod   match     = ^test.cvs$
+#pod
+#pod =cut
 
 sub mvp_multivalue_args { qw(filenames matches) }
 sub mvp_aliases { return { filename => 'filenames', match => 'matches' } }
 
-# =attr filenames
-#
-# This is an arrayref of filenames to be pruned from the distribution.
-#
-# =cut
+#pod =attr filenames
+#pod
+#pod This is an arrayref of filenames to be pruned from the distribution.
+#pod
+#pod =cut
 
 has filenames => (
   is   => 'ro',
@@ -43,12 +43,12 @@ has filenames => (
   default => sub { [] },
 );
 
-# =attr matches
-#
-# This is an arrayref of regular expressions and files matching any of them,
-# will be pruned from the distribution.
-#
-# =cut
+#pod =attr matches
+#pod
+#pod This is an arrayref of regular expressions and files matching any of them,
+#pod will be pruned from the distribution.
+#pod
+#pod =cut
 
 has matches => (
   is   => 'ro',
@@ -81,14 +81,14 @@ sub prune_files {
 __PACKAGE__->meta->make_immutable;
 1;
 
-# =head1 SEE ALSO
-#
-# Dist::Zilla plugins:
-# L<PruneCruft|Dist::Zilla::Plugin::PruneCruft>,
-# L<GatherDir|Dist::Zilla::Plugin::GatherDir>,
-# L<ManifestSkip|Dist::Zilla::Plugin::ManifestSkip>.
-#
-# =cut
+#pod =head1 SEE ALSO
+#pod
+#pod Dist::Zilla plugins:
+#pod L<PruneCruft|Dist::Zilla::Plugin::PruneCruft>,
+#pod L<GatherDir|Dist::Zilla::Plugin::GatherDir>,
+#pod L<ManifestSkip|Dist::Zilla::Plugin::ManifestSkip>.
+#pod
+#pod =cut
 
 __END__
 
@@ -102,7 +102,7 @@ Dist::Zilla::Plugin::PruneFiles - prune arbitrary files from the dist
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 SYNOPSIS
 

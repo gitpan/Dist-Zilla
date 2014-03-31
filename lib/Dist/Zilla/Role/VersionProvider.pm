@@ -1,32 +1,32 @@
 package Dist::Zilla::Role::VersionProvider;
 # ABSTRACT: something that provides a version number for the dist
-$Dist::Zilla::Role::VersionProvider::VERSION = '5.014';
+$Dist::Zilla::Role::VersionProvider::VERSION = '5.015';
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
 
 use namespace::autoclean;
 
-# =head1 DESCRIPTION
-#
-# Plugins implementing this role must provide a C<provide_version> method that
-# will be called when setting the dist's version.
-#
-# If a VersionProvider offers a version but one has already been set, an
-# exception will be raised.  If C<provides_version> returns undef, it will be
-# ignored.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod Plugins implementing this role must provide a C<provide_version> method that
+#pod will be called when setting the dist's version.
+#pod
+#pod If a VersionProvider offers a version but one has already been set, an
+#pod exception will be raised.  If C<provides_version> returns undef, it will be
+#pod ignored.
+#pod
+#pod =cut
 
 requires 'provide_version';
 
 1;
 
-# =head1 SEE ALSO
-#
-# Core Dist::Zilla plugins implementing this role:
-# L<AutoVersion|Dist::Zilla::Plugin::AutoVersion>.
-#
-# =cut
+#pod =head1 SEE ALSO
+#pod
+#pod Core Dist::Zilla plugins implementing this role:
+#pod L<AutoVersion|Dist::Zilla::Plugin::AutoVersion>.
+#pod
+#pod =cut
 
 __END__
 
@@ -40,7 +40,7 @@ Dist::Zilla::Role::VersionProvider - something that provides a version number fo
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

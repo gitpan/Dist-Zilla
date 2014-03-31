@@ -2,31 +2,31 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::test;
 # ABSTRACT: test your dist
-$Dist::Zilla::App::Command::test::VERSION = '5.014';
+$Dist::Zilla::App::Command::test::VERSION = '5.015';
 use Dist::Zilla::App -command;
 
-# =head1 SYNOPSIS
-#
-#   dzil test [ --release ] [ --no-author ] [ --automated ] [ --all ]
-#
-# =head1 DESCRIPTION
-#
-# This command is a thin wrapper around the L<test|Dist::Zilla::Dist::Builder/test> method in
-# Dist::Zilla.  It builds your dist and runs the tests with the AUTHOR_TESTING
-# environment variable turned on, so it's like doing this:
-#
-#   export AUTHOR_TESTING=1
-#   dzil build --no-tgz
-#   cd $BUILD_DIRECTORY
-#   perl Makefile.PL
-#   make
-#   make test
-#
-# A build that fails tests will be left behind for analysis, and F<dzil> will
-# exit a non-zero value.  If the tests are successful, the build directory will
-# be removed and F<dzil> will exit with status 0.
-#
-# =cut
+#pod =head1 SYNOPSIS
+#pod
+#pod   dzil test [ --release ] [ --no-author ] [ --automated ] [ --all ]
+#pod
+#pod =head1 DESCRIPTION
+#pod
+#pod This command is a thin wrapper around the L<test|Dist::Zilla::Dist::Builder/test> method in
+#pod Dist::Zilla.  It builds your dist and runs the tests with the AUTHOR_TESTING
+#pod environment variable turned on, so it's like doing this:
+#pod
+#pod   export AUTHOR_TESTING=1
+#pod   dzil build --no-tgz
+#pod   cd $BUILD_DIRECTORY
+#pod   perl Makefile.PL
+#pod   make
+#pod   make test
+#pod
+#pod A build that fails tests will be left behind for analysis, and F<dzil> will
+#pod exit a non-zero value.  If the tests are successful, the build directory will
+#pod be removed and F<dzil> will exit with status 0.
+#pod
+#pod =cut
 
 sub opt_spec {
   [ 'release'   => 'enables the RELEASE_TESTING env variable', { default => 0 } ],
@@ -37,25 +37,25 @@ sub opt_spec {
   [ 'jobs|j=i' => 'number of parallel test jobs to run' ],
 }
 
-# =head1 OPTIONS
-#
-# =head2 --release
-#
-# This will run the test suite with RELEASE_TESTING=1
-#
-# =head2 --automated
-#
-# This will run the test suite with AUTOMATED_TESTING=1
-#
-# =head2 --no-author
-#
-# This will run the test suite without setting AUTHOR_TESTING
-#
-# =head2 --all
-#
-# Equivalent to --release --automated --author
-#
-# =cut
+#pod =head1 OPTIONS
+#pod
+#pod =head2 --release
+#pod
+#pod This will run the test suite with RELEASE_TESTING=1
+#pod
+#pod =head2 --automated
+#pod
+#pod This will run the test suite with AUTOMATED_TESTING=1
+#pod
+#pod =head2 --no-author
+#pod
+#pod This will run the test suite without setting AUTHOR_TESTING
+#pod
+#pod =head2 --all
+#pod
+#pod Equivalent to --release --automated --author
+#pod
+#pod =cut
 
 sub abstract { 'test your dist' }
 
@@ -90,7 +90,7 @@ Dist::Zilla::App::Command::test - test your dist
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 SYNOPSIS
 

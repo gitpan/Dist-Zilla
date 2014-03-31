@@ -1,6 +1,6 @@
 package Dist::Zilla::PluginBundle::Filter;
 # ABSTRACT: use another bundle, with some plugins removed
-$Dist::Zilla::PluginBundle::Filter::VERSION = '5.014';
+$Dist::Zilla::PluginBundle::Filter::VERSION = '5.015';
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::PluginBundle';
@@ -10,31 +10,31 @@ use namespace::autoclean;
 use Class::Load qw(try_load_class);
 use Dist::Zilla::Util;
 
-# =head1 SYNOPSIS
-#
-# In your F<dist.ini>:
-#
-#   [@Filter]
-#   -bundle = @Basic
-#   -remove = ShareDir
-#   -remove = UploadToCPAN
-#   option = for_basic
-#
-# =head1 DESCRIPTION
-#
-# This plugin bundle actually wraps and modifies another plugin bundle.  It
-# includes all the configuration for the bundle named in the C<-bundle> attribute,
-# but removes all the entries whose package is given in the C<-remove> attributes.
-#
-# Options not prefixed with C<-> will be passed to the bundle to be filtered.
-#
-# =head1 SEE ALSO
-#
-# Core Dist::Zilla plugins: L<@Basic|Dist::Zilla::PluginBundle::Basic>.
-#
-# Dist::Zilla roles: L<PluginBundle|Dist::Zilla::Role::PluginBundle>.
-#
-# =cut
+#pod =head1 SYNOPSIS
+#pod
+#pod In your F<dist.ini>:
+#pod
+#pod   [@Filter]
+#pod   -bundle = @Basic
+#pod   -remove = ShareDir
+#pod   -remove = UploadToCPAN
+#pod   option = for_basic
+#pod
+#pod =head1 DESCRIPTION
+#pod
+#pod This plugin bundle actually wraps and modifies another plugin bundle.  It
+#pod includes all the configuration for the bundle named in the C<-bundle> attribute,
+#pod but removes all the entries whose package is given in the C<-remove> attributes.
+#pod
+#pod Options not prefixed with C<-> will be passed to the bundle to be filtered.
+#pod
+#pod =head1 SEE ALSO
+#pod
+#pod Core Dist::Zilla plugins: L<@Basic|Dist::Zilla::PluginBundle::Basic>.
+#pod
+#pod Dist::Zilla roles: L<PluginBundle|Dist::Zilla::Role::PluginBundle>.
+#pod
+#pod =cut
 
 sub mvp_multivalue_args { qw(remove -remove) }
 
@@ -102,7 +102,7 @@ Dist::Zilla::PluginBundle::Filter - use another bundle, with some plugins remove
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 SYNOPSIS
 

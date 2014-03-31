@@ -1,26 +1,26 @@
 package Dist::Zilla::MVP::RootSection;
 # ABSTRACT: a standard section in Dist::Zilla's configuration sequence
-$Dist::Zilla::MVP::RootSection::VERSION = '5.014';
+$Dist::Zilla::MVP::RootSection::VERSION = '5.015';
 use Moose;
 extends 'Config::MVP::Section';
 
 use namespace::autoclean;
 
-# =head1 DESCRIPTION
-#
-# This is a subclass of L<Config::MVP::Section>, used as the starting section by
-# L<Dist::Zilla::MVP::Assembler::Zilla>.  It has a number of useful defaults, as
-# well as a C<zilla> attribute which will, after section finalization, contain a
-# Dist::Zilla object with which subsequent plugin sections may register.
-#
-# Those useful defaults are:
-#
-# =for :list
-# * name defaults to _
-# * aliases defaults to { author => 'authors' }
-# * multivalue_args defaults to [ 'authors' ]
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod This is a subclass of L<Config::MVP::Section>, used as the starting section by
+#pod L<Dist::Zilla::MVP::Assembler::Zilla>.  It has a number of useful defaults, as
+#pod well as a C<zilla> attribute which will, after section finalization, contain a
+#pod Dist::Zilla object with which subsequent plugin sections may register.
+#pod
+#pod Those useful defaults are:
+#pod
+#pod =for :list
+#pod * name defaults to _
+#pod * aliases defaults to { author => 'authors' }
+#pod * multivalue_args defaults to [ 'authors' ]
+#pod
+#pod =cut
 
 use MooseX::LazyRequire;
 use MooseX::SetOnce;
@@ -77,7 +77,7 @@ Dist::Zilla::MVP::RootSection - a standard section in Dist::Zilla's configuratio
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

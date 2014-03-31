@@ -1,22 +1,22 @@
 package Dist::Zilla::File::FromCode;
 # ABSTRACT: a file whose content is (re-)built on demand
-$Dist::Zilla::File::FromCode::VERSION = '5.014';
+$Dist::Zilla::File::FromCode::VERSION = '5.015';
 use Moose;
 use Moose::Util::TypeConstraints;
 
 use namespace::autoclean;
 
-# =head1 DESCRIPTION
-#
-# This represents a file whose contents will be generated on demand from a
-# callback or method name.
-#
-# It has one attribute, C<code>, which may be a method name (string) or a
-# coderef.  When the file's C<content> method is called, the code is used to
-# generate the content.  This content is I<not> cached.  It is recomputed every
-# time the content is requested.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod This represents a file whose contents will be generated on demand from a
+#pod callback or method name.
+#pod
+#pod It has one attribute, C<code>, which may be a method name (string) or a
+#pod coderef.  When the file's C<content> method is called, the code is used to
+#pod generate the content.  This content is I<not> cached.  It is recomputed every
+#pod time the content is requested.
+#pod
+#pod =cut
 
 with 'Dist::Zilla::Role::File';
 
@@ -26,11 +26,11 @@ has code => (
   required => 1,
 );
 
-# =attr code_return_type
-#
-# 'text' or 'bytes'
-#
-# =cut
+#pod =attr code_return_type
+#pod
+#pod 'text' or 'bytes'
+#pod
+#pod =cut
 
 has code_return_type => (
   is => 'ro',
@@ -38,9 +38,9 @@ has code_return_type => (
   default => 'text',
 );
 
-# =attr encoding
-#
-# =cut
+#pod =attr encoding
+#pod
+#pod =cut
 
 sub encoding;
 
@@ -56,9 +56,9 @@ sub _build_encoding {
   return $self->code_return_type eq 'text' ? 'UTF-8' : 'bytes';
 }
 
-# =attr content
-#
-# =cut
+#pod =attr content
+#pod
+#pod =cut
 
 sub content {
   my ($self) = @_;
@@ -76,9 +76,9 @@ sub content {
   }
 }
 
-# =attr encoded_content
-#
-# =cut
+#pod =attr encoded_content
+#pod
+#pod =cut
 
 sub encoded_content {
   my ($self) = @_;
@@ -116,7 +116,7 @@ Dist::Zilla::File::FromCode - a file whose content is (re-)built on demand
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

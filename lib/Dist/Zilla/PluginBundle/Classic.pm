@@ -1,6 +1,6 @@
 package Dist::Zilla::PluginBundle::Classic;
 # ABSTRACT: the classic (old) default configuration for Dist::Zilla
-$Dist::Zilla::PluginBundle::Classic::VERSION = '5.014';
+$Dist::Zilla::PluginBundle::Classic::VERSION = '5.015';
 use Moose;
 with 'Dist::Zilla::Role::PluginBundle::Easy';
 
@@ -35,41 +35,41 @@ sub configure {
 __PACKAGE__->meta->make_immutable;
 1;
 
-# =head1 DESCRIPTION
-#
-# This bundle is more or less the original configuration bundled with
-# Dist::Zilla.  More than likely, you'd rather be using
-# L<@Basic|Dist::Zilla::PluginBundle::Basic> or a more complex bundle.  This one
-# will muck around with your code by adding C<$VERSION> declarations and will
-# mess with you Pod by adding a C<=head1 VERSION> section, but it won't get you a
-# lot of more useful features like autoversioning, autoprereqs, or Pod::Weaver.
-#
-# It includes the following plugins with their default configuration:
-#
-# =for :list
-# * L<Dist::Zilla::Plugin::GatherDir>
-# * L<Dist::Zilla::Plugin::PruneCruft>
-# * L<Dist::Zilla::Plugin::ManifestSkip>
-# * L<Dist::Zilla::Plugin::MetaYAML>
-# * L<Dist::Zilla::Plugin::License>
-# * L<Dist::Zilla::Plugin::Readme>
-# * L<Dist::Zilla::Plugin::PkgVersion>
-# * L<Dist::Zilla::Plugin::PodVersion>
-# * L<Dist::Zilla::Plugin::PodCoverageTests>
-# * L<Dist::Zilla::Plugin::PodSyntaxTests>
-# * L<Dist::Zilla::Plugin::ExtraTests>
-# * L<Dist::Zilla::Plugin::ExecDir>
-# * L<Dist::Zilla::Plugin::ShareDir>
-# * L<Dist::Zilla::Plugin::MakeMaker>
-# * L<Dist::Zilla::Plugin::Manifest>
-# * L<Dist::Zilla::Plugin::ConfirmRelease>
-# * L<Dist::Zilla::Plugin::UploadToCPAN>
-#
-# =head1 SEE ALSO
-#
-# L<@Basic|Dist::Zilla::PluginBundle::Basic>
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod This bundle is more or less the original configuration bundled with
+#pod Dist::Zilla.  More than likely, you'd rather be using
+#pod L<@Basic|Dist::Zilla::PluginBundle::Basic> or a more complex bundle.  This one
+#pod will muck around with your code by adding C<$VERSION> declarations and will
+#pod mess with you Pod by adding a C<=head1 VERSION> section, but it won't get you a
+#pod lot of more useful features like autoversioning, autoprereqs, or Pod::Weaver.
+#pod
+#pod It includes the following plugins with their default configuration:
+#pod
+#pod =for :list
+#pod * L<Dist::Zilla::Plugin::GatherDir>
+#pod * L<Dist::Zilla::Plugin::PruneCruft>
+#pod * L<Dist::Zilla::Plugin::ManifestSkip>
+#pod * L<Dist::Zilla::Plugin::MetaYAML>
+#pod * L<Dist::Zilla::Plugin::License>
+#pod * L<Dist::Zilla::Plugin::Readme>
+#pod * L<Dist::Zilla::Plugin::PkgVersion>
+#pod * L<Dist::Zilla::Plugin::PodVersion>
+#pod * L<Dist::Zilla::Plugin::PodCoverageTests>
+#pod * L<Dist::Zilla::Plugin::PodSyntaxTests>
+#pod * L<Dist::Zilla::Plugin::ExtraTests>
+#pod * L<Dist::Zilla::Plugin::ExecDir>
+#pod * L<Dist::Zilla::Plugin::ShareDir>
+#pod * L<Dist::Zilla::Plugin::MakeMaker>
+#pod * L<Dist::Zilla::Plugin::Manifest>
+#pod * L<Dist::Zilla::Plugin::ConfirmRelease>
+#pod * L<Dist::Zilla::Plugin::UploadToCPAN>
+#pod
+#pod =head1 SEE ALSO
+#pod
+#pod L<@Basic|Dist::Zilla::PluginBundle::Basic>
+#pod
+#pod =cut
 
 __END__
 
@@ -83,7 +83,7 @@ Dist::Zilla::PluginBundle::Classic - the classic (old) default configuration for
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

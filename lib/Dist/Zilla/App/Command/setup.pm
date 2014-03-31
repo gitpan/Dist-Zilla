@@ -2,20 +2,20 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::setup;
 # ABSTRACT: set up a basic global config file
-$Dist::Zilla::App::Command::setup::VERSION = '5.014';
+$Dist::Zilla::App::Command::setup::VERSION = '5.015';
 use Dist::Zilla::App -command;
 
-# =head1 SYNOPSIS
-#
-#   $ dzil setup
-#   Enter your name> Ricardo Signes
-#   ...
-#
-# Dist::Zilla looks for per-user configuration in F<~/.dzil/config.ini>.  This
-# command prompts the user for some basic information that can be used to produce
-# the most commonly needed F<config.ini> sections.
-#
-# =cut
+#pod =head1 SYNOPSIS
+#pod
+#pod   $ dzil setup
+#pod   Enter your name> Ricardo Signes
+#pod   ...
+#pod
+#pod Dist::Zilla looks for per-user configuration in F<~/.dzil/config.ini>.  This
+#pod command prompts the user for some basic information that can be used to produce
+#pod the most commonly needed F<config.ini> sections.
+#pod
+#pod =cut
 
 use autodie;
 
@@ -158,7 +158,7 @@ Dist::Zilla::App::Command::setup - set up a basic global config file
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 SYNOPSIS
 

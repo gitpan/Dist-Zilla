@@ -3,6 +3,8 @@ abstract: 'distribution builder; installer not included!'
 author:
   - 'Ricardo SIGNES <rjbs@cpan.org>'
 build_requires:
+  ExtUtils::MakeMaker: '0'
+  File::Spec::Functions: '0'
   Software::License::None: '0'
   Test::FailWarnings: '0'
   Test::Fatal: '0'
@@ -14,7 +16,7 @@ configure_requires:
   ExtUtils::MakeMaker: '6.30'
   File::ShareDir::Install: '0.03'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.014, CPAN::Meta::Converter version 2.133380'
+generated_by: 'Dist::Zilla version 5.014, CPAN::Meta::Converter version 2.140640'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -120,10 +122,10 @@ resources:
   bugtracker: https://github.com/rjbs/Dist-Zilla/issues
   homepage: http://dzil.org/
   repository: https://github.com/rjbs/Dist-Zilla.git
-version: '5.014'
+version: '5.015'
 x_Dist_Zilla:
   perl:
-    version: '5.019009'
+    version: '5.019010'
   plugins:
     -
       class: Dist::Zilla::Plugin::Git::GatherDir
@@ -132,11 +134,11 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::CheckPrereqsIndexed
       name: '@Filter/CheckPrereqsIndexed'
-      version: '0.010'
+      version: '0.011'
     -
       class: Dist::Zilla::Plugin::CheckExtraTests
       name: '@Filter/CheckExtraTests'
-      version: '0.018'
+      version: '0.021'
     -
       class: Dist::Zilla::Plugin::PromptIfStale
       config:
@@ -148,7 +150,7 @@ x_Dist_Zilla:
           phase: build
           skip: []
       name: '@Filter/RJBS-Outdated'
-      version: '0.020'
+      version: '0.021'
     -
       class: Dist::Zilla::Plugin::PromptIfStale
       config:
@@ -159,7 +161,7 @@ x_Dist_Zilla:
           phase: release
           skip: []
       name: '@Filter/CPAN-Outdated'
-      version: '0.020'
+      version: '0.021'
     -
       class: Dist::Zilla::Plugin::PruneCruft
       name: '@Filter/@Filter/PruneCruft'
@@ -244,9 +246,9 @@ x_Dist_Zilla:
       name: '@Filter/PodSyntaxTests'
       version: '5.014'
     -
-      class: Dist::Zilla::Plugin::ReportVersions::Tiny
-      name: '@Filter/ReportVersions::Tiny'
-      version: '1.10'
+      class: Dist::Zilla::Plugin::Test::ReportPrereqs
+      name: '@Filter/Test::ReportPrereqs'
+      version: '0.013'
     -
       class: Dist::Zilla::Plugin::Prereqs
       config:

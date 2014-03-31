@@ -2,46 +2,46 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::listdeps;
 # ABSTRACT: print your distribution's prerequisites
-$Dist::Zilla::App::Command::listdeps::VERSION = '5.014';
+$Dist::Zilla::App::Command::listdeps::VERSION = '5.015';
 use Dist::Zilla::App -command;
 
-# =head1 SYNOPSIS
-#
-#   $ dzil listdeps | cpan
-#
-# =head1 DESCRIPTION
-#
-# This is a command plugin for L<Dist::Zilla>. It provides the C<listdeps>
-# command, which prints your distribution's prerequisites. You could pipe that
-# list to a CPAN client like L<cpan> to install all of the dependencies in one
-# quick go.
-#
-# =head1 OPTIONS
-#
-# =head2 --author
-#
-# Include author dependencies (those listed under C<develop_requires>).
-#
-# =head2 --missing
-#
-# List only dependencies which are unsatisfied.
-#
-# =head2 --versions
-#
-# Also display the required versions of listed modules.
-#
-# =head2 --json
-#
-# Lists all prerequisites in JSON format, as they would appear in META.json
-# (broken out into phases and types)
-#
-# =head1 ACKNOWLEDGEMENTS
-#
-# This code was originally more or less a direct copy of Marcel Gruenauer (hanekomu)
-# Dist::Zilla::App::Command::prereqs, updated to work with the Dist::Zilla v2
-# API.
-#
-# =cut
+#pod =head1 SYNOPSIS
+#pod
+#pod   $ dzil listdeps | cpan
+#pod
+#pod =head1 DESCRIPTION
+#pod
+#pod This is a command plugin for L<Dist::Zilla>. It provides the C<listdeps>
+#pod command, which prints your distribution's prerequisites. You could pipe that
+#pod list to a CPAN client like L<cpan> to install all of the dependencies in one
+#pod quick go.
+#pod
+#pod =head1 OPTIONS
+#pod
+#pod =head2 --author
+#pod
+#pod Include author dependencies (those listed under C<develop_requires>).
+#pod
+#pod =head2 --missing
+#pod
+#pod List only dependencies which are unsatisfied.
+#pod
+#pod =head2 --versions
+#pod
+#pod Also display the required versions of listed modules.
+#pod
+#pod =head2 --json
+#pod
+#pod Lists all prerequisites in JSON format, as they would appear in META.json
+#pod (broken out into phases and types)
+#pod
+#pod =head1 ACKNOWLEDGEMENTS
+#pod
+#pod This code was originally more or less a direct copy of Marcel Gruenauer (hanekomu)
+#pod Dist::Zilla::App::Command::prereqs, updated to work with the Dist::Zilla v2
+#pod API.
+#pod
+#pod =cut
 
 use Try::Tiny;
 
@@ -144,7 +144,7 @@ Dist::Zilla::App::Command::listdeps - print your distribution's prerequisites
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 SYNOPSIS
 

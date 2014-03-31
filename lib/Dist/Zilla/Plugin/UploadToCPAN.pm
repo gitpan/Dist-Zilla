@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::UploadToCPAN;
 # ABSTRACT: upload the dist to CPAN
-$Dist::Zilla::Plugin::UploadToCPAN::VERSION = '5.014';
+$Dist::Zilla::Plugin::UploadToCPAN::VERSION = '5.015';
 use Moose;
 with qw(Dist::Zilla::Role::BeforeRelease Dist::Zilla::Role::Releaser);
 
@@ -12,30 +12,30 @@ use Try::Tiny;
 
 use namespace::autoclean;
 
-# =head1 SYNOPSIS
-#
-# If loaded, this plugin will allow the F<release> command to upload to the CPAN.
-#
-# =head1 DESCRIPTION
-#
-# This plugin looks for configuration in your C<dist.ini> or (more
-# likely) C<~/.dzil/config.ini>:
-#
-#   [%PAUSE]
-#   username = YOUR-PAUSE-ID
-#   password = YOUR-PAUSE-PASSWORD
-#
-# If this configuration does not exist, it can read the configuration from
-# C<~/.pause>, in the same format that L<cpan-upload> requires:
-#
-#   user YOUR-PAUSE-ID
-#   password YOUR-PAUSE-PASSWORD
-#
-# If neither configuration exists, it will prompt you to enter your
-# username and password during the BeforeRelease phase.  Entering a
-# blank username or password will abort the release.
-#
-# =cut
+#pod =head1 SYNOPSIS
+#pod
+#pod If loaded, this plugin will allow the F<release> command to upload to the CPAN.
+#pod
+#pod =head1 DESCRIPTION
+#pod
+#pod This plugin looks for configuration in your C<dist.ini> or (more
+#pod likely) C<~/.dzil/config.ini>:
+#pod
+#pod   [%PAUSE]
+#pod   username = YOUR-PAUSE-ID
+#pod   password = YOUR-PAUSE-PASSWORD
+#pod
+#pod If this configuration does not exist, it can read the configuration from
+#pod C<~/.pause>, in the same format that L<cpan-upload> requires:
+#pod
+#pod   user YOUR-PAUSE-ID
+#pod   password YOUR-PAUSE-PASSWORD
+#pod
+#pod If neither configuration exists, it will prompt you to enter your
+#pod username and password during the BeforeRelease phase.  Entering a
+#pod blank username or password will abort the release.
+#pod
+#pod =cut
 
 {
   package
@@ -76,12 +76,12 @@ sub mvp_aliases {
   return { user => 'username' };
 }
 
-# =attr username
-#
-# This option supplies the user's PAUSE username.  If not supplied, it will be
-# looked for in the user's PAUSE configuration.
-#
-# =cut
+#pod =attr username
+#pod
+#pod This option supplies the user's PAUSE username.  If not supplied, it will be
+#pod looked for in the user's PAUSE configuration.
+#pod
+#pod =cut
 
 has username => (
   is   => 'ro',
@@ -96,12 +96,12 @@ has username => (
   },
 );
 
-# =attr password
-#
-# This option supplies the user's PAUSE password.  If not supplied, it will be
-# looked for in the user's PAUSE configuration.
-#
-# =cut
+#pod =attr password
+#pod
+#pod This option supplies the user's PAUSE password.  If not supplied, it will be
+#pod looked for in the user's PAUSE configuration.
+#pod
+#pod =cut
 
 has password => (
   is   => 'ro',
@@ -116,22 +116,42 @@ has password => (
   },
 );
 
+#pod =attr pause_cfg_file
+#pod
+#pod This is the name of the file containing your pause credentials.  It defaults
+#pod F<.pause>.  If you give a relative path, it is taken to be relative to
+#pod L</pause_cfg_dir>.
+#pod
+#pod =cut
+
 has pause_cfg_file => (
   is      => 'ro',
   isa     => 'Str',
   lazy    => 1,
-  default => sub {
-    File::Spec->catfile(File::HomeDir->my_home, '.pause');
-  },
+  default => sub { '.pause' },
 );
 
-# =attr pause_cfg
-#
-# This is a hashref of defaults loaded from F<~/.pause> -- this attribute is
-# subject to removal in future versions, as the config-loading behavior in
-# CPAN::Uploader is improved.
-#
-# =cut
+#pod =attr pause_cfg_dir
+#pod
+#pod This is the directory for resolving a relative L</pause_cfg_file>.
+#pod It defaults to C<< File::HomeDir->my_home >>.
+#pod
+#pod =cut
+
+has pause_cfg_dir => (
+  is      => 'ro',
+  isa     => 'Str',
+  lazy    => 1,
+  default => sub { File::HomeDir->my_home },
+);
+
+#pod =attr pause_cfg
+#pod
+#pod This is a hashref of defaults loaded from F<~/.pause> -- this attribute is
+#pod subject to removal in future versions, as the config-loading behavior in
+#pod CPAN::Uploader is improved.
+#pod
+#pod =cut
 
 has pause_cfg => (
   is      => 'ro',
@@ -140,8 +160,11 @@ has pause_cfg => (
   default => sub {
     my $self = shift;
     require CPAN::Uploader;
+    my $file = $self->pause_cfg_file;
+    $file = File::Spec->catfile($self->pause_cfg_dir, $file)
+      unless File::Spec->file_name_is_absolute($file);
     my $cfg = try {
-      CPAN::Uploader->read_config_file( $self->pause_cfg_file );
+      CPAN::Uploader->read_config_file($file)
     } catch {
       {};
     };
@@ -149,12 +172,12 @@ has pause_cfg => (
   },
 );
 
-# =attr subdir
-#
-# If given, this specifies a subdirectory under the user's home directory to
-# which to upload.  Using this option is not recommended.
-#
-# =cut
+#pod =attr subdir
+#pod
+#pod If given, this specifies a subdirectory under the user's home directory to
+#pod which to upload.  Using this option is not recommended.
+#pod
+#pod =cut
 
 has subdir => (
     is        => 'ro',
@@ -162,13 +185,13 @@ has subdir => (
     predicate => 'has_subdir',
 );
 
-# =attr upload_uri
-#
-# If given, this specifies an alternate URI for the PAUSE upload form.  By
-# default, the default supplied by L<CPAN::Uploader> is used.  Using this option
-# is not recommended in most cases.
-#
-# =cut
+#pod =attr upload_uri
+#pod
+#pod If given, this specifies an alternate URI for the PAUSE upload form.  By
+#pod default, the default supplied by L<CPAN::Uploader> is used.  Using this option
+#pod is not recommended in most cases.
+#pod
+#pod =cut
 
 has upload_uri => (
   is => 'ro',
@@ -239,7 +262,7 @@ Dist::Zilla::Plugin::UploadToCPAN - upload the dist to CPAN
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 SYNOPSIS
 
@@ -275,6 +298,17 @@ looked for in the user's PAUSE configuration.
 
 This option supplies the user's PAUSE password.  If not supplied, it will be
 looked for in the user's PAUSE configuration.
+
+=head2 pause_cfg_file
+
+This is the name of the file containing your pause credentials.  It defaults
+F<.pause>.  If you give a relative path, it is taken to be relative to
+L</pause_cfg_dir>.
+
+=head2 pause_cfg_dir
+
+This is the directory for resolving a relative L</pause_cfg_file>.
+It defaults to C<< File::HomeDir->my_home >>.
 
 =head2 pause_cfg
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::FileFinder::Filter;
 # ABSTRACT: filter matches from other FileFinders
-$Dist::Zilla::Plugin::FileFinder::Filter::VERSION = '5.014';
+$Dist::Zilla::Plugin::FileFinder::Filter::VERSION = '5.015';
 use Moose;
 with(
   'Dist::Zilla::Role::FileFinder',
@@ -11,20 +11,20 @@ with(
 
 use namespace::autoclean;
 
-# =head1 SYNOPSIS
-#
-# In your F<dist.ini>:
-#
-#   [FileFinder::Filter / MyFiles]
-#   finder = :InstallModules ; find files from :InstallModules
-#   finder = :ExecFiles      ; or :ExecFiles
-#   skip  = ignore           ; that don't have "ignore" in the path
-#
-# =head1 CREDITS
-#
-# This plugin was originally contributed by Christopher J. Madsen.
-#
-# =cut
+#pod =head1 SYNOPSIS
+#pod
+#pod In your F<dist.ini>:
+#pod
+#pod   [FileFinder::Filter / MyFiles]
+#pod   finder = :InstallModules ; find files from :InstallModules
+#pod   finder = :ExecFiles      ; or :ExecFiles
+#pod   skip  = ignore           ; that don't have "ignore" in the path
+#pod
+#pod =head1 CREDITS
+#pod
+#pod This plugin was originally contributed by Christopher J. Madsen.
+#pod
+#pod =cut
 
 use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose qw(ArrayRef RegexpRef Str);
@@ -33,17 +33,17 @@ use MooseX::Types::Moose qw(ArrayRef RegexpRef Str);
   my $type = subtype as ArrayRef[RegexpRef];
   coerce $type, from ArrayRef[Str], via { [map { qr/$_/ } @$_] };
 
-# =attr finder
-#
-# A FileFinder to supply the initial list of files.
-# May occur multiple times.
-#
-# =attr skip
-#
-# The pathname must I<not> match any of these regular expressions.
-# May occur multiple times.
-#
-# =cut
+#pod =attr finder
+#pod
+#pod A FileFinder to supply the initial list of files.
+#pod May occur multiple times.
+#pod
+#pod =attr skip
+#pod
+#pod The pathname must I<not> match any of these regular expressions.
+#pod May occur multiple times.
+#pod
+#pod =cut
 
   has skips => (
     is      => 'ro',
@@ -77,19 +77,19 @@ sub find_files {
 __PACKAGE__->meta->make_immutable;
 1;
 
-# =head1 DESCRIPTION
-#
-# FileFinder::Filter is a L<FileFinder|Dist::Zilla::Role::FileFinder> that
-# selects files by filtering the selections of other FileFinders.
-#
-# You specify one or more FileFinders to generate the initial list of
-# files.  Any file whose pathname matches any of the C<skip> regexs is
-# removed from that list.
-#
-# =for Pod::Coverage
-# mvp_aliases
-# mvp_multivalue_args
-# find_files
+#pod =head1 DESCRIPTION
+#pod
+#pod FileFinder::Filter is a L<FileFinder|Dist::Zilla::Role::FileFinder> that
+#pod selects files by filtering the selections of other FileFinders.
+#pod
+#pod You specify one or more FileFinders to generate the initial list of
+#pod files.  Any file whose pathname matches any of the C<skip> regexs is
+#pod removed from that list.
+#pod
+#pod =for Pod::Coverage
+#pod mvp_aliases
+#pod mvp_multivalue_args
+#pod find_files
 
 __END__
 
@@ -103,7 +103,7 @@ Dist::Zilla::Plugin::FileFinder::Filter - filter matches from other FileFinders
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 SYNOPSIS
 

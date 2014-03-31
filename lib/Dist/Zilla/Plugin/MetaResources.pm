@@ -1,24 +1,24 @@
 package Dist::Zilla::Plugin::MetaResources;
 # ABSTRACT: provide arbitrary "resources" for distribution metadata
-$Dist::Zilla::Plugin::MetaResources::VERSION = '5.014';
+$Dist::Zilla::Plugin::MetaResources::VERSION = '5.015';
 use Moose;
 with 'Dist::Zilla::Role::MetaProvider';
 
 use namespace::autoclean;
 
-# =head1 DESCRIPTION
-#
-# This plugin adds resources entries to the distribution's metadata.
-#
-#   [MetaResources]
-#   homepage          = http://example.com/~dude/project.asp
-#   bugtracker.web    = http://rt.cpan.org/NoAuth/Bugs.html?Dist=Project
-#   bugtracker.mailto = bug-project@rt.cpan.org
-#   repository.url    = git://github.com/dude/project.git
-#   repository.web    = http://github.com/dude/project
-#   repository.type   = git
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod This plugin adds resources entries to the distribution's metadata.
+#pod
+#pod   [MetaResources]
+#pod   homepage          = http://example.com/~dude/project.asp
+#pod   bugtracker.web    = http://rt.cpan.org/NoAuth/Bugs.html?Dist=Project
+#pod   bugtracker.mailto = bug-project@rt.cpan.org
+#pod   repository.url    = git://github.com/dude/project.git
+#pod   repository.web    = http://github.com/dude/project
+#pod   repository.type   = git
+#pod
+#pod =cut
 
 has resources => (
   is       => 'ro',
@@ -70,13 +70,13 @@ sub metadata {
 __PACKAGE__->meta->make_immutable;
 1;
 
-# =head1 SEE ALSO
-#
-# Dist::Zilla roles: L<MetaProvider|Dist::Zilla::Role::MetaProvider>.
-#
-# Dist::Zilla plugins on the CPAN: L<GithubMeta|Dist::Zilla::Plugin::GithubMeta>.
-#
-# =cut
+#pod =head1 SEE ALSO
+#pod
+#pod Dist::Zilla roles: L<MetaProvider|Dist::Zilla::Role::MetaProvider>.
+#pod
+#pod Dist::Zilla plugins on the CPAN: L<GithubMeta|Dist::Zilla::Plugin::GithubMeta>.
+#pod
+#pod =cut
 
 __END__
 
@@ -90,7 +90,7 @@ Dist::Zilla::Plugin::MetaResources - provide arbitrary "resources" for distribut
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

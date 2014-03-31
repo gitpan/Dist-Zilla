@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 # ABSTRACT: dist zilla subclass for building dists
-$Dist::Zilla::Dist::Builder::VERSION = '5.014';
+$Dist::Zilla::Dist::Builder::VERSION = '5.015';
 use Moose 0.92; # role composition fixes
 extends 'Dist::Zilla';
 
@@ -15,22 +15,22 @@ use Try::Tiny;
 
 use namespace::autoclean;
 
-# =method from_config
-#
-#   my $zilla = Dist::Zilla->from_config(\%arg);
-#
-# This routine returns a new Zilla from the configuration in the current working
-# directory.
-#
-# This method should not be relied upon, yet.  Its semantics are B<certain> to
-# change.
-#
-# Valid arguments are:
-#
-#   config_class - the class to use to read the config
-#                  default: Dist::Zilla::MVP::Reader::Finder
-#
-# =cut
+#pod =method from_config
+#pod
+#pod   my $zilla = Dist::Zilla->from_config(\%arg);
+#pod
+#pod This routine returns a new Zilla from the configuration in the current working
+#pod directory.
+#pod
+#pod This method should not be relied upon, yet.  Its semantics are B<certain> to
+#pod change.
+#pod
+#pod Valid arguments are:
+#pod
+#pod   config_class - the class to use to read the config
+#pod                  default: Dist::Zilla::MVP::Reader::Finder
+#pod
+#pod =cut
 
 sub from_config {
   my ($class, $arg) = @_;
@@ -287,21 +287,21 @@ END_DIE
   return $seq;
 }
 
-# =method build_in
-#
-#   $zilla->build_in($root);
-#
-# This method builds the distribution in the given directory.  If no directory
-# name is given, it defaults to DistName-Version.  If the distribution has
-# already been built, an exception will be thrown.
-#
-# =method build
-#
-# This method just calls C<build_in> with no arguments.  It gets you the default
-# behavior without the weird-looking formulation of C<build_in> with no object
-# for the preposition!
-#
-# =cut
+#pod =method build_in
+#pod
+#pod   $zilla->build_in($root);
+#pod
+#pod This method builds the distribution in the given directory.  If no directory
+#pod name is given, it defaults to DistName-Version.  If the distribution has
+#pod already been built, an exception will be thrown.
+#pod
+#pod =method build
+#pod
+#pod This method just calls C<build_in> with no arguments.  It gets you the default
+#pod behavior without the weird-looking formulation of C<build_in> with no object
+#pod for the preposition!
+#pod
+#pod =cut
 
 sub build { $_[0]->build_in }
 
@@ -321,9 +321,12 @@ sub build_in {
   $_->gather_files       for $self->plugins_with(-FileGatherer)->flatten;
   $_->set_file_encodings for $self->plugins_with(-EncodingProvider)->flatten;
   $_->prune_files        for $self->plugins_with(-FilePruner)->flatten;
+
+  $self->version; # instantiate this lazy attribute now that files are gathered
+
   $_->munge_files        for $self->plugins_with(-FileMunger)->flatten;
 
-  $_->register_prereqs for $self->plugins_with(-PrereqSource)->flatten;
+  $_->register_prereqs   for $self->plugins_with(-PrereqSource)->flatten;
 
   $self->prereqs->finalize;
 
@@ -348,11 +351,11 @@ sub build_in {
   $self->built_in($build_root);
 }
 
-# =attr built_in
-#
-# This is the L<Path::Class::Dir>, if any, in which the dist has been built.
-#
-# =cut
+#pod =attr built_in
+#pod
+#pod This is the L<Path::Class::Dir>, if any, in which the dist has been built.
+#pod
+#pod =cut
 
 has built_in => (
   is   => 'rw',
@@ -360,20 +363,20 @@ has built_in => (
   init_arg  => undef,
 );
 
-# =method ensure_built_in
-#
-#   $zilla->ensure_built_in($root);
-#
-# This method behaves like C<L</build_in>>, but if the dist is already built in
-# C<$root> (or the default root, if no root is given), no exception is raised.
-#
-# =method ensure_built
-#
-# This method just calls C<ensure_built_in> with no arguments.  It gets you the
-# default behavior without the weird-looking formulation of C<ensure_built_in>
-# with no object for the preposition!
-#
-# =cut
+#pod =method ensure_built_in
+#pod
+#pod   $zilla->ensure_built_in($root);
+#pod
+#pod This method behaves like C<L</build_in>>, but if the dist is already built in
+#pod C<$root> (or the default root, if no root is given), no exception is raised.
+#pod
+#pod =method ensure_built
+#pod
+#pod This method just calls C<ensure_built_in> with no arguments.  It gets you the
+#pod default behavior without the weird-looking formulation of C<ensure_built_in>
+#pod with no object for the preposition!
+#pod
+#pod =cut
 
 sub ensure_built {
   $_[0]->ensure_built_in;
@@ -390,15 +393,15 @@ sub ensure_built_in {
   $self->build_in($root);
 }
 
-# =method dist_basename
-#
-#   my $basename = $zilla->dist_basename;
-#
-# This method will return the dist's basename (e.g. C<Dist-Name-1.01>.
-# The basename is used as the top-level directory in the tarball.  It
-# does not include C<-TRIAL>, even if building a trial dist.
-#
-# =cut
+#pod =method dist_basename
+#pod
+#pod   my $basename = $zilla->dist_basename;
+#pod
+#pod This method will return the dist's basename (e.g. C<Dist-Name-1.01>.
+#pod The basename is used as the top-level directory in the tarball.  It
+#pod does not include C<-TRIAL>, even if building a trial dist.
+#pod
+#pod =cut
 
 sub dist_basename {
   my ($self) = @_;
@@ -409,15 +412,15 @@ sub dist_basename {
   );
 }
 
-# =method archive_filename
-#
-#   my $tarball = $zilla->archive_filename;
-#
-# This method will return the filename (e.g. C<Dist-Name-1.01.tar.gz>)
-# of the tarball of this dist.  It will include C<-TRIAL> if building a
-# trial dist.  The tarball might not exist.
-#
-# =cut
+#pod =method archive_filename
+#pod
+#pod   my $tarball = $zilla->archive_filename;
+#pod
+#pod This method will return the filename (e.g. C<Dist-Name-1.01.tar.gz>)
+#pod of the tarball of this dist.  It will include C<-TRIAL> if building a
+#pod trial dist.  The tarball might not exist.
+#pod
+#pod =cut
 
 sub archive_filename {
   my ($self) = @_;
@@ -428,14 +431,14 @@ sub archive_filename {
   );
 }
 
-# =method build_archive
-#
-#   $zilla->build_archive;
-#
-# This method will ensure that the dist has been built, and will then build a
-# tarball of the build directory in the current directory.
-#
-# =cut
+#pod =method build_archive
+#pod
+#pod   $zilla->build_archive;
+#pod
+#pod This method will ensure that the dist has been built, and will then build a
+#pod tarball of the build directory in the current directory.
+#pod
+#pod =cut
 
 sub build_archive {
   my ($self) = @_;
@@ -531,15 +534,15 @@ sub _prep_build_root {
   return $build_root;
 }
 
-# =method release
-#
-#   $zilla->release;
-#
-# This method releases the distribution, probably by uploading it to the CPAN.
-# The actual effects of this method (as with most of the methods) is determined
-# by the loaded plugins.
-#
-# =cut
+#pod =method release
+#pod
+#pod   $zilla->release;
+#pod
+#pod This method releases the distribution, probably by uploading it to the CPAN.
+#pod The actual effects of this method (as with most of the methods) is determined
+#pod by the loaded plugins.
+#pod
+#pod =cut
 
 sub release {
   my $self = shift;
@@ -561,14 +564,14 @@ sub release {
   $_->after_release($tgz) for $self->plugins_with(-AfterRelease)->flatten;
 }
 
-# =method clean
-#
-# This method removes temporary files and directories suspected to have been
-# produced by the Dist::Zilla build process.  Specifically, it deletes the
-# F<.build> directory and any entity that starts with the dist name and a hyphen,
-# like matching the glob C<Your-Dist-*>.
-#
-# =cut
+#pod =method clean
+#pod
+#pod This method removes temporary files and directories suspected to have been
+#pod produced by the Dist::Zilla build process.  Specifically, it deletes the
+#pod F<.build> directory and any entity that starts with the dist name and a hyphen,
+#pod like matching the glob C<Your-Dist-*>.
+#pod
+#pod =cut
 
 sub clean {
   my ($self, $dry_run) = @_;
@@ -584,14 +587,14 @@ sub clean {
   };
 }
 
-# =method ensure_built_in_tmpdir
-#
-#   $zilla->ensure_built_in_tmpdir;
-#
-# This method will consistently build the distribution in a temporary
-# subdirectory. It will return the path for the temporary build location.
-#
-# =cut
+#pod =method ensure_built_in_tmpdir
+#pod
+#pod   $zilla->ensure_built_in_tmpdir;
+#pod
+#pod This method will consistently build the distribution in a temporary
+#pod subdirectory. It will return the path for the temporary build location.
+#pod
+#pod =cut
 
 sub ensure_built_in_tmpdir {
   my $self = shift;
@@ -628,24 +631,24 @@ sub ensure_built_in_tmpdir {
   return ($target, $latest, $previous);
 }
 
-# =method install
-#
-#   $zilla->install( \%arg );
-#
-# This method installs the distribution locally.  The distribution will be built
-# in a temporary subdirectory, then the process will change directory to that
-# subdir and an installer will be run.
-#
-# Valid arguments are:
-#
-#   keep_build_dir  - if true, don't rmtree the build dir, even if everything
-#                     seemed to work
-#   install_command - the command to run in the subdir to install the dist
-#                     default (roughly): $^X -MCPAN -einstall .
-#
-#                     this argument should be an arrayref
-#
-# =cut
+#pod =method install
+#pod
+#pod   $zilla->install( \%arg );
+#pod
+#pod This method installs the distribution locally.  The distribution will be built
+#pod in a temporary subdirectory, then the process will change directory to that
+#pod subdir and an installer will be run.
+#pod
+#pod Valid arguments are:
+#pod
+#pod   keep_build_dir  - if true, don't rmtree the build dir, even if everything
+#pod                     seemed to work
+#pod   install_command - the command to run in the subdir to install the dist
+#pod                     default (roughly): $^X -MCPAN -einstall .
+#pod
+#pod                     this argument should be an arrayref
+#pod
+#pod =cut
 
 sub install {
   my ($self, $arg) = @_;
@@ -682,19 +685,19 @@ sub install {
   return;
 }
 
-# =method test
-#
-#   $zilla->test(\%arg);
-#
-# This method builds a new copy of the distribution and tests it using
-# C<L</run_tests_in>>.
-#
-# C<\%arg> may be omitted.  Otherwise, valid arguments are:
-#
-#   keep_build_dir  - if true, don't rmtree the build dir, even if everything
-#                     seemed to work
-#
-# =cut
+#pod =method test
+#pod
+#pod   $zilla->test(\%arg);
+#pod
+#pod This method builds a new copy of the distribution and tests it using
+#pod C<L</run_tests_in>>.
+#pod
+#pod C<\%arg> may be omitted.  Otherwise, valid arguments are:
+#pod
+#pod   keep_build_dir  - if true, don't rmtree the build dir, even if everything
+#pod                     seemed to work
+#pod
+#pod =cut
 
 sub test {
   my ($self, $arg) = @_;
@@ -715,18 +718,18 @@ sub test {
   $latest->remove if $latest;
 }
 
-# =method run_tests_in
-#
-#   my $error = $zilla->run_tests_in($directory, $arg);
-#
-# This method runs the tests in $directory (a Path::Class::Dir), which
-# must contain an already-built copy of the distribution.  It will throw an
-# exception if there are test failures.
-#
-# It does I<not> set any of the C<*_TESTING> environment variables, nor
-# does it clean up C<$directory> afterwards.
-#
-# =cut
+#pod =method run_tests_in
+#pod
+#pod   my $error = $zilla->run_tests_in($directory, $arg);
+#pod
+#pod This method runs the tests in $directory (a Path::Class::Dir), which
+#pod must contain an already-built copy of the distribution.  It will throw an
+#pod exception if there are test failures.
+#pod
+#pod It does I<not> set any of the C<*_TESTING> environment variables, nor
+#pod does it clean up C<$directory> afterwards.
+#pod
+#pod =cut
 
 sub run_tests_in {
   my ($self, $target, $arg) = @_;
@@ -740,16 +743,16 @@ sub run_tests_in {
   }
 }
 
-# =method run_in_build
-#
-#   $zilla->run_in_build( \@cmd );
-#
-# This method makes a temporary directory, builds the distribution there,
-# executes the dist's first L<BuildRunner|Dist::Zilla::Role::BuildRunner>, and
-# then runs the given command in the build directory.  If the command exits
-# non-zero, the directory will be left in place.
-#
-# =cut
+#pod =method run_in_build
+#pod
+#pod   $zilla->run_in_build( \@cmd );
+#pod
+#pod This method makes a temporary directory, builds the distribution there,
+#pod executes the dist's first L<BuildRunner|Dist::Zilla::Role::BuildRunner>, and
+#pod then runs the given command in the build directory.  If the command exits
+#pod non-zero, the directory will be left in place.
+#pod
+#pod =cut
 
 sub run_in_build {
   my ($self, $cmd, $arg) = @_;
@@ -814,7 +817,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 ATTRIBUTES
 

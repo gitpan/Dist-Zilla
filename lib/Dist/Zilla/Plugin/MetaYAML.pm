@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaYAML;
 # ABSTRACT: produce a META.yml
-$Dist::Zilla::Plugin::MetaYAML::VERSION = '5.014';
+$Dist::Zilla::Plugin::MetaYAML::VERSION = '5.015';
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
@@ -8,18 +8,18 @@ with 'Dist::Zilla::Role::FileGatherer';
 use Try::Tiny;
 use namespace::autoclean;
 
-# =head1 DESCRIPTION
-#
-# This plugin will add a F<META.yml> file to the distribution.
-#
-# For more information on this file, see L<Module::Build::API> and L<CPAN::Meta>.
-#
-# =attr filename
-#
-# If given, parameter allows you to specify an alternate name for the generated
-# file.  It defaults, of course, to F<META.yml>.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod This plugin will add a F<META.yml> file to the distribution.
+#pod
+#pod For more information on this file, see L<Module::Build::API> and L<CPAN::Meta>.
+#pod
+#pod =attr filename
+#pod
+#pod If given, parameter allows you to specify an alternate name for the generated
+#pod file.  It defaults, of course, to F<META.yml>.
+#pod
+#pod =cut
 
 has filename => (
   is  => 'ro',
@@ -27,18 +27,18 @@ has filename => (
   default => 'META.yml',
 );
 
-# =attr version
-#
-# This parameter lets you pick what version of the spec to use when generating
-# the output.  It defaults to 1.4, the most commonly supported version at
-# present.
-#
-# B<This may change without notice in the future.>
-#
-# Once version 2 of the META file spec is more widely supported, this may default
-# to 2.
-#
-# =cut
+#pod =attr version
+#pod
+#pod This parameter lets you pick what version of the spec to use when generating
+#pod the output.  It defaults to 1.4, the most commonly supported version at
+#pod present.
+#pod
+#pod B<This may change without notice in the future.>
+#pod
+#pod Once version 2 of the META file spec is more widely supported, this may default
+#pod to 2.
+#pod
+#pod =cut
 
 has version => (
   is  => 'ro',
@@ -91,20 +91,20 @@ sub gather_files {
 __PACKAGE__->meta->make_immutable;
 1;
 
-# =head1 SEE ALSO
-#
-# Core Dist::Zilla plugins:
-# L<@Basic|Dist::Zilla::PluginBundle::Basic>,
-# L<Manifest|Dist::Zilla::Plugin::Manifest>.
-#
-# Dist::Zilla roles:
-# L<FileGatherer|Dist::Zilla::Role::FileGatherer>.
-#
-# Other modules:
-# L<CPAN::Meta>,
-# L<CPAN::Meta::Spec>, L<YAML>.
-#
-# =cut
+#pod =head1 SEE ALSO
+#pod
+#pod Core Dist::Zilla plugins:
+#pod L<@Basic|Dist::Zilla::PluginBundle::Basic>,
+#pod L<Manifest|Dist::Zilla::Plugin::Manifest>.
+#pod
+#pod Dist::Zilla roles:
+#pod L<FileGatherer|Dist::Zilla::Role::FileGatherer>.
+#pod
+#pod Other modules:
+#pod L<CPAN::Meta>,
+#pod L<CPAN::Meta::Spec>, L<YAML>.
+#pod
+#pod =cut
 
 __END__
 
@@ -118,7 +118,7 @@ Dist::Zilla::Plugin::MetaYAML - produce a META.yml
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

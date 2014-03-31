@@ -2,21 +2,21 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::release;
 # ABSTRACT: release your dist to the CPAN
-$Dist::Zilla::App::Command::release::VERSION = '5.014';
+$Dist::Zilla::App::Command::release::VERSION = '5.015';
 use Dist::Zilla::App -command;
 
-# =head1 SYNOPSIS
-#
-#   dzil release
-#
-#   dzil release --trial
-#
-# This command is a very, very thin wrapper around the
-# C<L<release|Dist::Zilla/release>> method on the Dist::Zilla object.  It will
-# build, archive, and release your distribution using your Releaser plugins.  The
-# only option, C<--trial>, will cause it to build a trial build.
-#
-# =cut
+#pod =head1 SYNOPSIS
+#pod
+#pod   dzil release
+#pod
+#pod   dzil release --trial
+#pod
+#pod This command is a very, very thin wrapper around the
+#pod C<L<release|Dist::Zilla/release>> method on the Dist::Zilla object.  It will
+#pod build, archive, and release your distribution using your Releaser plugins.  The
+#pod only option, C<--trial>, will cause it to build a trial build.
+#pod
+#pod =cut
 
 sub abstract { 'release your dist' }
 
@@ -48,7 +48,7 @@ Dist::Zilla::App::Command::release - release your dist to the CPAN
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 SYNOPSIS
 

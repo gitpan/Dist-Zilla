@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::File;
 # ABSTRACT: something that can act like a file
-$Dist::Zilla::Role::File::VERSION = '5.014';
+$Dist::Zilla::Role::File::VERSION = '5.015';
 use Moose::Role;
 
 use Moose::Util::TypeConstraints;
@@ -10,15 +10,15 @@ use namespace::autoclean;
 
 with 'Dist::Zilla::Role::StubBuild';
 
-# =head1 DESCRIPTION
-#
-# This role describes a file that may be written into the shipped distribution.
-#
-# =attr name
-#
-# This is the name of the file to be written out.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod This role describes a file that may be written into the shipped distribution.
+#pod
+#pod =attr name
+#pod
+#pod This is the name of the file to be written out.
+#pod
+#pod =cut
 
 has name => (
   is   => 'rw',
@@ -26,13 +26,13 @@ has name => (
   required => 1,
 );
 
-# =attr added_by
-#
-# This is a string describing when and why the file was added to the
-# distribution.  It will generally be set by a plugin implementing the
-# L<FileInjector|Dist::Zilla::Role::FileInjector> role.
-#
-# =cut
+#pod =attr added_by
+#pod
+#pod This is a string describing when and why the file was added to the
+#pod distribution.  It will generally be set by a plugin implementing the
+#pod L<FileInjector|Dist::Zilla::Role::FileInjector> role.
+#pod
+#pod =cut
 
 has added_by => (
   is => 'ro',
@@ -40,12 +40,12 @@ has added_by => (
   isa => 'Str',
 );
 
-# =attr mode
-#
-# This is the mode with which the file should be written out.  It's an integer
-# with the usual C<chmod> semantics.  It defaults to 0644.
-#
-# =cut
+#pod =attr mode
+#pod
+#pod This is the mode with which the file should be written out.  It's an integer
+#pod with the usual C<chmod> semantics.  It defaults to 0644.
+#pod
+#pod =cut
 
 my $safe_file_mode = subtype(
   as 'Int',
@@ -63,12 +63,12 @@ requires 'encoding';
 requires 'content';
 requires 'encoded_content';
 
-# =method is_bytes
-#
-# Returns true if the C<encoding> is bytes.  When true, accessing
-# C<content> will be an error.
-#
-# =cut
+#pod =method is_bytes
+#pod
+#pod Returns true if the C<encoding> is bytes.  When true, accessing
+#pod C<content> will be an error.
+#pod
+#pod =cut
 
 sub is_bytes {
     my ($self) = @_;
@@ -127,7 +127,7 @@ Dist::Zilla::Role::File - something that can act like a file
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ModuleBuild;
 # ABSTRACT: build a Build.PL that uses Module::Build
-$Dist::Zilla::Plugin::ModuleBuild::VERSION = '5.014';
+$Dist::Zilla::Plugin::ModuleBuild::VERSION = '5.015';
 use List::MoreUtils qw(any uniq);
 use Moose;
 use Moose::Autobox;
@@ -17,32 +17,32 @@ use Dist::Zilla::File::InMemory;
 use List::MoreUtils qw(any uniq);
 use Data::Dumper;
 
-# =head1 DESCRIPTION
-#
-# This plugin will create a F<Build.PL> for installing the dist using
-# L<Module::Build>.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod This plugin will create a F<Build.PL> for installing the dist using
+#pod L<Module::Build>.
+#pod
+#pod =cut
 
-# =attr mb_version
-#
-# B<Optional:> Specify the minimum version of L<Module::Build> to depend on.
-#
-# Defaults to 0.3601
-#
-# =attr mb_class
-#
-# B<Optional:> Specify the class to use to create the build object.  Defaults
-# to C<Module::Build> itself.  If another class is specified, then the value
-# of mb_lib will be used to generate a line like C<use lib 'inc'> to be added
-# to the generated Build.PL file.
-#
-# =attr mb_lib
-#
-# B<Optional:> Specify the list of directories to be passed to lib when using 
-# mb_class. Defaults to C<inc>. 
-#
-# =cut
+#pod =attr mb_version
+#pod
+#pod B<Optional:> Specify the minimum version of L<Module::Build> to depend on.
+#pod
+#pod Defaults to 0.3601
+#pod
+#pod =attr mb_class
+#pod
+#pod B<Optional:> Specify the class to use to create the build object.  Defaults
+#pod to C<Module::Build> itself.  If another class is specified, then the value
+#pod of mb_lib will be used to generate a line like C<use lib 'inc'> to be added
+#pod to the generated Build.PL file.
+#pod
+#pod =attr mb_lib
+#pod
+#pod B<Optional:> Specify the list of directories to be passed to lib when using 
+#pod mb_class. Defaults to C<inc>. 
+#pod
+#pod =cut
 
 has 'mb_version' => (
   isa => 'Str',
@@ -208,18 +208,18 @@ has __module_build_args => (
 __PACKAGE__->meta->make_immutable;
 1;
 
-# =head1 SEE ALSO
-#
-# Core Dist::Zilla plugins:
-# L<@Basic|Dist::Zilla::PluginBundle::Basic>,
-# L<@Filter|Dist::Zilla::PluginBundle::Filter>,
-# L<MakeMaker|Dist::Zilla::Plugin::MakeMaker>,
-# L<Manifest|Dist::Zilla::Plugin::Manifest>.
-#
-# Dist::Zilla roles:
-# L<BuildPL|Dist::Zilla::Role::BuildPL>.
-#
-# =cut
+#pod =head1 SEE ALSO
+#pod
+#pod Core Dist::Zilla plugins:
+#pod L<@Basic|Dist::Zilla::PluginBundle::Basic>,
+#pod L<@Filter|Dist::Zilla::PluginBundle::Filter>,
+#pod L<MakeMaker|Dist::Zilla::Plugin::MakeMaker>,
+#pod L<Manifest|Dist::Zilla::Plugin::Manifest>.
+#pod
+#pod Dist::Zilla roles:
+#pod L<BuildPL|Dist::Zilla::Role::BuildPL>.
+#pod
+#pod =cut
 
 __END__
 
@@ -233,7 +233,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

@@ -1,19 +1,19 @@
 package Dist::Zilla::Plugin::Readme;
 # ABSTRACT: build a README file
-$Dist::Zilla::Plugin::Readme::VERSION = '5.014';
+$Dist::Zilla::Plugin::Readme::VERSION = '5.015';
 use Moose;
 use Moose::Autobox;
 with qw/Dist::Zilla::Role::FileGatherer Dist::Zilla::Role::TextTemplate/;
 
 use namespace::autoclean;
 
-# =head1 DESCRIPTION
-#
-# This plugin adds a very simple F<README> file to the distribution, citing the
-# dist's name, version, abstract, and license.  It may be more useful or
-# informative in the future.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod This plugin adds a very simple F<README> file to the distribution, citing the
+#pod dist's name, version, abstract, and license.  It may be more useful or
+#pod informative in the future.
+#pod
+#pod =cut
 
 sub gather_files {
   my ($self, $arg) = @_;
@@ -66,7 +66,7 @@ Dist::Zilla::Plugin::Readme - build a README file
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

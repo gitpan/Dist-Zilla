@@ -11,12 +11,12 @@ $main::VERSION = $Dist::Zilla::App::VERSION;
 # ABSTRACT: do stuff with your dist
 Dist::Zilla::App->run;
 
-# =head1 OVERVIEW
-#
-# For help with Dist::Zilla, start with http://dzil.org/ or by running "dzil
-# commands"
-#
-# =cut
+#pod =head1 OVERVIEW
+#pod
+#pod For help with Dist::Zilla, start with http://dzil.org/ or by running "dzil
+#pod commands"
+#pod
+#pod =cut
 
 __END__
 
@@ -30,7 +30,7 @@ dzil - do stuff with your dist
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 OVERVIEW
 

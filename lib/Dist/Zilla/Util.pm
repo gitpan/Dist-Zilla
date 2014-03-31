@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Util;
 # ABSTRACT: random snippets of code that Dist::Zilla wants
-$Dist::Zilla::Util::VERSION = '5.014';
+$Dist::Zilla::Util::VERSION = '5.015';
 use Carp ();
 use String::RewritePrefix 0.002; # better string context behavior
 
@@ -51,13 +51,13 @@ use String::RewritePrefix 0.002; # better string context behavior
   }
 }
 
-# =method abstract_from_file
-#
-# This method, I<which is likely to change or go away>, tries to guess the
-# abstract of a given file, assuming that it's Perl code.  It looks for a POD
-# C<=head1> section called "NAME" or a comment beginning with C<ABSTRACT:>.
-#
-# =cut
+#pod =method abstract_from_file
+#pod
+#pod This method, I<which is likely to change or go away>, tries to guess the
+#pod abstract of a given file, assuming that it's Perl code.  It looks for a POD
+#pod C<=head1> section called "NAME" or a comment beginning with C<ABSTRACT:>.
+#pod
+#pod =cut
 
 sub abstract_from_file {
   my ($self, $file) = @_;
@@ -66,15 +66,15 @@ sub abstract_from_file {
   return $e->{abstract};
 }
 
-# =method expand_config_package_name
-#
-#   my $pkg_name = Util->expand_config_package_name($string);
-#
-# This method, I<which is likely to change or go away>, rewrites the given string
-# into a package name.  Consult L<Dist::Zilla::Config|Dist::Zilla::Config> for
-# more information.
-#
-# =cut
+#pod =method expand_config_package_name
+#pod
+#pod   my $pkg_name = Util->expand_config_package_name($string);
+#pod
+#pod This method, I<which is likely to change or go away>, rewrites the given string
+#pod into a package name.  Consult L<Dist::Zilla::Config|Dist::Zilla::Config> for
+#pod more information.
+#pod
+#pod =cut
 
 sub expand_config_package_name {
   my ($self, $package) = @_;
@@ -114,7 +114,7 @@ sub _assert_loaded_class_version_ok {
   my $have_version = $pkg->VERSION;
   unless ($req->accepts_module($pkg => $have_version)) {
     die( sprintf
-      "%s version (%s) not match required version: %s\n",
+      "%s version (%s) does not match required version: %s\n",
       $pkg,
       $have_version,
       $version,
@@ -136,7 +136,7 @@ Dist::Zilla::Util - random snippets of code that Dist::Zilla wants
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 METHODS
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::Plugin;
 # ABSTRACT: something that gets plugged in to Dist::Zilla
-$Dist::Zilla::Role::Plugin::VERSION = '5.014';
+$Dist::Zilla::Role::Plugin::VERSION = '5.015';
 use Moose::Role;
 with 'Dist::Zilla::Role::ConfigDumper';
 
@@ -10,16 +10,16 @@ use MooseX::Types;
 
 use namespace::autoclean;
 
-# =head1 DESCRIPTION
-#
-# The Plugin role should be applied to all plugin classes.  It provides a few key
-# methods and attributes that all plugins will need.
-#
-# =attr plugin_name
-#
-# The plugin name is generally determined when configuration is read.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod The Plugin role should be applied to all plugin classes.  It provides a few key
+#pod methods and attributes that all plugins will need.
+#pod
+#pod =attr plugin_name
+#pod
+#pod The plugin name is generally determined when configuration is read.
+#pod
+#pod =cut
 
 has plugin_name => (
   is  => 'ro',
@@ -27,12 +27,12 @@ has plugin_name => (
   required => 1,
 );
 
-# =attr zilla
-#
-# This attribute contains the Dist::Zilla object into which the plugin was
-# plugged.
-#
-# =cut
+#pod =attr zilla
+#pod
+#pod This attribute contains the Dist::Zilla object into which the plugin was
+#pod plugged.
+#pod
+#pod =cut
 
 has zilla => (
   is  => 'ro',
@@ -41,12 +41,12 @@ has zilla => (
   weak_ref => 1,
 );
 
-# =method log
-#
-# The plugin's C<log> method delegates to the Dist::Zilla object's
-# L<Dist::Zilla/log> method after including a bit of argument-munging.
-#
-# =cut
+#pod =method log
+#pod
+#pod The plugin's C<log> method delegates to the Dist::Zilla object's
+#pod L<Dist::Zilla/log> method after including a bit of argument-munging.
+#pod
+#pod =cut
 
 has logger => (
   is   => 'ro',
@@ -103,7 +103,7 @@ Dist::Zilla::Role::Plugin - something that gets plugged in to Dist::Zilla
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

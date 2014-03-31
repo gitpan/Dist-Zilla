@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoPrereq;
 # ABSTRACT: (DEPRECATED) the old name for Dist::Zilla::Plugin::AutoPrereqs
-$Dist::Zilla::Plugin::AutoPrereq::VERSION = '5.014';
+$Dist::Zilla::Plugin::AutoPrereq::VERSION = '5.015';
 use Moose;
 extends 'Dist::Zilla::Plugin::AutoPrereqs';
 
@@ -16,11 +16,11 @@ before register_component => sub {
 __PACKAGE__->meta->make_immutable;
 1;
 
-# =head1 SEE ALSO
-#
-# L<AutoPrereqs|Dist::Zilla::Plugin::AutoPrereqs>
-#
-# =cut
+#pod =head1 SEE ALSO
+#pod
+#pod L<AutoPrereqs|Dist::Zilla::Plugin::AutoPrereqs>
+#pod
+#pod =cut
 
 __END__
 
@@ -34,7 +34,7 @@ Dist::Zilla::Plugin::AutoPrereq - (DEPRECATED) the old name for Dist::Zilla::Plu
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 SEE ALSO
 

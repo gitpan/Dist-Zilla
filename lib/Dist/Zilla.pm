@@ -1,6 +1,6 @@
 package Dist::Zilla;
 # ABSTRACT: distribution builder; installer not included!
-$Dist::Zilla::VERSION = '5.014';
+$Dist::Zilla::VERSION = '5.015';
 use Moose 0.92; # role composition fixes
 with 'Dist::Zilla::Role::ConfigDumper';
 
@@ -29,21 +29,21 @@ use Dist::Zilla::Util;
 
 use namespace::autoclean;
 
-# =head1 DESCRIPTION
-#
-# Dist::Zilla builds distributions of code to be uploaded to the CPAN.  In this
-# respect, it is like L<ExtUtils::MakeMaker>, L<Module::Build>, or
-# L<Module::Install>.  Unlike those tools, however, it is not also a system for
-# installing code that has been downloaded from the CPAN.  Since it's only run by
-# authors, and is meant to be run on a repository checkout rather than on
-# published, released code, it can do much more than those tools, and is free to
-# make much more ludicrous demands in terms of prerequisites.
-#
-# If you have access to the web, you can learn more and find an interactive
-# tutorial at B<L<dzil.org|http://dzil.org/>>.  If not, try
-# L<Dist::Zilla::Tutorial>.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod Dist::Zilla builds distributions of code to be uploaded to the CPAN.  In this
+#pod respect, it is like L<ExtUtils::MakeMaker>, L<Module::Build>, or
+#pod L<Module::Install>.  Unlike those tools, however, it is not also a system for
+#pod installing code that has been downloaded from the CPAN.  Since it's only run by
+#pod authors, and is meant to be run on a repository checkout rather than on
+#pod published, released code, it can do much more than those tools, and is free to
+#pod make much more ludicrous demands in terms of prerequisites.
+#pod
+#pod If you have access to the web, you can learn more and find an interactive
+#pod tutorial at B<L<dzil.org|http://dzil.org/>>.  If not, try
+#pod L<Dist::Zilla::Tutorial>.
+#pod
+#pod =cut
 
 has chrome => (
   is  => 'rw',
@@ -51,13 +51,13 @@ has chrome => (
   required => 1,
 );
 
-# =attr name
-#
-# The name attribute (which is required) gives the name of the distribution to be
-# built.  This is usually the name of the distribution's main module, with the
-# double colons (C<::>) replaced with dashes.  For example: C<Dist-Zilla>.
-#
-# =cut
+#pod =attr name
+#pod
+#pod The name attribute (which is required) gives the name of the distribution to be
+#pod built.  This is usually the name of the distribution's main module, with the
+#pod double colons (C<::>) replaced with dashes.  For example: C<Dist-Zilla>.
+#pod
+#pod =cut
 
 has name => (
   is   => 'ro',
@@ -66,11 +66,11 @@ has name => (
   builder => '_build_name',
 );
 
-# =attr version
-#
-# This is the version of the distribution to be created.
-#
-# =cut
+#pod =attr version
+#pod
+#pod This is the version of the distribution to be created.
+#pod
+#pod =cut
 
 has _version_override => (
   isa => LaxVersionStr,
@@ -122,12 +122,12 @@ sub _build_version {
   $version;
 }
 
-# =attr abstract
-#
-# This is a one-line summary of the distribution.  If none is given, one will be
-# looked for in the L</main_module> of the dist.
-#
-# =cut
+#pod =attr abstract
+#pod
+#pod This is a one-line summary of the distribution.  If none is given, one will be
+#pod looked for in the L</main_module> of the dist.
+#pod
+#pod =cut
 
 has abstract => (
   is   => 'rw',
@@ -155,20 +155,20 @@ has abstract => (
   }
 );
 
-# =attr main_module
-#
-# This is the module where Dist::Zilla might look for various defaults, like
-# the distribution abstract.  By default, it's derived from the distribution
-# name.  If your distribution is Foo-Bar, and F<lib/Foo/Bar.pm> exists,
-# that's the main_module.  Otherwise, it's the shortest-named module in the
-# distribution.  This may change!
-#
-# You can override the default by specifying the file path explicitly,
-# ie:
-#
-#   main_module = lib/Foo/Bar.pm
-#
-# =cut
+#pod =attr main_module
+#pod
+#pod This is the module where Dist::Zilla might look for various defaults, like
+#pod the distribution abstract.  By default, it's derived from the distribution
+#pod name.  If your distribution is Foo-Bar, and F<lib/Foo/Bar.pm> exists,
+#pod that's the main_module.  Otherwise, it's the shortest-named module in the
+#pod distribution.  This may change!
+#pod
+#pod You can override the default by specifying the file path explicitly,
+#pod ie:
+#pod
+#pod   main_module = lib/Foo/Bar.pm
+#pod
+#pod =cut
 
 has _main_module_override => (
   isa => 'Str',
@@ -229,19 +229,19 @@ has main_module => (
   },
 );
 
-# =attr license
-#
-# This is the L<Software::License|Software::License> object for this dist's
-# license and copyright.
-#
-# It will be created automatically, if possible, with the
-# C<copyright_holder> and C<copyright_year> attributes.  If necessary, it will
-# try to guess the license from the POD of the dist's main module.
-#
-# A better option is to set the C<license> name in the dist's config to something
-# understandable, like C<Perl_5>.
-#
-# =cut
+#pod =attr license
+#pod
+#pod This is the L<Software::License|Software::License> object for this dist's
+#pod license and copyright.
+#pod
+#pod It will be created automatically, if possible, with the
+#pod C<copyright_holder> and C<copyright_year> attributes.  If necessary, it will
+#pod try to guess the license from the POD of the dist's main module.
+#pod
+#pod A better option is to set the C<license> name in the dist's config to something
+#pod understandable, like C<Perl_5>.
+#pod
+#pod =cut
 
 has license => (
   is   => 'ro',
@@ -368,18 +368,18 @@ has _copyright_year => (
   }
 );
 
-# =attr authors
-#
-# This is an arrayref of author strings, like this:
-#
-#   [
-#     'Ricardo Signes <rjbs@cpan.org>',
-#     'X. Ample, Jr <example@example.biz>',
-#   ]
-#
-# This is likely to change at some point in the near future.
-#
-# =cut
+#pod =attr authors
+#pod
+#pod This is an arrayref of author strings, like this:
+#pod
+#pod   [
+#pod     'Ricardo Signes <rjbs@cpan.org>',
+#pod     'X. Ample, Jr <example@example.biz>',
+#pod   ]
+#pod
+#pod This is likely to change at some point in the near future.
+#pod
+#pod =cut
 
 has authors => (
   is   => 'ro',
@@ -402,16 +402,16 @@ has authors => (
   },
 );
 
-# =attr files
-#
-# This is an arrayref of objects implementing L<Dist::Zilla::Role::File> that
-# will, if left in this arrayref, be built into the dist.
-#
-# Non-core code should avoid altering this arrayref, but sometimes there is not
-# other way to change the list of files.  In the future, the representation used
-# for storing files B<will be changed>.
-#
-# =cut
+#pod =attr files
+#pod
+#pod This is an arrayref of objects implementing L<Dist::Zilla::Role::File> that
+#pod will, if left in this arrayref, be built into the dist.
+#pod
+#pod Non-core code should avoid altering this arrayref, but sometimes there is not
+#pod other way to change the list of files.  In the future, the representation used
+#pod for storing files B<will be changed>.
+#pod
+#pod =cut
 
 has files => (
   is   => 'ro',
@@ -434,12 +434,12 @@ sub prune_file {
   return;
 }
 
-# =attr root
-#
-# This is the root directory of the dist, as a L<Path::Class::Dir>.  It will
-# nearly always be the current working directory in which C<dzil> was run.
-#
-# =cut
+#pod =attr root
+#pod
+#pod This is the root directory of the dist, as a L<Path::Class::Dir>.  It will
+#pod nearly always be the current working directory in which C<dzil> was run.
+#pod
+#pod =cut
 
 has root => (
   is   => 'ro',
@@ -448,11 +448,11 @@ has root => (
   required => 1,
 );
 
-# =attr is_trial
-#
-# This attribute tells us whether or not the dist will be a trial release.
-#
-# =cut
+#pod =attr is_trial
+#pod
+#pod This attribute tells us whether or not the dist will be a trial release.
+#pod
+#pod =cut
 
 has is_trial => (
   is => 'rw', # XXX: make SetOnce -- rjbs, 2010-03-23
@@ -460,15 +460,15 @@ has is_trial => (
   default => sub { $ENV{TRIAL} ? 1 : 0 }
 );
 
-# =attr plugins
-#
-# This is an arrayref of plugins that have been plugged into this Dist::Zilla
-# object.
-#
-# Non-core code B<must not> alter this arrayref.  Public access to this attribute
-# B<may go away> in the future.
-#
-# =cut
+#pod =attr plugins
+#pod
+#pod This is an arrayref of plugins that have been plugged into this Dist::Zilla
+#pod object.
+#pod
+#pod Non-core code B<must not> alter this arrayref.  Public access to this attribute
+#pod B<may go away> in the future.
+#pod
+#pod =cut
 
 has plugins => (
   is   => 'ro',
@@ -477,13 +477,13 @@ has plugins => (
   default  => sub { [ ] },
 );
 
-# =attr distmeta
-#
-# This is a hashref containing the metadata about this distribution that will be
-# stored in META.yml or META.json.  You should not alter the metadata in this
-# hash; use a MetaProvider plugin instead.
-#
-# =cut
+#pod =attr distmeta
+#pod
+#pod This is a hashref containing the metadata about this distribution that will be
+#pod stored in META.yml or META.json.  You should not alter the metadata in this
+#pod hash; use a MetaProvider plugin instead.
+#pod
+#pod =cut
 
 has distmeta => (
   is   => 'ro',
@@ -533,12 +533,12 @@ sub _build_distmeta {
 
 sub _metadata_generator_id { 'Dist::Zilla' }
 
-# =attr prereqs
-#
-# This is a L<Dist::Zilla::Prereqs> object, which is a thin layer atop
-# L<CPAN::Meta::Prereqs>, and describes the distribution's prerequisites.
-#
-# =cut
+#pod =attr prereqs
+#pod
+#pod This is a L<Dist::Zilla::Prereqs> object, which is a thin layer atop
+#pod L<CPAN::Meta::Prereqs>, and describes the distribution's prerequisites.
+#pod
+#pod =cut
 
 has prereqs => (
   is   => 'ro',
@@ -548,11 +548,11 @@ has prereqs => (
   handles  => [ qw(register_prereqs) ],
 );
 
-# =method plugin_named
-#
-#   my $plugin = $zilla->plugin_named( $plugin_name );
-#
-# =cut
+#pod =method plugin_named
+#pod
+#pod   my $plugin = $zilla->plugin_named( $plugin_name );
+#pod
+#pod =cut
 
 sub plugin_named {
   my ($self, $name) = @_;
@@ -562,15 +562,15 @@ sub plugin_named {
   return;
 }
 
-# =method plugins_with
-#
-#   my $roles = $zilla->plugins_with( -SomeRole );
-#
-# This method returns an arrayref containing all the Dist::Zilla object's plugins
-# that perform a the named role.  If the given role name begins with a dash, the
-# dash is replaced with "Dist::Zilla::Role::"
-#
-# =cut
+#pod =method plugins_with
+#pod
+#pod   my $roles = $zilla->plugins_with( -SomeRole );
+#pod
+#pod This method returns an arrayref containing all the Dist::Zilla object's plugins
+#pod that perform a the named role.  If the given role name begins with a dash, the
+#pod dash is replaced with "Dist::Zilla::Role::"
+#pod
+#pod =cut
 
 sub plugins_with {
   my ($self, $role) = @_;
@@ -581,16 +581,16 @@ sub plugins_with {
   return $plugins;
 }
 
-# =method find_files
-#
-#   my $files = $zilla->find_files( $finder_name );
-#
-# This method will look for a
-# L<FileFinder|Dist::Zilla::Role::FileFinder>-performing plugin with the given
-# name and return the result of calling C<find_files> on it.  If no plugin can be
-# found, an exception will be raised.
-#
-# =cut
+#pod =method find_files
+#pod
+#pod   my $files = $zilla->find_files( $finder_name );
+#pod
+#pod This method will look for a
+#pod L<FileFinder|Dist::Zilla::Role::FileFinder>-performing plugin with the given
+#pod name and return the result of calling C<find_files> on it.  If no plugin can be
+#pod found, an exception will be raised.
+#pod
+#pod =cut
 
 sub find_files {
   my ($self, $finder_name) = @_;
@@ -643,20 +643,20 @@ sub _write_out_file {
   chmod $file->mode, "$to" or die "couldn't chmod $to: $!";
 }
 
-# =attr logger
-#
-# This attribute stores a L<Log::Dispatchouli::Proxy> object, used to log
-# messages.  By default, a proxy to the dist's L<Chrome|Dist::Zilla::Chrome> is
-# taken.
-#
-# The following methods are delegated from the Dist::Zilla object to the logger:
-#
-# =for :list
-# * log
-# * log_debug
-# * log_fatal
-#
-# =cut
+#pod =attr logger
+#pod
+#pod This attribute stores a L<Log::Dispatchouli::Proxy> object, used to log
+#pod messages.  By default, a proxy to the dist's L<Chrome|Dist::Zilla::Chrome> is
+#pod taken.
+#pod
+#pod The following methods are delegated from the Dist::Zilla object to the logger:
+#pod
+#pod =for :list
+#pod * log
+#pod * log_debug
+#pod * log_fatal
+#pod
+#pod =cut
 
 has logger => (
   is   => 'ro',
@@ -689,15 +689,15 @@ has _global_stashes => (
   default => sub { {} },
 );
 
-# =method stash_named
-#
-#   my $stash = $zilla->stash_named( $name );
-#
-# This method will return the stash with the given name, or undef if none exists.
-# It looks for a local stash (for this dist) first, then falls back to a global
-# stash (from the user's global configuration).
-#
-# =cut
+#pod =method stash_named
+#pod
+#pod   my $stash = $zilla->stash_named( $name );
+#pod
+#pod This method will return the stash with the given name, or undef if none exists.
+#pod It looks for a local stash (for this dist) first, then falls back to a global
+#pod stash (from the user's global configuration).
+#pod
+#pod =cut
 
 sub stash_named {
   my ($self, $name) = @_;
@@ -709,63 +709,63 @@ sub stash_named {
 __PACKAGE__->meta->make_immutable;
 1;
 
-# =head1 SUPPORT
-#
-# There are usually people on C<irc.perl.org> in C<#distzilla>, even if they're
-# idling.
-#
-# The L<Dist::Zilla website|http://dzil.org/> has several valuable resources for
-# learning to use Dist::Zilla.
-#
-# There is a mailing list to discuss Dist::Zilla.  You can L<join the
-# list|http://www.listbox.com/subscribe/?list_id=139292> or L<browse the
-# archives|http://listbox.com/member/archive/139292>.
-#
-# =head1 SEE ALSO
-#
-# =over 4
-#
-# =item *
-#
-# In the Dist::Zilla distribution:
-#
-# =over 4
-#
-# =item *
-#
-# Plugin bundles:
-# L<@Basic|Dist::Zilla::PluginBundle::Basic>,
-# L<@Filter|Dist::Zilla::PluginBundle::Filter>.
-#
-# =item *
-#
-# Major plugins:
-# L<GatherDir|Dist::Zilla::Plugin::GatherDir>,
-# L<Prereqs|Dist::Zilla::Plugin::Prereqs>,
-# L<AutoPrereqs|Dist::Zilla::Plugin::AutoPrereqs>,
-# L<MetaYAML|Dist::Zilla::Plugin::MetaYAML>,
-# L<MetaJSON|Dist::Zilla::Plugin::MetaJSON>,
-# ...
-#
-# =back
-#
-# =item *
-#
-# On the CPAN:
-#
-# =over 4
-#
-# =item *
-#
-# Search for plugins: L<https://metacpan.org/search?q=Dist::Zilla::Plugin::>
-#
-# =item *
-#
-# Search for plugin bundles: L<https://metacpan.org/search?q=Dist::Zilla::PluginBundle::>
-#
-# =back
-#
-# =back
+#pod =head1 SUPPORT
+#pod
+#pod There are usually people on C<irc.perl.org> in C<#distzilla>, even if they're
+#pod idling.
+#pod
+#pod The L<Dist::Zilla website|http://dzil.org/> has several valuable resources for
+#pod learning to use Dist::Zilla.
+#pod
+#pod There is a mailing list to discuss Dist::Zilla.  You can L<join the
+#pod list|http://www.listbox.com/subscribe/?list_id=139292> or L<browse the
+#pod archives|http://listbox.com/member/archive/139292>.
+#pod
+#pod =head1 SEE ALSO
+#pod
+#pod =over 4
+#pod
+#pod =item *
+#pod
+#pod In the Dist::Zilla distribution:
+#pod
+#pod =over 4
+#pod
+#pod =item *
+#pod
+#pod Plugin bundles:
+#pod L<@Basic|Dist::Zilla::PluginBundle::Basic>,
+#pod L<@Filter|Dist::Zilla::PluginBundle::Filter>.
+#pod
+#pod =item *
+#pod
+#pod Major plugins:
+#pod L<GatherDir|Dist::Zilla::Plugin::GatherDir>,
+#pod L<Prereqs|Dist::Zilla::Plugin::Prereqs>,
+#pod L<AutoPrereqs|Dist::Zilla::Plugin::AutoPrereqs>,
+#pod L<MetaYAML|Dist::Zilla::Plugin::MetaYAML>,
+#pod L<MetaJSON|Dist::Zilla::Plugin::MetaJSON>,
+#pod ...
+#pod
+#pod =back
+#pod
+#pod =item *
+#pod
+#pod On the CPAN:
+#pod
+#pod =over 4
+#pod
+#pod =item *
+#pod
+#pod Search for plugins: L<https://metacpan.org/search?q=Dist::Zilla::Plugin::>
+#pod
+#pod =item *
+#pod
+#pod Search for plugin bundles: L<https://metacpan.org/search?q=Dist::Zilla::PluginBundle::>
+#pod
+#pod =back
+#pod
+#pod =back
 
 __END__
 
@@ -779,7 +779,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

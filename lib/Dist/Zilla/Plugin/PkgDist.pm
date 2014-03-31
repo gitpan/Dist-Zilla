@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PkgDist;
 # ABSTRACT: add a $DIST to your packages
-$Dist::Zilla::Plugin::PkgDist::VERSION = '5.014';
+$Dist::Zilla::Plugin::PkgDist::VERSION = '5.015';
 use Moose;
 with(
   'Dist::Zilla::Role::FileMunger',
@@ -12,23 +12,23 @@ with(
 
 use namespace::autoclean;
 
-# =head1 DESCRIPTION
-#
-# This plugin will add a line like the following to each package in each Perl
-# module or program (more or less) within the distribution:
-#
-#   { our $DIST = 'My-CPAN-Dist'; } # where 'My-CPAN-Dist' is your dist name
-#
-# It will skip any package declaration that includes a newline between the
-# C<package> keyword and the package name, like:
-#
-#   package
-#     Foo::Bar;
-#
-# This sort of declaration is also ignored by the CPAN toolchain, and is
-# typically used when doing monkey patching or other tricky things.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod This plugin will add a line like the following to each package in each Perl
+#pod module or program (more or less) within the distribution:
+#pod
+#pod   { our $DIST = 'My-CPAN-Dist'; } # where 'My-CPAN-Dist' is your dist name
+#pod
+#pod It will skip any package declaration that includes a newline between the
+#pod C<package> keyword and the package name, like:
+#pod
+#pod   package
+#pod     Foo::Bar;
+#pod
+#pod This sort of declaration is also ignored by the CPAN toolchain, and is
+#pod typically used when doing monkey patching or other tricky things.
+#pod
+#pod =cut
 
 sub munge_files {
   my ($self) = @_;
@@ -114,7 +114,7 @@ Dist::Zilla::Plugin::PkgDist - add a $DIST to your packages
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

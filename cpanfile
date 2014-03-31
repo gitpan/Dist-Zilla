@@ -89,6 +89,8 @@ recommends "Archive::Tar::Wrapper" => "0.15";
 recommends "Term::ReadLine::Gnu" => "0";
 
 on 'test' => sub {
+  requires "ExtUtils::MakeMaker" => "0";
+  requires "File::Spec::Functions" => "0";
   requires "Software::License::None" => "0";
   requires "Test::FailWarnings" => "0";
   requires "Test::Fatal" => "0";
@@ -98,6 +100,11 @@ on 'test' => sub {
   requires "utf8" => "0";
 };
 
+on 'test' => sub {
+  recommends "CPAN::Meta" => "0";
+  recommends "CPAN::Meta::Requirements" => "2.120900";
+};
+
 on 'configure' => sub {
   requires "ExtUtils::MakeMaker" => "6.30";
   requires "File::ShareDir::Install" => "0.03";
@@ -105,5 +112,4 @@ on 'configure' => sub {
 
 on 'develop' => sub {
   requires "Test::Pod" => "1.41";
-  requires "version" => "0.9901";
 };

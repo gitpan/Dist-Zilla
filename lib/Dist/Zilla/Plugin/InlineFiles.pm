@@ -1,19 +1,19 @@
 package Dist::Zilla::Plugin::InlineFiles;
 # ABSTRACT: files in a data section
-$Dist::Zilla::Plugin::InlineFiles::VERSION = '5.014';
+$Dist::Zilla::Plugin::InlineFiles::VERSION = '5.015';
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
 
 use namespace::autoclean;
 
-# =head1 DESCRIPTION
-#
-# This plugin exists only to be extended, and gathers all files contained in its
-# data section and those of its ancestors.  For more information, see
-# L<Data::Section|Data::Section>.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod This plugin exists only to be extended, and gathers all files contained in its
+#pod data section and those of its ancestors.  For more information, see
+#pod L<Data::Section|Data::Section>.
+#pod
+#pod =cut
 
 use Sub::Exporter::ForMethods;
 use Data::Section 0.200002 # encoding and bytes
@@ -42,14 +42,14 @@ sub gather_files {
 __PACKAGE__->meta->make_immutable;
 1;
 
-# =head1 SEE ALSO
-#
-# Core Dist::Zilla plugins inheriting from L<InlineFiles>:
-# L<MetaTests|Dist::Zilla::Plugin::MetaTests>,
-# L<PodCoverageTests|Dist::Zilla::Plugin::PodCoverageTests>,
-# L<PodSyntaxTests|Dist::Zilla::Plugin::PodSyntaxTests>.
-#
-# =cut
+#pod =head1 SEE ALSO
+#pod
+#pod Core Dist::Zilla plugins inheriting from L<InlineFiles>:
+#pod L<MetaTests|Dist::Zilla::Plugin::MetaTests>,
+#pod L<PodCoverageTests|Dist::Zilla::Plugin::PodCoverageTests>,
+#pod L<PodSyntaxTests|Dist::Zilla::Plugin::PodSyntaxTests>.
+#pod
+#pod =cut
 
 __END__
 
@@ -63,7 +63,7 @@ Dist::Zilla::Plugin::InlineFiles - files in a data section
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

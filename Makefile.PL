@@ -114,6 +114,8 @@ my %WriteMakefileArgs = (
     "warnings" => 0
   },
   "TEST_REQUIRES" => {
+    "ExtUtils::MakeMaker" => 0,
+    "File::Spec::Functions" => 0,
     "Software::License::None" => 0,
     "Test::FailWarnings" => 0,
     "Test::Fatal" => 0,
@@ -122,7 +124,7 @@ my %WriteMakefileArgs = (
     "lib" => 0,
     "utf8" => 0
   },
-  "VERSION" => "5.014",
+  "VERSION" => "5.015",
   "test" => {
     "TESTS" => "t/*.t t/commands/*.t t/diagnostics/*.t t/plugins/*.t"
   }
@@ -155,6 +157,7 @@ my %FallbackPrereqs = (
   "DateTime" => "0.44",
   "Digest::MD5" => 0,
   "Encode" => 0,
+  "ExtUtils::MakeMaker" => 0,
   "ExtUtils::Manifest" => "1.54",
   "File::Copy::Recursive" => 0,
   "File::Find::Rule" => 0,
@@ -163,6 +166,7 @@ my %FallbackPrereqs = (
   "File::ShareDir" => 0,
   "File::ShareDir::Install" => "0.03",
   "File::Spec" => 0,
+  "File::Spec::Functions" => 0,
   "File::Temp" => 0,
   "File::pushd" => 0,
   "Hash::Merge::Simple" => 0,

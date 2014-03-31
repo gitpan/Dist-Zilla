@@ -1,16 +1,16 @@
 package Dist::Zilla::Role::Stash::Login;
 # ABSTRACT: a stash with username/password credentials
-$Dist::Zilla::Role::Stash::Login::VERSION = '5.014';
+$Dist::Zilla::Role::Stash::Login::VERSION = '5.015';
 use Moose::Role;
 with 'Dist::Zilla::Role::Stash';
 
 use namespace::autoclean;
 
-# =head1 OVERVIEW
-#
-# A Login stash must provide a C<username> and C<password> method.
-#
-# =cut
+#pod =head1 OVERVIEW
+#pod
+#pod A Login stash must provide a C<username> and C<password> method.
+#pod
+#pod =cut
 
 requires 'username';
 requires 'password';
@@ -29,7 +29,7 @@ Dist::Zilla::Role::Stash::Login - a stash with username/password credentials
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 OVERVIEW
 

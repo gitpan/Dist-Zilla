@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App;
 # ABSTRACT: Dist::Zilla's App::Cmd
-$Dist::Zilla::App::VERSION = '5.014';
+$Dist::Zilla::App::VERSION = '5.015';
 use App::Cmd::Setup 0.309 -app; # better compilation error detection
 
 use Carp ();
@@ -72,12 +72,12 @@ END_DIE
   return $stash_registry;
 }
 
-# =method zilla
-#
-# This returns the Dist::Zilla object in use by the command.  If none has yet
-# been constructed, one will be by calling C<< Dist::Zilla->from_config >>.
-#
-# =cut
+#pod =method zilla
+#pod
+#pod This returns the Dist::Zilla object in use by the command.  If none has yet
+#pod been constructed, one will be by calling C<< Dist::Zilla->from_config >>.
+#pod
+#pod =cut
 
 sub chrome {
   my ($self) = @_;
@@ -156,7 +156,7 @@ Dist::Zilla::App - Dist::Zilla's App::Cmd
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 METHODS
 

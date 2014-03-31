@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::PPI;
 # ABSTRACT: a role for plugins which use PPI
-$Dist::Zilla::Role::PPI::VERSION = '5.014';
+$Dist::Zilla::Role::PPI::VERSION = '5.015';
 use Moose::Role;
 
 use Moose::Util::TypeConstraints;
@@ -10,21 +10,21 @@ use namespace::autoclean;
 use Digest::MD5 qw(md5);
 use Storable qw(dclone);
 
-# =head1 DESCRIPTION
-#
-# This role provides some common utilities for plugins which use PPI
-#
-# =method ppi_document_for_file
-#
-#   my $document = $self->ppi_document_for_file($file);
-#
-# Given a dzil file object (anything that does L<Dist::Zilla::Role::File>), this
-# method returns a new L<PPI::Document> for that file's content.
-#
-# Internally, this method caches these documents. If multiple plugins want a
-# document for the same file, this avoids reparsing it.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod This role provides some common utilities for plugins which use PPI
+#pod
+#pod =method ppi_document_for_file
+#pod
+#pod   my $document = $self->ppi_document_for_file($file);
+#pod
+#pod Given a dzil file object (anything that does L<Dist::Zilla::Role::File>), this
+#pod method returns a new L<PPI::Document> for that file's content.
+#pod
+#pod Internally, this method caches these documents. If multiple plugins want a
+#pod document for the same file, this avoids reparsing it.
+#pod
+#pod =cut
 
 my %CACHE;
 
@@ -45,17 +45,17 @@ sub ppi_document_for_file {
   return ($CACHE{$md5} = $document)->clone;
 }
 
-# =method save_ppi_document_to_file
-#
-#   my $document = $self->save_ppi_document_to_file($document,$file);
-#
-# Given a L<PPI::Document> and a dzil file object (anything that does
-# L<Dist::Zilla::Role::File>), this method saves the serialized document in the
-# file.
-#
-# It also updates the internal PPI document cache with the new document.
-#
-# =cut
+#pod =method save_ppi_document_to_file
+#pod
+#pod   my $document = $self->save_ppi_document_to_file($document,$file);
+#pod
+#pod Given a L<PPI::Document> and a dzil file object (anything that does
+#pod L<Dist::Zilla::Role::File>), this method saves the serialized document in the
+#pod file.
+#pod
+#pod It also updates the internal PPI document cache with the new document.
+#pod
+#pod =cut
 
 sub save_ppi_document_to_file {
   my ($self, $document, $file) = @_;
@@ -67,13 +67,13 @@ sub save_ppi_document_to_file {
   $CACHE{ md5($new_content) } = $document->clone;
 }
 
-# =method document_assigns_to_variable
-#
-#   if( $self->ppi_document_for_file($document, '$FOO')) { ... }
-#
-# This method returns true if the document assigns to the given variable.
-#
-# =cut
+#pod =method document_assigns_to_variable
+#pod
+#pod   if( $self->ppi_document_for_file($document, '$FOO')) { ... }
+#pod
+#pod This method returns true if the document assigns to the given variable.
+#pod
+#pod =cut
 
 sub document_assigns_to_variable {
   my ($self, $orig_document, $variable) = @_;
@@ -117,7 +117,7 @@ Dist::Zilla::Role::PPI - a role for plugins which use PPI
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

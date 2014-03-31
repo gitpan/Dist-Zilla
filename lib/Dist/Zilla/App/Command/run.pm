@@ -2,40 +2,40 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::run;
 # ABSTRACT: run stuff in a dir where your dist is built
-$Dist::Zilla::App::Command::run::VERSION = '5.014';
+$Dist::Zilla::App::Command::run::VERSION = '5.015';
 use Dist::Zilla::App -command;
 
-# =head1 SYNOPSIS
-#
-#   $ dzil run ./bin/myscript
-#   $ dzil run prove -bv t/mytest.t
-#   $ dzil run bash
-#
-# =head1 DESCRIPTION
-#
-# This command will build your dist with Dist::Zilla, then build the
-# distribution and then run a command in the build directory.  It's something
-# like doing this:
-#
-#   dzil build
-#   rsync -avp My-Project-version/ .build/
-#   cd .build
-#   perl Makefile.PL            # or perl Build.PL
-#   make                        # or ./Build
-#   export PERL5LIB=$PWD/blib/lib:$PWD/blib/arch
-#   <your command as defined by rest of params>
-#
-# Except for the fact it's built directly in a subdir of .build (like
-# F<.build/69105y2>).
-#
-# A command returning with an non-zero error code will left the build directory
-# behind for analysis, and C<dzil> will exit with a non-zero status.  Otherwise,
-# the build directory will be removed and dzil will exit with status zero.
-#
-# If no run command is provided, a new default shell is invoked. This can be
-# useful for testing your distribution as if it were installed.
-#
-# =cut
+#pod =head1 SYNOPSIS
+#pod
+#pod   $ dzil run ./bin/myscript
+#pod   $ dzil run prove -bv t/mytest.t
+#pod   $ dzil run bash
+#pod
+#pod =head1 DESCRIPTION
+#pod
+#pod This command will build your dist with Dist::Zilla, then build the
+#pod distribution and then run a command in the build directory.  It's something
+#pod like doing this:
+#pod
+#pod   dzil build
+#pod   rsync -avp My-Project-version/ .build/
+#pod   cd .build
+#pod   perl Makefile.PL            # or perl Build.PL
+#pod   make                        # or ./Build
+#pod   export PERL5LIB=$PWD/blib/lib:$PWD/blib/arch
+#pod   <your command as defined by rest of params>
+#pod
+#pod Except for the fact it's built directly in a subdir of .build (like
+#pod F<.build/69105y2>).
+#pod
+#pod A command returning with an non-zero error code will left the build directory
+#pod behind for analysis, and C<dzil> will exit with a non-zero status.  Otherwise,
+#pod the build directory will be removed and dzil will exit with status zero.
+#pod
+#pod If no run command is provided, a new default shell is invoked. This can be
+#pod useful for testing your distribution as if it were installed.
+#pod
+#pod =cut
 
 sub abstract { 'run stuff in a dir where your dist is built' }
 
@@ -77,7 +77,7 @@ Dist::Zilla::App::Command::run - run stuff in a dir where your dist is built
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 SYNOPSIS
 

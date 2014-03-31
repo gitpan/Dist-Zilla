@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::BuildPL;
 # ABSTRACT: Common ground for Build.PL based builders
-$Dist::Zilla::Role::BuildPL::VERSION = '5.014';
+$Dist::Zilla::Role::BuildPL::VERSION = '5.015';
 use Moose::Role;
 
 with qw(
@@ -11,14 +11,14 @@ with qw(
 
 use namespace::autoclean;
 
-# =head1 DESCRIPTION
-#
-# This role is a helper for Build.PL based installers. It implements the
-# L<Dist::Zilla::Plugin::BuildRunner> and L<Dist::Zilla::Plugin::TestRunner>
-# roles, and requires you to implement the L<Dist::Zilla::Plugin::PrereqSource>
-# and L<Dist::Zilla::Plugin::InstallTool> roles yourself.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod This role is a helper for Build.PL based installers. It implements the
+#pod L<Dist::Zilla::Plugin::BuildRunner> and L<Dist::Zilla::Plugin::TestRunner>
+#pod roles, and requires you to implement the L<Dist::Zilla::Plugin::PrereqSource>
+#pod and L<Dist::Zilla::Plugin::InstallTool> roles yourself.
+#pod
+#pod =cut
 
 sub build {
   my $self = shift;
@@ -61,7 +61,7 @@ Dist::Zilla::Role::BuildPL - Common ground for Build.PL based builders
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

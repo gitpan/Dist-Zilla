@@ -1,22 +1,22 @@
 package Dist::Zilla::MVP::Assembler::GlobalConfig;
 # ABSTRACT: Dist::Zilla::MVP::Assembler for global configuration
-$Dist::Zilla::MVP::Assembler::GlobalConfig::VERSION = '5.014';
+$Dist::Zilla::MVP::Assembler::GlobalConfig::VERSION = '5.015';
 use Moose;
 extends 'Dist::Zilla::MVP::Assembler';
 
 use namespace::autoclean;
 
-# =head1 OVERVIEW
-#
-# This is a subclass of L<Dist::Zilla::MVP::Assembler> used when assembling the
-# global configuration.  It has a C<stash_registry> attribute, a hashref, into
-# which stashes will be registered.
-#
-# They get registered via the C<register_stash> method, below, generally called
-# by the C<register_component> method on L<Dist::Zilla::Role::Stash>-performing
-# class.
-#
-# =cut
+#pod =head1 OVERVIEW
+#pod
+#pod This is a subclass of L<Dist::Zilla::MVP::Assembler> used when assembling the
+#pod global configuration.  It has a C<stash_registry> attribute, a hashref, into
+#pod which stashes will be registered.
+#pod
+#pod They get registered via the C<register_stash> method, below, generally called
+#pod by the C<register_component> method on L<Dist::Zilla::Role::Stash>-performing
+#pod class.
+#pod
+#pod =cut
 
 has stash_registry => (
   is  => 'ro',
@@ -24,14 +24,14 @@ has stash_registry => (
   default => sub { {} },
 );
 
-# =method register_stash
-#
-#   $assembler->register_stash($name => $stash_object);
-#
-# This adds a stash to the assembler's stash registry -- unless the name is
-# already taken, in which case an exception is raised.
-#
-# =cut
+#pod =method register_stash
+#pod
+#pod   $assembler->register_stash($name => $stash_object);
+#pod
+#pod This adds a stash to the assembler's stash registry -- unless the name is
+#pod already taken, in which case an exception is raised.
+#pod
+#pod =cut
 
 sub register_stash {
   my ($self, $name, $object) = @_;
@@ -59,7 +59,7 @@ Dist::Zilla::MVP::Assembler::GlobalConfig - Dist::Zilla::MVP::Assembler for glob
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 OVERVIEW
 

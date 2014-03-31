@@ -1,17 +1,17 @@
 package Dist::Zilla::Role::BeforeBuild;
 # ABSTRACT: something that runs before building really begins
-$Dist::Zilla::Role::BeforeBuild::VERSION = '5.014';
+$Dist::Zilla::Role::BeforeBuild::VERSION = '5.015';
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
 
 use namespace::autoclean;
 
-# =head1 DESCRIPTION
-#
-# Plugins implementing this role have their C<before_build> method called
-# before any other plugins are consulted.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod Plugins implementing this role have their C<before_build> method called
+#pod before any other plugins are consulted.
+#pod
+#pod =cut
 
 requires 'before_build';
 
@@ -29,7 +29,7 @@ Dist::Zilla::Role::BeforeBuild - something that runs before building really begi
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

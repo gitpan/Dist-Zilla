@@ -1,45 +1,45 @@
 package Dist::Zilla::Plugin::FileFinder::ByName;
 # ABSTRACT: FileFinder matching on pathnames
-$Dist::Zilla::Plugin::FileFinder::ByName::VERSION = '5.014';
+$Dist::Zilla::Plugin::FileFinder::ByName::VERSION = '5.015';
 use Moose;
 with 'Dist::Zilla::Role::FileFinder';
 
 use namespace::autoclean;
 
-# =head1 SYNOPSIS
-#
-# In your F<dist.ini>:
-#
-#   [FileFinder::ByName / MyFiles]
-#   dir   = bin     ; look in the bin/ directory
-#   dir   = lib     ; and the lib/ directory
-#   file  = *.pl    ; for .pl files
-#   match = \.pm$   ; and for .pm files
-#   skip  = ignore  ; that don't have "ignore" in the path
-#
-# =head1 CREDITS
-#
-# This plugin was originally contributed by Christopher J. Madsen.
-#
-# =cut
+#pod =head1 SYNOPSIS
+#pod
+#pod In your F<dist.ini>:
+#pod
+#pod   [FileFinder::ByName / MyFiles]
+#pod   dir   = bin     ; look in the bin/ directory
+#pod   dir   = lib     ; and the lib/ directory
+#pod   file  = *.pl    ; for .pl files
+#pod   match = \.pm$   ; and for .pm files
+#pod   skip  = ignore  ; that don't have "ignore" in the path
+#pod
+#pod =head1 CREDITS
+#pod
+#pod This plugin was originally contributed by Christopher J. Madsen.
+#pod
+#pod =cut
 
 use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose qw(ArrayRef RegexpRef Str);
 
 use Text::Glob 0.08 qw(glob_to_regex_string);
 
-# =attr dir
-#
-# The file must be located in one of the specified directories (relative
-# to the root directory of the dist).
-#
-# =attr file
-#
-# The filename must match one of the specified patterns (which are
-# converted to regexs using L<Text::Glob> and combined with any C<match>
-# rules).
-#
-# =cut
+#pod =attr dir
+#pod
+#pod The file must be located in one of the specified directories (relative
+#pod to the root directory of the dist).
+#pod
+#pod =attr file
+#pod
+#pod The filename must match one of the specified patterns (which are
+#pod converted to regexs using L<Text::Glob> and combined with any C<match>
+#pod rules).
+#pod
+#pod =cut
 
 has dirs => (
   is       => 'ro',
@@ -57,15 +57,15 @@ has files => (
   my $type = subtype as ArrayRef[RegexpRef];
   coerce $type, from ArrayRef[Str], via { [map { qr/$_/ } @$_] };
 
-# =attr match
-#
-# The pathname must match one of these regular expressions.
-#
-# =attr skip
-#
-# The pathname must I<not> match any of these regular expressions.
-#
-# =cut
+#pod =attr match
+#pod
+#pod The pathname must match one of these regular expressions.
+#pod
+#pod =attr skip
+#pod
+#pod The pathname must I<not> match any of these regular expressions.
+#pod
+#pod =cut
 
   has matches => (
     is      => 'ro',
@@ -136,37 +136,37 @@ sub find_files {
 __PACKAGE__->meta->make_immutable;
 1;
 
-# =head1 DESCRIPTION
-#
-# FileFinder::ByName is a L<FileFinder|Dist::Zilla::Role::FileFinder> that
-# selects files by matching the criteria you specify against the pathname.
-#
-# There are three types of criteria you can use.  C<dir> limits the
-# search to a particular directory.  C<match> is a regular expression
-# that must match the pathname.  C<skip> is a regular expression that
-# must not match the pathname.
-#
-# Each key can be specified multiple times.  Multiple occurrences of the
-# same key are ORed together.  Different keys are ANDed together.  That
-# means that to be selected, a file must be located in one of the
-# C<dir>s, must match one of the C<match> regexs, and must not match any
-# of the C<skip> regexs.
-#
-# Note that C<file> and C<match> are considered to be the I<same> key.
-# They're just different ways to write a regex that the pathname must match.
-#
-# Omitting a particular key means that criterion will not apply to the
-# search.  Omitting all keys will select every file in your dist.
-#
-# Note: If you need to OR different types of criteria, then use more
-# than one instance of FileFinder::ByName.  A
-# L<FileFinderUser|Dist::Zilla::Role::FileFinderUser> should allow you
-# to specify more than one FileFinder to use.
-#
-# =for Pod::Coverage
-# mvp_aliases
-# mvp_multivalue_args
-# find_files
+#pod =head1 DESCRIPTION
+#pod
+#pod FileFinder::ByName is a L<FileFinder|Dist::Zilla::Role::FileFinder> that
+#pod selects files by matching the criteria you specify against the pathname.
+#pod
+#pod There are three types of criteria you can use.  C<dir> limits the
+#pod search to a particular directory.  C<match> is a regular expression
+#pod that must match the pathname.  C<skip> is a regular expression that
+#pod must not match the pathname.
+#pod
+#pod Each key can be specified multiple times.  Multiple occurrences of the
+#pod same key are ORed together.  Different keys are ANDed together.  That
+#pod means that to be selected, a file must be located in one of the
+#pod C<dir>s, must match one of the C<match> regexs, and must not match any
+#pod of the C<skip> regexs.
+#pod
+#pod Note that C<file> and C<match> are considered to be the I<same> key.
+#pod They're just different ways to write a regex that the pathname must match.
+#pod
+#pod Omitting a particular key means that criterion will not apply to the
+#pod search.  Omitting all keys will select every file in your dist.
+#pod
+#pod Note: If you need to OR different types of criteria, then use more
+#pod than one instance of FileFinder::ByName.  A
+#pod L<FileFinderUser|Dist::Zilla::Role::FileFinderUser> should allow you
+#pod to specify more than one FileFinder to use.
+#pod
+#pod =for Pod::Coverage
+#pod mvp_aliases
+#pod mvp_multivalue_args
+#pod find_files
 
 __END__
 
@@ -180,7 +180,7 @@ Dist::Zilla::Plugin::FileFinder::ByName - FileFinder matching on pathnames
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 SYNOPSIS
 

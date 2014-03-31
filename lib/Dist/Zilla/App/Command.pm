@@ -2,28 +2,28 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command;
 # ABSTRACT: base class for dzil commands
-$Dist::Zilla::App::Command::VERSION = '5.014';
+$Dist::Zilla::App::Command::VERSION = '5.015';
 use App::Cmd::Setup -command;
 use Moose::Autobox;
 
-# =method zilla
-#
-# This returns the Dist::Zilla object in use by the command.  If none has yet
-# been constructed, one will be by calling C<< Dist::Zilla->from_config >>.
-#
-# (This method just delegates to the Dist::Zilla::App object!)
-#
-# =cut
+#pod =method zilla
+#pod
+#pod This returns the Dist::Zilla object in use by the command.  If none has yet
+#pod been constructed, one will be by calling C<< Dist::Zilla->from_config >>.
+#pod
+#pod (This method just delegates to the Dist::Zilla::App object!)
+#pod
+#pod =cut
 
 sub zilla {
   return $_[0]->app->zilla;
 }
 
-# =method log
-#
-# This method calls the C<log> method of the application's chrome.
-#
-# =cut
+#pod =method log
+#pod
+#pod This method calls the C<log> method of the application's chrome.
+#pod
+#pod =cut
 
 sub log {
   $_[0]->app->chrome->logger->log($_[1]);
@@ -43,7 +43,7 @@ Dist::Zilla::App::Command - base class for dzil commands
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 METHODS
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::TemplateModule;
 # ABSTRACT: a simple module-from-template plugin
-$Dist::Zilla::Plugin::TemplateModule::VERSION = '5.014';
+$Dist::Zilla::Plugin::TemplateModule::VERSION = '5.015';
 use Moose;
 with qw(Dist::Zilla::Role::ModuleMaker Dist::Zilla::Role::TextTemplate);
 
@@ -16,48 +16,48 @@ use Data::Section 0.200002 # encoding and bytes
   '-setup';
 use Dist::Zilla::File::InMemory;
 
-# =head1 MINTING CONFIGURATION
-#
-# This module is part of the standard configuration of the default L<Dist::Zilla>
-# Minting Profile, and all profiles that don't set a custom ':DefaultModuleMaker'
-# so you don't need to normally do anything to configure it.
-#
-#   dzil new Some::Module
-#   # creates ./Some-Module/*
-#   # creates ./Some-Module/lib/Some/Module.pm
-#
-# However, for those who wish to configure this ( or any subclasses ) this is
-# presently required:
-#
-#   [TemplateModule / :DefaultModuleMaker]
-#   ; template  = SomeFile.pm
-#
-# =head1 DESCRIPTION
-#
-# This is a L<ModuleMaker|Dist::Zilla::Role::ModuleMaker> used for creating new
-# Perl modules files when minting a new dist with C<dzil new>.  It uses
-# L<Text::Template> (via L<Dist::Zilla::Role::TextTemplate>) to render a template
-# into a Perl module.  The template is given two variables for use in rendering:
-# C<$name>, the module name; and C<$dist>, the Dist::Zilla object.  The module is
-# always created as a file under F<./lib>.
-#
-# By default, the template looks something like this:
-#
-#   use strict;
-#   use warnings;
-#   package {{ $name }};
-#
-#   1;
-#
-# =attr template
-#
-# The C<template> parameter may be given to the plugin to provide a different
-# filename, absolute or relative to the build/profile directory.
-#
-# If this parameter is not specified, this module will use the boilerplate module
-# template included in this module.
-#
-# =cut
+#pod =head1 MINTING CONFIGURATION
+#pod
+#pod This module is part of the standard configuration of the default L<Dist::Zilla>
+#pod Minting Profile, and all profiles that don't set a custom ':DefaultModuleMaker'
+#pod so you don't need to normally do anything to configure it.
+#pod
+#pod   dzil new Some::Module
+#pod   # creates ./Some-Module/*
+#pod   # creates ./Some-Module/lib/Some/Module.pm
+#pod
+#pod However, for those who wish to configure this ( or any subclasses ) this is
+#pod presently required:
+#pod
+#pod   [TemplateModule / :DefaultModuleMaker]
+#pod   ; template  = SomeFile.pm
+#pod
+#pod =head1 DESCRIPTION
+#pod
+#pod This is a L<ModuleMaker|Dist::Zilla::Role::ModuleMaker> used for creating new
+#pod Perl modules files when minting a new dist with C<dzil new>.  It uses
+#pod L<Text::Template> (via L<Dist::Zilla::Role::TextTemplate>) to render a template
+#pod into a Perl module.  The template is given two variables for use in rendering:
+#pod C<$name>, the module name; and C<$dist>, the Dist::Zilla object.  The module is
+#pod always created as a file under F<./lib>.
+#pod
+#pod By default, the template looks something like this:
+#pod
+#pod   use strict;
+#pod   use warnings;
+#pod   package {{ $name }};
+#pod
+#pod   1;
+#pod
+#pod =attr template
+#pod
+#pod The C<template> parameter may be given to the plugin to provide a different
+#pod filename, absolute or relative to the build/profile directory.
+#pod
+#pod If this parameter is not specified, this module will use the boilerplate module
+#pod template included in this module.
+#pod
+#pod =cut
 
 has template => (
   is  => 'ro',
@@ -107,7 +107,7 @@ Dist::Zilla::Plugin::TemplateModule - a simple module-from-template plugin
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

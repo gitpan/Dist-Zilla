@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ManifestSkip;
 # ABSTRACT: decline to build files that appear in a MANIFEST.SKIP-like file
-$Dist::Zilla::Plugin::ManifestSkip::VERSION = '5.014';
+$Dist::Zilla::Plugin::ManifestSkip::VERSION = '5.015';
 use Moose;
 with 'Dist::Zilla::Role::FilePruner';
 
@@ -8,30 +8,30 @@ use namespace::autoclean;
 
 use Moose::Autobox;
 
-# =head1 DESCRIPTION
-#
-# This plugin reads a MANIFEST.SKIP-like file, as used by L<ExtUtils::MakeMaker>
-# and L<ExtUtils::Manifest>, and prunes any files that it declares should be
-# skipped.
-#
-# This plugin is included in the L<@Basic|Dist::Zilla::PluginBundle::Basic>
-# bundle.
-#
-# =attr skipfile
-#
-# This is the name of the file to read for MANIFEST.SKIP-like content.  It
-# defaults, unsurprisingly, to F<MANIFEST.SKIP>.
-#
-# =head1 SEE ALSO
-#
-# Dist::Zilla core plugins:
-# L<@Basic|Dist::Zilla::PluginBundle::Basic>,
-# L<PruneCruft|Dist::Zilla::Plugin::PruneCruft>,
-# L<PruneFiles|Dist::Zilla::Plugin::PruneFiles>.
-#
-# Other modules: L<ExtUtils::Manifest>.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod This plugin reads a MANIFEST.SKIP-like file, as used by L<ExtUtils::MakeMaker>
+#pod and L<ExtUtils::Manifest>, and prunes any files that it declares should be
+#pod skipped.
+#pod
+#pod This plugin is included in the L<@Basic|Dist::Zilla::PluginBundle::Basic>
+#pod bundle.
+#pod
+#pod =attr skipfile
+#pod
+#pod This is the name of the file to read for MANIFEST.SKIP-like content.  It
+#pod defaults, unsurprisingly, to F<MANIFEST.SKIP>.
+#pod
+#pod =head1 SEE ALSO
+#pod
+#pod Dist::Zilla core plugins:
+#pod L<@Basic|Dist::Zilla::PluginBundle::Basic>,
+#pod L<PruneCruft|Dist::Zilla::Plugin::PruneCruft>,
+#pod L<PruneFiles|Dist::Zilla::Plugin::PruneFiles>.
+#pod
+#pod Other modules: L<ExtUtils::Manifest>.
+#pod
+#pod =cut
 
 has skipfile => (is => 'ro', required => 1, default => 'MANIFEST.SKIP');
 
@@ -91,7 +91,7 @@ Dist::Zilla::Plugin::ManifestSkip - decline to build files that appear in a MANI
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

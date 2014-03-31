@@ -1,6 +1,6 @@
 package Dist::Zilla::Prereqs;
 # ABSTRACT: the prerequisites of a Dist::Zilla distribution
-$Dist::Zilla::Prereqs::VERSION = '5.014';
+$Dist::Zilla::Prereqs::VERSION = '5.015';
 use Moose;
 use Moose::Autobox;
 use MooseX::Types::Moose qw(Bool HashRef);
@@ -12,28 +12,28 @@ use CPAN::Meta::Requirements 2.121; # requirements_for_module
 
 use namespace::autoclean;
 
-# =head1 DESCRIPTION
-#
-# Dist::Zilla::Prereqs is a subcomponent of Dist::Zilla.  The C<prereqs>
-# attribute on your Dist::Zilla object is a Dist::Zilla::Prereqs object, and is
-# responsible for keeping track of the distribution's prerequisites.
-#
-# In fact, a Dist::Zilla::Prereqs object is just a thin layer over a
-# L<CPAN::Meta::Prereqs> object, stored in the C<cpan_meta_prereqs> attribute.
-#
-# Almost everything this object does is proxied to the CPAN::Meta::Prereqs
-# object, so you should really read how I<that> works.
-#
-# Dist::Zilla::Prereqs proxies the following methods to the CPAN::Meta::Prereqs
-# object:
-#
-# =for :list
-# * finalize
-# * is_finalized
-# * requirements_for
-# * as_string_hash
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod Dist::Zilla::Prereqs is a subcomponent of Dist::Zilla.  The C<prereqs>
+#pod attribute on your Dist::Zilla object is a Dist::Zilla::Prereqs object, and is
+#pod responsible for keeping track of the distribution's prerequisites.
+#pod
+#pod In fact, a Dist::Zilla::Prereqs object is just a thin layer over a
+#pod L<CPAN::Meta::Prereqs> object, stored in the C<cpan_meta_prereqs> attribute.
+#pod
+#pod Almost everything this object does is proxied to the CPAN::Meta::Prereqs
+#pod object, so you should really read how I<that> works.
+#pod
+#pod Dist::Zilla::Prereqs proxies the following methods to the CPAN::Meta::Prereqs
+#pod object:
+#pod
+#pod =for :list
+#pod * finalize
+#pod * is_finalized
+#pod * requirements_for
+#pod * as_string_hash
+#pod
+#pod =cut
 
 has cpan_meta_prereqs => (
   is  => 'ro',
@@ -57,26 +57,26 @@ has merged_requires => (
   default => sub { CPAN::Meta::Requirements->new },
 );
 
-# =method register_prereqs
-#
-#   $prereqs->register_prereqs(%prereqs);
-#
-#   $prereqs->register_prereqs(\%arg, %prereqs);
-#
-# This method adds new minimums to the prereqs object.  If a hashref is the first
-# arg, it may have entries for C<phase> and C<type> to indicate what kind of
-# prereqs are being registered.  (For more information on phase and type, see
-# L<CPAN::Meta::Spec>.)  For example, you might say:
-#
-#   $prereqs->register_prereqs(
-#     { phase => 'test', type => 'recommends' },
-#     'Test::Foo' => '1.23',
-#     'XML::YZZY' => '2.01',
-#   );
-#
-# If not given, phase and type default to runtime and requires, respectively.
-#
-# =cut
+#pod =method register_prereqs
+#pod
+#pod   $prereqs->register_prereqs(%prereqs);
+#pod
+#pod   $prereqs->register_prereqs(\%arg, %prereqs);
+#pod
+#pod This method adds new minimums to the prereqs object.  If a hashref is the first
+#pod arg, it may have entries for C<phase> and C<type> to indicate what kind of
+#pod prereqs are being registered.  (For more information on phase and type, see
+#pod L<CPAN::Meta::Spec>.)  For example, you might say:
+#pod
+#pod   $prereqs->register_prereqs(
+#pod     { phase => 'test', type => 'recommends' },
+#pod     'Test::Foo' => '1.23',
+#pod     'XML::YZZY' => '2.01',
+#pod   );
+#pod
+#pod If not given, phase and type default to runtime and requires, respectively.
+#pod
+#pod =cut
 
 sub register_prereqs {
   my $self = shift;
@@ -142,7 +142,7 @@ Dist::Zilla::Prereqs - the prerequisites of a Dist::Zilla distribution
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

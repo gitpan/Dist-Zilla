@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::FileGatherer;
 # ABSTRACT: something that gathers files into the distribution
-$Dist::Zilla::Role::FileGatherer::VERSION = '5.014';
+$Dist::Zilla::Role::FileGatherer::VERSION = '5.015';
 use Moose::Role;
 with qw/Dist::Zilla::Role::Plugin Dist::Zilla::Role::FileInjector/;
 
@@ -8,17 +8,17 @@ use namespace::autoclean;
 
 use Moose::Autobox;
 
-# =head1 DESCRIPTION
-#
-# A FileGatherer plugin is a special sort of
-# L<FileInjector|Dist::Zilla::Role::FileInjector> that runs early in the build
-# cycle, finding files to include in the distribution.  It is expected to call
-# its C<add_file> method to add one or more files to inclusion.
-#
-# Plugins implementing FileGatherer must provide a C<gather_files> method, which
-# will be called during the build process.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod A FileGatherer plugin is a special sort of
+#pod L<FileInjector|Dist::Zilla::Role::FileInjector> that runs early in the build
+#pod cycle, finding files to include in the distribution.  It is expected to call
+#pod its C<add_file> method to add one or more files to inclusion.
+#pod
+#pod Plugins implementing FileGatherer must provide a C<gather_files> method, which
+#pod will be called during the build process.
+#pod
+#pod =cut
 
 requires 'gather_files';
 
@@ -36,7 +36,7 @@ Dist::Zilla::Role::FileGatherer - something that gathers files into the distribu
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

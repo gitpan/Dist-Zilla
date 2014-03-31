@@ -1,26 +1,26 @@
 package Dist::Zilla::Role::TextTemplate;
 # ABSTRACT: something that renders a Text::Template template string
-$Dist::Zilla::Role::TextTemplate::VERSION = '5.014';
+$Dist::Zilla::Role::TextTemplate::VERSION = '5.015';
 use Moose::Role;
 
 use namespace::autoclean;
 
-# =head1 DESCRIPTION
-#
-# Plugins implementing TextTemplate may call their own C<L</fill_in_string>>
-# method to render templates using L<Text::Template|Text::Template>.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod Plugins implementing TextTemplate may call their own C<L</fill_in_string>>
+#pod method to render templates using L<Text::Template|Text::Template>.
+#pod
+#pod =cut
 
 use Text::Template;
 
-# =attr delim
-#
-# This attribute (which can't easily be set!) is a two-element array reference
-# returning the Text::Template delimiters to use.  It defaults to C<{{> and
-# C<}}>.
-#
-# =cut
+#pod =attr delim
+#pod
+#pod This attribute (which can't easily be set!) is a two-element array reference
+#pod returning the Text::Template delimiters to use.  It defaults to C<{{> and
+#pod C<}}>.
+#pod
+#pod =cut
 
 # XXX: Later, add a way to set this in config. -- rjbs, 2008-06-02
 has delim => (
@@ -31,18 +31,18 @@ has delim => (
   default  => sub { [ qw(  {{  }}  ) ] },
 );
 
-# =method fill_in_string
-#
-#   my $rendered = $plugin->fill_in_string($template, \%stash, \%arg);
-#
-# This uses Text::Template to fill in the given template using the variables
-# given in the C<%stash>.  The stash becomes the HASH argument to Text::Template,
-# so scalars must be scalar references rather than plain scalars.
-#
-# C<%arg> is dereferenced and passed in as extra arguments to Text::Template's
-# C<fill_in_string> routine.
-#
-# =cut
+#pod =method fill_in_string
+#pod
+#pod   my $rendered = $plugin->fill_in_string($template, \%stash, \%arg);
+#pod
+#pod This uses Text::Template to fill in the given template using the variables
+#pod given in the C<%stash>.  The stash becomes the HASH argument to Text::Template,
+#pod so scalars must be scalar references rather than plain scalars.
+#pod
+#pod C<%arg> is dereferenced and passed in as extra arguments to Text::Template's
+#pod C<fill_in_string> routine.
+#pod
+#pod =cut
 
 sub fill_in_string {
   my ($self, $string, $stash, $arg) = @_;
@@ -83,7 +83,7 @@ Dist::Zilla::Role::TextTemplate - something that renders a Text::Template templa
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

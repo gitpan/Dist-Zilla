@@ -2,31 +2,31 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::clean;
 # ABSTRACT: clean up after build, test, or install
-$Dist::Zilla::App::Command::clean::VERSION = '5.014';
+$Dist::Zilla::App::Command::clean::VERSION = '5.015';
 use Dist::Zilla::App -command;
 
-# =head1 SYNOPSIS
-#
-#   dzil clean [ --dry-run|-n ]
-#
-# This command removes some files that are created during build, test, and
-# install.  It's a very thin layer over the C<L<clean|Dist::Zilla/clean>> method
-# on the Dist::Zilla object.  The documentation for that method gives more
-# information about the files that will be removed.
-#
-# =cut
+#pod =head1 SYNOPSIS
+#pod
+#pod   dzil clean [ --dry-run|-n ]
+#pod
+#pod This command removes some files that are created during build, test, and
+#pod install.  It's a very thin layer over the C<L<clean|Dist::Zilla/clean>> method
+#pod on the Dist::Zilla object.  The documentation for that method gives more
+#pod information about the files that will be removed.
+#pod
+#pod =cut
 
 sub opt_spec {
   [ 'dry-run|n'   => 'don\'t actually remove anything, just show what would be done' ],
 }
 
-# =head1 OPTIONS
-#
-# =head2 -n, --dry-run
-#
-# Nothing is removed; instead, everything that would be removed will be listed.
-#
-# =cut
+#pod =head1 OPTIONS
+#pod
+#pod =head2 -n, --dry-run
+#pod
+#pod Nothing is removed; instead, everything that would be removed will be listed.
+#pod
+#pod =cut
 
 sub abstract { 'clean up after build, test, or install' }
 
@@ -50,7 +50,7 @@ Dist::Zilla::App::Command::clean - clean up after build, test, or install
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 SYNOPSIS
 

@@ -2,20 +2,20 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::nop;
 # ABSTRACT: initialize dzil, then exit
-$Dist::Zilla::App::Command::nop::VERSION = '5.014';
+$Dist::Zilla::App::Command::nop::VERSION = '5.015';
 use Dist::Zilla::App -command;
 
-# =head1 SYNOPSIS
-#
-# This command does nothing.  It initializes Dist::Zilla, then exits.  This is
-# useful to see the logging output of plugin initialization.
-#
-#   dzil nop -v
-#
-# Seriously, this command is almost entirely for diagnostic purposes.  Don't
-# overthink it, okay?
-#
-# =cut
+#pod =head1 SYNOPSIS
+#pod
+#pod This command does nothing.  It initializes Dist::Zilla, then exits.  This is
+#pod useful to see the logging output of plugin initialization.
+#pod
+#pod   dzil nop -v
+#pod
+#pod Seriously, this command is almost entirely for diagnostic purposes.  Don't
+#pod overthink it, okay?
+#pod
+#pod =cut
 
 sub abstract { 'do nothing: initialize dzil, then exit' }
 
@@ -39,7 +39,7 @@ Dist::Zilla::App::Command::nop - initialize dzil, then exit
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 SYNOPSIS
 

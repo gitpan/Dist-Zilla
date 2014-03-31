@@ -2,46 +2,46 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::install;
 # ABSTRACT: install your dist
-$Dist::Zilla::App::Command::install::VERSION = '5.014';
+$Dist::Zilla::App::Command::install::VERSION = '5.015';
 use Dist::Zilla::App -command;
 
-# =head1 SYNOPSIS
-#
-# Installs your distribution using a specified command.
-#
-#     dzil install [--install-command="cmd"]
-#
-# =cut
+#pod =head1 SYNOPSIS
+#pod
+#pod Installs your distribution using a specified command.
+#pod
+#pod     dzil install [--install-command="cmd"]
+#pod
+#pod =cut
 sub abstract { 'install your dist' }
 
-# =head1 EXAMPLE
-#
-#     $ dzil install
-#     $ dzil install --install-command="cpan ."
-#
-# =cut
+#pod =head1 EXAMPLE
+#pod
+#pod     $ dzil install
+#pod     $ dzil install --install-command="cpan ."
+#pod
+#pod =cut
 
 sub opt_spec {
   [ 'install-command=s', 'command to run to install (e.g. "cpan .")' ],
   [ 'keep-build-dir|keep' => 'keep the build directory even after a success' ],
 }
 
-# =head1 OPTIONS
-#
-# =head2 --install-command
-#
-# This defines what command to run after building the dist in the dist dir.
-#
-# Any value that works with L<C<system>|perlfunc/system> is accepted.
-#
-# If not specified, calls (roughly):
-#
-#     cpanm .
-#
-# For more information, look at the L<install|Dist::Zilla::Dist::Builder/install> method in
-# Dist::Zilla.
-#
-# =cut
+#pod =head1 OPTIONS
+#pod
+#pod =head2 --install-command
+#pod
+#pod This defines what command to run after building the dist in the dist dir.
+#pod
+#pod Any value that works with L<C<system>|perlfunc/system> is accepted.
+#pod
+#pod If not specified, calls (roughly):
+#pod
+#pod     cpanm .
+#pod
+#pod For more information, look at the L<install|Dist::Zilla::Dist::Builder/install> method in
+#pod Dist::Zilla.
+#pod
+#pod =cut
 
 sub execute {
   my ($self, $opt, $arg) = @_;
@@ -70,7 +70,7 @@ Dist::Zilla::App::Command::install - install your dist
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 SYNOPSIS
 

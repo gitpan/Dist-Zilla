@@ -1,26 +1,26 @@
 package Dist::Zilla::Role::FileInjector;
 # ABSTRACT: something that can add files to the distribution
-$Dist::Zilla::Role::FileInjector::VERSION = '5.014';
+$Dist::Zilla::Role::FileInjector::VERSION = '5.015';
 use Moose::Role;
 
 use namespace::autoclean;
 
 use Moose::Autobox;
 
-# =head1 DESCRIPTION
-#
-# This role should be implemented by any plugin that plans to add files into the
-# distribution.  It provides one method (C<L</add_file>>, documented below),
-# which adds a file to the distribution, noting the place of addition.
-#
-# =method add_file
-#
-#   $plugin->add_file($dzil_file);
-#
-# This adds a file to the distribution, setting the file's C<added_by> attribute
-# as it does so.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod This role should be implemented by any plugin that plans to add files into the
+#pod distribution.  It provides one method (C<L</add_file>>, documented below),
+#pod which adds a file to the distribution, noting the place of addition.
+#pod
+#pod =method add_file
+#pod
+#pod   $plugin->add_file($dzil_file);
+#pod
+#pod This adds a file to the distribution, setting the file's C<added_by> attribute
+#pod as it does so.
+#pod
+#pod =cut
 
 sub add_file {
   my ($self, $file) = @_;
@@ -48,7 +48,7 @@ Dist::Zilla::Role::FileInjector - something that can add files to the distributi
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

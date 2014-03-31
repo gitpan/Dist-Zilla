@@ -1,14 +1,14 @@
 package Dist::Zilla::Chrome::Term;
 # ABSTRACT: chrome used for terminal-based interaction
-$Dist::Zilla::Chrome::Term::VERSION = '5.014';
+$Dist::Zilla::Chrome::Term::VERSION = '5.015';
 use Moose;
 
-# =head1 OVERVIEW
-#
-# This class provides a L<Dist::Zilla::Chrome> implementation for use in a
-# terminal environment.  It's the default chrome used by L<Dist::Zilla::App>.
-#
-# =cut
+#pod =head1 OVERVIEW
+#pod
+#pod This class provides a L<Dist::Zilla::Chrome> implementation for use in a
+#pod terminal environment.  It's the default chrome used by L<Dist::Zilla::App>.
+#pod
+#pod =cut
 
 use Dist::Zilla::Types qw(OneZero);
 use Log::Dispatchouli 1.102220;
@@ -140,7 +140,7 @@ Dist::Zilla::Chrome::Term - chrome used for terminal-based interaction
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 OVERVIEW
 

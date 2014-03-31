@@ -1,29 +1,29 @@
 package Dist::Zilla::Role::LicenseProvider;
 # ABSTRACT: something that provides a license for the dist
-$Dist::Zilla::Role::LicenseProvider::VERSION = '5.014';
+$Dist::Zilla::Role::LicenseProvider::VERSION = '5.015';
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
 
-# =head1 DESCRIPTION
-#
-# Plugins implementing this role must provide a C<provide_license> method that
-# will be called when setting the dist's license.
-#
-# If a LicenseProvider offers a license but one has already been set, an
-# exception will be raised.  If C<provides_license> returns undef, it will be
-# ignored.
-#
-# =head1 REQUIRED METHODS
-#
-# =head2 C<< provide_license($copyright_holder, $copyright_year) >>
-#
-# Generate license object. Returned object should be an instance of
-# L<Software::License>.
-#
-# Plugins are responsible for injecting C<$copyright_holder> and
-# C<$copyright_year> arguments into the license if these arguments are defined.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod Plugins implementing this role must provide a C<provide_license> method that
+#pod will be called when setting the dist's license.
+#pod
+#pod If a LicenseProvider offers a license but one has already been set, an
+#pod exception will be raised.  If C<provides_license> returns undef, it will be
+#pod ignored.
+#pod
+#pod =head1 REQUIRED METHODS
+#pod
+#pod =head2 C<< provide_license($copyright_holder, $copyright_year) >>
+#pod
+#pod Generate license object. Returned object should be an instance of
+#pod L<Software::License>.
+#pod
+#pod Plugins are responsible for injecting C<$copyright_holder> and
+#pod C<$copyright_year> arguments into the license if these arguments are defined.
+#pod
+#pod =cut
 
 requires 'provide_license';
 
@@ -42,7 +42,7 @@ Dist::Zilla::Role::LicenseProvider - something that provides a license for the d
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 

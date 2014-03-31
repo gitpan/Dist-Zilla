@@ -1,22 +1,22 @@
 package Dist::Zilla::Role::MetaProvider;
 # ABSTRACT: something that provides metadata (for META.yml/json)
-$Dist::Zilla::Role::MetaProvider::VERSION = '5.014';
+$Dist::Zilla::Role::MetaProvider::VERSION = '5.015';
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
 
 use namespace::autoclean;
 
-# =head1 DESCRIPTION
-#
-# This role provides data to merge into the distribution metadata.
-#
-# =method metadata
-#
-# This method (which must be provided by classes implementing this role)
-# returns a hashref of data to be (deeply) merged together with pre-existing
-# metadata.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod This role provides data to merge into the distribution metadata.
+#pod
+#pod =method metadata
+#pod
+#pod This method (which must be provided by classes implementing this role)
+#pod returns a hashref of data to be (deeply) merged together with pre-existing
+#pod metadata.
+#pod
+#pod =cut
 
 requires 'metadata';
 
@@ -32,7 +32,7 @@ Dist::Zilla::Role::MetaProvider - something that provides metadata (for META.yml
 
 =head1 VERSION
 
-version 5.014
+version 5.015
 
 =head1 DESCRIPTION
 
@@ -70,13 +70,13 @@ the same terms as the Perl 5 programming language system itself.
 
 __END__
 
-# =head1 SEE ALSO
-#
-# Core Dist::Zilla plugins implementing this role:
-# L<ConfigMeta|Dist::Zilla::Plugin::ConfigMeta>.
-# L<MetaNoIndex|Dist::Zilla::Plugin::MetaNoIndex>.
-#
-# Dist::Zilla plugins on the CPAN:
-# L<GithubMeta|Dist::Zilla::Plugin::GithubMeta>...
-#
-# =cut
+#pod =head1 SEE ALSO
+#pod
+#pod Core Dist::Zilla plugins implementing this role:
+#pod L<ConfigMeta|Dist::Zilla::Plugin::ConfigMeta>.
+#pod L<MetaNoIndex|Dist::Zilla::Plugin::MetaNoIndex>.
+#pod
+#pod Dist::Zilla plugins on the CPAN:
+#pod L<GithubMeta|Dist::Zilla::Plugin::GithubMeta>...
+#pod
+#pod =cut
