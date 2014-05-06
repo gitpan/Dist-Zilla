@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::release;
 # ABSTRACT: release your dist to the CPAN
-$Dist::Zilla::App::Command::release::VERSION = '5.015';
+$Dist::Zilla::App::Command::release::VERSION = '5.016';
 use Dist::Zilla::App -command;
 
 #pod =head1 SYNOPSIS
@@ -48,7 +48,7 @@ Dist::Zilla::App::Command::release - release your dist to the CPAN
 
 =head1 VERSION
 
-version 5.015
+version 5.016
 
 =head1 SYNOPSIS
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::LicenseProvider;
 # ABSTRACT: something that provides a license for the dist
-$Dist::Zilla::Role::LicenseProvider::VERSION = '5.015';
+$Dist::Zilla::Role::LicenseProvider::VERSION = '5.016';
 use Moose::Role;
 with 'Dist::Zilla::Role::Plugin';
 
@@ -42,7 +42,7 @@ Dist::Zilla::Role::LicenseProvider - something that provides a license for the d
 
 =head1 VERSION
 
-version 5.015
+version 5.016
 
 =head1 DESCRIPTION
 

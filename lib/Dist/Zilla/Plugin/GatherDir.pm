@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::GatherDir;
 # ABSTRACT: gather all the files in a directory
-$Dist::Zilla::Plugin::GatherDir::VERSION = '5.015';
+$Dist::Zilla::Plugin::GatherDir::VERSION = '5.016';
 use Moose;
 use Moose::Autobox;
 use MooseX::Types::Path::Class qw(Dir File);
@@ -36,7 +36,6 @@ use namespace::autoclean;
 #pod =cut
 
 use File::Find::Rule;
-use File::HomeDir;
 use File::Spec;
 use Path::Class;
 
@@ -140,7 +139,7 @@ sub gather_files {
   my %is_excluded = map {; $_ => 1 } $self->exclude_filename->flatten;
 
   my $root = "" . $self->root;
-  $root =~ s{^~([\\/])}{File::HomeDir->my_home . $1}e;
+  $root =~ s{^~([\\/])}{require File::HomeDir; File::HomeDir::->my_home . $1}e;
   $root = Path::Class::dir($root);
 
   my $rule = File::Find::Rule->new();
@@ -192,7 +191,7 @@ Dist::Zilla::Plugin::GatherDir - gather all the files in a directory
 
 =head1 VERSION
 
-version 5.015
+version 5.016
 
 =head1 DESCRIPTION
 

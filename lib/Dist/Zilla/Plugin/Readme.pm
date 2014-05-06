@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::Readme;
 # ABSTRACT: build a README file
-$Dist::Zilla::Plugin::Readme::VERSION = '5.015';
+$Dist::Zilla::Plugin::Readme::VERSION = '5.016';
 use Moose;
 use Moose::Autobox;
 with qw/Dist::Zilla::Role::FileGatherer Dist::Zilla::Role::TextTemplate/;
@@ -66,7 +66,7 @@ Dist::Zilla::Plugin::Readme - build a README file
 
 =head1 VERSION
 
-version 5.015
+version 5.016
 
 =head1 DESCRIPTION
 

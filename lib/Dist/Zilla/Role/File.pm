@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::File;
 # ABSTRACT: something that can act like a file
-$Dist::Zilla::Role::File::VERSION = '5.015';
+$Dist::Zilla::Role::File::VERSION = '5.016';
 use Moose::Role;
 
 use Moose::Util::TypeConstraints;
@@ -109,7 +109,7 @@ sub _throw {
   my ($self, $op, $msg) = @_;
   my ($name, $added_by) = map {; $self->$_ } qw/name added_by/;
   confess(
-    "Could not $op $name; $added_by; error was: $msg"
+    "Could not $op $name; $added_by; error was: $msg; maybe you need the [Encoding] plugin to specify an encoding"
   );
 }
 
@@ -127,7 +127,7 @@ Dist::Zilla::Role::File - something that can act like a file
 
 =head1 VERSION
 
-version 5.015
+version 5.016
 
 =head1 DESCRIPTION
 

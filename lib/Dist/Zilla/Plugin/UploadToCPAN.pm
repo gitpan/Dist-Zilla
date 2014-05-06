@@ -1,10 +1,9 @@
 package Dist::Zilla::Plugin::UploadToCPAN;
 # ABSTRACT: upload the dist to CPAN
-$Dist::Zilla::Plugin::UploadToCPAN::VERSION = '5.015';
+$Dist::Zilla::Plugin::UploadToCPAN::VERSION = '5.016';
 use Moose;
 with qw(Dist::Zilla::Role::BeforeRelease Dist::Zilla::Role::Releaser);
 
-use File::HomeDir;
 use File::Spec;
 use Moose::Util::TypeConstraints;
 use Scalar::Util qw(weaken);
@@ -142,7 +141,7 @@ has pause_cfg_dir => (
   is      => 'ro',
   isa     => 'Str',
   lazy    => 1,
-  default => sub { File::HomeDir->my_home },
+  default => sub { require File::HomeDir; File::HomeDir::->my_home },
 );
 
 #pod =attr pause_cfg
@@ -262,7 +261,7 @@ Dist::Zilla::Plugin::UploadToCPAN - upload the dist to CPAN
 
 =head1 VERSION
 
-version 5.015
+version 5.016
 
 =head1 SYNOPSIS
 

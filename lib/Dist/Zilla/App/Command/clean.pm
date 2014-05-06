@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::clean;
 # ABSTRACT: clean up after build, test, or install
-$Dist::Zilla::App::Command::clean::VERSION = '5.015';
+$Dist::Zilla::App::Command::clean::VERSION = '5.016';
 use Dist::Zilla::App -command;
 
 #pod =head1 SYNOPSIS
@@ -50,7 +50,7 @@ Dist::Zilla::App::Command::clean - clean up after build, test, or install
 
 =head1 VERSION
 
-version 5.015
+version 5.016
 
 =head1 SYNOPSIS
 
