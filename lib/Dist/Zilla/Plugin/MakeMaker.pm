@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MakeMaker;
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
-$Dist::Zilla::Plugin::MakeMaker::VERSION = '5.016';
+$Dist::Zilla::Plugin::MakeMaker::VERSION = '5.017';
 use Moose;
 use Moose::Autobox;
 
@@ -121,7 +121,7 @@ sub register_prereqs {
 
   $self->zilla->register_prereqs(
     { phase => 'configure' },
-    'File::ShareDir::Install' => 0.03,
+    'File::ShareDir::Install' => 0.06,
   );
 }
 
@@ -132,7 +132,11 @@ sub share_dir_code {
 
   my $share_dir_map = $self->zilla->_share_dir_map;
   if ( keys %$share_dir_map ) {
-    my $preamble = qq{use File::ShareDir::Install;\n};
+    my $preamble = <<'PREAMBLE';
+use File::ShareDir::Install;
+$File::ShareDir::Install::INCLUDE_DOTFILES = 1;
+$File::ShareDir::Install::INCLUDE_DOTDIRS = 1;
+PREAMBLE
 
     if ( my $dist_share_dir = $share_dir_map->{dist} ) {
       $dist_share_dir = quotemeta $dist_share_dir;
@@ -210,8 +214,8 @@ sub write_makefile_args {
     EXE_FILES => [ @exe_files ],
 
     CONFIGURE_REQUIRES => $prereqs_dump->(qw(configure requires)),
-    BUILD_REQUIRES     => $build_prereq,
-    TEST_REQUIRES      => $test_prereq,
+    keys %$build_prereq ? ( BUILD_REQUIRES => $build_prereq ) : (),
+    keys %$test_prereq ? ( TEST_REQUIRES => $test_prereq ) : (),
     PREREQ_PM          => $prereqs_dump->(qw(runtime   requires)),
 
     test => { TESTS => join q{ }, sort keys %test_dirs },
@@ -311,7 +315,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 5.016
+version 5.017
 
 =head1 DESCRIPTION
 

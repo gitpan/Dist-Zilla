@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoPrereqs;
 # ABSTRACT: automatically extract prereqs from your modules
-$Dist::Zilla::Plugin::AutoPrereqs::VERSION = '5.016';
+$Dist::Zilla::Plugin::AutoPrereqs::VERSION = '5.017';
 use Moose;
 with(
   'Dist::Zilla::Role::PrereqSource',
@@ -213,7 +213,7 @@ Dist::Zilla::Plugin::AutoPrereqs - automatically extract prereqs from your modul
 
 =head1 VERSION
 
-version 5.016
+version 5.017
 
 =head1 SYNOPSIS
 

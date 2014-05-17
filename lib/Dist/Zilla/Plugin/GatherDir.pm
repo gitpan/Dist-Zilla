@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::GatherDir;
 # ABSTRACT: gather all the files in a directory
-$Dist::Zilla::Plugin::GatherDir::VERSION = '5.016';
+$Dist::Zilla::Plugin::GatherDir::VERSION = '5.017';
 use Moose;
 use Moose::Autobox;
 use MooseX::Types::Path::Class qw(Dir File);
@@ -170,9 +170,11 @@ sub gather_files {
 sub _file_from_filename {
   my ($self, $filename) = @_;
 
+  my @stat = stat $filename or $self->log_fatal("$filename does not exist!");
+
   return Dist::Zilla::File::OnDisk->new({
     name => $filename,
-    mode => (stat $filename)[2] & 0755, # kill world-writeability
+    mode => $stat[2] & 0755, # kill world-writeability
   });
 }
 
@@ -191,7 +193,7 @@ Dist::Zilla::Plugin::GatherDir - gather all the files in a directory
 
 =head1 VERSION
 
-version 5.016
+version 5.017
 
 =head1 DESCRIPTION
 

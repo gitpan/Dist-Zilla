@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::Manifest;
 # ABSTRACT: build a MANIFEST file
-$Dist::Zilla::Plugin::Manifest::VERSION = '5.016';
+$Dist::Zilla::Plugin::Manifest::VERSION = '5.017';
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
@@ -43,6 +43,7 @@ sub gather_files {
 
   my $file = Dist::Zilla::File::FromCode->new({
     name => 'MANIFEST',
+    code_return_type => 'bytes',
     code => sub {
       my $generated_by = sprintf "%s v%s", ref($self), $self->VERSION || '(dev)';
 
@@ -71,7 +72,7 @@ Dist::Zilla::Plugin::Manifest - build a MANIFEST file
 
 =head1 VERSION
 
-version 5.016
+version 5.017
 
 =head1 DESCRIPTION
 

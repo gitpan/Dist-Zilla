@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MakeMaker::Runner;
 # ABSTRACT: Test and build dists with a Makefile.PL
-$Dist::Zilla::Plugin::MakeMaker::Runner::VERSION = '5.016';
+$Dist::Zilla::Plugin::MakeMaker::Runner::VERSION = '5.017';
 use Moose;
 with(
   'Dist::Zilla::Role::BuildRunner',
@@ -21,6 +21,12 @@ sub build {
   my $self = shift;
 
   my $make = $self->make_path;
+
+  my $makefile = $^O eq 'VMS' ? 'Descrip.MMS' : 'Makefile';
+
+  return
+    if -e $makefile and (stat 'Makefile.PL')[9] <= (stat $makefile)[9];
+
   system($^X => 'Makefile.PL') and die "error with Makefile.PL\n";
   system($make)                and die "error running $make\n";
 
@@ -63,7 +69,7 @@ Dist::Zilla::Plugin::MakeMaker::Runner - Test and build dists with a Makefile.PL
 
 =head1 VERSION
 
-version 5.016
+version 5.017
 
 =head1 AUTHOR
 

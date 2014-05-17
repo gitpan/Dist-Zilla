@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::setup;
 # ABSTRACT: set up a basic global config file
-$Dist::Zilla::App::Command::setup::VERSION = '5.016';
+$Dist::Zilla::App::Command::setup::VERSION = '5.017';
 use Dist::Zilla::App -command;
 
 #pod =head1 SYNOPSIS
@@ -14,6 +14,8 @@ use Dist::Zilla::App -command;
 #pod Dist::Zilla looks for per-user configuration in F<~/.dzil/config.ini>.  This
 #pod command prompts the user for some basic information that can be used to produce
 #pod the most commonly needed F<config.ini> sections.
+#pod
+#pod B<WARNING>: PAUSE account details are stored within config.ini in plain text.
 #pod
 #pod =cut
 
@@ -86,7 +88,9 @@ sub execute {
 
   if (
     $chrome->prompt_yn(
-      'Do you want to enter your PAUSE account details? ',
+    '
+    * WARNING - Your account details will be stored in plain text *
+Do you want to enter your PAUSE account details? ',
       { default => 0 },
     )
   ) {
@@ -158,7 +162,7 @@ Dist::Zilla::App::Command::setup - set up a basic global config file
 
 =head1 VERSION
 
-version 5.016
+version 5.017
 
 =head1 SYNOPSIS
 
@@ -169,6 +173,8 @@ version 5.016
 Dist::Zilla looks for per-user configuration in F<~/.dzil/config.ini>.  This
 command prompts the user for some basic information that can be used to produce
 the most commonly needed F<config.ini> sections.
+
+B<WARNING>: PAUSE account details are stored within config.ini in plain text.
 
 =head1 AUTHOR
 

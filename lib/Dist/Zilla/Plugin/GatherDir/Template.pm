@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::GatherDir::Template;
 # ABSTRACT: gather all the files in a directory and use them as templates
-$Dist::Zilla::Plugin::GatherDir::Template::VERSION = '5.016';
+$Dist::Zilla::Plugin::GatherDir::Template::VERSION = '5.017';
 use Moose;
 extends 'Dist::Zilla::Plugin::GatherDir';
 with 'Dist::Zilla::Role::TextTemplate';
@@ -32,9 +32,11 @@ sub _file_from_filename {
 
   my $template = path($filename)->slurp_utf8;
 
+  my @stat = stat $filename or $self->log_fatal("$filename does not exist!");
+
   return Dist::Zilla::File::FromCode->new({
     name => $filename,
-    mode => ((stat $filename)[2] & 0755) | 0200, # kill world-writeability, make sure owner-writable.
+    mode => ($stat[2] & 0755) | 0200, # kill world-writeability, make sure owner-writable.
     code => sub {
       my ($file_obj) = @_;
       $self->fill_in_string(
@@ -63,7 +65,7 @@ Dist::Zilla::Plugin::GatherDir::Template - gather all the files in a directory a
 
 =head1 VERSION
 
-version 5.016
+version 5.017
 
 =head1 DESCRIPTION
 

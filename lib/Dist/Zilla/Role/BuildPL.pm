@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::BuildPL;
 # ABSTRACT: Common ground for Build.PL based builders
-$Dist::Zilla::Role::BuildPL::VERSION = '5.016';
+$Dist::Zilla::Role::BuildPL::VERSION = '5.017';
 use Moose::Role;
 
 with qw(
@@ -22,6 +22,9 @@ use namespace::autoclean;
 
 sub build {
   my $self = shift;
+
+  return
+    if -e 'Build' and (stat 'Build.PL')[9] <= (stat 'Build')[9];
 
   system $^X, 'Build.PL' and die "error with Build.PL\n";
   system $^X, 'Build'    and die "error running $^X Build\n";
@@ -61,7 +64,7 @@ Dist::Zilla::Role::BuildPL - Common ground for Build.PL based builders
 
 =head1 VERSION
 
-version 5.016
+version 5.017
 
 =head1 DESCRIPTION
 

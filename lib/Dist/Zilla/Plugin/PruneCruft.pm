@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PruneCruft;
 # ABSTRACT: prune stuff that you probably don't mean to include
-$Dist::Zilla::Plugin::PruneCruft::VERSION = '5.016';
+$Dist::Zilla::Plugin::PruneCruft::VERSION = '5.017';
 use Moose;
 use Moose::Autobox;
 use Moose::Util::TypeConstraints;
@@ -64,6 +64,7 @@ sub exclude_file {
   return 1 if index($file->name, $self->zilla->name . '-') == 0;
   return 1 if $file->name =~ /\A\./;
   return 1 if $file->name =~ /\A(?:Build|Makefile)\z/;
+  return 1 if $file->name eq 'Makefile.old';
   return 1 if $file->name =~ /\Ablib/;
   return 1 if $file->name =~ /\.(?:o|bs)$/;
   return 1 if $file->name =~ /\A_Inline/;
@@ -112,7 +113,7 @@ Dist::Zilla::Plugin::PruneCruft - prune stuff that you probably don't mean to in
 
 =head1 VERSION
 
-version 5.016
+version 5.017
 
 =head1 SYNOPSIS
 
