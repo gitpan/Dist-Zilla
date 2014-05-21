@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Util;
 # ABSTRACT: random snippets of code that Dist::Zilla wants
-$Dist::Zilla::Util::VERSION = '5.018';
+$Dist::Zilla::Util::VERSION = '5.019';
 use Carp ();
 use Encode ();
 use String::RewritePrefix 0.002; # better string context behavior
@@ -69,10 +69,7 @@ sub abstract_from_file {
 
   $e->read_string($bytes);
 
-  return unless defined $e->{abstract};
-  my $abstract = Encode::decode('UTF-8', $e->{abstract}, Encode::FB_CROAK);
-
-  return $abstract;
+  return $e->{abstract};
 }
 
 #pod =method expand_config_package_name
@@ -145,7 +142,7 @@ Dist::Zilla::Util - random snippets of code that Dist::Zilla wants
 
 =head1 VERSION
 
-version 5.018
+version 5.019
 
 =head1 METHODS
 
