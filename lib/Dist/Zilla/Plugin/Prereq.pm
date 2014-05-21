@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::Prereq;
 # ABSTRACT: (DEPRECATED) the old name of the Prereqs plugin
-$Dist::Zilla::Plugin::Prereq::VERSION = '5.017';
+$Dist::Zilla::Plugin::Prereq::VERSION = '5.018';
 use Moose;
 extends 'Dist::Zilla::Plugin::Prereqs';
 
@@ -39,7 +39,7 @@ Dist::Zilla::Plugin::Prereq - (DEPRECATED) the old name of the Prereqs plugin
 
 =head1 VERSION
 
-version 5.017
+version 5.018
 
 =head1 SYNOPSIS
 

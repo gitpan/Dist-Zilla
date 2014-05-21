@@ -1,6 +1,6 @@
 package Dist::Zilla::PluginBundle::FakeClassic;
 # ABSTRACT: build something more or less like a "classic" CPAN dist
-$Dist::Zilla::PluginBundle::FakeClassic::VERSION = '5.017';
+$Dist::Zilla::PluginBundle::FakeClassic::VERSION = '5.018';
 use Moose;
 extends 'Dist::Zilla::PluginBundle::Classic';
 
@@ -42,7 +42,7 @@ Dist::Zilla::PluginBundle::FakeClassic - build something more or less like a "cl
 
 =head1 VERSION
 
-version 5.017
+version 5.018
 
 =head1 AUTHOR
 

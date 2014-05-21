@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::TextTemplate;
 # ABSTRACT: something that renders a Text::Template template string
-$Dist::Zilla::Role::TextTemplate::VERSION = '5.017';
+$Dist::Zilla::Role::TextTemplate::VERSION = '5.018';
 use Moose::Role;
 
 use namespace::autoclean;
@@ -83,7 +83,7 @@ Dist::Zilla::Role::TextTemplate - something that renders a Text::Template templa
 
 =head1 VERSION
 
-version 5.017
+version 5.018
 
 =head1 DESCRIPTION
 

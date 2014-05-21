@@ -152,7 +152,7 @@
       },
       "x_mailing_list" : "http://www.listbox.com/subscribe/?list_id=139292"
    },
-   "version" : "5.017",
+   "version" : "5.018",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.019011"
@@ -505,7 +505,7 @@
                "Dist::Zilla::Plugin::Git::Tag" : {
                   "branch" : null,
                   "signed" : 0,
-                  "tag" : "5.017",
+                  "tag" : "5.018",
                   "tag_format" : "%v",
                   "tag_message" : "v%v",
                   "time_zone" : "local"

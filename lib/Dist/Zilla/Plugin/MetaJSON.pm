@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MetaJSON;
 # ABSTRACT: produce a META.json
-$Dist::Zilla::Plugin::MetaJSON::VERSION = '5.017';
+$Dist::Zilla::Plugin::MetaJSON::VERSION = '5.018';
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
@@ -113,7 +113,7 @@ Dist::Zilla::Plugin::MetaJSON - produce a META.json
 
 =head1 VERSION
 
-version 5.017
+version 5.018
 
 =head1 DESCRIPTION
 

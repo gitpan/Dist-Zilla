@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PodSyntaxTests;
 # ABSTRACT: a release test for Pod syntax
-$Dist::Zilla::Plugin::PodSyntaxTests::VERSION = '5.017';
+$Dist::Zilla::Plugin::PodSyntaxTests::VERSION = '5.018';
 use Moose;
 extends 'Dist::Zilla::Plugin::InlineFiles';
 with 'Dist::Zilla::Role::PrereqSource';
@@ -47,7 +47,7 @@ Dist::Zilla::Plugin::PodSyntaxTests - a release test for Pod syntax
 
 =head1 VERSION
 
-version 5.017
+version 5.018
 
 =head1 DESCRIPTION
 

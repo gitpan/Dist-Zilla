@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command;
 # ABSTRACT: base class for dzil commands
-$Dist::Zilla::App::Command::VERSION = '5.017';
+$Dist::Zilla::App::Command::VERSION = '5.018';
 use App::Cmd::Setup -command;
 use Moose::Autobox;
 
@@ -43,7 +43,7 @@ Dist::Zilla::App::Command - base class for dzil commands
 
 =head1 VERSION
 
-version 5.017
+version 5.018
 
 =head1 METHODS
 
