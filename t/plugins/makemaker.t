@@ -14,7 +14,10 @@ use Test::DZil;
         'source/dist.ini' => simple_ini(
           'GatherDir',
           'MakeMaker',
-          [ Prereqs => { 'Foo::Bar' => '1.20',      perl => '5.008' } ],
+          [ Prereqs => { 'Foo::Bar' => '1.20',
+                          perl      => '5.008',
+                          Baz       => '1.2.3',
+                          Buzz      => 'v1.2' } ],
           [ Prereqs => BuildRequires => { 'Builder::Bob' => '9.901' } ],
           [ Prereqs => TestRequires  => { 'Test::Deet'   => '7',
                                           perl           => '5.008' } ],
@@ -36,7 +39,9 @@ use Test::DZil;
     LICENSE  => 'perl',
 
     PREREQ_PM          => {
-      'Foo::Bar' => '1.20'
+      'Foo::Bar' => '1.20',
+      'Baz'      => '1.2.3',
+      'Buzz'     => '1.2.0',
     },
     BUILD_REQUIRES     => {
       'Builder::Bob' => '9.901',
@@ -45,7 +50,7 @@ use Test::DZil;
       'Test::Deet'   => '7',
     },
     CONFIGURE_REQUIRES => {
-      'ExtUtils::MakeMaker' => '6.30'
+      'ExtUtils::MakeMaker' => '0'
     },
   );
 
