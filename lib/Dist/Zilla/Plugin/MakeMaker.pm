@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::MakeMaker;
 # ABSTRACT: build a Makefile.PL that uses ExtUtils::MakeMaker
-$Dist::Zilla::Plugin::MakeMaker::VERSION = '5.020';
+$Dist::Zilla::Plugin::MakeMaker::VERSION = '5.021';
 use Moose;
 use Moose::Autobox;
 
@@ -85,7 +85,7 @@ use warnings;
 
 {{ $perl_prereq ? qq[use $perl_prereq;] : ''; }}
 
-use ExtUtils::MakeMaker {{ defined $eumm_version ? $eumm_version : '' }};
+use ExtUtils::MakeMaker{{ defined $eumm_version ? ' ' . $eumm_version : '' }};
 
 {{ $share_dir_code{preamble} || '' }}
 
@@ -179,7 +179,9 @@ sub write_makefile_args {
   my $prereqs = $self->zilla->prereqs;
   my $perl_prereq = $prereqs->requirements_for(qw(runtime requires))
     ->clone
+    ->add_requirements($prereqs->requirements_for(qw(configure requires)))
     ->add_requirements($prereqs->requirements_for(qw(build requires)))
+    ->add_requirements($prereqs->requirements_for(qw(test requires)))
     ->as_string_hash->{perl};
 
   $perl_prereq = version->parse($perl_prereq)->numify if $perl_prereq;
@@ -259,13 +261,13 @@ sub fallback_prereq_pm {
 }
 
 sub setup_installer {
-  my ($self, $arg) = @_;
+  my ($self) = @_;
 
   my $write_makefile_args = $self->write_makefile_args;
 
   $self->__write_makefile_args($write_makefile_args); # save for testing
 
-  my $perl_prereq = delete $write_makefile_args->{MIN_PERL_VERSION};
+  my $perl_prereq = $write_makefile_args->{MIN_PERL_VERSION};
 
   my $dumped_args = $self->_dump_as($write_makefile_args, '*WriteMakefileArgs');
 
@@ -327,7 +329,7 @@ Dist::Zilla::Plugin::MakeMaker - build a Makefile.PL that uses ExtUtils::MakeMak
 
 =head1 VERSION
 
-version 5.020
+version 5.021
 
 =head1 DESCRIPTION
 

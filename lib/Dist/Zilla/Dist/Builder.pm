@@ -1,6 +1,6 @@
 package Dist::Zilla::Dist::Builder;
 # ABSTRACT: dist zilla subclass for building dists
-$Dist::Zilla::Dist::Builder::VERSION = '5.020';
+$Dist::Zilla::Dist::Builder::VERSION = '5.021';
 use Moose 0.92; # role composition fixes
 extends 'Dist::Zilla';
 
@@ -64,7 +64,6 @@ sub _setup_default_plugins {
         my ($file, $self) = @_;
         local $_ = $file->name;
         return 1 if m{\Alib/} and m{\.(pm|pod)$};
-        return 1 if $_ eq $self->zilla->main_module;
         return;
       },
     });
@@ -817,7 +816,7 @@ Dist::Zilla::Dist::Builder - dist zilla subclass for building dists
 
 =head1 VERSION
 
-version 5.020
+version 5.021
 
 =head1 ATTRIBUTES
 

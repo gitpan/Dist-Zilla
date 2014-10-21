@@ -2,8 +2,6 @@ use strict;
 use warnings;
 use Test::More 0.88;
 
-use lib 't/lib';
-
 use autodie;
 use Test::DZil;
 use Test::Deep;
@@ -40,16 +38,16 @@ $tzil->build;
 
 my @files = map {; $_->name } @{ $tzil->files };
 
-is_deeply(
-  [ sort @files ],
-  [ sort qw(
+cmp_deeply(
+  \@files,
+  bag(qw(
     META.json
     dist.ini lib/DZT/Sample.pm t/basic.t
     t/smoke-huffer.t
     t/author-huffer.t
     t/release-huffer.t
     xt/blort/huffer.t
-  ) ],
+  )),
   "filenames rewritten by ExtraTests",
 );
 

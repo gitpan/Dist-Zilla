@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ShareDir;
 # ABSTRACT: install a directory's contents as "ShareDir" content
-$Dist::Zilla::Plugin::ShareDir::VERSION = '5.020';
+$Dist::Zilla::Plugin::ShareDir::VERSION = '5.021';
 use Moose;
 
 use namespace::autoclean;
@@ -14,7 +14,7 @@ use Moose::Autobox;
 #pod   [ShareDir]
 #pod   dir = share
 #pod
-#pod   If no C<dir> is provided, the default is F<share>.
+#pod If no C<dir> is provided, the default is F<share>.
 #pod
 #pod =cut
 
@@ -55,7 +55,7 @@ Dist::Zilla::Plugin::ShareDir - install a directory's contents as "ShareDir" con
 
 =head1 VERSION
 
-version 5.020
+version 5.021
 
 =head1 SYNOPSIS
 
@@ -64,7 +64,7 @@ In your F<dist.ini>:
   [ShareDir]
   dir = share
 
-  If no C<dir> is provided, the default is F<share>.
+If no C<dir> is provided, the default is F<share>.
 
 =head1 AUTHOR
 

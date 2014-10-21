@@ -23,7 +23,7 @@ requires "Data::Section" => "0.200002";
 requires "DateTime" => "0.44";
 requires "Digest::MD5" => "0";
 requires "Encode" => "0";
-requires "ExtUtils::Manifest" => "1.54";
+requires "ExtUtils::Manifest" => "1.66";
 requires "File::Copy::Recursive" => "0";
 requires "File::Find::Rule" => "0";
 requires "File::HomeDir" => "0";
@@ -35,11 +35,11 @@ requires "File::Temp" => "0";
 requires "File::pushd" => "0";
 requires "Hash::Merge::Simple" => "0";
 requires "JSON" => "2";
-requires "List::AllUtils" => "0";
 requires "List::MoreUtils" => "0";
-requires "List::Util" => "0";
+requires "List::Util" => "1.33";
 requires "Log::Dispatchouli" => "1.102220";
 requires "Mixin::Linewise::Readers" => "0.100";
+requires "Module::CoreList" => "0";
 requires "Moose" => "0.92";
 requires "Moose::Autobox" => "0.10";
 requires "Moose::Role" => "0";
@@ -51,7 +51,6 @@ requires "MooseX::Types" => "0";
 requires "MooseX::Types::Moose" => "0";
 requires "MooseX::Types::Path::Class" => "0";
 requires "MooseX::Types::Perl" => "0";
-requires "PPI" => "0";
 requires "PPI::Document" => "0";
 requires "Params::Util" => "0";
 requires "Path::Class" => "0.22";
@@ -87,8 +86,10 @@ requires "version" => "0";
 requires "warnings" => "0";
 recommends "Archive::Tar::Wrapper" => "0.15";
 recommends "Term::ReadLine::Gnu" => "0";
+suggests "PPI::XS" => "0";
 
 on 'test' => sub {
+  requires "ExtUtils::Manifest" => "1.66";
   requires "Software::License::None" => "0";
   requires "Test::FailWarnings" => "0";
   requires "Test::Fatal" => "0";
@@ -99,7 +100,7 @@ on 'test' => sub {
 };
 
 on 'configure' => sub {
-  requires "ExtUtils::MakeMaker" => "6.30";
+  requires "ExtUtils::MakeMaker" => "0";
   requires "File::ShareDir::Install" => "0.06";
 };
 

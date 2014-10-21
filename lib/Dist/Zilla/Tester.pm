@@ -1,6 +1,6 @@
 package Dist::Zilla::Tester;
 # ABSTRACT: a testing-enabling stand-in for Dist::Zilla
-$Dist::Zilla::Tester::VERSION = '5.020';
+$Dist::Zilla::Tester::VERSION = '5.021';
 use Moose;
 extends 'Dist::Zilla::Dist::Builder';
 
@@ -39,6 +39,28 @@ sub minter { 'Dist::Zilla::Tester::_Minter' }
     Dist::Zilla::Tester::_Role;
 
   use Moose::Role;
+
+  has tempdir_root => (
+    is => 'rw', isa => 'Str|Undef',
+    writer => '_set_tempdir_root',
+  );
+  has tempdir_obj => (
+    is => 'ro', isa => 'File::Temp::Dir',
+    clearer => '_clear_tempdir_obj',
+    writer => '_set_tempdir_obj',
+  );
+
+  sub DEMOLISH {}
+  around DEMOLISH => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    # File::Temp deletes the directory when it goes out of scope
+    $self->_clear_tempdir_obj;
+
+    rmdir $self->tempdir_root if $self->tempdir_root;
+    return $self->$orig(@_);
+  };
 
   has tempdir => (
     is   => 'ro',
@@ -84,7 +106,7 @@ sub minter { 'Dist::Zilla::Tester::_Minter' }
 
 {
   package Dist::Zilla::Tester::_Builder;
-$Dist::Zilla::Tester::_Builder::VERSION = '5.020';
+$Dist::Zilla::Tester::_Builder::VERSION = '5.021';
 use Moose;
   extends 'Dist::Zilla::Dist::Builder';
   with 'Dist::Zilla::Tester::_Role';
@@ -105,10 +127,11 @@ use Moose;
 
     mkdir $tempdir_root if defined $tempdir_root and not -d $tempdir_root;
 
-    my $tempdir = dir( File::Temp::tempdir(
+    my $tempdir_obj = File::Temp->newdir(
         CLEANUP => 1,
         (defined $tempdir_root ? (DIR => $tempdir_root) : ()),
-    ))->absolute;
+    );
+    my $tempdir = dir($tempdir_obj)->absolute;
 
     my $root = $tempdir->subdir('source');
     $root->mkpath;
@@ -134,8 +157,12 @@ use Moose;
 
     local @INC = map {; ref($_) ? $_ : File::Spec->rel2abs($_) } @INC;
 
+    local $ENV{DZIL_GLOBAL_CONFIG_ROOT} = $tester_arg->{global_config_root};
+
     my $zilla = $self->$orig($arg);
 
+    $zilla->_set_tempdir_root($tempdir_root);
+    $zilla->_set_tempdir_obj($tempdir_obj);
     $zilla->_set_tempdir($tempdir);
 
     return $zilla;
@@ -172,7 +199,7 @@ use Moose;
 
 {
   package Dist::Zilla::Tester::_Minter;
-$Dist::Zilla::Tester::_Minter::VERSION = '5.020';
+$Dist::Zilla::Tester::_Minter::VERSION = '5.021';
 use Moose;
   extends 'Dist::Zilla::Dist::Minter';
   with 'Dist::Zilla::Tester::_Role';
@@ -223,10 +250,11 @@ use Moose;
 
     mkdir $tempdir_root if defined $tempdir_root and not -d $tempdir_root;
 
-    my $tempdir = dir( File::Temp::tempdir(
+    my $tempdir_obj = File::Temp->newdir(
         CLEANUP => 1,
         (defined $tempdir_root ? (DIR => $tempdir_root) : ()),
-    ))->absolute;
+    );
+    my $tempdir = dir($tempdir_obj)->absolute;
 
     local $arg->{chrome} = Dist::Zilla::Chrome::Test->new;
 
@@ -243,6 +271,8 @@ use Moose;
 
     my $zilla = $self->$orig($profile_data, $arg);
 
+    $zilla->_set_tempdir_root($tempdir_root);
+    $zilla->_set_tempdir_obj($tempdir_obj);
     $zilla->_set_tempdir($tempdir);
 
     return $zilla;
@@ -265,7 +295,7 @@ Dist::Zilla::Tester - a testing-enabling stand-in for Dist::Zilla
 
 =head1 VERSION
 
-version 5.020
+version 5.021
 
 =head1 AUTHOR
 

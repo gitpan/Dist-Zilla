@@ -1,6 +1,6 @@
 package Dist::Zilla::Prereqs;
 # ABSTRACT: the prerequisites of a Dist::Zilla distribution
-$Dist::Zilla::Prereqs::VERSION = '5.020';
+$Dist::Zilla::Prereqs::VERSION = '5.021';
 use Moose;
 use Moose::Autobox;
 use MooseX::Types::Moose qw(Bool HashRef);
@@ -124,6 +124,11 @@ sub sync_runtime_build_test_requires {
     }
   }
 
+  # and add configure requires for other consumers expecting this to be a full
+  # merge across all phases required by users
+  $self->merged_requires->add_requirements(
+      $self->requirements_for('configure', 'requires'));
+
   return;
 }
 
@@ -142,7 +147,7 @@ Dist::Zilla::Prereqs - the prerequisites of a Dist::Zilla distribution
 
 =head1 VERSION
 
-version 5.020
+version 5.021
 
 =head1 DESCRIPTION
 

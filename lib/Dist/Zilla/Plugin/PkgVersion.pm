@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PkgVersion;
 # ABSTRACT: add a $VERSION to your packages
-$Dist::Zilla::Plugin::PkgVersion::VERSION = '5.020';
+$Dist::Zilla::Plugin::PkgVersion::VERSION = '5.021';
 use Moose;
 with(
   'Dist::Zilla::Role::FileMunger',
@@ -9,9 +9,6 @@ with(
   },
   'Dist::Zilla::Role::PPI',
 );
-
-use PPI;
-use MooseX::Types::Perl qw(LaxVersionStr);
 
 use namespace::autoclean;
 
@@ -106,8 +103,9 @@ sub munge_perl {
 
   my $version = $self->zilla->version;
 
+  require version;
   Carp::croak("invalid characters in version")
-    unless LaxVersionStr->check($version);
+    unless version::is_lax($version);
 
   my $document = $self->ppi_document_for_file($file);
 
@@ -239,7 +237,7 @@ Dist::Zilla::Plugin::PkgVersion - add a $VERSION to your packages
 
 =head1 VERSION
 
-version 5.020
+version 5.021
 
 =head1 SYNOPSIS
 

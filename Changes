@@ -1,5 +1,27 @@
 Revision history for Dist-Zilla
 
+5.021     2014-10-20 22:43:52-04:00 America/New_York
+        - improve authordeps' ability to cope with version requirements and
+          non-default plugin names
+        - a few improvements to help given by "dzil help COMMAND"
+        - fixes a situation where exclusion-regexp-building in GatherDir
+          could mangle the given regexps
+        - now properly merging distmeta fragments together without loss, using
+          new CPAN::Meta::Merge (Karen Etheridge)
+        - [PkgVersion] now properly skips over $VERSION assignments in
+          comments (Karen Etheridge, github #322)
+        - the building of manpages is supressed in [MakeMaker]-driven builds
+        - lazily load quite a few more modules
+        - avoid using user's ~/.dzil even more
+        - while building dists for testing, don't bother building man pages
+        - try harder to notice minimum required perl version
+        - try harder to delete temporarily directory at the end of testing
+        - don't treat $VERSION assignments in comments as $VERSION assignments
+        - listdeps now takes --omit-core to skip core modules
+        - don't try to use terminal encoding on locale-free systems
+        - suggest the use of PPI::XS
+        - speed up and debug behavior of GatherDir
+
 5.020     2014-07-28 20:56:25-04:00 America/New_York
         - the default required version for ExtUtils::MakeMaker in [MakeMaker]
           has been removed

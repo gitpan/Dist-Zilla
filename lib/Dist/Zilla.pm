@@ -1,6 +1,6 @@
 package Dist::Zilla;
 # ABSTRACT: distribution builder; installer not included!
-$Dist::Zilla::VERSION = '5.020';
+$Dist::Zilla::VERSION = '5.021';
 use Moose 0.92; # role composition fixes
 with 'Dist::Zilla::Role::ConfigDumper';
 
@@ -299,7 +299,7 @@ sub _build_license {
       $self->log_fatal(
         "no license data in config, no %Rights stash,",
         "couldn't make a good guess at license from Pod; giving up. ",
-        "Perhaphs you need set global config file (dzil setup)?"
+        "Perhaps you need to set up a global config file (dzil setup)?"
       );
     }
 
@@ -779,7 +779,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 5.020
+version 5.021
 
 =head1 DESCRIPTION
 

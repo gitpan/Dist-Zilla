@@ -1,6 +1,6 @@
 package Dist::Zilla::PluginBundle::Filter;
 # ABSTRACT: use another bundle, with some plugins removed
-$Dist::Zilla::PluginBundle::Filter::VERSION = '5.020';
+$Dist::Zilla::PluginBundle::Filter::VERSION = '5.021';
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::PluginBundle';
@@ -27,6 +27,9 @@ use Dist::Zilla::Util;
 #pod but removes all the entries whose package is given in the C<-remove> attributes.
 #pod
 #pod Options not prefixed with C<-> will be passed to the bundle to be filtered.
+#pod
+#pod B<NOTE:> When you filter a bundle you B<SHOULD NOT> include it directly in
+#pod your C<dist.ini> file. This plugin will take care of including it for you.
 #pod
 #pod =head1 SEE ALSO
 #pod
@@ -102,7 +105,7 @@ Dist::Zilla::PluginBundle::Filter - use another bundle, with some plugins remove
 
 =head1 VERSION
 
-version 5.020
+version 5.021
 
 =head1 SYNOPSIS
 
@@ -121,6 +124,9 @@ includes all the configuration for the bundle named in the C<-bundle> attribute,
 but removes all the entries whose package is given in the C<-remove> attributes.
 
 Options not prefixed with C<-> will be passed to the bundle to be filtered.
+
+B<NOTE:> When you filter a bundle you B<SHOULD NOT> include it directly in
+your C<dist.ini> file. This plugin will take care of including it for you.
 
 =head1 SEE ALSO
 

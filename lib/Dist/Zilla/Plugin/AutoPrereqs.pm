@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoPrereqs;
 # ABSTRACT: automatically extract prereqs from your modules
-$Dist::Zilla::Plugin::AutoPrereqs::VERSION = '5.020';
+$Dist::Zilla::Plugin::AutoPrereqs::VERSION = '5.021';
 use Moose;
 with(
   'Dist::Zilla::Role::PrereqSource',
@@ -42,11 +42,7 @@ with(
 
 use namespace::autoclean;
 
-use List::AllUtils 'uniq';
 use Moose::Autobox;
-use Perl::PrereqScanner 1.016; # don't skip "lib"
-use CPAN::Meta::Requirements;
-use version;
 
 #pod =head1 SYNOPSIS
 #pod
@@ -118,6 +114,11 @@ has skips => (
 sub register_prereqs {
   my $self  = shift;
 
+  require Perl::PrereqScanner;
+  Perl::PrereqScanner->VERSION('1.016'); # don't skip "lib"
+  require CPAN::Meta::Requirements;
+  require List::MoreUtils;  # uniq
+
   my @modules;
 
   my $scanner = Perl::PrereqScanner->new(
@@ -157,7 +158,7 @@ sub register_prereqs {
       } else {
         $this_thing[0] =~ s{^lib/}{};
       }
-      @this_thing = uniq @this_thing;
+      @this_thing = List::MoreUtils::uniq @this_thing;
       s{\.pm$}{} for @this_thing;
       s{/}{::}g for @this_thing;
       push @modules, @this_thing;
@@ -213,7 +214,7 @@ Dist::Zilla::Plugin::AutoPrereqs - automatically extract prereqs from your modul
 
 =head1 VERSION
 
-version 5.020
+version 5.021
 
 =head1 SYNOPSIS
 

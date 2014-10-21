@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::setup;
 # ABSTRACT: set up a basic global config file
-$Dist::Zilla::App::Command::setup::VERSION = '5.020';
+$Dist::Zilla::App::Command::setup::VERSION = '5.021';
 use Dist::Zilla::App -command;
 
 #pod =head1 SYNOPSIS
@@ -22,6 +22,11 @@ use Dist::Zilla::App -command;
 use autodie;
 
 sub abstract { 'set up a basic global config file' }
+
+sub description {
+  "This command will run through a short interactive process to set up\n" .
+  "a basic Dist::Zilla configuration in ~/.dzil/config.ini"
+}
 
 sub validate_args {
   my ($self, $opt, $args) = @_;
@@ -162,7 +167,7 @@ Dist::Zilla::App::Command::setup - set up a basic global config file
 
 =head1 VERSION
 
-version 5.020
+version 5.021
 
 =head1 SYNOPSIS
 

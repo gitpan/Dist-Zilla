@@ -1,8 +1,7 @@
 use strict;
 use warnings;
 use Test::More 0.88;
-
-use lib 't/lib';
+use Test::Deep;
 
 use Test::DZil;
 
@@ -21,6 +20,7 @@ use Test::DZil;
           [ Prereqs => BuildRequires => { 'Builder::Bob' => '9.901' } ],
           [ Prereqs => TestRequires  => { 'Test::Deet'   => '7',
                                           perl           => '5.008' } ],
+          [ Prereqs => ConfigureRequires => { perl => '5.010' } ],
         ),
       },
     },
@@ -37,6 +37,9 @@ use Test::DZil;
     VERSION  => '0.001',
     AUTHOR   => 'E. Xavier Ample <example@example.org>',
     LICENSE  => 'perl',
+    MIN_PERL_VERSION => '5.010',
+    EXE_FILES => [],
+    test => { TESTS => 't/*.t' },
 
     PREREQ_PM          => {
       'Foo::Bar' => '1.20',
@@ -52,15 +55,15 @@ use Test::DZil;
     CONFIGURE_REQUIRES => {
       'ExtUtils::MakeMaker' => '0'
     },
+    EXE_FILES => [],
+    test => { TESTS => 't/*.t' },
   );
 
-  for my $key (sort keys %want) {
-    is_deeply(
-      $makemaker->__write_makefile_args->{ $key },
-      $want{ $key },
-      "correct value set for $key",
-    );
-  }
+  cmp_deeply(
+    $makemaker->__write_makefile_args,
+    \%want,
+    'correct makemaker args generated',
+  );
 }
 
 {
@@ -72,6 +75,7 @@ use Test::DZil;
           'GatherDir',
           'MakeMaker',
           [ Prereqs => { perl => '5.8.1' } ],
+          [ Prereqs => ConfigureRequires => { 'Builder::Bob' => 0 } ],
         ),
       },
     },
@@ -82,6 +86,9 @@ use Test::DZil;
   my $content = $tzil->slurp_file('build/Makefile.PL');
 
   like($content, qr/^use 5\.008001;\s*$/m, "normalized the perl version needed");
+
+  $content =~ m'^my %FallbackPrereqs = \(\n([^;]+)^\);$'mg;
+  like($1, qr'"Builder::Bob" => ', 'configure-requires prereqs made it into %FallbackPrereqs');
 }
 
 done_testing;

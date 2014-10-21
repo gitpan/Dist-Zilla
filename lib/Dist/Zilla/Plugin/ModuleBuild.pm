@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ModuleBuild;
 # ABSTRACT: build a Build.PL that uses Module::Build
-$Dist::Zilla::Plugin::ModuleBuild::VERSION = '5.020';
+$Dist::Zilla::Plugin::ModuleBuild::VERSION = '5.021';
 use Moose;
 use Moose::Autobox;
 with (
@@ -168,7 +168,7 @@ sub fallback_build_requires {
 }
 
 sub setup_installer {
-  my ($self, $arg) = @_;
+  my ($self) = @_;
 
   $self->log_fatal("can't build Build.PL; license has no known META.yml value")
     unless $self->zilla->license->meta_yml_name;
@@ -235,7 +235,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 5.020
+version 5.021
 
 =head1 DESCRIPTION
 
