@@ -4,6 +4,7 @@ requires "App::Cmd::Tester" => "0.306";
 requires "App::Cmd::Tester::CaptureExternal" => "0";
 requires "Archive::Tar" => "0";
 requires "CPAN::Meta::Converter" => "2.101550";
+requires "CPAN::Meta::Merge" => "0";
 requires "CPAN::Meta::Prereqs" => "2.120630";
 requires "CPAN::Meta::Requirements" => "2.121";
 requires "CPAN::Meta::Validator" => "2.101550";
@@ -33,7 +34,6 @@ requires "File::ShareDir::Install" => "0.03";
 requires "File::Spec" => "0";
 requires "File::Temp" => "0";
 requires "File::pushd" => "0";
-requires "Hash::Merge::Simple" => "0";
 requires "JSON" => "2";
 requires "List::MoreUtils" => "0";
 requires "List::Util" => "1.33";
@@ -89,14 +89,21 @@ recommends "Term::ReadLine::Gnu" => "0";
 suggests "PPI::XS" => "0";
 
 on 'test' => sub {
+  requires "ExtUtils::MakeMaker" => "0";
   requires "ExtUtils::Manifest" => "1.66";
+  requires "File::Spec" => "0";
   requires "Software::License::None" => "0";
   requires "Test::FailWarnings" => "0";
   requires "Test::Fatal" => "0";
   requires "Test::File::ShareDir" => "0";
   requires "Test::More" => "0.96";
+  requires "if" => "0";
   requires "lib" => "0";
   requires "utf8" => "0";
+};
+
+on 'test' => sub {
+  recommends "CPAN::Meta" => "2.120900";
 };
 
 on 'configure' => sub {
@@ -106,5 +113,4 @@ on 'configure' => sub {
 
 on 'develop' => sub {
   requires "Test::Pod" => "1.41";
-  requires "version" => "0.9901";
 };

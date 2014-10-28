@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Util;
 # ABSTRACT: random snippets of code that Dist::Zilla wants
-$Dist::Zilla::Util::VERSION = '5.021';
+$Dist::Zilla::Util::VERSION = '5.022';
 use Carp ();
 use Encode ();
 use String::RewritePrefix 0.002; # better string context behavior
@@ -24,7 +24,7 @@ use String::RewritePrefix 0.002; # better string context behavior
     my ($self, $event) = @_;
     return if $self->{abstract};
     return $self->{abstract} = $1
-      if $event->{content}=~ /^\s*#+\s*ABSTRACT:\s*(.+)$/m;
+      if $event->{content}=~ /^\s*#+\s*ABSTRACT:[ \t]*(\S.*)$/m;
     return;
   }
   sub handle_event {
@@ -149,7 +149,7 @@ Dist::Zilla::Util - random snippets of code that Dist::Zilla wants
 
 =head1 VERSION
 
-version 5.021
+version 5.022
 
 =head1 METHODS
 

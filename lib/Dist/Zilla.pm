@@ -1,6 +1,6 @@
 package Dist::Zilla;
 # ABSTRACT: distribution builder; installer not included!
-$Dist::Zilla::VERSION = '5.021';
+$Dist::Zilla::VERSION = '5.022';
 use Moose 0.92; # role composition fixes
 with 'Dist::Zilla::Role::ConfigDumper';
 
@@ -496,6 +496,8 @@ has distmeta => (
 sub _build_distmeta {
   my ($self) = @_;
 
+  require CPAN::Meta::Merge;
+  my $meta_merge = CPAN::Meta::Merge->new(default_version => 2);
   my $meta = {
     'meta-spec' => {
       version => 2,
@@ -518,15 +520,9 @@ sub _build_distmeta {
                     . (defined $self->VERSION ? $self->VERSION : '(undef)')
   };
 
-  require Hash::Merge::Simple;
-  my $dynamic;
   for ($self->plugins_with(-MetaProvider)->flatten) {
-    my $plugin_meta = $_->metadata;
-    $meta = Hash::Merge::Simple::merge($meta, $plugin_meta);
-    $dynamic = 1 if $plugin_meta->{dynamic_config};
+    $meta = $meta_merge->merge($meta, $_->metadata);
   }
-
-  $meta->{dynamic_config} = 1 if $dynamic;
 
   return $meta;
 }
@@ -779,7 +775,7 @@ Dist::Zilla - distribution builder; installer not included!
 
 =head1 VERSION
 
-version 5.021
+version 5.022
 
 =head1 DESCRIPTION
 

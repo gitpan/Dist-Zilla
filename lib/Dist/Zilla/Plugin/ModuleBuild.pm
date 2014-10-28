@@ -1,11 +1,12 @@
 package Dist::Zilla::Plugin::ModuleBuild;
 # ABSTRACT: build a Build.PL that uses Module::Build
-$Dist::Zilla::Plugin::ModuleBuild::VERSION = '5.021';
+$Dist::Zilla::Plugin::ModuleBuild::VERSION = '5.022';
 use Moose;
 use Moose::Autobox;
 with (
   'Dist::Zilla::Role::BuildPL',
   'Dist::Zilla::Role::PrereqSource',
+  'Dist::Zilla::Role::FileGatherer',
   'Dist::Zilla::Role::TextTemplate',
 );
 
@@ -13,6 +14,7 @@ use namespace::autoclean;
 
 use CPAN::Meta::Requirements 2.121; # requirements_for_module
 use Dist::Zilla::File::InMemory;
+use List::Util 'first';
 use Data::Dumper;
 
 #pod =head1 DESCRIPTION
@@ -167,6 +169,20 @@ sub fallback_build_requires {
   return $self->_dump_as( $merged->as_string_hash, '*fallback_build_requires' );
 }
 
+sub gather_files {
+  my ($self) = @_;
+
+  require Dist::Zilla::File::InMemory;
+
+  my $file = Dist::Zilla::File::InMemory->new({
+    name    => 'Build.PL',
+    content => $template,   # template evaluated later
+  });
+
+  $self->add_file($file);
+  return;
+}
+
 sub setup_installer {
   my ($self) = @_;
 
@@ -181,8 +197,11 @@ sub setup_installer {
 
   my $fallback_build_requires = $self->fallback_build_requires;
 
+  my $file = first { $_->name eq 'Build.PL' } @{$self->zilla->files};
+
+  $self->log_debug([ 'updating contents of Build.PL in memory' ]);
   my $content = $self->fill_in_string(
-    $template,
+    $file->content,
     {
       plugin                  => \$self,
       module_build_args       => \$dumped_args,
@@ -192,12 +211,8 @@ sub setup_installer {
     },
   );
 
-  my $file = Dist::Zilla::File::InMemory->new({
-    name    => 'Build.PL',
-    content => $content,
-  });
+  $file->content($content);
 
-  $self->add_file($file);
   return;
 }
 
@@ -235,7 +250,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 5.021
+version 5.022
 
 =head1 DESCRIPTION
 

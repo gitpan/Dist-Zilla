@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::PPI;
 # ABSTRACT: a role for plugins which use PPI
-$Dist::Zilla::Role::PPI::VERSION = '5.021';
+$Dist::Zilla::Role::PPI::VERSION = '5.022';
 use Moose::Role;
 
 use Moose::Util::TypeConstraints;
@@ -76,24 +76,14 @@ sub save_ppi_document_to_file {
 #pod =cut
 
 sub document_assigns_to_variable {
-  my ($self, $orig_document, $variable) = @_;
-
-  # Clone because ppi_document_for_file which the caller is likely to
-  # have retrieved his document from caches aggressively, and we'd
-  # like to prune POD and comments.
-  #
-  # It would be pretty stupid of us to say we found a variable in some
-  # comment or in the POD, which we might do because if the POD is
-  # preceded by __END__ or __DATA__ it'll be a PPI::Statement. So
-  # prune PPI::Statement::* things that we don't want, note that we
-  # don't have to prune e.g. PPI::Token::Pod because of the isa check
-  # in the finder below.
-  my $document = dclone($orig_document);
-  $document->prune($_) for qw(PPI::Statement::End PPI::Statement::Data);
+  my ($self, $document, $variable) = @_;
 
   my $finder = sub {
     my $node = $_[1];
-    return 1 if $node->isa('PPI::Statement') && $node->content =~ /^[^#]*(?<!\\)\Q$variable\E\s*=/sm;
+    return 1 if $node->isa('PPI::Statement')
+      && $node->content =~ /^[^#]*(?<!\\)\Q$variable\E\s*=/sm
+      && !$node->isa('PPI::Statement::End')
+      && !$node->isa('PPI::Statement::Data');
     return 0;
   };
 
@@ -117,7 +107,7 @@ Dist::Zilla::Role::PPI - a role for plugins which use PPI
 
 =head1 VERSION
 
-version 5.021
+version 5.022
 
 =head1 DESCRIPTION
 
