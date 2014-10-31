@@ -1,12 +1,11 @@
 package Dist::Zilla::Plugin::FinderCode;
 # ABSTRACT: a callback-based FileFinder plugin
-$Dist::Zilla::Plugin::FinderCode::VERSION = '5.022';
+$Dist::Zilla::Plugin::FinderCode::VERSION = '5.023';
 use Moose;
 with 'Dist::Zilla::Role::FileFinder';
 
 use namespace::autoclean;
 
-use Moose::Autobox;
 use Moose::Util::TypeConstraints;
 
 has code => (
@@ -32,7 +31,7 @@ sub find_files {
 sub _find_via_grep {
   my ($self) = @_;
 
-  my @files = grep { $self->code->($_, $self) } $self->zilla->files->flatten;
+  my @files = grep { $self->code->($_, $self) } @{ $self->zilla->files };
   return \@files;
 }
 
@@ -58,7 +57,7 @@ Dist::Zilla::Plugin::FinderCode - a callback-based FileFinder plugin
 
 =head1 VERSION
 
-version 5.022
+version 5.023
 
 =head1 AUTHOR
 

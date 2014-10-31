@@ -1,6 +1,6 @@
 package Dist::Zilla::Tester;
 # ABSTRACT: a testing-enabling stand-in for Dist::Zilla
-$Dist::Zilla::Tester::VERSION = '5.022';
+$Dist::Zilla::Tester::VERSION = '5.023';
 use Moose;
 extends 'Dist::Zilla::Dist::Builder';
 
@@ -106,7 +106,7 @@ sub minter { 'Dist::Zilla::Tester::_Minter' }
 
 {
   package Dist::Zilla::Tester::_Builder;
-$Dist::Zilla::Tester::_Builder::VERSION = '5.022';
+$Dist::Zilla::Tester::_Builder::VERSION = '5.023';
 use Moose;
   extends 'Dist::Zilla::Dist::Builder';
   with 'Dist::Zilla::Tester::_Role';
@@ -146,7 +146,10 @@ use Moose;
 
     if (my $files = $tester_arg->{add_files}) {
       while (my ($name, $content) = each %$files) {
-        my $fn = $tempdir->file($name);
+        die "File name '$name' does not seem to be legal on the current OS"
+          if !path_looks_legal($name);
+        my $unix_name = Path::Class::File->new_foreign("Unix", $name);
+        my $fn = $tempdir->file($unix_name);
         $fn->dir->mkpath;
         Path::Tiny::path($fn)->spew_utf8($content);
       }
@@ -195,11 +198,20 @@ use Moose;
   };
 
   no Moose;
+
+  sub path_looks_legal {
+    return 1 if $^O eq "linux";
+    my ($path) = @_;
+    my $unix_path = Path::Class::File->new_foreign("Unix", $path)->stringify;
+    return 0 if $path ne $unix_path;
+    my $round_tripped = file($path)->as_foreign("Unix")->stringify;
+    return $path eq $round_tripped;
+  }
 }
 
 {
   package Dist::Zilla::Tester::_Minter;
-$Dist::Zilla::Tester::_Minter::VERSION = '5.022';
+$Dist::Zilla::Tester::_Minter::VERSION = '5.023';
 use Moose;
   extends 'Dist::Zilla::Dist::Minter';
   with 'Dist::Zilla::Tester::_Role';
@@ -295,7 +307,7 @@ Dist::Zilla::Tester - a testing-enabling stand-in for Dist::Zilla
 
 =head1 VERSION
 
-version 5.022
+version 5.023
 
 =head1 AUTHOR
 

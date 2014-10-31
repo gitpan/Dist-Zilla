@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::FileGatherer;
 # ABSTRACT: something that gathers files into the distribution
-$Dist::Zilla::Role::FileGatherer::VERSION = '5.022';
+$Dist::Zilla::Role::FileGatherer::VERSION = '5.023';
 use Moose::Role;
 with qw/Dist::Zilla::Role::Plugin Dist::Zilla::Role::FileInjector/;
 
@@ -36,7 +36,7 @@ Dist::Zilla::Role::FileGatherer - something that gathers files into the distribu
 
 =head1 VERSION
 
-version 5.022
+version 5.023
 
 =head1 DESCRIPTION
 

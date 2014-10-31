@@ -1,14 +1,12 @@
 package Dist::Zilla::MVP::Section;
 # ABSTRACT: a standard section in Dist::Zilla's configuration sequence
-$Dist::Zilla::MVP::Section::VERSION = '5.022';
+$Dist::Zilla::MVP::Section::VERSION = '5.023';
 use Moose;
 extends 'Config::MVP::Section';
 
 use namespace::autoclean;
 
 use Config::MVP::Section 2.200002; # for not-installed error
-
-use Moose::Autobox;
 
 after finalize => sub {
   my ($self) = @_;
@@ -51,7 +49,7 @@ Dist::Zilla::MVP::Section - a standard section in Dist::Zilla's configuration se
 
 =head1 VERSION
 
-version 5.022
+version 5.023
 
 =head1 AUTHOR
 

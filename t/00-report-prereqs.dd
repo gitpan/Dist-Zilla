@@ -59,7 +59,7 @@ do { my $x = {
                                       'Mixin::Linewise::Readers' => '0.100',
                                       'Module::CoreList' => '0',
                                       'Moose' => '0.92',
-                                      'Moose::Autobox' => '0.10',
+                                      'Moose::Autobox' => '0.09',
                                       'Moose::Role' => '0',
                                       'Moose::Util::TypeConstraints' => '0',
                                       'MooseX::LazyRequire' => '0',
@@ -112,6 +112,8 @@ do { my $x = {
                                      'CPAN::Meta' => '2.120900'
                                    },
                    'requires' => {
+                                   'CPAN::Meta::Check' => '0.007',
+                                   'CPAN::Meta::Requirements' => '2.121',
                                    'ExtUtils::MakeMaker' => '0',
                                    'ExtUtils::Manifest' => '1.66',
                                    'File::Spec' => '0',

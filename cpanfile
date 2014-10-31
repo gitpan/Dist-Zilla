@@ -41,7 +41,7 @@ requires "Log::Dispatchouli" => "1.102220";
 requires "Mixin::Linewise::Readers" => "0.100";
 requires "Module::CoreList" => "0";
 requires "Moose" => "0.92";
-requires "Moose::Autobox" => "0.10";
+requires "Moose::Autobox" => "0.09";
 requires "Moose::Role" => "0";
 requires "Moose::Util::TypeConstraints" => "0";
 requires "MooseX::LazyRequire" => "0";
@@ -89,6 +89,8 @@ recommends "Term::ReadLine::Gnu" => "0";
 suggests "PPI::XS" => "0";
 
 on 'test' => sub {
+  requires "CPAN::Meta::Check" => "0.007";
+  requires "CPAN::Meta::Requirements" => "2.121";
   requires "ExtUtils::MakeMaker" => "0";
   requires "ExtUtils::Manifest" => "1.66";
   requires "File::Spec" => "0";
