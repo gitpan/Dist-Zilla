@@ -99,7 +99,6 @@ on 'test' => sub {
   requires "Test::Fatal" => "0";
   requires "Test::File::ShareDir" => "0";
   requires "Test::More" => "0.96";
-  requires "if" => "0";
   requires "lib" => "0";
   requires "utf8" => "0";
 };

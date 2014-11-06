@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::setup;
 # ABSTRACT: set up a basic global config file
-$Dist::Zilla::App::Command::setup::VERSION = '5.023';
+$Dist::Zilla::App::Command::setup::VERSION = '5.024';
 use Dist::Zilla::App -command;
 
 #pod =head1 SYNOPSIS
@@ -39,6 +39,7 @@ sub execute {
 
   my $chrome = $self->app->chrome;
 
+  require Dist::Zilla::Util;
   my $config_root = Dist::Zilla::Util->_global_config_root;
 
   if (
@@ -167,7 +168,7 @@ Dist::Zilla::App::Command::setup - set up a basic global config file
 
 =head1 VERSION
 
-version 5.023
+version 5.024
 
 =head1 SYNOPSIS
 

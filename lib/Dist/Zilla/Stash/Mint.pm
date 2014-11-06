@@ -1,26 +1,23 @@
-package Dist::Zilla::Stash::Rights;
-# ABSTRACT: a stash of your default licensing terms
-$Dist::Zilla::Stash::Rights::VERSION = '5.024';
+package Dist::Zilla::Stash::Mint;
+# ABSTRACT: a stash of your default minting provider/profile
+$Dist::Zilla::Stash::Mint::VERSION = '5.024';
 use Moose;
 with 'Dist::Zilla::Role::Stash';
 
 use namespace::autoclean;
 
-has license_class => (
+has provider => (
   is  => 'ro',
   isa => 'Str',
-  required => 1,
+  required => 0,
+  default => 'Default',
 );
 
-has copyright_holder => (
+has profile => (
   is  => 'ro',
   isa => 'Str',
-  required => 1,
-);
-
-has copyright_year => (
-  is  => 'ro',
-  isa => 'Int',
+  required => 0,
+  default => 'default',
 );
 
 __PACKAGE__->meta->make_immutable;
@@ -34,7 +31,7 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Stash::Rights - a stash of your default licensing terms
+Dist::Zilla::Stash::Mint - a stash of your default minting provider/profile
 
 =head1 VERSION
 

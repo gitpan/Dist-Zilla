@@ -1,6 +1,6 @@
 package Dist::Zilla::MVP::RootSection;
 # ABSTRACT: a standard section in Dist::Zilla's configuration sequence
-$Dist::Zilla::MVP::RootSection::VERSION = '5.023';
+$Dist::Zilla::MVP::RootSection::VERSION = '5.024';
 use Moose;
 extends 'Config::MVP::Section';
 
@@ -77,7 +77,7 @@ Dist::Zilla::MVP::RootSection - a standard section in Dist::Zilla's configuratio
 
 =head1 VERSION
 
-version 5.023
+version 5.024
 
 =head1 DESCRIPTION
 
