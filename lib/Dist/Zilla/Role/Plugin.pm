@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::Plugin;
 # ABSTRACT: something that gets plugged in to Dist::Zilla
-$Dist::Zilla::Role::Plugin::VERSION = '5.024';
+$Dist::Zilla::Role::Plugin::VERSION = '5.025';
 use Moose::Role;
 with 'Dist::Zilla::Role::ConfigDumper';
 
@@ -103,7 +103,7 @@ Dist::Zilla::Role::Plugin - something that gets plugged in to Dist::Zilla
 
 =head1 VERSION
 
-version 5.024
+version 5.025
 
 =head1 DESCRIPTION
 

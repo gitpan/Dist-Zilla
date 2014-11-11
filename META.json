@@ -161,7 +161,7 @@
       },
       "x_mailing_list" : "http://www.listbox.com/subscribe/?list_id=139292"
    },
-   "version" : "5.024",
+   "version" : "5.025",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.021005"
@@ -197,7 +197,7 @@
          {
             "class" : "Dist::Zilla::Plugin::CheckExtraTests",
             "name" : "@Filter/CheckExtraTests",
-            "version" : "0.023"
+            "version" : "0.024"
          },
          {
             "class" : "Dist::Zilla::Plugin::PromptIfStale",
@@ -213,7 +213,7 @@
                }
             },
             "name" : "@Filter/RJBS-Outdated",
-            "version" : "0.028"
+            "version" : "0.029"
          },
          {
             "class" : "Dist::Zilla::Plugin::PromptIfStale",
@@ -227,7 +227,7 @@
                }
             },
             "name" : "@Filter/CPAN-Outdated",
-            "version" : "0.028"
+            "version" : "0.029"
          },
          {
             "class" : "Dist::Zilla::Plugin::PruneCruft",
@@ -337,7 +337,7 @@
          {
             "class" : "Dist::Zilla::Plugin::Test::ChangesHasContent",
             "name" : "@Filter/Test::ChangesHasContent",
-            "version" : "0.006"
+            "version" : "0.007"
          },
          {
             "class" : "Dist::Zilla::Plugin::PodSyntaxTests",
@@ -523,7 +523,7 @@
                "Dist::Zilla::Plugin::Git::Tag" : {
                   "branch" : null,
                   "signed" : 0,
-                  "tag" : "5.024",
+                  "tag" : "5.025",
                   "tag_format" : "%v",
                   "tag_message" : "v%v",
                   "time_zone" : "local"

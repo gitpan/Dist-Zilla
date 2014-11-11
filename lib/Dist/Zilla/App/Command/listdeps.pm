@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::listdeps;
 # ABSTRACT: print your distribution's prerequisites
-$Dist::Zilla::App::Command::listdeps::VERSION = '5.024';
+$Dist::Zilla::App::Command::listdeps::VERSION = '5.025';
 use Dist::Zilla::App -command;
 
 #pod =head1 SYNOPSIS
@@ -168,7 +168,7 @@ Dist::Zilla::App::Command::listdeps - print your distribution's prerequisites
 
 =head1 VERSION
 
-version 5.024
+version 5.025
 
 =head1 SYNOPSIS
 

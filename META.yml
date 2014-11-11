@@ -124,7 +124,7 @@ resources:
   bugtracker: https://github.com/rjbs/Dist-Zilla/issues
   homepage: https://github.com/rjbs/Dist-Zilla
   repository: https://github.com/rjbs/Dist-Zilla.git
-version: '5.024'
+version: '5.025'
 x_Dist_Zilla:
   perl:
     version: '5.021005'
@@ -153,7 +153,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::CheckExtraTests
       name: '@Filter/CheckExtraTests'
-      version: '0.023'
+      version: '0.024'
     -
       class: Dist::Zilla::Plugin::PromptIfStale
       config:
@@ -165,7 +165,7 @@ x_Dist_Zilla:
           phase: build
           skip: []
       name: '@Filter/RJBS-Outdated'
-      version: '0.028'
+      version: '0.029'
     -
       class: Dist::Zilla::Plugin::PromptIfStale
       config:
@@ -176,7 +176,7 @@ x_Dist_Zilla:
           phase: release
           skip: []
       name: '@Filter/CPAN-Outdated'
-      version: '0.028'
+      version: '0.029'
     -
       class: Dist::Zilla::Plugin::PruneCruft
       name: '@Filter/@Filter/PruneCruft'
@@ -262,7 +262,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Test::ChangesHasContent
       name: '@Filter/Test::ChangesHasContent'
-      version: '0.006'
+      version: '0.007'
     -
       class: Dist::Zilla::Plugin::PodSyntaxTests
       name: '@Filter/PodSyntaxTests'
@@ -405,7 +405,7 @@ x_Dist_Zilla:
         Dist::Zilla::Plugin::Git::Tag:
           branch: ~
           signed: 0
-          tag: '5.024'
+          tag: '5.025'
           tag_format: '%v'
           tag_message: v%v
           time_zone: local

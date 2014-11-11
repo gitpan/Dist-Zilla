@@ -1,6 +1,6 @@
 package Dist::Zilla::Stash::PAUSE;
 # ABSTRACT: a stash of your PAUSE credentials
-$Dist::Zilla::Stash::PAUSE::VERSION = '5.024';
+$Dist::Zilla::Stash::PAUSE::VERSION = '5.025';
 use Moose;
 
 use namespace::autoclean;
@@ -44,7 +44,7 @@ Dist::Zilla::Stash::PAUSE - a stash of your PAUSE credentials
 
 =head1 VERSION
 
-version 5.024
+version 5.025
 
 =head1 OVERVIEW
 
