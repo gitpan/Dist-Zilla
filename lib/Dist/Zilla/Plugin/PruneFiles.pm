@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PruneFiles;
 # ABSTRACT: prune arbitrary files from the dist
-$Dist::Zilla::Plugin::PruneFiles::VERSION = '5.026';
+$Dist::Zilla::Plugin::PruneFiles::VERSION = '5.027';
 use Moose;
 with 'Dist::Zilla::Role::FilePruner';
 
@@ -101,7 +101,7 @@ Dist::Zilla::Plugin::PruneFiles - prune arbitrary files from the dist
 
 =head1 VERSION
 
-version 5.026
+version 5.027
 
 =head1 SYNOPSIS
 

@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::build;
 # ABSTRACT: build your dist
-$Dist::Zilla::App::Command::build::VERSION = '5.026';
+$Dist::Zilla::App::Command::build::VERSION = '5.027';
 use Dist::Zilla::App -command;
 
 #pod =head1 SYNOPSIS
@@ -83,7 +83,7 @@ Dist::Zilla::App::Command::build - build your dist
 
 =head1 VERSION
 
-version 5.026
+version 5.027
 
 =head1 SYNOPSIS
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::ModuleBuild;
 # ABSTRACT: build a Build.PL that uses Module::Build
-$Dist::Zilla::Plugin::ModuleBuild::VERSION = '5.026';
+$Dist::Zilla::Plugin::ModuleBuild::VERSION = '5.027';
 use Moose;
 with (
   'Dist::Zilla::Role::BuildPL',
@@ -249,7 +249,7 @@ Dist::Zilla::Plugin::ModuleBuild - build a Build.PL that uses Module::Build
 
 =head1 VERSION
 
-version 5.026
+version 5.027
 
 =head1 DESCRIPTION
 

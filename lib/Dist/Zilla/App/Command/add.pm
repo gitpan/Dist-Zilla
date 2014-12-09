@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::add;
 # ABSTRACT: add a module to a dist
-$Dist::Zilla::App::Command::add::VERSION = '5.026';
+$Dist::Zilla::App::Command::add::VERSION = '5.027';
 use Dist::Zilla::App -command;
 
 #pod =head1 SYNOPSIS
@@ -90,7 +90,7 @@ Dist::Zilla::App::Command::add - add a module to a dist
 
 =head1 VERSION
 
-version 5.026
+version 5.027
 
 =head1 SYNOPSIS
 
