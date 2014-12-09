@@ -1,8 +1,7 @@
 package Dist::Zilla::Plugin::PruneFiles;
 # ABSTRACT: prune arbitrary files from the dist
-$Dist::Zilla::Plugin::PruneFiles::VERSION = '5.025';
+$Dist::Zilla::Plugin::PruneFiles::VERSION = '5.026';
 use Moose;
-use Moose::Autobox;
 with 'Dist::Zilla::Role::FilePruner';
 
 use namespace::autoclean;
@@ -62,12 +61,12 @@ sub prune_files {
   # never match (at least the filename characters)
   my $matches_regex = qr/\000/;
 
-  $matches_regex = qr/$matches_regex|$_/ for ($self->matches->flatten);
+  $matches_regex = qr/$matches_regex|$_/ for (@{ $self->matches });
 
   # \A\Q$_\E should also handle the `eq` check
-  $matches_regex = qr/$matches_regex|\A\Q$_\E/ for ($self->filenames->flatten);
+  $matches_regex = qr/$matches_regex|\A\Q$_\E/ for (@{ $self->filenames });
 
-  for my $file ($self->zilla->files->flatten) {
+  for my $file (@{ $self->zilla->files }) {
     next unless $file->name =~ $matches_regex;
 
     $self->log_debug([ 'pruning %s', $file->name ]);
@@ -102,7 +101,7 @@ Dist::Zilla::Plugin::PruneFiles - prune arbitrary files from the dist
 
 =head1 VERSION
 
-version 5.025
+version 5.026
 
 =head1 SYNOPSIS
 

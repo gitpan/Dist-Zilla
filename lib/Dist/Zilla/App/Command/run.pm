@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::run;
 # ABSTRACT: run stuff in a dir where your dist is built
-$Dist::Zilla::App::Command::run::VERSION = '5.025';
+$Dist::Zilla::App::Command::run::VERSION = '5.026';
 use Dist::Zilla::App -command;
 
 #pod =head1 SYNOPSIS
@@ -82,7 +82,7 @@ Dist::Zilla::App::Command::run - run stuff in a dir where your dist is built
 
 =head1 VERSION
 
-version 5.025
+version 5.026
 
 =head1 SYNOPSIS
 

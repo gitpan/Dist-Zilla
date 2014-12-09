@@ -1,8 +1,7 @@
 package Dist::Zilla::Plugin::MetaYAML;
 # ABSTRACT: produce a META.yml
-$Dist::Zilla::Plugin::MetaYAML::VERSION = '5.025';
+$Dist::Zilla::Plugin::MetaYAML::VERSION = '5.026';
 use Moose;
-use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
 
 use Try::Tiny;
@@ -118,7 +117,7 @@ Dist::Zilla::Plugin::MetaYAML - produce a META.yml
 
 =head1 VERSION
 
-version 5.025
+version 5.026
 
 =head1 DESCRIPTION
 

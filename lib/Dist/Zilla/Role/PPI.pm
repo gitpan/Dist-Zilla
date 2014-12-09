@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::PPI;
 # ABSTRACT: a role for plugins which use PPI
-$Dist::Zilla::Role::PPI::VERSION = '5.025';
+$Dist::Zilla::Role::PPI::VERSION = '5.026';
 use Moose::Role;
 
 use Moose::Util::TypeConstraints;
@@ -71,20 +71,40 @@ sub save_ppi_document_to_file {
 #pod
 #pod   if( $self->ppi_document_for_file($document, '$FOO')) { ... }
 #pod
-#pod This method returns true if the document assigns to the given variable.
+#pod This method returns true if the document assigns to the given variable (the
+#pod sigil must be included).
 #pod
 #pod =cut
 
 sub document_assigns_to_variable {
   my ($self, $document, $variable) = @_;
 
+  my $package_stmts = $document->find('PPI::Statement::Package');
+  my @namespaces = map { $_->namespace } @$package_stmts;
+
+  my ($sigil, $varname) = ($variable =~ m'^([$@%*])(.+)$');
+
+  my $package;
   my $finder = sub {
     my $node = $_[1];
-    return 1 if $node->isa('PPI::Statement')
-      && $node->content =~ /^[^#]*(?<!\\)\Q$variable\E\s*=/sm
+
+    if ($node->isa('PPI::Statement')
       && !$node->isa('PPI::Statement::End')
-      && !$node->isa('PPI::Statement::Data');
-    return 0;
+      && !$node->isa('PPI::Statement::Data')) {
+
+      if ($node->isa('PPI::Statement::Variable')) {
+        return (grep { $_ eq $variable } $node->variables) ? 1 : undef;
+      }
+
+      return 1 if grep {
+        my $child = $_;
+        $child->isa('PPI::Token::Symbol')
+          and grep { $child->canonical eq "${sigil}${_}::${varname}" } @namespaces
+      } $node->children;
+
+      return undef;     # do not descend into nodes comprising the statement
+    }
+    return 0;   # not found
   };
 
   my $rv = $document->find_any($finder);
@@ -107,7 +127,7 @@ Dist::Zilla::Role::PPI - a role for plugins which use PPI
 
 =head1 VERSION
 
-version 5.025
+version 5.026
 
 =head1 DESCRIPTION
 
@@ -139,7 +159,8 @@ It also updates the internal PPI document cache with the new document.
 
   if( $self->ppi_document_for_file($document, '$FOO')) { ... }
 
-This method returns true if the document assigns to the given variable.
+This method returns true if the document assigns to the given variable (the
+sigil must be included).
 
 =head1 AUTHOR
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::AutoPrereqs;
 # ABSTRACT: automatically extract prereqs from your modules
-$Dist::Zilla::Plugin::AutoPrereqs::VERSION = '5.025';
+$Dist::Zilla::Plugin::AutoPrereqs::VERSION = '5.026';
 use Moose;
 with(
   'Dist::Zilla::Role::PrereqSource',
@@ -41,8 +41,6 @@ with(
 #pod =cut
 
 use namespace::autoclean;
-
-use Moose::Autobox;
 
 #pod =head1 SYNOPSIS
 #pod
@@ -177,7 +175,7 @@ sub register_prereqs {
     $req->clear_requirement($_) for qw(Config Errno); # never indexed
 
     # remove prereqs from skiplist
-    for my $skip (($self->skips || [])->flatten) {
+    for my $skip (@{ $self->skips || [] }) {
       my $re   = qr/$skip/;
 
       foreach my $k ($req->required_modules) {
@@ -214,7 +212,7 @@ Dist::Zilla::Plugin::AutoPrereqs - automatically extract prereqs from your modul
 
 =head1 VERSION
 
-version 5.025
+version 5.026
 
 =head1 SYNOPSIS
 

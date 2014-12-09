@@ -1,12 +1,10 @@
 package Dist::Zilla::PluginBundle::FakeClassic;
 # ABSTRACT: build something more or less like a "classic" CPAN dist
-$Dist::Zilla::PluginBundle::FakeClassic::VERSION = '5.025';
+$Dist::Zilla::PluginBundle::FakeClassic::VERSION = '5.026';
 use Moose;
 extends 'Dist::Zilla::PluginBundle::Classic';
 
 use namespace::autoclean;
-
-use Moose::Autobox;
 
 around bundle_config => sub {
   my ($orig, $self, $arg) = @_;
@@ -42,7 +40,7 @@ Dist::Zilla::PluginBundle::FakeClassic - build something more or less like a "cl
 
 =head1 VERSION
 
-version 5.025
+version 5.026
 
 =head1 AUTHOR
 

@@ -1,11 +1,9 @@
 package Dist::Zilla::Plugin::ShareDir;
 # ABSTRACT: install a directory's contents as "ShareDir" content
-$Dist::Zilla::Plugin::ShareDir::VERSION = '5.025';
+$Dist::Zilla::Plugin::ShareDir::VERSION = '5.026';
 use Moose;
 
 use namespace::autoclean;
-
-use Moose::Autobox;
 
 #pod =head1 SYNOPSIS
 #pod
@@ -28,7 +26,10 @@ sub find_files {
   my ($self) = @_;
 
   my $dir = $self->dir;
-  my $files = $self->zilla->files->grep(sub { index($_->name, "$dir/") == 0 });
+  my $files = [
+    grep { index($_->name, "$dir/") == 0 }
+      @{ $self->zilla->files }
+  ];
 }
 
 sub share_dir_map {
@@ -55,7 +56,7 @@ Dist::Zilla::Plugin::ShareDir - install a directory's contents as "ShareDir" con
 
 =head1 VERSION
 
-version 5.025
+version 5.026
 
 =head1 SYNOPSIS
 

@@ -1,8 +1,7 @@
 package Dist::Zilla::Plugin::GatherDir;
 # ABSTRACT: gather all the files in a directory
-$Dist::Zilla::Plugin::GatherDir::VERSION = '5.025';
+$Dist::Zilla::Plugin::GatherDir::VERSION = '5.026';
 use Moose;
-use Moose::Autobox;
 use MooseX::Types::Path::Class qw(Dir File);
 with 'Dist::Zilla::Role::FileGatherer';
 
@@ -39,8 +38,6 @@ use File::Find::Rule;
 use File::Spec;
 use Path::Tiny;
 use List::Util 1.33 'all';
-
-use namespace::autoclean;
 
 #pod =attr root
 #pod
@@ -165,14 +162,14 @@ sub gather_files {
 
   my $exclude_regex = qr/\000/;
   $exclude_regex = qr/(?:$exclude_regex)|$_/
-    for ($self->exclude_match->flatten);
+    for @{ $self->exclude_match };
 
   my $root = "" . $self->root;
   $root =~ s{^~([\\/])}{require File::HomeDir; File::HomeDir::->my_home . $1}e;
 
   my $prune_regex = qr/\000/;
   $prune_regex = qr/$prune_regex|$_/
-    for ( $self->prune_directory->flatten,
+    for ( @{ $self->prune_directory },
           $self->include_dotfiles ? () : ( qr/^\.[^.]/ ) );
 
   # build up the rules
@@ -234,7 +231,7 @@ Dist::Zilla::Plugin::GatherDir - gather all the files in a directory
 
 =head1 VERSION
 
-version 5.025
+version 5.026
 
 =head1 DESCRIPTION
 

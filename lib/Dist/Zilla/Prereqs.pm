@@ -1,8 +1,7 @@
 package Dist::Zilla::Prereqs;
 # ABSTRACT: the prerequisites of a Dist::Zilla distribution
-$Dist::Zilla::Prereqs::VERSION = '5.025';
+$Dist::Zilla::Prereqs::VERSION = '5.026';
 use Moose;
-use Moose::Autobox;
 use MooseX::Types::Moose qw(Bool HashRef);
 
 use CPAN::Meta::Prereqs 2.120630; # add_string_requirement
@@ -147,7 +146,7 @@ Dist::Zilla::Prereqs - the prerequisites of a Dist::Zilla distribution
 
 =head1 VERSION
 
-version 5.025
+version 5.026
 
 =head1 DESCRIPTION
 

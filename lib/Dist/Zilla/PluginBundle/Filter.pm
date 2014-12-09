@@ -1,12 +1,12 @@
 package Dist::Zilla::PluginBundle::Filter;
 # ABSTRACT: use another bundle, with some plugins removed
-$Dist::Zilla::PluginBundle::Filter::VERSION = '5.025';
+$Dist::Zilla::PluginBundle::Filter::VERSION = '5.026';
 use Moose;
-use Moose::Autobox;
 with 'Dist::Zilla::Role::PluginBundle';
 
 use namespace::autoclean;
 
+use List::Util 1.33 qw(any);
 use Class::Load qw(try_load_class);
 use Dist::Zilla::Util;
 
@@ -47,8 +47,8 @@ sub bundle_config {
 
   my $config = {};
 
-  my $has_filter_args = $section->{payload}->keys->grep(sub { /^-/ })->length;
-  for my $key ($section->{payload}->keys->flatten) {
+  my $has_filter_args = any { /^-/ } keys %{ $section->{payload} };
+  for my $key (keys %{ $section->{payload} }) {
     my $val = $section->{payload}->{$key};
     my $target = $has_filter_args && ($key !~ /^-/)
       ? 'bundle'
@@ -105,7 +105,7 @@ Dist::Zilla::PluginBundle::Filter - use another bundle, with some plugins remove
 
 =head1 VERSION
 
-version 5.025
+version 5.026
 
 =head1 SYNOPSIS
 
