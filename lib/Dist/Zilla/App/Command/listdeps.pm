@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::App::Command::listdeps;
 # ABSTRACT: print your distribution's prerequisites
-$Dist::Zilla::App::Command::listdeps::VERSION = '5.027';
+$Dist::Zilla::App::Command::listdeps::VERSION = '5.028';
 use Dist::Zilla::App -command;
 
 #pod =head1 SYNOPSIS
@@ -138,8 +138,8 @@ sub execute {
     $prereqs = filter_core($prereqs, $omit_core) if $omit_core;
     my $output = $prereqs->as_string_hash;
 
-    require JSON; JSON->VERSION(2);
-    print JSON->new->ascii(1)->canonical(1)->pretty->encode($output), "\n";
+    require JSON::MaybeXS;
+    print JSON::MaybeXS->new(ascii => 1, canonical => 1, pretty => 1)->encode($output), "\n";
     return 1;
   }
 
@@ -168,7 +168,7 @@ Dist::Zilla::App::Command::listdeps - print your distribution's prerequisites
 
 =head1 VERSION
 
-version 5.027
+version 5.028
 
 =head1 SYNOPSIS
 

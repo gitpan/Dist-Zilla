@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::PPI;
 # ABSTRACT: a role for plugins which use PPI
-$Dist::Zilla::Role::PPI::VERSION = '5.027';
+$Dist::Zilla::Role::PPI::VERSION = '5.028';
 use Moose::Role;
 
 use Moose::Util::TypeConstraints;
@@ -99,7 +99,10 @@ sub document_assigns_to_variable {
       return 1 if grep {
         my $child = $_;
         $child->isa('PPI::Token::Symbol')
-          and grep { $child->canonical eq "${sigil}${_}::${varname}" } @namespaces
+          and grep {
+            $child->canonical eq "${sigil}${_}::${varname}"
+                and $node->content =~ /\Q${sigil}${_}::${varname}\E.*=/
+          } @namespaces
       } $node->children;
 
       return undef;     # do not descend into nodes comprising the statement
@@ -127,7 +130,7 @@ Dist::Zilla::Role::PPI - a role for plugins which use PPI
 
 =head1 VERSION
 
-version 5.027
+version 5.028
 
 =head1 DESCRIPTION
 

@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::PruneCruft;
 # ABSTRACT: prune stuff that you probably don't mean to include
-$Dist::Zilla::Plugin::PruneCruft::VERSION = '5.027';
+$Dist::Zilla::Plugin::PruneCruft::VERSION = '5.028';
 use Moose;
 use Moose::Util::TypeConstraints;
 with 'Dist::Zilla::Role::FilePruner';
@@ -86,7 +86,8 @@ sub exclude_file {
 sub prune_files {
   my ($self) = @_;
 
-  for my $file (@{ $self->zilla->files }) {
+  # Copy list (break reference) so we can mutate.
+  for my $file ((), @{ $self->zilla->files }) {
     next unless $self->exclude_file($file);
 
     $self->log_debug([ 'pruning %s', $file->name ]);
@@ -112,7 +113,7 @@ Dist::Zilla::Plugin::PruneCruft - prune stuff that you probably don't mean to in
 
 =head1 VERSION
 
-version 5.027
+version 5.028
 
 =head1 SYNOPSIS
 
