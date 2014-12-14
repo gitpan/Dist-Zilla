@@ -1,6 +1,6 @@
 package Dist::Zilla::Role::PPI;
 # ABSTRACT: a role for plugins which use PPI
-$Dist::Zilla::Role::PPI::VERSION = '5.028';
+$Dist::Zilla::Role::PPI::VERSION = '5.029';
 use Moose::Role;
 
 use Moose::Util::TypeConstraints;
@@ -80,7 +80,7 @@ sub document_assigns_to_variable {
   my ($self, $document, $variable) = @_;
 
   my $package_stmts = $document->find('PPI::Statement::Package');
-  my @namespaces = map { $_->namespace } @$package_stmts;
+  my @namespaces = map { $_->namespace } @{ $package_stmts || []};
 
   my ($sigil, $varname) = ($variable =~ m'^([$@%*])(.+)$');
 
@@ -130,7 +130,7 @@ Dist::Zilla::Role::PPI - a role for plugins which use PPI
 
 =head1 VERSION
 
-version 5.028
+version 5.029
 
 =head1 DESCRIPTION
 

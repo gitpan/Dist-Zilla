@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Test::DZil;
 # ABSTRACT: tools for testing Dist::Zilla plugins
-$Test::DZil::VERSION = '5.028';
+$Test::DZil::VERSION = '5.029';
 use Dist::Zilla::Tester;
 use Params::Util qw(_HASH0);
 use JSON::MaybeXS;
@@ -240,7 +240,7 @@ Test::DZil - tools for testing Dist::Zilla plugins
 
 =head1 VERSION
 
-version 5.028
+version 5.029
 
 =head1 DESCRIPTION
 

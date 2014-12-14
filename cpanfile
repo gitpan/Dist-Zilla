@@ -92,7 +92,6 @@ on 'test' => sub {
   requires "ExtUtils::MakeMaker" => "0";
   requires "ExtUtils::Manifest" => "1.66";
   requires "File::Spec" => "0";
-  requires "JSON" => "2";
   requires "Software::License::None" => "0";
   requires "Test::FailWarnings" => "0";
   requires "Test::Fatal" => "0";
